@@ -1123,7 +1123,7 @@
 }
 /* d:/downloads/softvisio-ext/ext-web-components-boilerplate-vue-cli/node_modules/@sencha/ext-core/sass/src/list/TreeItem.scss:188 */
 .x-treelist-item-loading .x-treelist-item-icon {
-    background-image: url(images/tree/loading.gif);
+    background-image: url(./resources/images/tree/loading.gif);
     color: transparent;
 }
 /* d:/downloads/softvisio-ext/ext-web-components-boilerplate-vue-cli/node_modules/@sencha/ext-core/sass/src/list/TreeItem.scss:193 */
@@ -1376,7 +1376,7 @@
 }
 /* d:/downloads/softvisio-ext/ext-web-components-boilerplate-vue-cli/node_modules/@sencha/ext-core/sass/src/list/TreeItem.scss:188 */
 .x-treelist-nav .x-treelist-item-loading .x-treelist-item-icon {
-    background-image: url(images/tree/loading.gif);
+    background-image: url(./resources/images/tree/loading.gif);
     color: transparent;
 }
 /* d:/downloads/softvisio-ext/ext-web-components-boilerplate-vue-cli/node_modules/@sencha/ext-core/sass/src/list/TreeItem.scss:193 */
