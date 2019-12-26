@@ -4,10 +4,16 @@
         "email": "zdm@softvisio.net",
         "url": "https://bitbucket.org/softvisio/softvisio-ext/issues"
     },
-    "description": "Softisio ExtJS pre-built package",
-    "devDependencies": {
-        "@softvisio/eslint-config": ""
+    "dependencies": {
+        "@softvisio/eslint-config": "workspace:softvisio-eslint-config",
+        "babel-eslint": "^10.0.3",
+        "eslint": "^6.8.0",
+        "eslint-plugin-vue": "^6.0.2",
+        "pnp-webpack-plugin": "^1.5.0",
+        "webpack": "^4.41.4",
+        "webpack-cli": "^3.3.10"
     },
+    "description": "Softisio ExtJS pre-built package",
     "homepage": "https://bitbucket.org/softvisio/softvisio-ext",
     "keywords": [
         "softvisio",
@@ -22,9 +28,9 @@
         "url": "https://bitbucket.org/softvisio/softvisio-ext.git"
     },
     "scripts": {
-        "build": "",
-        "fix": "yarn eslint --fix",
-        "lint": "yarn eslint",
+        "build": "yarn webpack",
+        "fix": "yarn eslint lib --fix",
+        "lint": "yarn eslint lib",
         "prepublishOnly": ""
     },
     "type": "commonjs",
