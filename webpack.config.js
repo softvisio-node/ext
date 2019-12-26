@@ -15,9 +15,6 @@ module.exports = {
                 "exclude": /node_modules/,
                 "use": {
                     "loader": "babel-loader",
-                    "options": {
-                        "name": "js/[name].[hash:8].[ext]",
-                    },
                 },
             },
             {
