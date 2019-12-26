@@ -1,5 +1,5 @@
 module.exports = {
-    "entry": "./extjs-v7.1.0.js",
+    "entry": "./lib/index.js",
     "module": {
         "rules": [
             {
