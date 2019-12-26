@@ -5,7 +5,7 @@ module.exports = {
     "plugins": [
         new HtmlWebpackPlugin( {
             "hash": true,
-            "filename": "index.html", //relative to root of the application
+            "filename": "index.html",
         } ),
     ],
     "module": {
@@ -15,6 +15,9 @@ module.exports = {
                 "exclude": /node_modules/,
                 "use": {
                     "loader": "babel-loader",
+                    "options": {
+                        "name": "js/[name].[hash:8].[ext]",
+                    },
                 },
             },
             {
