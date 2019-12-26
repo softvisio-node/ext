@@ -1,0 +1,32 @@
+{
+    "author": "zdm <zdm@softvisio.net>",
+    "bugs": {
+        "email": "zdm@softvisio.net",
+        "url": "https://bitbucket.org/softvisio/softvisio-ext/issues"
+    },
+    "description": "Softisio ExtJS pre-built package",
+    "devDependencies": {
+        "@softvisio/eslint-config": ""
+    },
+    "homepage": "https://bitbucket.org/softvisio/softvisio-ext",
+    "keywords": [
+        "softvisio",
+        "extjs"
+    ],
+    "license": "ISC",
+    "main": "extjs-v7.1.0.js",
+    "name": "@softvisio/ext",
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "https://bitbucket.org/softvisio/softvisio-ext.git"
+    },
+    "scripts": {
+        "build": "",
+        "fix": "",
+        "lint": "",
+        "prepublishOnly": ""
+    },
+    "type": "commonjs",
+    "version": "0.1.0"
+}
