@@ -23,8 +23,8 @@
     },
     "scripts": {
         "build": "",
-        "fix": "",
-        "lint": "",
+        "fix": "yarn eslint --fix",
+        "lint": "yarn eslint",
         "prepublishOnly": ""
     },
     "type": "commonjs",
