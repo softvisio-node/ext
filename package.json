@@ -4,7 +4,7 @@
         "email": "zdm@softvisio.net",
         "url": "https://bitbucket.org/softvisio/softvisio-ext/issues"
     },
-    "dependencies": {
+    "devDependencies": {
         "@babel/core": "^7.7.7",
         "@babel/plugin-syntax-dynamic-import": "^7.7.4",
         "@softvisio/eslint-config": "",
