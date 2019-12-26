@@ -4,10 +4,6 @@
         "email": "zdm@softvisio.net",
         "url": "https://bitbucket.org/softvisio/softvisio-ext/issues"
     },
-    "dependencies": {
-        "@webpack-cli/init": "^0.3.0",
-        "command-line-args": "^5.1.1"
-    },
     "description": "Softisio ExtJS pre-built package",
     "devDependencies": {
         "@babel/core": "^7.7.7",
