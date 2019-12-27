@@ -15,6 +15,7 @@ npm install --save @sencha/ext-web-components @sencha/ext @sencha/ext-modern @se
 
 # TODO create vue.config.js
 
+# build ExtJS framework
 npm run build --mode=development
 
 # TODO remove watermark from ext_1.css
@@ -30,10 +31,16 @@ var Fashion;
     Fashion = window.Fashion = f();
     return;
 
+# TODO copy resources
+
 # check
 npx webpack --mode=development
 
-npx webpack-dev-server
+# or create production build
+npm run build
+
+# or run devel server
+npm run devel
 ```
 
 ```vue.config.js ```

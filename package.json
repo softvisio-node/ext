@@ -5,6 +5,7 @@
         "url": "https://bitbucket.org/softvisio/softvisio-ext/issues"
     },
     "dependencies": {
+        "@softvisio/eslint-config": "file:../../workspace/softvisio-eslint-config",
         "command-line-args": "^5.1.1"
     },
     "description": "Softisio ExtJS pre-built package",
@@ -41,11 +42,11 @@
         "url": "https://bitbucket.org/softvisio/softvisio-ext.git"
     },
     "scripts": {
-        "build": "webpack",
+        "build": "webpack --mode=production",
         "fix": "eslint lib --fix",
         "lint": "eslint lib",
         "prepublishOnly": "",
-        "serve": "webpack-dev-server"
+        "devel": "webpack-dev-server"
     },
     "type": "commonjs",
     "version": "0.1.0"
