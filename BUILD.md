@@ -21,22 +21,17 @@ npm run build --mode=development
 
 # TODO remove font awesome from ext_1.css
 
+# TODO patch css-vars.js
+var Fashion;
 
+(function (f) {
+    Fashion = window.Fashion = f();
+    return;
 
+# check
+npx webpack --mode=development
 
-cp ./build/ext/ext.js ./build/ext/ext-devel.js
-terser ./build/ext/ext.js --compress --mangle -o ./build/ext/ext.js
-
-cp ./build/ext/css-vars.js ./build/ext/css-vars-devel.js
-terser ./build/ext/css-vars.js --compress --mangle -o ./build/ext/css-vars.js
-
-# TODO remove watermark manually from css
-
-# TODO remove font-awesome manually from css
-
-# compress css
-src -a compress -t css build/ext
-
+npx webpack-dev-server
 ```
 
 ```vue.config.js ```
