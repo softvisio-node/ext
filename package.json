@@ -4,13 +4,15 @@
         "email": "zdm@softvisio.net",
         "url": "https://bitbucket.org/softvisio/softvisio-ext/issues"
     },
+    "dependencies": {
+        "command-line-args": "^5.1.1"
+    },
     "description": "Softisio ExtJS pre-built package",
     "devDependencies": {
         "@babel/core": "^7.7.7",
         "@babel/plugin-syntax-dynamic-import": "^7.7.4",
         "@softvisio/eslint-config": "",
         "@vue/cli-plugin-babel": "^4.1.1",
-        "@webpack-cli/serve": "^0.2.0",
         "babel-eslint": "^10.0.3",
         "babel-loader": "^8.0.6",
         "css-loader": "^3.4.0",
@@ -39,15 +41,12 @@
         "url": "https://bitbucket.org/softvisio/softvisio-ext.git"
     },
     "scripts": {
-        "build": "yarn webpack",
-        "fix": "yarn eslint lib --fix",
-        "lint": "yarn eslint lib",
+        "build": "webpack",
+        "fix": "eslint lib --fix",
+        "lint": "eslint lib",
         "prepublishOnly": "",
-        "serve": "webpack serve"
+        "serve": "webpack-dev-server"
     },
     "type": "commonjs",
-    "version": "0.1.0",
-    "dependencies": {
-        "command-line-args": "^5.1.1"
-    }
+    "version": "0.1.0"
 }
