@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 var $jscomp = $jscomp || {};
 $jscomp.scope = {};
 $jscomp.ASSUME_ES5 = false;
