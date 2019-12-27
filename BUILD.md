@@ -21,6 +21,8 @@ npm run build --mode=development
 
 # TODO remove font awesome from ext_1.css
 
+# TODO patch ext.js, add module.exports = Ext;
+
 # TODO patch css-vars.js
 var Fashion;
 
