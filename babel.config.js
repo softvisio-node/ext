@@ -1,3 +1,8 @@
-module.exports = {
-    "plugins": ["@babel/plugin-syntax-dynamic-import"],
+module.exports = function ( api ) {
+    api.cache( true );
+
+    return {
+        "plugins": ["@babel/plugin-syntax-dynamic-import"],
+        "presets": [],
+    };
 };

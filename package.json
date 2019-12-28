@@ -39,8 +39,7 @@
     "scripts": {
         "build": "webpack --mode=production",
         "devel": "webpack-dev-server",
-        "fix": "eslint lib --fix",
-        "lint": "eslint lib",
+        "lint": "eslint lib --fix",
         "prepublishOnly": ""
     },
     "type": "commonjs",
