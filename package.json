@@ -24,8 +24,7 @@
     },
     "scripts": {
         "build": "vue-cli-service build",
-        "lint": "eslint lib --fix",
-        "prepublishOnly": "",
+        "lint": "eslint --fix --ext=.js,.vue *.js lib",
         "serve": "vue-cli-service serve"
     },
     "type": "commonjs",
