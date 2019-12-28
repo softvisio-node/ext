@@ -26,7 +26,7 @@ npm run build --mode=development
 
 # TODO patch css-vars.js
 ```
-// eslint-disable
+/* eslint-disable */
 ```
 ```
 var Fashion;
@@ -37,7 +37,7 @@ var Fashion;
 ```
 # TODO patch ext.js
 ```
-// eslint-disable
+/* eslint-disable */
 ```
 ```
 module.exports = Ext;

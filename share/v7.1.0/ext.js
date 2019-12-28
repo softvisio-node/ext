@@ -1,4 +1,4 @@
-// eslint-disable
+/* eslint-disable */
 
 var $jscomp = $jscomp || {};
 $jscomp.scope = {};
