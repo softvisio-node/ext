@@ -45,7 +45,7 @@ module.exports = Ext;
 
 # TODO copy resources
 
-# check
+# check, you can install package deps globally
 npm run serve
 
 # or create production build

@@ -1,2 +1,1 @@
 - migrate to yarn pnp;
-- install grom git repo;
