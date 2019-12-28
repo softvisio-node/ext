@@ -25,11 +25,23 @@ npm run build --mode=development
 # TODO patch ext.js, add module.exports = Ext;
 
 # TODO patch css-vars.js
+```
+// eslint-disable
+```
+```
 var Fashion;
 
 (function (f) {
     Fashion = window.Fashion = f();
     return;
+```
+# TODO patch ext.js
+```
+// eslint-disable
+```
+```
+module.exports = Ext;
+```
 
 # TODO copy resources
 
