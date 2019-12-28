@@ -6,22 +6,8 @@
     },
     "description": "Softisio ExtJS pre-built package",
     "devDependencies": {
-        "@babel/core": "^7.7.7",
-        "@babel/plugin-syntax-dynamic-import": "^7.7.4",
-        "@softvisio/eslint-config": "^0.1.15",
-        "babel-eslint": "^10.0.3",
-        "babel-loader": "^8.0.6",
-        "css-loader": "^3.4.0",
-        "eslint": "^6.8.0",
-        "eslint-plugin-vue": "^6.0.2",
-        "file-loader": "^5.0.2",
-        "html-webpack-plugin": "^3.2.0",
-        "pnp-webpack-plugin": "^1.5.0",
-        "style-loader": "^1.1.2",
-        "url-loader": "^3.0.0",
-        "webpack": "^4.41.4",
-        "webpack-cli": "^3.3.10",
-        "webpack-dev-server": "^3.10.1"
+        "@vue/cli-service": "^4.1.1",
+        "vue-template-compiler": "^2.6.11"
     },
     "homepage": "https://bitbucket.org/softvisio/softvisio-ext",
     "keywords": [
@@ -37,10 +23,10 @@
         "url": "https://bitbucket.org/softvisio/softvisio-ext.git"
     },
     "scripts": {
-        "build": "webpack --mode=production",
-        "devel": "webpack-dev-server",
+        "build": "vue-cli-service build",
         "lint": "eslint lib --fix",
-        "prepublishOnly": ""
+        "prepublishOnly": "",
+        "serve": "vue-cli-service serve"
     },
     "type": "commonjs",
     "version": "0.1.0"

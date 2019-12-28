@@ -46,13 +46,10 @@ module.exports = Ext;
 # TODO copy resources
 
 # check
-npx webpack --mode=development
+npm run serve
 
 # or create production build
 npm run build
-
-# or run devel server
-npm run devel
 ```
 
 ```vue.config.js ```
