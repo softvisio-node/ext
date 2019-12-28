@@ -34,15 +34,13 @@ module.exports = {
     },
 
     "chainWebpack": ( config ) => {
-        // configure html minification, https://github.com/kangax/html-minifier#options-quick-reference
-        config.plugin( "html" ).tap( ( args ) => {
-            args[0].minify.removeAttributeQuotes = false;
-
-            return args;
-        } );
-
         if ( process.env.NODE_ENV === "production" ) {
-            //
+            // configure html minification, https://github.com/kangax/html-minifier#options-quick-reference
+            config.plugin( "html" ).tap( ( args ) => {
+                args[0].minify.removeAttributeQuotes = false;
+
+                return args;
+            } );
         }
         else if ( process.env.NODE_ENV === "development" ) {
             // disable minification in development mode
