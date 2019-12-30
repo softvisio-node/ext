@@ -1,6 +1,6 @@
 # INSTALL
 
-# YARN
+## YARN
 ```
 # TODO not work for yarn v2
 yarn add ssh://git@bitbucket.org/softvisio/softvisio-ext
