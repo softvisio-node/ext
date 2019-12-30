@@ -1,10 +1,5 @@
 # INSTALL
 
-## NPM
-```
-npm i ssh://git@bitbucket.org/softvisio/softvisio-ext
-```
-
 # YARN
 ```
 # TODO not work for yarn v2
