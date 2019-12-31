@@ -3619,7 +3619,7 @@ div.x-trigger.x-grouped {
 .x-chipview .x-chipview-body-el {
     display: flex;
     flex-wrap: wrap;
-    align-items: start;
+    align-items: flex-start;
 }
 /* d:/downloads/softvisio-ext/ext-web-components-boilerplate-vue-cli/node_modules/@sencha/ext-modern-theme-base/sass/src/dataview/IndexBar.scss:1 */
 .x-indexbar {
