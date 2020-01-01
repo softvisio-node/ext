@@ -23,6 +23,7 @@
         "extjs"
     ],
     "license": "ISC",
+    "main": "./lib/index.js",
     "name": "@softvisio/ext",
     "private": true,
     "repository": {
