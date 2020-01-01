@@ -9,5 +9,5 @@ yarn add ssh://git@bitbucket.org/softvisio/softvisio-ext
 # USE
 
 ```
-import( "@softvisio/ext/ext-v7.1.0.js" );
+import( "@softvisio/ext/lib/ext-v7.1.0.js" );
 ```
