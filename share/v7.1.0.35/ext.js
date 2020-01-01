@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 var $jscomp = $jscomp || {};
 $jscomp.scope = {};
 $jscomp.ASSUME_ES5 = false;
@@ -93172,3 +93174,5 @@ if (Ext.platformTags.android && Ext.platformTags.chrome && Ext.manifest.material
 Ext.namespace('Ext.theme.is').Material = true;
 Ext.theme.name = 'Material';
 window.Ext = Ext;
+
+module.exports = Ext;
