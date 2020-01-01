@@ -16,7 +16,7 @@ npm install --save @sencha/ext-web-components @sencha/ext @sencha/ext-modern @se
 # TODO create vue.config.js
 
 # build ExtJS framework
-npm run build --mode=development
+npx vue-cli-service build
 
 # TODO remove watermark from ext_1.css
 
@@ -25,9 +25,11 @@ npm run build --mode=development
 # TODO patch ext.js, add module.exports = Ext;
 
 # TODO patch css-vars.js
+
 ```
 /* eslint-disable */
 ```
+
 ```
 var Fashion;
 
@@ -35,10 +37,13 @@ var Fashion;
     Fashion = window.Fashion = f();
     return;
 ```
+
 # TODO patch ext.js
+
 ```
 /* eslint-disable */
 ```
+
 ```
 module.exports = Ext;
 ```
@@ -52,38 +57,27 @@ npm run serve
 npm run build
 ```
 
-```vue.config.js ```
+```vue.config.js```
 ```
 const ExtWebpackPlugin = require('@sencha/ext-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-  devServer: {
-    contentBase: 'build',
-    hot: true,
-    historyApiFallback: true,
-    host: '0.0.0.0',
-    port: '8080',
-    disableHostCheck: false,
-    compress: false,
-    inline: true,
-    stats: 'none',
-  },
-  outputDir: path.join(__dirname, 'build'),
-  configureWebpack: {
-    plugins: [
-        new ExtWebpackPlugin({
-            framework: 'web-components',
-            toolkit: 'modern',
-            emit: 'yes',
-            browser: 'no',
-            packages: [],
-            profile: '',
-            verbose: 'no',
-            treeshake:'no',
-            environment: 'development'
-        }),
-    ]
-  }
-}
+    outputDir: path.join(__dirname, 'build'),
+    configureWebpack: {
+        plugins: [
+            new ExtWebpackPlugin({
+                framework: 'web-components',
+                toolkit: 'modern',
+                emit: 'yes',
+                browser: 'no',
+                packages: [],
+                profile: '',
+                verbose: 'no',
+                treeshake: 'no',
+                environment: 'development',
+            }),
+        ],
+    },
+};
 ```
