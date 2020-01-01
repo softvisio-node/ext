@@ -19,7 +19,7 @@ module.exports = {
     "lintOnSave": process.env.NODE_ENV === "production" ? "error" : false,
 
     "configureWebpack": ( config ) => {
-        config.entry = "./lib/index.js";
+        config.entry = "./lib/latest.js";
 
         config.plugins.push( new webpack.ProvidePlugin( {
             "Ext": "@softvisio/ext",
