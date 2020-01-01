@@ -7,7 +7,6 @@
     "dependencies": {
         "@softvisio/eslint-config": "workspace:softvisio-eslint-config",
         "@vue/cli-service": ">=4.1.2",
-        "autoprefixer": ">=9.7.3",
         "babel-eslint": ">=10.0.3",
         "eslint": ">=6.8.0",
         "eslint-plugin-babel": ">=5.3.0",
@@ -32,7 +31,7 @@
         "url": "https://bitbucket.org/softvisio/softvisio-ext.git"
     },
     "scripts": {
-        "build": "vue-cli-service build",
+        "build": "vue-cli-service build --modern --mode=production",
         "lint": "eslint --fix --ext=.js,.vue *.js lib",
         "serve": "vue-cli-service serve"
     },
