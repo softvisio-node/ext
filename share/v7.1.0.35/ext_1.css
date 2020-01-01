@@ -1123,7 +1123,7 @@
 }
 /* d:/downloads/1111/early/node_modules/@sencha/ext-core/sass/src/list/TreeItem.scss:188 */
 .x-treelist-item-loading .x-treelist-item-icon {
-    background-image: url(images/tree/loading.gif);
+    background-image: url(resources/images/tree/loading.gif);
     color: transparent;
 }
 /* d:/downloads/1111/early/node_modules/@sencha/ext-core/sass/src/list/TreeItem.scss:193 */
@@ -1376,7 +1376,7 @@
 }
 /* d:/downloads/1111/early/node_modules/@sencha/ext-core/sass/src/list/TreeItem.scss:188 */
 .x-treelist-nav .x-treelist-item-loading .x-treelist-item-icon {
-    background-image: url(images/tree/loading.gif);
+    background-image: url(resources/images/tree/loading.gif);
     color: transparent;
 }
 /* d:/downloads/1111/early/node_modules/@sencha/ext-core/sass/src/list/TreeItem.scss:193 */
@@ -2184,26 +2184,6 @@ html.x-fixed-viewport,
     .x-orientation-inspector-landscape {
         display: none;
     }
-}
-/* d:/downloads/1111/early/node_modules/@sencha/ext-modern-theme-base/sass/src/viewport/Viewport.scss:2 */
-@font-face {
-    font-family: 'ext-watermark';
-    src: url(././resources/ext/ext-watermark/fonts/ext-watermark.eot?n6lnws);
-    src: url(././resources/ext/ext-watermark/fonts/ext-watermark.eot?#iefixn6lnws) format('embedded-opentype'), url(././resources/ext/ext-watermark/fonts/ext-watermark.woff?n6lnws) format('woff'), url(././resources/ext/ext-watermark/fonts/ext-watermark.ttf?n6lnws) format('truetype'), url(././resources/ext/ext-watermark/fonts/ext-watermark.svg?n6lnws#ext-watermark) format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-/* d:/downloads/1111/early/node_modules/@sencha/ext-modern-theme-base/sass/src/viewport/Viewport.scss:15 */
-#ext-viewport:after {
-    font-family: ext-watermark;
-    text-shadow: 1px 1px #fff;
-    font-size: 2em;
-    content: 'd';
-    position: absolute;
-    bottom: 0.5em;
-    right: 0.5em;
-    opacity: 0.5;
-    pointer-events: none;
 }
 /* d:/downloads/1111/early/node_modules/@sencha/ext-modern-theme-base/sass/src/viewport/Viewport.scss:42 */
 #ext-viewport {

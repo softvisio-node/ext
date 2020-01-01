@@ -51,10 +51,12 @@ module.exports = Ext;
 # TODO copy resources
 
 # check, you can install package deps globally
-npm run serve
+yarn serve
+
+# TODO fix css errors
 
 # or create production build
-npm run build
+yarn build
 ```
 
 ```vue.config.js```
