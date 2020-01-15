@@ -21,9 +21,17 @@ npm install @sencha/ext-web-components@%EWC% @sencha/ext-webpack-plugin@%EWC%
 # build ExtJS framework
 npx vue-cli-service build
 
-# TODO remove watermark from ext_1.css
+# - src -a compress -t css .
+# - src -a decompress -t css .
 
-# TODO remove font awesome from ext_1.css
+# remove watermark:
+# - remove watermark font ```resources/ext/```
+# - search and remove "watermark" keyword in css
+
+# remove ```resources/font-awesome```
+# remove font awesome from ext_1.css
+
+# remove ```resources/images/pictos```
 
 # TODO patch ext.js, add module.exports = Ext;
 
