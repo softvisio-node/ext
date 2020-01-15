@@ -11,7 +11,10 @@ vue create --default ext-web-components-boilerplate-vue-cli
 
 cd ext-web-components-boilerplate-vue-cli
 
-npm install --save @sencha/ext-web-components @sencha/ext @sencha/ext-modern @sencha/ext-modern-theme-material @sencha/ext-webpack-plugin
+set EXT=7.2.0
+set EWC=7.1.0
+npm install @sencha/ext@%EXT% @sencha/ext-modern@%EXT% @sencha/ext-modern-theme-material@%EXT%
+npm install @sencha/ext-web-components@%EWC% @sencha/ext-webpack-plugin@%EWC%
 
 # TODO create vue.config.js
 
