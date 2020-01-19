@@ -33,15 +33,17 @@ var config = {
     "productionSourceMap": false,
 
     "configureWebpack": ( config ) => {
+        config.entry = "./lib/latest.js";
+
         // aliases
         config.resolve.alias["#ext"] = "@softvisio/ext/lib/ext-" + process.env.EXT_VERSION + ".js";
         config.resolve.alias["#ewc"] = "@softvisio/ext/share/ewc-" + process.env.EWC_VERSION;
         config.resolve.alias["#swc"] = "@softvisio/web-components/lib";
 
         // global vars
-        config.plugins.push( new webpack.ProvidePlugin( {
-            "Ext": config.resolve.alias["#ext"],
-        } ) );
+        // config.plugins.push( new webpack.ProvidePlugin( {
+        //     "Ext": config.resolve.alias["#ext"],
+        // } ) );
     },
 
     "chainWebpack": ( config ) => {
@@ -60,3 +62,12 @@ var config = {
 };
 
 module.exports = config;
+// -----SOURCE FILTER LOG BEGIN-----
+//
+// +-------+---------------+------------------------------+--------------------------------------------------------------------------------+
+// | Sev.  | Line:Col      | Rule                         | Description                                                                    |
+// |=======+===============+==============================+================================================================================|
+// |  WARN | 3:7           | no-unused-vars               | 'webpack' is assigned a value but never used.                                  |
+// +-------+---------------+------------------------------+--------------------------------------------------------------------------------+
+//
+// -----SOURCE FILTER LOG END-----
