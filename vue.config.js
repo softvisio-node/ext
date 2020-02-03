@@ -1,6 +1,6 @@
 // https://cli.vuejs.org/config/
 
-const webpack = require( "webpack" );
+// const webpack = require( "webpack" );
 
 var config = {
     "outputDir": "www",
