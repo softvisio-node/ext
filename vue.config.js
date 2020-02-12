@@ -3,6 +3,7 @@
 // const webpack = require( "webpack" );
 
 var config = {
+    // "filenameHashing": false, // NOTE uncomment for cordova app
     "outputDir": "www",
 
     "devServer": {
@@ -57,17 +58,11 @@ var config = {
 
                 return args;
             } );
+
+            // disable WebpackBundleAnalyzer
+            config.plugins.delete( "webpack-bundle-analyzer" );
         }
     },
 };
 
 module.exports = config;
-// -----SOURCE FILTER LOG BEGIN-----
-//
-// +-------+---------------+------------------------------+--------------------------------------------------------------------------------+
-// | Sev.  | Line:Col      | Rule                         | Description                                                                    |
-// |=======+===============+==============================+================================================================================|
-// |  WARN | 3:7           | no-unused-vars               | 'webpack' is assigned a value but never used.                                  |
-// +-------+---------------+------------------------------+--------------------------------------------------------------------------------+
-//
-// -----SOURCE FILTER LOG END-----
