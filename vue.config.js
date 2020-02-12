@@ -48,9 +48,6 @@ var config = {
     },
 
     "chainWebpack": ( config ) => {
-        // disable WebpackBundleAnalyzer
-        // config.plugins.delete( "webpack-bundle-analyzer" );
-
         if ( process.env.NODE_ENV === "production" ) {
             // configure html minification, https://github.com/kangax/html-minifier#options-quick-reference
             config.plugin( "html" ).tap( ( args ) => {
