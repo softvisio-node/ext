@@ -12,7 +12,7 @@ vue create --default ext-web-components-boilerplate-vue-cli
 cd ext-web-components-boilerplate-vue-cli
 
 npm install @sencha/ext @sencha/ext-modern @sencha/ext-modern-theme-material
-npm install @sencha/ext-web-components @sencha/ext-webpack-plugin
+npm install @sencha/ext-web-components-modern @sencha/ext-webpack-plugin
 
 # TODO create vue.config.js
 
@@ -23,13 +23,13 @@ npx vue-cli-service build
 # - src -a decompress -t css .
 
 # remove watermark:
-# - remove watermark font ```resources/ext/```
+# - remove watermark font `resources/ext/`
 # - search and remove "watermark" keyword in css
 
-# remove ```resources/font-awesome```
+# remove `resources/font-awesome`
 # remove font awesome from ext_1.css
 
-# remove ```resources/images/pictos```
+# remove `resources/images/pictos`
 
 # TODO patch ext.js, add module.exports = Ext;
 
@@ -68,7 +68,7 @@ yarn serve
 yarn build
 ```
 
-```vue.config.js```
+`vue.config.js`
 ```
 const ExtWebpackPlugin = require('@sencha/ext-webpack-plugin');
 const path = require('path');
