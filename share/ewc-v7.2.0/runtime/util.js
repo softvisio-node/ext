@@ -11,9 +11,18 @@ export function doProp(me, prop) {
 
 function doSet(me,prop,val) {
   //console.log('doSet: ' + prop)
+
   if (prop == 'plugins') {
+    return;
+  }
+
+  var prev = JSON.stringify(me.attributeObjects[prop]);
+  var curr = JSON.stringify(val);
+  if (prev ==curr) {
+    //console.log('same')
     return
   }
+
   if (val) {
     var val2;
     var valExt;
