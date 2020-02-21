@@ -16,11 +16,15 @@ function doSet(me,prop,val) {
     return;
   }
 
-  var prev = JSON.stringify(me.attributeObjects[prop]);
-  var curr = JSON.stringify(val);
-  if (prev ==curr) {
-    //console.log('same')
-    return
+  try {
+    var prev = JSON.stringify(me.attributeObjects[prop]);
+    var curr = JSON.stringify(val);
+    if (prev == curr) {
+      return;
+    }
+  }
+  catch(e) {
+    //console.log(e)
   }
 
   if (val) {
@@ -32,6 +36,7 @@ function doSet(me,prop,val) {
       valExt = val
     }
     else {
+      me.attributeObjects[prop] = val
       val2 = val
       valExt = val
     }
