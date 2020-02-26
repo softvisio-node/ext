@@ -215,8 +215,7 @@ export default class Ext_field_Time extends Ext_field_Picker {
     {name:'topchange', parameters:'sender,value,oldValue'},
     {name:'updatedata', parameters:'sender,newData'},
     {name:'widthchange', parameters:'sender,value,oldValue'},
-    {name:'ready', parameters:'cmp,cmpObj'},
-    {name:'created', parameters:'cmp'}
+    {name:'ready', parameters:'cmd,cmdAll'}
   ]};
   static getProperties(properties) {
     properties = properties.concat(Ext_field_Time.PROPERTIES());

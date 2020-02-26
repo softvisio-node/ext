@@ -223,8 +223,7 @@ export default class Ext_grid_column_Check extends Ext_grid_column_Column {
     {name:'topchange', parameters:'sender,value,oldValue'},
     {name:'updatedata', parameters:'sender,newData'},
     {name:'widthchange', parameters:'sender,value,oldValue'},
-    {name:'ready', parameters:'cmp,cmpObj'},
-    {name:'created', parameters:'cmp'}
+    {name:'ready', parameters:'cmd,cmdAll'}
   ]};
   static getProperties(properties) {
     properties = properties.concat(Ext_grid_column_Check.PROPERTIES());

@@ -178,8 +178,7 @@ export default class Ext_pivot_d3_TreeMap extends Ext_d3_hierarchy_TreeMap {
     {name:'topchange', parameters:'sender,value,oldValue'},
     {name:'updatedata', parameters:'sender,newData'},
     {name:'widthchange', parameters:'sender,value,oldValue'},
-    {name:'ready', parameters:'cmp,cmpObj'},
-    {name:'created', parameters:'cmp'}
+    {name:'ready', parameters:'cmd,cmdAll'}
   ]};
   static getProperties(properties) {
     properties = properties.concat(Ext_pivot_d3_TreeMap.PROPERTIES());

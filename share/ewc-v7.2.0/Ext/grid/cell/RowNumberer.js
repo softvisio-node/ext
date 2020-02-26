@@ -83,8 +83,7 @@ export default class Ext_grid_cell_RowNumberer extends Ext_grid_cell_Number {
     {name:'hiddenchange', parameters:'sender,value,oldValue'},
     {name:'tofront', parameters:'sender'},
     {name:'widthchange', parameters:'sender,value,oldValue'},
-    {name:'ready', parameters:'cmp,cmpObj'},
-    {name:'created', parameters:'cmp'}
+    {name:'ready', parameters:'cmd,cmdAll'}
   ]};
   static getProperties(properties) {
     properties = properties.concat(Ext_grid_cell_RowNumberer.PROPERTIES());

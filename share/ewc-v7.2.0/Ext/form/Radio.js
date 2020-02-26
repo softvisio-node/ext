@@ -188,8 +188,7 @@ export default class Ext_form_Radio extends Ext_field_Checkbox {
     {name:'uncheck', parameters:'sender'},
     {name:'updatedata', parameters:'sender,newData'},
     {name:'widthchange', parameters:'sender,value,oldValue'},
-    {name:'ready', parameters:'cmp,cmpObj'},
-    {name:'created', parameters:'cmp'}
+    {name:'ready', parameters:'cmd,cmdAll'}
   ]};
   static getProperties(properties) {
     properties = properties.concat(Ext_form_Radio.PROPERTIES());

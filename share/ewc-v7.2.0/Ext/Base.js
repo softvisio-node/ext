@@ -1,12 +1,8 @@
-import WebComponentsBaseComponent from '../runtime/webcomponentsbase.js'
+import EleBaseComponent from '../ele-base.js'
 
-export default class Ext_Base extends WebComponentsBaseComponent {
+export default class Ext_Base extends EleBaseComponent {
 
     static PROPERTIES() { return [
-        'group',
-        'value',
-        'createExtComponentDefer',
-        'createExtComponent',
         'closable',
         'title',
         'header',
@@ -26,8 +22,7 @@ export default class Ext_Base extends WebComponentsBaseComponent {
         
 ]};
     static EVENTS() { return [
-    {name:'ready', parameters:'cmp,cmpObj'},
-    {name:'created', parameters:'cmp'}
+    {name:'ready', parameters:'cmd,cmdAll'}
 ]};
     static getProperties(properties) {
         return properties.concat(Ext_Base.PROPERTIES)
@@ -51,6 +46,7 @@ export default class Ext_Base extends WebComponentsBaseComponent {
         Ext_Base.EVENTS().forEach(function (eventparameter, index, array) {
             attrs.push('on' + eventparameter.name)
         })
+        //attrs.push('onready')
         return attrs
     }
 

@@ -17,8 +17,7 @@ export default class Ext_ux_colorpick_Selector extends Ext_panel_Panel {
     {name:'cancel', parameters:'sender'},
     {name:'change', parameters:'sender,color,previousColor'},
     {name:'ok', parameters:'sender,color'},
-    {name:'ready', parameters:'cmp,cmpObj'},
-    {name:'created', parameters:'cmp'}
+    {name:'ready', parameters:'cmd,cmdAll'}
   ]};
   static getProperties(properties) {
     properties = properties.concat(Ext_ux_colorpick_Selector.PROPERTIES());

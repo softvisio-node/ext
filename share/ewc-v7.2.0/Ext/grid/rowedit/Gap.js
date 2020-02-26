@@ -144,8 +144,7 @@ export default class Ext_grid_rowedit_Gap extends Ext_Component {
     {name:'topchange', parameters:'sender,value,oldValue'},
     {name:'updatedata', parameters:'sender,newData'},
     {name:'widthchange', parameters:'sender,value,oldValue'},
-    {name:'ready', parameters:'cmp,cmpObj'},
-    {name:'created', parameters:'cmp'}
+    {name:'ready', parameters:'cmd,cmdAll'}
   ]};
   static getProperties(properties) {
     properties = properties.concat(Ext_grid_rowedit_Gap.PROPERTIES());

@@ -310,8 +310,7 @@ export default class Ext_grid_Grid extends Ext_dataview_List {
     {name:'updatedata', parameters:'sender,newData'},
     {name:'validateedit', parameters:'sender,location'},
     {name:'widthchange', parameters:'sender,value,oldValue'},
-    {name:'ready', parameters:'cmp,cmpObj'},
-    {name:'created', parameters:'cmp'}
+    {name:'ready', parameters:'cmd,cmdAll'}
   ]};
   static getProperties(properties) {
     properties = properties.concat(Ext_grid_Grid.PROPERTIES());

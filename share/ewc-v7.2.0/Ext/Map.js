@@ -196,8 +196,7 @@ export default class Ext_Map extends Ext_Container {
     {name:'updatedata', parameters:'sender,newData'},
     {name:'widthchange', parameters:'sender,value,oldValue'},
     {name:'zoomchange', parameters:'sender,map,zoomLevel'},
-    {name:'ready', parameters:'cmp,cmpObj'},
-    {name:'created', parameters:'cmp'}
+    {name:'ready', parameters:'cmd,cmdAll'}
   ]};
   static getProperties(properties) {
     properties = properties.concat(Ext_Map.PROPERTIES());

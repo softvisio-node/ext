@@ -162,8 +162,7 @@ export default class Ext_Video extends Ext_Media {
     {name:'updatedata', parameters:'sender,newData'},
     {name:'volumechange', parameters:'sender,volume'},
     {name:'widthchange', parameters:'sender,value,oldValue'},
-    {name:'ready', parameters:'cmp,cmpObj'},
-    {name:'created', parameters:'cmp'}
+    {name:'ready', parameters:'cmd,cmdAll'}
   ]};
   static getProperties(properties) {
     properties = properties.concat(Ext_Video.PROPERTIES());

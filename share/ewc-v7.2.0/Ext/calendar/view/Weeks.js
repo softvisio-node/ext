@@ -178,8 +178,7 @@ export default class Ext_calendar_view_Weeks extends Ext_calendar_view_Base {
     {name:'validateeventedit', parameters:'sender,context'},
     {name:'valuechange', parameters:'sender,context'},
     {name:'widthchange', parameters:'sender,value,oldValue'},
-    {name:'ready', parameters:'cmp,cmpObj'},
-    {name:'created', parameters:'cmp'}
+    {name:'ready', parameters:'cmd,cmdAll'}
   ]};
   static getProperties(properties) {
     properties = properties.concat(Ext_calendar_view_Weeks.PROPERTIES());

@@ -7,8 +7,7 @@ export default class Ext_pivot_d3_AbstractContainer extends Ext_panel_Panel {
     'matrix',
   ]};
   static EVENTS() { return [
-    {name:'ready', parameters:'cmp,cmpObj'},
-    {name:'created', parameters:'cmp'}
+    {name:'ready', parameters:'cmd,cmdAll'}
   ]};
   static getProperties(properties) {
     properties = properties.concat(Ext_pivot_d3_AbstractContainer.PROPERTIES());

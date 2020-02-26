@@ -82,8 +82,7 @@ export default class Ext_list_AbstractTreeItem extends Ext_Widget {
     {name:'hiddenchange', parameters:'sender,value,oldValue'},
     {name:'tofront', parameters:'sender'},
     {name:'widthchange', parameters:'sender,value,oldValue'},
-    {name:'ready', parameters:'cmp,cmpObj'},
-    {name:'created', parameters:'cmp'}
+    {name:'ready', parameters:'cmd,cmdAll'}
   ]};
   static getProperties(properties) {
     properties = properties.concat(Ext_list_AbstractTreeItem.PROPERTIES());

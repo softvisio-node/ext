@@ -253,8 +253,7 @@ export default class Ext_form_field_ComboBox extends Ext_field_Select {
     {name:'topchange', parameters:'sender,value,oldValue'},
     {name:'updatedata', parameters:'sender,newData'},
     {name:'widthchange', parameters:'sender,value,oldValue'},
-    {name:'ready', parameters:'cmp,cmpObj'},
-    {name:'created', parameters:'cmp'}
+    {name:'ready', parameters:'cmd,cmdAll'}
   ]};
   static getProperties(properties) {
     properties = properties.concat(Ext_form_field_ComboBox.PROPERTIES());

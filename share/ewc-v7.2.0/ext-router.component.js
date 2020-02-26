@@ -1,5 +1,5 @@
-import WebComponentsBaseComponent from './runtime/webcomponentsbase';
-import ElementParser from './runtime/ElementParser.js';
+import EleBaseComponent from './ele-base';
+import ElementParser from './ElementParser.js';
 
 import {
     //doProp,
@@ -9,9 +9,9 @@ import {
     isParentGridAndChildColumn,
     isTooltip,
     isPlugin
-} from './runtime/util.js';
+} from './util.js';
 
-export class ExtRouter extends WebComponentsBaseComponent {
+export class ExtRouter extends EleBaseComponent {
     //prettier-ignore
     get hidden() {return this.getAttribute('hidden');}
     set hidden(hidden) {
@@ -27,6 +27,7 @@ export class ExtRouter extends WebComponentsBaseComponent {
 
     constructor() {
         super (
+            {},
             [],
             []
         )
@@ -34,12 +35,12 @@ export class ExtRouter extends WebComponentsBaseComponent {
     }
 
     connectedCallback() {
-        //WebComponentsBaseComponent.elementcount++;
-        //console.log('added: ' + this.tagName + ': elementcount is now ' + WebComponentsBaseComponent.elementcount);
-        //WebComponentsBaseComponent.elements.push(this);
-        //console.log(WebComponentsBaseComponent.elements)
+        //EleBaseComponent.elementcount++;
+        //console.log('added: ' + this.tagName + ': elementcount is now ' + EleBaseComponent.elementcount);
+        //EleBaseComponent.elements.push(this);
+        //console.log(EleBaseComponent.elements)
 
-        this.base = WebComponentsBaseComponent;
+        this.base = EleBaseComponent;
     }
 
     parsedCallback() {
@@ -87,8 +88,8 @@ export class ExtRouter extends WebComponentsBaseComponent {
                 me.parentNode.A.CHILDREN.push(me.A.ext);
             }
         }
-        //WebComponentsBaseComponent.elementcount--;
-        //console.log('reduced: ' + me.tagName + ' elementcount reduced to ' + WebComponentsBaseComponent.elementcount)
+        //EleBaseComponent.elementcount--;
+        //console.log('reduced: ' + me.tagName + ' elementcount reduced to ' + EleBaseComponent.elementcount)
         //});
     }
 

@@ -77,8 +77,7 @@ export default class Ext_field_trigger_Clear extends Ext_field_trigger_Trigger {
     {name:'hiddenchange', parameters:'sender,value,oldValue'},
     {name:'tofront', parameters:'sender'},
     {name:'widthchange', parameters:'sender,value,oldValue'},
-    {name:'ready', parameters:'cmp,cmpObj'},
-    {name:'created', parameters:'cmp'}
+    {name:'ready', parameters:'cmd,cmdAll'}
   ]};
   static getProperties(properties) {
     properties = properties.concat(Ext_field_trigger_Clear.PROPERTIES());
