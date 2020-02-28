@@ -37,13 +37,14 @@ var config = {
         config.entry = "./lib/latest.js";
 
         // aliases
-        config.resolve.alias["#ext"] = "@softvisio/ext/lib/ext-" + process.env.EXT_VERSION + ".js";
+        config.resolve.alias["#ext.js"] = "@softvisio/ext/lib/ext-" + process.env.EXT_VERSION + ".js";
+        config.resolve.alias["#ewc.js"] = "@softvisio/ext/lib/ewc-" + process.env.EWC_VERSION + ".js";
         config.resolve.alias["#ewc"] = "@softvisio/ext/share/ewc-" + process.env.EWC_VERSION;
         config.resolve.alias["#swc"] = "@softvisio/web-components/lib";
 
         // global vars
         // config.plugins.push( new webpack.ProvidePlugin( {
-        //     "Ext": config.resolve.alias["#ext"],
+        //     "Ext": config.resolve.alias["#ext.js"],
         // } ) );
     },
 
