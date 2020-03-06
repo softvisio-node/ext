@@ -1,4 +1,4 @@
-//Thu Feb 13 2020 09:00:52 GMT-0500 (Eastern Standard Time)
+//Fri Mar 06 2020 10:19:53 GMT-0500 (Eastern Standard Time)
 
 import {
   doProp,
@@ -11,7 +11,7 @@ import {
   isPlugin
 } from './util.js';
 
-export default class EleBaseComponent extends HTMLElement {
+export default class WebComponentsBaseComponent extends HTMLElement {
 
   constructor(properties, events) {
     super ();
@@ -21,18 +21,17 @@ export default class EleBaseComponent extends HTMLElement {
     };
     this.properties = properties.filter(distinct);
 
-    //this.properties = properties;
-    this.events = events;
-    this.eventnames = [];
-    var eventnamesall = [];
 
-
-
-    this.events.forEach((event) => {
-        eventnamesall.push(event.name);
-    });
-
-    this.eventnames = eventnamesall.filter(distinct);
+    var unique = [];
+    this.events = [];
+    for( let i = 0; i < events.length; i++ ){
+      if( !unique[events[i].name]){
+        this.events.push(events[i]);
+        unique[events[i].name] = 1;
+      }
+    }
+    //console.log(this.events)
+    //console.log(this.events.length)
 
     this.A = {};
     this.A.CHILDREN = [];
@@ -40,28 +39,43 @@ export default class EleBaseComponent extends HTMLElement {
     this.A.o = {};
     this.attributeObjects = {};
 
-    this.base = EleBaseComponent;
+    this.base = WebComponentsBaseComponent;
   }
 
   connectedCallback() {
     //console.log('connectedCallback: ' + this.xtype);
-    EleBaseComponent.elementcount++;
-    EleBaseComponent.elements.push(this);
-    //console.log('added: ' + this.tagName + ': elementcount is now ' + EleBaseComponent.elementcount);
+    WebComponentsBaseComponent.elementcount++;
+    WebComponentsBaseComponent.elements.push(this);
+    //console.log('added: ' + this.tagName + ': elementcount is now ' + WebComponentsBaseComponent.elementcount);
 
-    if (EleBaseComponent.attributeFirst == true) {
-      EleBaseComponent.attributeFirst = false;
-      //console.log(this.attributes.length)
-      if (this.attributes.length > 1) {
-        //console.log('Early')
-        EleBaseComponent.attributeEarly = true;
-      } else {
-        //console.log('Late')
-        EleBaseComponent.attributeEarly = false;
+    if (WebComponentsBaseComponent.attributeFirst == true) {
+      WebComponentsBaseComponent.attributeFirst = false;
+
+      var isEWC = true;
+      if (window['ExtAngular'] == 'loaded') {
+        isEWC = false;
       }
+      if (window['ExtReact'] == 'loaded') {
+        isEWC = false;
+      }
+
+      if (isEWC == true) {
+        WebComponentsBaseComponent.attributeEarly = false;
+      }
+      else {
+        //console.log(this.attributes.length)
+        if (this.attributes.length > 1) {
+          //console.log('Early')
+          WebComponentsBaseComponent.attributeEarly = true;
+        } else {
+          //console.log('Late')
+          WebComponentsBaseComponent.attributeEarly = false;
+        }
+      }
+
     }
 
-    if (EleBaseComponent.attributeEarly == true) {
+    if (WebComponentsBaseComponent.attributeEarly == true) {
       this.connectedCallback2()
     }
 
@@ -71,24 +85,30 @@ export default class EleBaseComponent extends HTMLElement {
     //console.log('connectedCallback: ' + this.xtype);
     var x = this.xtype;
 
-    const distinct = (value, index, self) => {
-        return self.indexOf(value) === index;
-    };
+    // var distinct = function distinct(value, index, self) {
+    //   return self.indexOf(value) === index;
+    // };
 
-    var properties2 = [];
-    var arrayLength = this.properties.length;
-    for (var i = 0; i < arrayLength; i++) {
-        properties2.push(this.properties[i]);
-    }
-    this.propertiesDistinct = properties2.filter(distinct);
-    this.propertiesDistinct.forEach(prop => {
+    // var properties2 = [];
+    // var arrayLength = this.properties.length;
+
+    // for (var i = 0; i < arrayLength; i++) {
+    //   properties2.push(this.properties[i]);
+    // }
+
+    // this.propertiesDistinct = properties2.filter(distinct);
+    // this.propertiesDistinct.forEach(function (prop) {
+    //   doProp(_this2, prop);
+    // });
+
+
+    this.properties.forEach(prop => {
         doProp(this, prop);
     });
 
     this.xtype = x;
 
     var me = this;
-    //this.newCreateProps(this.properties, this.events);
     this.newCreateProps(this.properties);
 
     if (me.A.o['viewport'] == 'true') {
@@ -110,7 +130,10 @@ export default class EleBaseComponent extends HTMLElement {
       }
     }
 
-    me.newDoExtCreate(me, me.A.o['viewport']);
+    if (me.A.o.createExtComponentDefer != true) {
+      me.newDoExtCreate(me, me.A.o['viewport']);
+    }
+
   }
 
   newCreateProps(properties) {
@@ -217,6 +240,15 @@ export default class EleBaseComponent extends HTMLElement {
     this.A.o = o;
   }
 
+  doCreateExtComponent() {
+    var me = this
+    Object.keys(me.attributeObjects).forEach(function (name) {
+      me.A.o[name] = me.attributeObjects[name];
+    });
+    me.A.o['xtype'] = me.xtype
+    me.newDoExtCreate(me, me.A.o['viewport']);
+  }
+
   newDoExtCreate(me, isApplication) {
 
     if (isApplication) {
@@ -228,6 +260,15 @@ export default class EleBaseComponent extends HTMLElement {
     me.A.ext = Ext.create(me.A.o);
     me.cmp = me.A.ext;
     me.ext = me.A.ext;
+    me.ext.childouterHTML = me.outerHTML;
+
+    me.dispatchEvent(new CustomEvent('created', {
+       detail: {
+         cmp: me.A.ext,
+       }
+    }))
+
+    this.doChildren(this);
 
     if (isApplication) {
       if (Ext.isModern) {
@@ -243,12 +284,9 @@ export default class EleBaseComponent extends HTMLElement {
 
   parsedCallback() {
     //console.log('parsedCallback: ' + this.xtype);
-    if (EleBaseComponent.attributeEarly == false) {
+    if (WebComponentsBaseComponent.attributeEarly == false) {
       this.connectedCallback2()
     }
-    this.doChildren(this);
-
-
   }
 
   doChildren(me) {
@@ -284,6 +322,7 @@ export default class EleBaseComponent extends HTMLElement {
       else {
         var g = {};
         g.type = 'ext';
+        g.child = child;
         this.A.ITEMS.push(g);
       }
     }
@@ -294,24 +333,28 @@ export default class EleBaseComponent extends HTMLElement {
 
     if (me.parentNode != null && me.parentNode.nodeName.substring(0, 4) === 'EXT-') {
       if (me.parentNode.A.ext !== undefined) {
-        me.addTheChild(me.parentNode.A.ext, me.A.ext);
+        for (var i = 0; i < me.parentNode.A.ITEMS.length; i++) {
+          if (me.parentNode.A.ITEMS[i].child.outerHTML == me.A.ext.childouterHTML) {
+            me.addTheChild(me.parentNode.A.ext, me.A.ext, i);
+          }
+        }
       }
       else {
         me.parentNode.A.CHILDREN.push(me.A.ext);
       }
     }
 
-    EleBaseComponent.elementcount--;
-    //console.log('reduced: ' + me.tagName + ': elementcount reduced to ' + EleBaseComponent.elementcount)
-    if (EleBaseComponent.elementcount == 0) {
+    WebComponentsBaseComponent.elementcount--;
+    //console.log('reduced: ' + me.tagName + ': elementcount reduced to ' + WebComponentsBaseComponent.elementcount)
+    if (WebComponentsBaseComponent.elementcount == 0) {
       //console.log('done');
-      //console.log(EleBaseComponent.elements);
-      EleBaseComponent.elementsprior = [...EleBaseComponent.elements];
-      EleBaseComponent.elements = [];
-      //console.log(EleBaseComponent.elementsprior);
+      //console.log(WebComponentsBaseComponent.elements);
+      WebComponentsBaseComponent.elementsprior = [...WebComponentsBaseComponent.elements];
+      WebComponentsBaseComponent.elements = [];
+      //console.log(WebComponentsBaseComponent.elementsprior);
       //var allExt = [];
       var cmpObj = {};
-      EleBaseComponent.elementsprior.forEach(element => {
+      WebComponentsBaseComponent.elementsprior.forEach(element => {
           if (element.A != undefined) {
               for (var i = 0; i < element.A.ITEMS.length; i++) {
                 //if(element.A.ITEMS[i].xtype == 'widget') {
@@ -330,10 +373,10 @@ export default class EleBaseComponent extends HTMLElement {
           }
       });
 
-      //console.log(EleBaseComponent.elementsprior)
+      //console.log(WebComponentsBaseComponent.elementsprior)
       me.cmp = me.A.ext;
       me.ext = me.A.ext;
-      EleBaseComponent.elementsprior.forEach(element => {
+      WebComponentsBaseComponent.elementsprior.forEach(element => {
           element.dispatchEvent(new CustomEvent('ready', {
               detail: {
                   cmp: element.A.ext,
@@ -512,10 +555,21 @@ export default class EleBaseComponent extends HTMLElement {
                   propertyVal = JSON.parse(newVal);
                 } catch (e) {}
               }
-              //console.log(propertyVal)
-              //console.log(this.A.ext.xtype + ' ' + method)
-              //console.log(propertyVal)
-              this.A.ext[method](propertyVal);
+
+              if ((this.A.ext.xtype == 'calendar-day'  ||
+                  this.A.ext.xtype  == 'calendar-week' ||
+                  this.A.ext.xtype  == 'calendar-month')
+                && method == 'setValue') {
+                //console.log('here')
+                //console.log(propertyVal)
+                //console.log(this.A.ext.xtype + ' ' + method)
+                //console.log(propertyVal)
+                this.A.ext[method](new Date(propertyVal));
+              }
+              else {
+                this.A.ext[method](propertyVal);
+              }
+
             }
           }
           else {
@@ -537,17 +591,17 @@ export default class EleBaseComponent extends HTMLElement {
 
 }
 
-EleBaseComponent.attributeFirst = true;
-EleBaseComponent.attributeEarly = true;
+WebComponentsBaseComponent.attributeFirst = true;
+WebComponentsBaseComponent.attributeEarly = true;
 
-EleBaseComponent.elementcountnew = 0;
+WebComponentsBaseComponent.elementcountnew = 0;
 
-EleBaseComponent.elementcount = 0;
-EleBaseComponent.elements = [];
-EleBaseComponent.elementsprior = [];
+WebComponentsBaseComponent.elementcount = 0;
+WebComponentsBaseComponent.elements = [];
+WebComponentsBaseComponent.elementsprior = [];
 
-EleBaseComponent.isLoading = false;
-EleBaseComponent.isDone = false;
+WebComponentsBaseComponent.isLoading = false;
+WebComponentsBaseComponent.isDone = false;
 
-EleBaseComponent.count = 0;
-EleBaseComponent.DIRECTION = '';
+WebComponentsBaseComponent.count = 0;
+WebComponentsBaseComponent.DIRECTION = '';
