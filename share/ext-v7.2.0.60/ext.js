@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 var $jscomp = $jscomp || {};
 $jscomp.scope = {};
 $jscomp.ASSUME_ES5 = false;
@@ -32145,11 +32143,13 @@ Ext.define('Ext.util.Grouper', {extend:Ext.util.Sorter, isGrouper:true, config:{
   }
   this.callParent(arguments);
 }, getGroupString:function(item) {
-  var group = item.$collapsedGroupPlaceholder ? item.$groupKey : this._groupFn(item);
-  return group != null ? String(group) : '';
+  return item.$collapsedGroupPlaceholder ? item.$groupKey : this.getGroupValue(item).toString();
+}, getGroupValue:function(item) {
+  var groupValue = item.$collapsedGroupPlaceholder ? item.$groupValue : this._groupFn(item);
+  return groupValue != null ? groupValue : '';
 }, sortFn:function(item1, item2) {
-  var me = this, lhs = me.getGroupString(item1), rhs = me.getGroupString(item2), property = me._sortProperty, root = me._root, sorterFn = me._sorterFn, transform = me._transform;
-  if (lhs === rhs) {
+  var me = this, lhs = me.getGroupValue(item1), rhs = me.getGroupValue(item2), property = me._sortProperty, root = me._root, sorterFn = me._sorterFn, transform = me._transform;
+  if (lhs === rhs || Ext.Date.isEqual(lhs, rhs)) {
     return 0;
   }
   if (property || sorterFn) {
@@ -38149,7 +38149,7 @@ Ext.define('Ext.data.ProxyStore', {extend:Ext.data.AbstractStore, config:{model:
     }
   }
 }}});
-Ext.define('Ext.util.Group', {extend:Ext.util.Collection, isGroup:true, config:{groupKey:null}, $endUpdatePriority:2001, manageSorters:false});
+Ext.define('Ext.util.Group', {extend:Ext.util.Collection, isGroup:true, config:{groupKey:null, groupValue:null}, $endUpdatePriority:2001, manageSorters:false});
 Ext.define('Ext.data.Group', {extend:Ext.util.Group, isDataGroup:true, store:null, getSummaryRecord:function() {
   var me = this, summaryRecord = me.summaryRecord, store = me.store, generation = store.getData().generation, M, T;
   if (!summaryRecord) {
@@ -39172,22 +39172,23 @@ Ext.define('Ext.util.GroupCollection', {extend:Ext.util.Collection, isGroupColle
   }
   me.sortItems();
 }, createEntries:function(source, items, createGroups) {
-  var me = this, groups = {}, entries = [], grouper = me.getGrouper(), entry, group, groupKey, i, item, len;
+  var me = this, groups = {}, entries = [], grouper = me.getGrouper(), entry, group, groupKey, groupValue, i, item, len;
   for (i = 0, len = items.length; i < len; ++i) {
     groupKey = grouper.getGroupString(item = items[i]);
+    groupValue = grouper.getGroupValue(item);
     if (!(entry = groups[groupKey])) {
-      group = me.getGroup(source, groupKey, createGroups);
+      group = me.getGroup(source, groupKey, groupValue, createGroups);
       entries.push(groups[groupKey] = entry = {group:group, items:[]});
     }
     entry.items.push(item);
   }
   return {groups:groups, entries:entries};
 }, syncItemGrouping:function(source, details) {
-  var me = this, itemGroupKeys = me.itemGroupKeys || (me.itemGroupKeys = {}), item = details.item, oldKey, itemKey, oldGroup, group;
+  var me = this, itemGroupKeys = me.itemGroupKeys || (me.itemGroupKeys = {}), item = details.item, grouper = me.getGrouper(), oldKey, itemKey, oldGroup, group;
   itemKey = source.getKey(item);
   oldKey = 'oldKey' in details ? details.oldKey : itemKey;
   oldGroup = itemGroupKeys[oldKey];
-  group = me.getGroup(source, me.getGrouper().getGroupString(item));
+  group = me.getGroup(source, grouper.getGroupString(item), grouper.getGroupValue(item));
   details.group = group;
   details.oldGroup = oldGroup;
   if (!(details.groupChanged = group !== oldGroup)) {
@@ -39204,13 +39205,13 @@ Ext.define('Ext.util.GroupCollection', {extend:Ext.util.Collection, isGroupColle
   }
   delete itemGroupKeys[oldKey];
   itemGroupKeys[itemKey] = group;
-}, getGroup:function(source, key, createGroups) {
+}, getGroup:function(source, key, value, createGroups) {
   var me = this, group = me.get(key), autoSort = me.getAutoSort();
   if (group) {
     group.setSorters(source.getSorters());
   } else {
     if (createGroups !== false) {
-      group = me.emptyGroups[key] || Ext.create(Ext.apply({xclass:'Ext.util.Group', id:me.getId() + '-group-' + key, groupKey:key, rootProperty:me.getItemRoot(), sorters:source.getSorters()}, me.getGroupConfig()));
+      group = me.emptyGroups[key] || Ext.create(Ext.apply({xclass:'Ext.util.Group', id:me.getId() + '-group-' + key, groupKey:key, groupValue:value, rootProperty:me.getItemRoot(), sorters:source.getSorters()}, me.getGroupConfig()));
       group.ejectTime = null;
       me.setAutoSort(false);
       me.add(group);
@@ -70121,7 +70122,7 @@ clear:'onStoreClear', load:'onStoreLoad', refresh:'onStoreRefresh', remove:'onSt
   plan.promise = promise;
 }, ensureVisibleScroll:function(plan) {
   var item = plan.item || (plan.item = this.itemFromRecord(plan.recIndex));
-  return this.getScrollable().ensureVisbile(item.el, {animation:plan.animation});
+  return this.getScrollable().ensureVisible(item.el, {animation:plan.animation});
 }, ensureVisibleSelect:function(plan) {
   if (plan.select) {
     var me = this, selectable = me.getSelectable(), cell;
@@ -70948,6 +70949,7 @@ Ext.define('Ext.dataview.GroupStore', {extend:Ext.data.ChainedStore, isGroupStor
           if (!(placeholder = srcGroup.placeholderRec)) {
             srcGroup.placeholderRec = placeholder = new M;
             placeholder.data[groupField] = placeholder.$groupKey = groupKey;
+            placeholder.$groupValue = srcGroup.getGroupValue();
             placeholder.$collapsedGroupPlaceholder = true;
             placeholder.$srcGroup = srcGroup;
           }
@@ -75246,27 +75248,26 @@ Ext.define('Ext.dataview.plugin.SortableList', {extend:Ext.plugin.Abstract, alia
   info.index = idx = idx + list.renderInfo.indexTop;
   gaps[idx] = info.itemHeight;
   list.setGaps(gaps);
-}, onDragEnd:function(source, info) {
-  var me = this, list = me.getList(), item = info.item, style = info.item.el.dom.style, top, pos, store, startIndex, index, rec;
+}, onDragEnd:function(source, info, e) {
+  var me = this, list = me.getList(), item = info.item, style = item.el.dom.style, store = list.getStore(), index = info.index, compareItem = list.mapToItem(store.getAt(index)), top, pos, startIndex, rec;
   item.getTranslatable().on('animationend', function() {
     if (me.destroyed) {
       return;
     }
-    store = list.getStore();
     startIndex = info.startIndex;
-    index = info.index;
     rec = item.getRecord();
     list.stickItem(item);
     list.setGaps(null);
-    if (startIndex !== index) {
-      store.insert(index, rec);
-      index = store.indexOf(rec);
-      item = list.mapToItem(rec);
-      list.fireEvent('dragsort', list, item, index);
-    }
     item.removeCls(Ext.baseCSSPrefix + 'item-no-ripple');
+    if (startIndex === index) {
+      return;
+    }
+    store.insert(index, rec);
+    index = store.indexOf(rec);
+    list.fireEvent('dragsort', list, list.mapToItem(rec), index);
   }, me, {single:true});
-  pos = item.$y0;
+  e.stopPropagation();
+  pos = compareItem ? compareItem.$y0 : list.mapToItem(store.getAt(index - 1)).$y1;
   top = item.element.getTop(true);
   style.left = style.top = '';
   item.translate(0, top);
