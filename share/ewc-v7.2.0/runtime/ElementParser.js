@@ -1,6 +1,14 @@
+//import './modern.engine.pro.import.js';
+//import './themes/modern/modern.material.fewest.js';
+import { addRuntime} from './util.js';
+
 const ElementParser = (() => {
   var toolkit = 'modern';
   var theme = 'material';
+
+  if (window['Ext'] == undefined) {
+    addRuntime(toolkit, theme);
+  }
 
   if (Ext.isModern == true) {
     const ElementCell = Ext.define('Ext.ElementCell', {
