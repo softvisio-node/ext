@@ -31,9 +31,7 @@
         "url": "https://bitbucket.org/softvisio/softvisio-ext.git"
     },
     "scripts": {
-        "build": "eslint --ext=.js,.vue *.js lib && vue-cli-service build --mode=production",
-        "lint": "eslint --fix --ext=.js,.vue *.js lib",
-        "serve": "vue-cli-service serve"
+        "lint": "eslint --fix --ext=.js,.vue *.js lib"
     },
     "type": "commonjs",
     "version": "0.1.0"
