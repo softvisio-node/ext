@@ -1,8 +1,9 @@
-//Thu Mar 19 2020 08:56:45 GMT-0400 (Eastern Daylight Time)
+//Fri Mar 27 2020 10:38:23 GMT-0400 (Eastern Daylight Time)
 
 import {
   doProp,
   filterProp,
+  isClassicDock,
   isMenu,
   isRenderercell,
   isParentGridAndChildToolbar,
@@ -412,6 +413,9 @@ export default class WebComponentsBaseComponent extends HTMLElement {
       }
     }
     switch (true) {
+      case isClassicDock(childxtype):
+        parentCmp.addDocked(childCmp);
+        break;
       case isMenu(childxtype):
         parentCmp.setMenu(childCmp);
         break;

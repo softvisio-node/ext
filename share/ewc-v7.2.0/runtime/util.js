@@ -189,6 +189,21 @@ export function filterProp(propertyValue, property, me) {
   }
 }
 
+export function isClassicDock(childcmp) {
+  if (Ext.isClassic == false) {
+    return false
+  }
+  if (childcmp.config == undefined) {
+    return false
+  }
+  if (childcmp.config.dock != undefined) {
+    return true
+  }
+  else {
+    return false
+  }
+}
+
 export function isMenu(childxtype) {
   if (childxtype === 'menu') {
     return true
