@@ -3,11 +3,11 @@
 ## YARN
 ```
 # TODO not work for yarn v2
-yarn add ssh://git@bitbucket.org/softvisio/softvisio-ext
+yarn add --dev ssh://git@bitbucket.org/softvisio/softvisio-ext
 ```
 
 # USE
 
 ```
-import( "@softvisio/ext/lib/ext-v7.1.0.js" );
+import( "@softvisio/ext/lib/ext-v7.2.0" );
 ```
