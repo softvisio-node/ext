@@ -1,6 +1,8 @@
-//import { doIt } from './engine/modern/modern.enterprise.SDK_LOAD.js';
-//import './engine/modern/modern.material.fewest.SDK_LOAD.js';
-
+//import { doIt } from '../../runtime/modern.enterprise.SDK_EMPTY.js';
+//import '../../runtime/modern.enterprise.SDK_FULL.js';
+//import '../../runtime/modern.material.fewest.SDK_FULL.js';
+//import '@sencha/ext-web-components-modern-enterprise';
+//import '@sencha/ext-web-components-modern-material';
 //import { addRuntime} from './util.js';
 
 const ElementParser = (() => {

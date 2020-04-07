@@ -51,7 +51,7 @@ export function addRuntime(toolkit, theme) {
     `
     window.stop();
   };
-  if (scriptIt() != 0) {return}
+  if (scriptIt() != 0) 
 
   console.warn('[Deprecation] error below is expected');
 
