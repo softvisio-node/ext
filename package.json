@@ -12,6 +12,10 @@
         "eslint-plugin-vue": ">=6.2.2"
     },
     "description": "Softisio ExtJS pre-built package",
+    "exports": {
+        "./": "./lib/",
+        "./resources/": "./resources/"
+    },
     "homepage": "https://bitbucket.org/softvisio/softvisio-ext",
     "keywords": [
         "softvisio",
