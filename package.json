@@ -13,8 +13,7 @@
     },
     "description": "Softisio ExtJS pre-built package",
     "exports": {
-        "./": "./lib/",
-        "./resources/": "./resources/"
+        "./": "./lib/"
     },
     "homepage": "https://bitbucket.org/softvisio/softvisio-ext",
     "keywords": [
