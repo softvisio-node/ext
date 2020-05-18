@@ -2,8 +2,7 @@
 
 ## YARN
 ```
-# TODO not work for yarn v2
-yarn add --dev ssh://git@bitbucket.org/softvisio/softvisio-ext
+yarn add --dev @softvisio/ext@https://bitbucket.org/softvisio/softvisio-ext.git#master
 ```
 
 # USE
