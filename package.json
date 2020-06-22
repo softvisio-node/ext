@@ -29,9 +29,6 @@
         "type": "git",
         "url": "https://bitbucket.org/softvisio/softvisio-ext.git"
     },
-    "resolutions": {
-        "@softvisio/eslint-plugin": "portal:../softvisio-eslint-plugin"
-    },
     "scripts": {
         "lint": "eslint --fix --ext=.js,.vue lib"
     },
