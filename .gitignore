@@ -3,9 +3,4 @@
 /wiki/
 
 # node
-/node_modules/
-/www/
-
-# yarn
-/.yarn/
-/.pnp.*
+node_modules/
