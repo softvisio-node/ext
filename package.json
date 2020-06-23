@@ -33,7 +33,7 @@
         "url": "https://bitbucket.org/softvisio/softvisio-ext.git"
     },
     "scripts": {
-        "lint": "eslint --fix --ext=.js,.vue lib"
+        "lint": "eslint --fix --ext=.js lib"
     },
     "type": "commonjs",
     "version": "0.1.0"
