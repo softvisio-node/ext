@@ -35,6 +35,6 @@
     "scripts": {
         "lint": "eslint --fix --ext=.js lib"
     },
-    "type": "commonjs",
+    "type": "module",
     "version": "0.1.0"
 }
