@@ -3,7 +3,7 @@
 ## YARN
 
 ```
-yarn add --dev @softvisio/ext@https://bitbucket.org/softvisio/softvisio-ext.git#master
+yarn add --dev @softvisio/ext@https://bitbucket.org/softvisio/softvisio-ext.git#latest
 ```
 
 # USE
