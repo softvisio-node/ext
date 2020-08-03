@@ -1,3 +1,7 @@
+## 0.1.3 (2020-08-03)
+
+-   shrinkwrap added
+
 ## 0.1.2 (2020-07-24)
 
 -   npm git links changed to git+https
