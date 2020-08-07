@@ -1,3 +1,7 @@
+## 0.1.6 (2020-08-07)
+
+-   shrinkwrap replaced with package-lock
+
 ## 0.1.5 (2020-08-07)
 
 -   .eslintrc.yaml removed
