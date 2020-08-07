@@ -1,3 +1,7 @@
+## 0.1.5 (2020-08-07)
+
+-   .eslintrc.yaml removed
+
 ## 0.1.4 (2020-08-03)
 
 -   npm-shrinkwrap.json version updated
