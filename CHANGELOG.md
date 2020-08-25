@@ -1,3 +1,7 @@
+## 0.1.7 (2020-08-25)
+
+-   ewc updated to the latest 7.2.1 build
+
 ## 0.1.6 (2020-08-07)
 
 -   shrinkwrap replaced with package-lock
