@@ -16953,7 +16953,7 @@ Ext.define('Ext.ComponentManager', {alternateClassName:'Ext.ComponentMgr', singl
   var floatedSelector = Ext.Widget.prototype.floatedSelector, targetFloated;
   if (floatedSelector) {
     targetFloated = Ext.Component.from(e.getTarget(floatedSelector, Ext.getBody()));
-    if (targetFloated) {
+    if (targetFloated && !targetFloated.activeAnimation) {
       targetFloated.toFront(true);
     }
   }
@@ -19009,8 +19009,8 @@ Ext.define('Ext.util.Point', {extend:Ext.util.Region, isPoint:true, radianToDegr
 Ext.define('Ext.event.Event', {alternateClassName:'Ext.EventObjectImpl', stopped:false, claimed:false, defaultPrevented:false, isEvent:true, geckoRelatedTargetEvents:{blur:1, dragenter:1, dragleave:1, focus:1}, statics:{resolveTextNode:function(node) {
   return node && node.nodeType === 3 ? node.parentNode : node;
 }, gestureEvents:{}, pointerEvents:{pointerdown:1, pointermove:1, pointerup:1, pointercancel:1, pointerover:1, pointerout:1, pointerenter:1, pointerleave:1, MSPointerDown:1, MSPointerMove:1, MSPointerUp:1, MSPointerOver:1, MSPointerOut:1, MSPointerCancel:1, MSPointerEnter:1, MSPointerLeave:1}, mouseEvents:{mousedown:1, mousemove:1, mouseup:1, mouseover:1, mouseout:1, mouseenter:1, mouseleave:1}, clickEvents:{click:1, dblclick:1}, touchEvents:{touchstart:1, touchmove:1, touchend:1, touchcancel:1}, 
-focusEvents:{focus:1, focusin:1, focusenter:1}, blurEvents:{blur:1, focusout:1, focusleave:1}, wheelEvents:{wheel:1, mousewheel:1}, pointerTypeMap:{2:'touch', 3:'pen', 4:'mouse', touch:'touch', pen:'pen', mouse:'mouse'}, keyEventRe:/^key/, keyFlags:{CTRL:'ctrlKey', CONTROL:'ctrlKey', ALT:'altKey', SHIFT:'shiftKey', CMD:'metaKey', COMMAND:'metaKey', CMDORCTRL:Ext.isMac ? 'metaKey' : 'ctrlKey', COMMANDORCONTROL:Ext.isMac ? 'metaKey' : 'ctrlKey', META:'metaKey'}, modifierGlyphs:{ctrlKey:'⌃', altKey:'⌥', 
-metaKey:Ext.isMac ? '⌘' : '⊞', shiftKey:'⇧'}, specialKeyGlyphs:{BACKSPACE:'⌫', TAB:'⇥', ENTER:'⏎', RETURN:'⏎', SPACE:'␣', PAGE_UP:'⇞', PAGE_DOWN:'⇟', END:'⇲', HOME:'⌂', LEFT:'←', UP:'↑', RIGHT:'→', DOWN:'↓', PRINT_SCREEN:'⎙', INSERT:'⎀', DELETE:'⌦', CONTEXT_MENU:'☰'}, _hyphenRe:/^[a-z]+\-/i, getKeyId:function(keyName) {
+focusEvents:{focus:1, focusin:1, focusenter:1}, blurEvents:{blur:1, focusout:1, focusleave:1}, wheelEvents:{wheel:1}, pointerTypeMap:{2:'touch', 3:'pen', 4:'mouse', touch:'touch', pen:'pen', mouse:'mouse'}, keyEventRe:/^key/, keyFlags:{CTRL:'ctrlKey', CONTROL:'ctrlKey', ALT:'altKey', SHIFT:'shiftKey', CMD:'metaKey', COMMAND:'metaKey', CMDORCTRL:Ext.isMac ? 'metaKey' : 'ctrlKey', COMMANDORCONTROL:Ext.isMac ? 'metaKey' : 'ctrlKey', META:'metaKey'}, modifierGlyphs:{ctrlKey:'⌃', altKey:'⌥', metaKey:Ext.isMac ? 
+'⌘' : '⊞', shiftKey:'⇧'}, specialKeyGlyphs:{BACKSPACE:'⌫', TAB:'⇥', ENTER:'⏎', RETURN:'⏎', SPACE:'␣', PAGE_UP:'⇞', PAGE_DOWN:'⇟', END:'⇲', HOME:'⌂', LEFT:'←', UP:'↑', RIGHT:'→', DOWN:'↓', PRINT_SCREEN:'⎙', INSERT:'⎀', DELETE:'⌦', CONTEXT_MENU:'☰'}, _hyphenRe:/^[a-z]+\-/i, getKeyId:function(keyName) {
   if (typeof keyName === 'number') {
     keyName = this.keyCodes[keyName];
   } else {
@@ -20211,17 +20211,31 @@ Ext.define('Ext.util.sizemonitor.Scroll', {extend:Ext.util.sizemonitor.Abstract,
   var method = bind ? 'addEventListener' : 'removeEventListener';
   this.expandMonitor[method]('scroll', this.onScroll, true);
   this.shrinkMonitor[method]('scroll', this.onScroll, true);
-}, onScroll:function() {
+}, onScroll:function(e) {
   if (!this.destroyed) {
-    Ext.TaskQueue.requestRead('refresh', this);
+    if (this.hasExpandMonitorScrollChanged && e.target === this.expandMonitor) {
+      delete this.hasExpandMonitorScrollChanged;
+    } else {
+      if (this.hasShrinkMonitorScrollChanged && e.target === this.shrinkMonitor) {
+        delete this.hasShrinkMonitorScrollChanged;
+      } else {
+        Ext.TaskQueue.requestRead('refresh', this);
+      }
+    }
   }
 }, refreshMonitors:function() {
   var expandMonitor = this.expandMonitor, shrinkMonitor = this.shrinkMonitor, end = 1000000;
   if (expandMonitor && !expandMonitor.destroyed) {
+    if (Ext.isiOS) {
+      this.hasExpandMonitorScrollChanged = true;
+    }
     expandMonitor.scrollLeft = end;
     expandMonitor.scrollTop = end;
   }
   if (shrinkMonitor && !shrinkMonitor.destroyed) {
+    if (Ext.isiOS) {
+      this.hasShrinkMonitorScrollChanged = true;
+    }
     shrinkMonitor.scrollLeft = end;
     shrinkMonitor.scrollTop = end;
   }
@@ -23152,6 +23166,9 @@ Ext.define('Ext.dom.Element', function(Element) {
     }
     if (Ext.isChrome) {
       bodyCls.push(Ext.baseCSSPrefix + 'chrome');
+    }
+    if (Ext.isChromeMobile) {
+      bodyCls.push(Ext.baseCSSPrefix + 'chromemobile');
     }
     if (Ext.isMac) {
       bodyCls.push(Ext.baseCSSPrefix + 'mac');
@@ -27214,7 +27231,7 @@ Ext.define('Ext.util.Format', function() {
       }
       code[code.length] = 'if(neg\x26\x26fnum!\x3d\x3d"' + (precision ? '0.' + Ext.String.repeat('0', precision) : '0') + '") { fnum\x3d"-"+fnum; }';
       if (trimTrailingZeroes) {
-        code[code.length] = 'fnum\x3dfnum.replace(trailingZeroes,"");';
+        code[code.length] = 'if(fnum.indexOf("e+") \x3d\x3d\x3d -1)' + 'fnum\x3dfnum.replace(trailingZeroes,"");';
       }
       code[code.length] = 'return ';
       if (extraChars) {
@@ -28465,7 +28482,7 @@ hideAnimation:null, tplWriteMode:'overwrite', data:null, contentEl:null, record:
   var me = this, region = me.getScrollerTarget().getClientRegion(), scroller = me.getScrollable(), scrollbarSize;
   if (scroller && scroller.isVirtualScroller) {
     scrollbarSize = scroller.getScrollbarSize();
-    region.adjust(0, 0, -scrollbarSize.height, -scrollbarSize.width);
+    region.adjust(0, -scrollbarSize.width, -scrollbarSize.height, 0);
   }
   return region;
 }, updatePadding:function(padding) {
@@ -47754,6 +47771,7 @@ Ext.define('Ext.app.ViewModel', {mixins:[Ext.mixin.Factoryable, Ext.mixin.Identi
   for (link in links) {
     this.linkTo(link, links[link]);
   }
+  return links;
 }, applySchema:function(schema) {
   return Ext.data.schema.Schema.get(schema);
 }, applyRoot:function() {
@@ -52977,7 +52995,7 @@ Ext.define('Ext.data.proxy.WebStorage', {extend:Ext.data.proxy.Client, alternate
     ids = [];
   } else {
     for (i = 0; i < length; i++) {
-      ids[i] = isString ? ids[i] : +ids[i];
+      ids[i] = isString ? ids[i] : Ext.isNumber(+ids[i]) ? +ids[i] : ids[i];
     }
   }
   return ids;
@@ -53851,7 +53869,7 @@ Ext.define('Ext.data.virtual.Store', {extend:Ext.data.ProxyStore, alias:'store.v
     p.load({callback:options.callback, scope:options.scope});
   }
 }, reload:function(options) {
-  var me = this;
+  var me = this, page;
   if (typeof options === 'function') {
     options = {callback:options};
   }
@@ -53860,7 +53878,10 @@ Ext.define('Ext.data.virtual.Store', {extend:Ext.data.ProxyStore, alias:'store.v
   }
   options = Ext.apply({internalScope:me, internalCallback:me.handleReload, page:1}, options);
   me.pageMap.clear();
+  me.pageMap.setPageCount(null);
   me.getGroups().clear();
+  page = me.pageMap.getPage(options.page - 1, true);
+  page.state = 'loading';
   return me.loadInternal(options);
 }, reloadRanges:function() {
   var activeRanges = this.activeRanges, i;
@@ -53962,9 +53983,16 @@ Ext.define('Ext.data.virtual.Store', {extend:Ext.data.ProxyStore, alias:'store.v
     }
   }
 }, handleReload:function(op) {
-  var me = this, activeRanges = me.activeRanges, len = activeRanges.length, pageMap = me.pageMap, resultSet = op.getResultSet(), wasSuccessful = op.wasSuccessful(), rsRecords = [], i, range;
+  var me = this, activeRanges = me.activeRanges, len = activeRanges.length, pageMap = me.pageMap, resultSet = op.getResultSet(), wasSuccessful = op.wasSuccessful(), pageNumber = op.config && op.config.page, rsRecords = [], i, range, page;
   if (wasSuccessful) {
     me.readTotalCount(resultSet);
+    if (me.pageMap.getPageCount() !== 0 && pageNumber) {
+      page = me.pageMap.getPage(pageNumber - 1, false);
+      if (page && !(page.error = op.getError())) {
+        page.records = op.getRecords();
+        page.state = 'loaded';
+      }
+    }
     me.fireEvent('reload', me, op);
     for (i = 0; i < len; ++i) {
       range = activeRanges[i];
@@ -58291,6 +58319,58 @@ touchstart:'onTouchStart', touchend:'onTouchEnd', mouseenter:'onMouseEnter', mou
 overItem:null, selection:null, selectOnExpander:false, singleExpand:null, store:null, ui:null}, twoWayBindable:{selection:1}, publishes:{selection:1}, defaultBindProperty:'store', constructor:function(config) {
   this.callParent([config]);
   this.publishState('selection', this.getSelection());
+}, focusable:true, tabIndex:0, keyMap:{scope:'this', UP:'onKeyUp', DOWN:'onKeyDown', LEFT:'onKeyLeft', RIGHT:'onKeyRight'}, onKeyUp:function(keyEvent, treeList) {
+  var selectedModel = treeList.getSelection(), previousSibling = selectedModel ? selectedModel.previousSibling : null;
+  if (!selectedModel) {
+    return;
+  }
+  if (previousSibling) {
+    selectedModel = previousSibling;
+    while (treeList.getItem(selectedModel).getExpanded() && selectedModel.lastChild) {
+      selectedModel = selectedModel.lastChild;
+    }
+  } else {
+    if (!selectedModel.parentNode.isRoot()) {
+      selectedModel = selectedModel.parentNode;
+    }
+  }
+  treeList.setSelection(selectedModel);
+}, onKeyDown:function(keyEvent, treeList) {
+  var currentModel, isLastNode = false, selectedModel = treeList.getSelection(), selectedItem = treeList.getItem(selectedModel);
+  if (!selectedItem) {
+    return;
+  }
+  if (selectedItem.getExpanded() && selectedModel.firstChild) {
+    selectedModel = selectedModel.firstChild;
+  } else {
+    if (selectedModel.nextSibling) {
+      selectedModel = selectedModel.nextSibling;
+    } else {
+      currentModel = treeList.getSelection();
+      while (!selectedModel.parentNode.nextSibling) {
+        if (selectedModel.parentNode.isRoot()) {
+          selectedModel = currentModel;
+          isLastNode = true;
+          break;
+        }
+        selectedModel = selectedModel.parentNode;
+      }
+      if (!isLastNode) {
+        selectedModel = selectedModel.parentNode.nextSibling;
+      }
+    }
+  }
+  treeList.setSelection(selectedModel);
+}, onKeyLeft:function(keyEvent, treeList) {
+  var selectedModel = treeList.getSelection(), selectedItem = treeList.getItem(selectedModel);
+  if (selectedItem) {
+    selectedItem.collapse();
+  }
+}, onKeyRight:function(keyEvent, treeList) {
+  var selectedModel = treeList.getSelection(), selectedItem = treeList.getItem(selectedModel);
+  if (selectedItem) {
+    selectedItem.expand();
+  }
 }, destroy:function() {
   var me = this;
   me.unfloatAll();
@@ -66088,6 +66168,9 @@ defaultBindProperty:'value', twoWayBindable:{value:1}, publishes:{value:1}, inpu
   }
   me.callParent();
   me.inputElement.on({keyup:'onKeyUp', keydown:'onKeyDown', keypress:'onKeyPress', paste:'onPaste', mousedown:'onMouseDown', input:{fn:'onInput', delegated:false}, scope:me});
+  if ((Ext.isChrome || Ext.isChromeMobile) && me.getLabelAlign() === 'placeholder') {
+    me.inputElement.on('animationstart', me.onPlaceholderAutoFill, me);
+  }
   me.syncEmptyState();
 }, clearValue:function() {
   var me = this, inputMask = me.getInputMask();
@@ -66440,6 +66523,13 @@ defaultBindProperty:'value', twoWayBindable:{value:1}, publishes:{value:1}, inpu
 }, onRender:function() {
   this.callParent();
   this.syncLabelPlaceholder();
+}, onPlaceholderAutoFill:function(event) {
+  var me = this;
+  if (event.browserEvent.animationName === 'onAutoFillStart') {
+    me._animPlaceholderLabel = true;
+    me.setLabelInPlaceholder(false);
+    me.inputElement.removeListener('animationstart', me.onPlaceholderAutoFill, me);
+  }
 }, getRefItems:function(deep) {
   var me = this, triggers = me.getTriggers(), items = [], triggerName, trigger;
   for (triggerName in triggers) {
@@ -68353,7 +68443,7 @@ Ext.define('Ext.dataview.Location', {isDataViewLocation:true, isLocation:true, c
   }
   return item || null;
 }}});
-Ext.define('Ext.dataview.NavigationModel', {extend:Ext.Evented, alias:'navmodel.dataview', mixins:[Ext.mixin.Factoryable, Ext.mixin.Bufferable], factoryConfig:{type:'navmodel', defaultType:'dataview', instanceProp:'isNavigationModel'}, isNavigationModel:true, config:{view:null, disabled:false}, bufferableMethods:{handleChildTrigger:1}, locationClass:'Ext.dataview.Location', setLocation:function(location, options) {
+Ext.define('Ext.dataview.NavigationModel', {extend:Ext.Evented, alias:'navmodel.dataview', mixins:[Ext.mixin.Factoryable, Ext.mixin.Bufferable], factoryConfig:{type:'navmodel', defaultType:'dataview', instanceProp:'isNavigationModel'}, isNavigationModel:true, config:{view:null, disabled:false}, virtualKeyboardInputRe:/^(input|textarea)$/i, bufferableMethods:{handleChildTrigger:1}, locationClass:'Ext.dataview.Location', setLocation:function(location, options) {
   var me = this, view = me.getView(), oldLocation = me.location, animation = options && options.animation, scroller, child, record, itemContainer, childFloatStyle, locationView;
   if (location == null) {
     return me.clearLocation();
@@ -68439,9 +68529,20 @@ Ext.define('Ext.dataview.NavigationModel', {extend:Ext.Evented, alias:'navmodel.
     }
   }
 }, doFocus:function(location) {
+  var sourceEl, activeEl, focusEl;
   location = location || this.location;
-  if (location && location.getFocusEl()) {
-    location.getFocusEl().focus();
+  if (location) {
+    focusEl = location && location.getFocusEl();
+    if (Ext.os.is.iOS) {
+      sourceEl = location.sourceElement;
+      activeEl = document.activeElement;
+      if (sourceEl && activeEl && sourceEl.nodeName.match(this.virtualKeyboardInputRe) && activeEl.nodeName.match(this.virtualKeyboardInputRe)) {
+        return;
+      }
+    }
+    if (focusEl) {
+      focusEl.focus();
+    }
   }
 }, onFocusMove:function(e) {
   var location = this.createLocation(e);
@@ -71183,7 +71284,10 @@ className:Ext.baseCSSPrefix + 'list-inner-ct'}]}]}], beforeInitialize:function(c
   me.stickyItemsByRecordId = {};
   me.callParent([config]);
 }, doDestroy:function() {
-  var me = this, groupingInfo = me.groupingInfo;
+  var me = this, groupingInfo = me.groupingInfo, viewport = Ext.Viewport;
+  if (me.infinite && Ext.os.is.iOS && viewport) {
+    viewport.un('orientationchange', 'onOrientationChange', me);
+  }
   Ext.destroy(me.resyncListener, groupingInfo.header.unused, groupingInfo.footer.unused, groupingInfo.placeholder.unused);
   me.callParent();
 }, createIndexBar:function(config) {
@@ -71402,7 +71506,7 @@ className:Ext.baseCSSPrefix + 'list-inner-ct'}]}]}], beforeInitialize:function(c
   }
   return ret;
 }, updateInfinite:function(infinite) {
-  var me = this;
+  var me = this, viewport = Ext.Viewport;
   me.infinite = infinite;
   me.freezeConfig('infinite');
   if (infinite) {
@@ -71411,7 +71515,23 @@ className:Ext.baseCSSPrefix + 'list-inner-ct'}]}]}], beforeInitialize:function(c
     me.innerCt.addCls(me.infiniteCls);
     me.renderInfo = {atBegin:false, atEnd:false, bottom:0, height:0, top:0, indexBottom:0, indexTop:0};
     me.getScrollable().on({scope:me, offsetychange:'onOffsetChange', offsetxchange:'onOffsetChange', scroll:'onContainerScroll', scrollstart:'onContainerScrollStart', scrollend:'onContainerScrollEnd'});
+    if (Ext.os.is.iOS) {
+      me.on('navigate', me.onListNavigate, me);
+      if (viewport) {
+        viewport.on('orientationchange', 'onOrientationChange', me);
+      }
+    }
+  } else {
+    if (Ext.os.is.iOS && viewport) {
+      viewport.un('orientationchange', 'onOrientationChange', me);
+    }
   }
+}, onListNavigate:function(list, to, from) {
+  var nodeName = to.sourceElement.nodeName;
+  if (!from || !(nodeName === 'INPUT' || nodeName === 'TEXTAREA')) {
+    return;
+  }
+  list.scrollToRecord(to.record);
 }, updateMaxItemCache:function(max, oldMax) {
   var info = this.groupingInfo;
   this.callParent([max, oldMax]);
@@ -71542,6 +71662,8 @@ className:Ext.baseCSSPrefix + 'list-inner-ct'}]}]}], beforeInitialize:function(c
 }, onItemDisclosureTap:function(item, e) {
   var me = this, record = item.getRecord(), index = me.store.indexOf(record);
   me.fireAction('disclose', [me, record, item, index, e], 'doDisclose');
+}, onOrientationChange:function() {
+  this.rowHeight = 0;
 }, _onChildTouchCancel:function(e) {
   if (!e.getTarget(this.toolSelector)) {
     this.callParent([e]);
@@ -75311,7 +75433,8 @@ overshotMaxDistance:50, state:'pulling'}, init:function(list) {
   ret.hidden = true;
   return ret;
 }, privates:{overlayCls:Ext.baseCSSPrefix + 'pullrefresh-overlay', fetchLatest:function() {
-  this.getList().getStore().fetch({page:1, start:0, callback:this.onLatestFetched, scope:this});
+  var list = this.getList(), store = list.getStore().isGroupStore ? list.getStore().getSource() : list.getStore();
+  store.fetch({page:1, start:0, callback:this.onLatestFetched, scope:this});
 }, reset:function() {
   var me = this, widget = me.getWidget();
   widget.setHidden(true);
@@ -75388,7 +75511,7 @@ overshotMaxDistance:50, state:'pulling'}, init:function(list) {
     e.stopEvent();
   }
 }, onLatestFetched:function(newRecords, operation, success) {
-  var me = this, list = me.getList(), store = list.getStore(), length, toInsert, oldRecords, newRecord, oldRecord, i;
+  var me = this, list = me.getList(), store = list.getStore().isGroupStore ? list.getStore().getSource() : list.getStore(), length, toInsert, oldRecords, newRecord, oldRecord, i;
   if (success) {
     if (me.getMergeData()) {
       oldRecords = store.getData();
@@ -76352,7 +76475,7 @@ autoComplete:false, classCls:Ext.baseCSSPrefix + 'pickerfield', initialize:funct
   }
   return false;
 }, expand:function() {
-  if (!this.expanded && !this.getDisabled()) {
+  if (!this.expanded && !this.getReadOnly() && !this.getDisabled()) {
     this.showPicker();
   }
 }, collapse:function() {
@@ -77381,7 +77504,7 @@ hideAnimation:null}, edgePicker:{xtype:'selectpicker', cover:true}, classCls:Ext
   }
 }}, rawToValue:Ext.emptyFn});
 Ext.define('Ext.field.ComboBox', {extend:Ext.field.Select, xtype:['combobox', 'comboboxfield'], alternateClassName:['Ext.form.field.ComboBox'], config:{primaryFilter:true, queryParam:'query', queryMode:'remote', queryCaching:true, queryDelay:true, minChars:null, anyMatch:false, caseSensitive:false, typeAhead:false, typeAheadDelay:250, triggerAction:'all', allQuery:null, enableRegEx:null}, autoSelect:false, classCls:Ext.baseCSSPrefix + 'combobox', editable:true, forceSelection:false, lastQuery:{}, 
-keyMap:{scope:'this', ENTER:'onEnterKey'}, onCollectionAdd:function(valueCollection, adds) {
+keyMap:{scope:'this', ENTER:'onEnterKey'}, platformConfig:{phone:{editable:false}}, onCollectionAdd:function(valueCollection, adds) {
   if (this.getMultiSelect()) {
     this.inputElement.dom.value = '';
     if (this.expanded) {
@@ -77389,7 +77512,7 @@ keyMap:{scope:'this', ENTER:'onEnterKey'}, onCollectionAdd:function(valueCollect
     }
   }
   this.callParent([valueCollection, adds]);
-}, picker:'floated', onInput:function(e) {
+}, onInput:function(e) {
   var me = this, filterTask = me.doFilterTask, value = me.inputElement.dom.value, filters = me.getStore().getFilters(), keyboardEvent, isDelimiter;
   if (Ext.supports.inputEventData) {
     isDelimiter = e.browserEvent.data === me.getDelimiter();
@@ -91402,7 +91525,7 @@ style:'opacity: 0'}, applyHideAnimation:function(hideAnimation) {
 }}});
 Ext.define('Ext.scroll.VirtualScroller', {extend:Ext.scroll.Scroller, alias:'scroller.virtual', isVirtualScroller:true, config:{autoRefresh:false, barIndicator:{lazy:true, $value:{type:'bar'}}, bounceEasing:{duration:400}, directionLock:false, disabled:null, clientSize:undefined, scrollbarSize:{width:0, height:0}, indicators:{x:true, y:true}, infinite:true, innerElement:null, maxAbsoluteVelocity:6, maxPosition:{x:0, y:0}, maxUserPosition:{x:0, y:0}, minPosition:{x:0, y:0}, minUserPosition:{x:0, y:0}, 
 momentumEasing:{momentum:{acceleration:30, friction:0.5}, bounce:{acceleration:30, springTension:0.3}, minVelocity:1}, outOfBoundRestrictFactor:0.5, overlayIndicator:{lazy:true, $value:{type:'overlay'}}, pageSize:{x:500000, y:500000}, slotSnapEasing:{duration:150}, slotSnapOffset:{x:0, y:0}, slotSnapSize:{x:0, y:0}, startMomentumResetTime:300}, eventedConfig:{offsetX:0, offsetY:0}, translatable:'csstransform', dragStartTime:0, dragEndTime:0, isDragging:false, isWheeling:false, isAnimating:false, 
-isMouseEvent:{mousedown:1, mousemove:1, mouseup:1}, listenerMap:{touchstart:'onTouchStart', touchmove:'onTouchMove', dragstart:'onDragStart', drag:'onDrag', dragend:'onDragEnd'}, constructor:function(config) {
+touchScrollCount:0, isMouseEvent:{mousedown:1, mousemove:1, mouseup:1}, listenerMap:{touchstart:'onTouchStart', touchmove:'onTouchMove', dragstart:'onDragStart', drag:'onDrag', dragend:'onDragEnd'}, constructor:function(config) {
   var me = this, onEvent = 'onEvent', autoRefresh;
   me.elementListeners = {touchstart:onEvent, touchmove:onEvent, dragstart:onEvent, drag:onEvent, dragend:onEvent, wheel:'onWheel', scope:me};
   me.minPosition = {x:0, y:0};
@@ -91853,7 +91976,7 @@ isMouseEvent:{mousedown:1, mousemove:1, mouseup:1}, listenerMap:{touchstart:'onT
   }
 }, doOnScrollEnd:function() {
   var me = this, position = me.position, x = position.x, y = position.y;
-  if (!me.destroying && !me.destroyed && me.isScrolling && me.isPrimary && !me.isTouching && !me.snapToSlot()) {
+  if (!me.destroying && !me.destroyed && me.isScrolling && me.isPrimary && !me.isTouching && !me.snapToSlot() && me.touchScrollCount <= 1) {
     me.isScrolling = Ext.isScrolling = me.isWheeling = me.self.isWheeling = me.isScrollbarScrolling = false;
     me.callIndicators('onScrollEnd');
     me.callPartners('onPartnerScrollEnd');
@@ -91862,6 +91985,9 @@ isMouseEvent:{mousedown:1, mousemove:1, mouseup:1}, listenerMap:{touchstart:'onT
     if (!me.isScrolling) {
       me.setPrimary(null);
     }
+  }
+  if (me.touchScrollCount > 0) {
+    me.touchScrollCount--;
   }
 }, onScrollStart:function() {
   var me = this, position = me.position, x = position.x, y = position.y;
@@ -91885,6 +92011,7 @@ isMouseEvent:{mousedown:1, mousemove:1, mouseup:1}, listenerMap:{touchstart:'onT
   Ext.getDoc().on({touchend:'onTouchEnd', scope:me, single:true});
   me.isTouching = me.self.isTouching = true;
   me.stopAnimation();
+  me.touchScrollCount++;
 }, onWheel:function(e) {
   var me = this, self = me.self, deltaX = e.deltaX, deltaY = e.deltaY, position = me.position, oldX = position.x, oldY = position.y, x = me.constrainX(position.x + deltaX), y = me.constrainY(position.y + deltaY);
   if (x !== oldX || y !== oldY) {

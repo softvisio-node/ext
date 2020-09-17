@@ -20,26 +20,11 @@ cp "%~dp0/vue.config.js" "%TARGET%\ext-build\vue.config.js"
 :: TODO not exited
 call npx vue-cli-service build
 
-:: remove "resources/images/pictos"
-rmdir /S /Q build\ext\resources\images\pictos\
-
-:: remove watermark
-rmdir /S /Q build\ext\resources\ext\
-
-:: remove font awesome
-rmdir /S /Q build\ext\resources\font-awesome\
-
-:: patch css files
-:: - remove watermark
-:: - remove fontawesome
-:: - fix errors
-
-:: src -a compress -t css build\ext
-:: src -a decompress -t css build\ext
-
-:: patch ext.js, add module.exports = Ext;
-
-:: patch css-vars.js
+:: prepare resources
+del build\ext\resources\Readme.md
+rmdir /S /Q build\ext\resources\ext
+rmdir /S /Q build\ext\resources\font-awesome
+rmdir /S /Q build\ext\resources\images\pictos
 
 popd
 
