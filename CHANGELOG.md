@@ -1,3 +1,8 @@
+## 0.2.0 (2020-09-17)
+
+-   ext 7.3.0
+-   ewc 7.2.3
+
 ## 0.1.7 (2020-08-25)
 
 -   ewc updated to the latest 7.2.1 build
