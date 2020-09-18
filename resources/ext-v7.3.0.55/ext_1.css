@@ -2897,7 +2897,7 @@ div.x-trigger.x-grouped {
 .x-chipview .x-chipview-body-el {
     display: flex;
     flex-wrap: wrap;
-    align-items: start;
+    align-items: flex-start;
 }
 .x-indexbar {
     pointer-events: none;
