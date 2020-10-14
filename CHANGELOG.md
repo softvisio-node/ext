@@ -1,3 +1,7 @@
+## 0.2.4 (2020-10-14)
+
+-   default proxy fixed
+
 ## 0.2.3 (2020-10-04)
 
 -   docs updated
