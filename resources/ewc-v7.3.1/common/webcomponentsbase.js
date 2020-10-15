@@ -1,4 +1,4 @@
-//Thu May 14 2020 14:28:32 GMT-0400 (Eastern Daylight Time)
+//Thu Oct 15 2020 10:08:04 GMT-0700 (Pacific Daylight Time)
 
 import {
   doProp,
@@ -340,7 +340,7 @@ export default class WebComponentsBaseComponent extends HTMLElement {
       }
 
 
-/*
+
       if (me.parentNode.A.ext !== undefined) {
         var totalLength = me.parentNode.A.ITEMS.length;
         var currentLength = me.parentNode.A.ext.items.items.length;
@@ -349,10 +349,30 @@ export default class WebComponentsBaseComponent extends HTMLElement {
             if (obj.parentNode === me.parentNode) {
               return obj.count;
             }
-          })
+          });
           if (filteredresult.length > 0) {
             me.addTheChild(me.parentNode.A.ext, me.A.ext, filteredresult[0].count);
-            WebComponentsBaseComponent.theDeleted.shift()
+            WebComponentsBaseComponent.theDeleted.shift();
+          }
+          else {
+            me.addTheChild(me.parentNode.A.ext, me.A.ext, 0);
+          }
+        }
+        else {
+          if (me.previousSibling !== null) {
+            var theSibling = me.previousSibling.A.ext.id
+            var foundIt = false;
+            me.parentNode.A.ext.items.items.forEach((item, index) => {
+              if (foundIt == false) {
+                if (theSibling == item.id) {
+                  foundIt = true
+                  me.addTheChild(me.parentNode.A.ext,me.A.ext, index+1);
+                }
+              }
+            })
+          }
+          else {
+            me.addTheChild(me.parentNode.A.ext,me.A.ext, 0);
           }
         }
       }
@@ -361,25 +381,24 @@ export default class WebComponentsBaseComponent extends HTMLElement {
         //me.A.parentNode = me.parentNode
         me.parentNode.A.CHILDREN.push(me.A.ext);
       }
-*/
 
 
-      if (me.parentNode.A.ext !== undefined) {
-        var found = false;
-        for (var i = 0; i < me.parentNode.A.ITEMS.length; i++) {
-          if (me.parentNode.A.ITEMS[i].child.outerHTML == me.A.ext.childouterHTML) {
-            found = true;
-            me.addTheChild(me.parentNode.A.ext, me.A.ext, i);
-          }
-        }
-        if (found == false) {
-          me.addTheChild(me.parentNode.A.ext, me.A.ext);
-        }
-      }
-      else {
-        me.parentNode.A.CHILDREN.push(me.A.ext);
-      }
 
+      // if (me.parentNode.A.ext !== undefined) {
+      //   var found = false;
+      //   for (var i = 0; i < me.parentNode.A.ITEMS.length; i++) {
+      //     if (me.parentNode.A.ITEMS[i].child.outerHTML == me.A.ext.childouterHTML) {
+      //       found = true;
+      //       me.addTheChild(me.parentNode.A.ext, me.A.ext, i);
+      //     }
+      //   }
+      //   if (found == false) {
+      //     me.addTheChild(me.parentNode.A.ext, me.A.ext);
+      //   }
+      // }
+      // else {
+      //   me.parentNode.A.CHILDREN.push(me.A.ext);
+      // }
 
 
 
