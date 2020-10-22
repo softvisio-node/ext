@@ -3,7 +3,7 @@
 ## NPM
 
 ```
-npm i --save-dev @softvisio/ext@git+https://bitbucket.org/softvisio/softvisio-ext.git#latest
+npm i --save-dev @softvisio/ext@bitbucket:softvisio/softvisio-ext#latest
 ```
 
 # PREPARE DISTRIBUTION
