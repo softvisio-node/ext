@@ -1,3 +1,9 @@
+## 0.4.1 (2020-10-22)
+
+-   npm 7 reverted to 6
+-   readme
+-   deps updated
+
 ## 0.4.0 (2020-10-15)
 
 -   ewc 7.2.3 restored
