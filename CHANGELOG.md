@@ -1,3 +1,7 @@
+## 0.5.0 (2020-11-22)
+
+-   ext progress override
+
 ## 0.4.1 (2020-10-22)
 
 -   npm 7 reverted to 6
