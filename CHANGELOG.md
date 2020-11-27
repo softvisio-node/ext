@@ -1,3 +1,7 @@
+## 0.6.0 (2020-11-27)
+
+-   .$ext property renamed to .ext
+
 ## 0.5.1 (2020-11-23)
 
 -   progress set color fixed
