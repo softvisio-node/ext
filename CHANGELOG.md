@@ -1,3 +1,7 @@
+## 0.7.0 (2021-01-04)
+
+-   field bigint type added
+
 ## 0.6.0 (2020-11-27)
 
 -   .$ext property renamed to .ext
