@@ -1,3 +1,7 @@
+## 0.8.0 (2021-01-26)
+
+-   migrated to node v15
+
 ## 0.7.0 (2021-01-04)
 
 -   field bigint type added
