@@ -27,7 +27,7 @@
         "lint": "softvisio-cli lint"
     },
     "peerDependencies": {
-        "vue": ">=2.6.11"
+        "vue": "^2.6.12"
     },
     "lint": [
         "*.*",
