@@ -1,3 +1,7 @@
+## 0.8.2 (2021-01-28)
+
+-   ext build script updated
+
 ## 0.8.1 (2021-01-27)
 
 -   deps updated
