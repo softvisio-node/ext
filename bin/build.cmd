@@ -9,19 +9,17 @@ set BUILD_DIR=%TARGET%\%NAME%
 
 pushd %TARGET%
 
-npx vue create --default %NAME%
-
-exit /B
+call npx vue create --default %NAME%
 
 cd %BUILD_DIR%
 
-npm install @sencha/ext @sencha/ext-modern @sencha/ext-modern-theme-material
-npm install @sencha/ext-web-components-modern @sencha/ext-webpack-plugin
+call npm install @sencha/ext @sencha/ext-modern @sencha/ext-modern-theme-material
+call npm install @sencha/ext-web-components-modern @sencha/ext-webpack-plugin
 
 cp "%~dp0/vue.config.js" "%BUILD_DIR%\vue.config.js"
 
 :: TODO not exited
-npx vue-cli-service build
+call npx vue-cli-service build
 
 :: prepare resources
 del build\ext\resources\Readme.md
