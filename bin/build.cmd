@@ -2,11 +2,11 @@
 
 setlocal
 
-set TARGET=%~dp0
 set NAME=ext-build
-
+set TARGET=%~dp0\..\data
 set BUILD_DIR=%TARGET%\%NAME%
 
+mkdir %TARGET%
 pushd %TARGET%
 
 call npx vue create --default %NAME%
