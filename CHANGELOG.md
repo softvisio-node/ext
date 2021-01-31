@@ -1,3 +1,7 @@
+## 1.0.0 (2021-01-31)
+
+-   deps updated
+
 ## 0.8.3 (2021-01-30)
 
 -   build script updated
