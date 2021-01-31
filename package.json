@@ -29,9 +29,6 @@
     "devDependencies": {
         "@vue/cli": "^4.5.11"
     },
-    "peerDependencies": {
-        "vue": "^2.6.12"
-    },
     "lint": [
         "*.*",
         "bin/**",
