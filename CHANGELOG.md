@@ -1,3 +1,9 @@
+## 2.0.0-beta.5 (2021-02-11)
+
+### Raw commits log
+
+-   typo fixed;
+
 ## 2.0.0-beta.4 (2021-02-11)
 
 ### Raw commits log
