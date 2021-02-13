@@ -1,3 +1,9 @@
+## 2.0.0-beta.6 (2021-02-13)
+
+### Raw commits log
+
+-   add vue component refactored;
+
 ## 2.0.0-beta.5 (2021-02-11)
 
 ### Raw commits log
