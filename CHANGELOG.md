@@ -1,3 +1,10 @@
+## 2.0.0-beta.7 (2021-02-15)
+
+### Raw commits log
+
+-   addVue method removed;
+-   support for vue3 async components;
+
 ## 2.0.0-beta.6 (2021-02-13)
 
 ### Raw commits log
