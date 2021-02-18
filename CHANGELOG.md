@@ -1,3 +1,9 @@
+## 2.0.0-beta.8 (2021-02-18)
+
+### Raw commits log
+
+-   softvisio proxy now gets api instance from Ext.application;
+
 ## 2.0.0-beta.7 (2021-02-15)
 
 ### Raw commits log
