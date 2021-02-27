@@ -1,3 +1,9 @@
+## 2.0.0-beta.9 (2021-02-27)
+
+### Raw commits log
+
+-   serialize sort direction to lower case;
+
 ## 2.0.0-beta.8 (2021-02-18)
 
 ### Raw commits log
