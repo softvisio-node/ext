@@ -1,7 +1,0 @@
-div.fr-wrapper > div:first-child:not([class]) {
-    display: none;
-}
-
-div.second-toolbar > #logo {
-    display: none;
-}
