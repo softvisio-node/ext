@@ -1,3 +1,9 @@
+## 2.0.1 (2021-04-16)
+
+### Raw commits log
+
+-   ported to modules;
+
 ## 2.0.0 (2021-03-03)
 
 -   v2.0.0 released;
