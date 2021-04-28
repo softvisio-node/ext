@@ -22,13 +22,14 @@
     "author": "zdm <zdm@softvisio.net>",
     "type": "module",
     "exports": {
-        "./*": "./lib/*.js"
+        "./*": "./lib/*.js",
+        "./resources/*": "./resources/*"
     },
     "scripts": {
         "lint": "softvisio-cli lint"
     },
     "devDependencies": {
-        "@vue/cli": "^4.5.11"
+        "@vue/cli": "^5.0.0-beta.0"
     },
     "lint": [
         "*.*",
