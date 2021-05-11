@@ -2937,7 +2937,7 @@ div.x-trigger.x-grouped {
     white-space: nowrap !important;
 }
 .x-chipview .x-chipview-body-el {
-    align-items: start;
+    align-items: flex-start;
     display: flex;
     flex-wrap: wrap;
 }
