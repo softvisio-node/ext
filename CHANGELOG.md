@@ -1,3 +1,10 @@
+## 3.1.0-beta.2 (2021-05-11)
+
+### Raw commits log
+
+-   missed extensions added;
+-   resources renamed;
+
 ## 3.1.0-beta.1 (2021-05-11)
 
 ### Raw commits log
