@@ -1,3 +1,9 @@
+## 3.1.0-beta.3 (2021-05-19)
+
+### Raw commits log
+
+-   lint script removed;
+
 ## 3.1.0-beta.2 (2021-05-11)
 
 ### Raw commits log
