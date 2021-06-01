@@ -29,7 +29,9 @@
     },
     "softvisio": {
         "lint": [
-            "!(resources)/**"
+            "*.*",
+            "bin/**",
+            "lib/**"
         ]
     }
 }
