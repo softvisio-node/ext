@@ -1,3 +1,10 @@
+## 3.1.0-beta.5 (2021-06-02)
+
+### Raw commits log
+
+-   .lintignore added;
+-   softvisio config merged with the package.json;
+
 ## 3.1.0-beta.4 (2021-06-01)
 
 ### Raw commits log
