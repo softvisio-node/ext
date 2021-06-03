@@ -9,14 +9,14 @@
         "ewc",
         "ext web components"
     ],
-    "homepage": "https://bitbucket.org/softvisio/softvisio-ext",
+    "homepage": "https://github.com/softvisio/ext",
     "bugs": {
-        "url": "https://bitbucket.org/softvisio/softvisio-ext/issues",
+        "url": "https://github.com/softvisio/ext/issues",
         "email": "zdm@softvisio.net"
     },
     "repository": {
         "type": "git",
-        "url": "https://bitbucket.org/softvisio/softvisio-ext.git"
+        "url": "https://github.com/softvisio/ext.git"
     },
     "license": "ISC",
     "author": "zdm <zdm@softvisio.net>",
