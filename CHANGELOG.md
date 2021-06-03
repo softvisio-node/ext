@@ -1,3 +1,9 @@
+## 3.1.0-beta.6 (2021-06-03)
+
+### Raw commits log
+
+-   moved to github;
+
 ## 3.1.0-beta.5 (2021-06-02)
 
 ### Raw commits log
