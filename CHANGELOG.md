@@ -1,44 +1,44 @@
 ## 3.1.0-beta.6 (2021-06-03)
 
-### Raw commits log
+**Raw commits log**
 
 -   moved to github;
 
 ## 3.1.0-beta.5 (2021-06-02)
 
-### Raw commits log
+**Raw commits log**
 
 -   .lintignore added;
 -   softvisio config merged with the package.json;
 
 ## 3.1.0-beta.4 (2021-06-01)
 
-### Raw commits log
+**Raw commits log**
 
 -   lint config removed;
 
 ## 3.1.0-beta.3 (2021-05-19)
 
-### Raw commits log
+**Raw commits log**
 
 -   lint script removed;
 
 ## 3.1.0-beta.2 (2021-05-11)
 
-### Raw commits log
+**Raw commits log**
 
 -   missed extensions added;
 -   resources renamed;
 
 ## 3.1.0-beta.1 (2021-05-11)
 
-### Raw commits log
+**Raw commits log**
 
 -   ext css flex-start;
 
 ## 3.1.0-beta.0 (2021-05-11)
 
-### Raw commits log
+**Raw commits log**
 
 -   extjs 7.4.0;
 
@@ -46,25 +46,25 @@
 
 ## 3.0.0-alpha.5 (2021-05-02)
 
-### Raw commits log
+**Raw commits log**
 
 -   ported to ESM;
 
 ## 3.0.0-alpha.4 (2021-05-02)
 
-### Raw commits log
+**Raw commits log**
 
 -   ported to ESM;
 
 ## 3.0.0-alpha.3 (2021-04-28)
 
-### Raw commits log
+**Raw commits log**
 
 -   ported back to cjs;
 
 ## 3.0.0-alpha.2 (2021-04-28)
 
-### Raw commits log
+**Raw commits log**
 
 -   mjs fix;
 
@@ -72,13 +72,13 @@
 
 ## 3.0.0-alpha.0 (2021-04-28)
 
-### Raw commits log
+**Raw commits log**
 
 -   ported to webpack 5;
 
 ## 2.0.1 (2021-04-16)
 
-### Raw commits log
+**Raw commits log**
 
 -   ported to modules;
 
@@ -88,68 +88,68 @@
 
 ## 2.0.0-rc.0 (2021-03-01)
 
-### Raw commits log
+**Raw commits log**
 
 -   froala;
 
 ## 2.0.0-beta.9 (2021-02-27)
 
-### Raw commits log
+**Raw commits log**
 
 -   serialize sort direction to lower case;
 
 ## 2.0.0-beta.8 (2021-02-18)
 
-### Raw commits log
+**Raw commits log**
 
 -   softvisio proxy now gets api instance from Ext.application;
 
 ## 2.0.0-beta.7 (2021-02-15)
 
-### Raw commits log
+**Raw commits log**
 
 -   addVue method removed;
 -   support for vue3 async components;
 
 ## 2.0.0-beta.6 (2021-02-13)
 
-### Raw commits log
+**Raw commits log**
 
 -   add vue component refactored;
 
 ## 2.0.0-beta.5 (2021-02-11)
 
-### Raw commits log
+**Raw commits log**
 
 -   typo fixed;
 
 ## 2.0.0-beta.4 (2021-02-11)
 
-### Raw commits log
+**Raw commits log**
 
 -   migrated to vue v3;
 
 ## 2.0.0-beta.3 (2021-02-11)
 
-### Raw commits log
+**Raw commits log**
 
 -   migrated to vue v3;
 
 ## 2.0.0-beta.2 (2021-02-11)
 
-### Raw commits log
+**Raw commits log**
 
 -   migrated to vue v3;
 
 ## 2.0.0-beta.1 (2021-02-10)
 
-### Raw commits log
+**Raw commits log**
 
 -   migrated to vue v3;
 
 ## 2.0.0-beta.0 (2021-02-10)
 
-### Raw commits log
+**Raw commits log**
 
 -   migrated to vue v3;
 
