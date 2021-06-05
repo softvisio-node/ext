@@ -1,3 +1,10 @@
+## 3.1.0-beta.7 (2021-06-05)
+
+**Raw commits log**
+
+-   resources -> assets;
+-   changelog updated;
+
 ## 3.1.0-beta.6 (2021-06-03)
 
 **Raw commits log**
