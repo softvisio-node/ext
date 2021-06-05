@@ -22,7 +22,7 @@
     "author": "zdm <zdm@softvisio.net>",
     "exports": {
         "./*": "./lib/*.js",
-        "./resources/*": "./resources/*"
+        "./assets/*": "./assets/*"
     },
     "devDependencies": {
         "@vue/cli": "^5.0.0-beta.0"
