@@ -1,5 +1,11 @@
 # Changelog
 
+### 3.1.0-beta.11 (2021-07-22)
+
+Removed:
+
+-   ewc 7.3.1 removed
+
 ### 3.1.0-beta.10 (2021-07-22)
 
 Added:
