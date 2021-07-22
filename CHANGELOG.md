@@ -1,5 +1,12 @@
 # Changelog
 
+### 3.1.0-beta.12 (2021-07-22)
+
+Changed:
+
+-   docs added
+-   old components removed
+
 ### 3.1.0-beta.11 (2021-07-22)
 
 Removed:
