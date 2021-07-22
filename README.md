@@ -14,6 +14,8 @@ npm i --save-dev @softvisio/ext@github:softvisio/ext#latest
 
 ## Usage
 
+## Prepare build
+
 -   Patch `css-vars.js`.
 -   Patch `css` files:
     -   remove css blocks, containing `ext-watermark`;
