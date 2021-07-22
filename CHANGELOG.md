@@ -1,5 +1,11 @@
 # Changelog
 
+### 3.1.0-beta.10 (2021-07-22)
+
+Added:
+
+-   ewc 7.4.0 added
+
 ### 3.1.0-beta.9 (2021-06-17)
 
 Changed:
