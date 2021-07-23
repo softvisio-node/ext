@@ -20,7 +20,6 @@ call npm install @sencha/ext-web-components-modern @sencha/ext-webpack-plugin
 
 cp "%~dp0/vue.config.cjs" "%BUILD_DIR%\vue.config.cjs"
 
-:: TODO not exited
 call npx vue-cli-service build
 
 :: prepare resources
