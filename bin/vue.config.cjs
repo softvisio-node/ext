@@ -10,7 +10,18 @@ module.exports = {
                 "toolkit": "modern",
                 "emit": "yes",
                 "browser": "no",
-                "packages": ["charts", "d3", "froala-editor"],
+                "packages": [
+
+                    // "charts",
+                    // ux,
+                    // google,
+                    // "d3",
+                    // "froala-editor"
+                ],
+                "packageDirs": [
+
+                    // "./packages", // path, where custom packages located, names of this packages can be used in the "packages" option
+                ],
                 "profile": "",
                 "verbose": "no",
                 "treeshake": "no",
