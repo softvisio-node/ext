@@ -10,7 +10,7 @@ module.exports = {
                 "toolkit": "modern",
                 "emit": "yes",
                 "browser": "no",
-                "packages": [],
+                "packages": ["charts", "d3", "froala-editor"],
                 "profile": "",
                 "verbose": "no",
                 "treeshake": "no",

@@ -13,7 +13,9 @@ call npx vue create --default %NAME%
 
 cd %BUILD_DIR%
 
-call npm install @sencha/ext @sencha/ext-modern @sencha/ext-modern-theme-material
+:: @sencha/ext-d3
+:: @sencha/ext-froala-editor
+call npm install @sencha/ext @sencha/ext-modern @sencha/ext-modern-theme-material @sencha/ext-charts @sencha/ext-ux @sencha/ext-google
 call npm install @sencha/ext-web-components-modern @sencha/ext-webpack-plugin
 
 cp "%~dp0/vue.config.cjs" "%BUILD_DIR%\vue.config.cjs"
