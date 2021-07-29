@@ -2,7 +2,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "sencha --cwd=build/ext app build development"
+        "build": "node bin/build.js"
     },
     "dependencies": {
         "@sencha/ext": "^7.4.0",
