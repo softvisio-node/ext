@@ -25,10 +25,11 @@ import child_process from "child_process";
 
 // build
 const rootDir = path.dirname( module.createRequire( import.meta.url ).resolve( "#root/package.json" ) ),
-    dataDir = path.join( rootDir, "data" );
+    dataDir = path.join( rootDir, "data" ),
+    srcDir = path.join( rootDir, "build/ext" );
 
 if ( fs.existsSync( dataDir ) ) fs.rmSync( dataDir, { "recursive": true, "force": true } );
 
 fs.mkdirSync( dataDir, { "recursive": true } );
 
-child_process.spawnSync( "npx", ["sencha", "app", "build", "development"], { "cwd": dataDir, "stdio": "inherit", "shell": true } );
+child_process.spawnSync( "npx", ["sencha", "--cwd", srcDir, "app", "build", "development"], { "cwd": dataDir, "stdio": "inherit", "shell": true } );
