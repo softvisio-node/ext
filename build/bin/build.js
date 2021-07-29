@@ -66,5 +66,3 @@ fs.rmSync( dataDir + "/resources/images/pictos", { "recursive": true, "force": t
     fs.writeFileSync( dataDir + "/ext.js", ext.substring( 0, idx ) + "window.Ext = Ext;\n" );
     fs.writeFileSync( dataDir + "/charts.js", ext.substr( idx ) );
 }
-
-// XXX compress / decompress .css files;
