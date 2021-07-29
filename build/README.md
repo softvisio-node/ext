@@ -2,6 +2,19 @@
 
 ## Prepare build
 
+```txt
+node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss
+$ext-trial: false!default;
+```
+
+## Build
+
+```sh
+npx sencha app build development
+```
+
+## Prepare build
+
 -   Patch `css-vars.js`.
 -   Patch `css` files:
     -   remove css blocks, containing `ext-watermark`;

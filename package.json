@@ -23,8 +23,5 @@
     "exports": {
         "./*": "./lib/*.js",
         "./resources/*": "./resources/*"
-    },
-    "devDependencies": {
-        "@vue/cli": "^5.0.0-beta.0"
     }
 }

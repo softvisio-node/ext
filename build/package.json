@@ -1,4 +1,6 @@
 {
+    "private": true,
+    "type": "module",
     "scripts": {
         "build": "sencha --cwd=build/ext app build development"
     },
