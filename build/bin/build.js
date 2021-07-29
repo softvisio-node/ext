@@ -35,7 +35,8 @@ fs.mkdirSync( dataDir, { "recursive": true } );
 child_process.spawnSync( "npx", ["sencha", "--cwd", srcDir, "app", "build", "development"], { "cwd": dataDir, "stdio": "inherit", "shell": true } );
 
 // cleanup
-fs.rmSync( dataDir + "resources/Readme.md", { "recursive": true, "force": true } );
-fs.rmSync( dataDir + "resourcesext", { "recursive": true, "force": true } );
-fs.rmSync( dataDir + "resources\font-awesome", { "recursive": true, "force": true } );
-fs.rmSync( dataDir + "resourcesimagespictos", { "recursive": true, "force": true } );
+fs.rmSync( dataDir + "/ext.scss", { "recursive": true, "force": true } );
+fs.rmSync( dataDir + "/resources/Readme.md", { "recursive": true, "force": true } );
+fs.rmSync( dataDir + "/resources/ext", { "recursive": true, "force": true } );
+fs.rmSync( dataDir + "/resources/font-awesome", { "recursive": true, "force": true } );
+fs.rmSync( dataDir + "/resources/images/pictos", { "recursive": true, "force": true } );
