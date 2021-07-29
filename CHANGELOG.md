@@ -1,5 +1,13 @@
 # Changelog
 
+### 3.1.1 (2021-07-29)
+
+Fixed:
+
+-   redme updated
+-   build css patches added
+-   linted
+
 ### 3.1.0 (2021-07-29)
 
 Added:
