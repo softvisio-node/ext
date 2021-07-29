@@ -2,6 +2,7 @@
 
 import fs from "fs";
 import module from "module";
+import path from "path";
 
 // patch trial version
 {
@@ -22,3 +23,6 @@ import module from "module";
 }
 
 // build
+const root = path.dirname( module.createRequire( import.meta.url ).resolve( "#root/package.json" ) );
+
+console.log( root );
