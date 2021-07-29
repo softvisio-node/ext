@@ -3119,6 +3119,8 @@ $jscomp.iteratorFromArray = function(array, transform) {
     };
     return iter.next();
   }};
+  $jscomp.initSymbol();
+  $jscomp.initSymbolIterator();
   iter[Symbol.iterator] = function() {
     return iter;
   };
@@ -3199,6 +3201,8 @@ $jscomp.polyfill('Array.from', function(orig) {
       return x;
     };
     var result = [];
+    $jscomp.initSymbol();
+    $jscomp.initSymbolIterator();
     var iteratorFunction = arrayLike[Symbol.iterator];
     if (typeof iteratorFunction == 'function') {
       arrayLike = iteratorFunction.call(arrayLike);
@@ -3286,6 +3290,8 @@ $jscomp.polyfill('Array.prototype.values', function(orig) {
   return polyfill;
 }, 'es8', 'es3');
 $jscomp.makeIterator = function(iterable) {
+  $jscomp.initSymbolIterator();
+  $jscomp.initSymbol();
   $jscomp.initSymbolIterator();
   var iteratorFunction = iterable[Symbol.iterator];
   return iteratorFunction ? iteratorFunction.call(iterable) : $jscomp.arrayIterator(iterable);
@@ -3787,6 +3793,8 @@ $jscomp.generator.Generator_ = function(engine) {
     return engine.return_(value);
   };
   $jscomp.initSymbolIterator();
+  $jscomp.initSymbol();
+  $jscomp.initSymbolIterator();
   this[Symbol.iterator] = function() {
     return this;
   };
@@ -4046,6 +4054,8 @@ $jscomp.polyfill('Map', function(NativeMap) {
       callback.call(opt_thisArg, entry[1], entry[0], this);
     }
   };
+  $jscomp.initSymbol();
+  $jscomp.initSymbolIterator();
   PolyfillMap.prototype[Symbol.iterator] = PolyfillMap.prototype.entries;
   var maybeGetEntry = function(map, key) {
     var id = getId(key);
@@ -4781,6 +4791,8 @@ $jscomp.polyfill('Set', function(NativeSet) {
     return this.map_.values();
   };
   PolyfillSet.prototype.keys = PolyfillSet.prototype.values;
+  $jscomp.initSymbol();
+  $jscomp.initSymbolIterator();
   PolyfillSet.prototype[Symbol.iterator] = PolyfillSet.prototype.values;
   PolyfillSet.prototype.forEach = function(callback, opt_thisArg) {
     var set = this;
