@@ -19,8 +19,12 @@ import child_process from "child_process";
 
         fs.writeFileSync( path, patched );
     }
+}
 
-    // content = content.replace();
+// remove font-awesome
+{
+    const path = module.createRequire( import.meta.url ).resolve( "@sencha/ext-font-awesome/sass/src/all.scss" );
+    fs.writeFileSync( path, "" );
 }
 
 // build
@@ -62,7 +66,5 @@ fs.rmSync( dataDir + "/resources/images/pictos", { "recursive": true, "force": t
     fs.writeFileSync( dataDir + "/ext.js", ext.substring( 0, idx ) + "window.Ext = Ext;\n" );
     fs.writeFileSync( dataDir + "/charts.js", ext.substr( idx ) );
 }
-
-// XXX remove font-awesome, remove css blocks, that belongs to the `ext-font-awesome`;
 
 // XXX compress / decompress .css files;
