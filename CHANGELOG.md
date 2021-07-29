@@ -1,5 +1,11 @@
 # Changelog
 
+### 3.2.0 (2021-07-29)
+
+Added:
+
+-   charts overrides added
+
 ### 3.1.1 (2021-07-29)
 
 Fixed:
