@@ -1,5 +1,11 @@
 # Changelog
 
+### 3.3.1 (2021-07-29)
+
+Fixed:
+
+-   charts registry hooks fixed
+
 ### 3.3.0 (2021-07-29)
 
 Added:
