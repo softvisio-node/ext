@@ -2937,7 +2937,7 @@ div.x-trigger.x-grouped {
     white-space: nowrap !important;
 }
 .x-chipview .x-chipview-body-el {
-    align-items: start;
+    align-items: flex-start;
     display: flex;
     flex-wrap: wrap;
 }
@@ -5670,7 +5670,7 @@ div.x-trigger.x-grouped {
 }
 .x-tool-type-pin:before {
     content: "\f08d";
-    font-family: Font awesome\5 Free;
+    font-family: Font Awesome\5 Free;
 }
 .x-tool-type-unpin:before {
     content: "\e611";
@@ -5734,7 +5734,7 @@ div.x-trigger.x-grouped {
 }
 .x-tool-type-resize:before {
     content: "\f337";
-    font-family: Font awesome\5 Free;
+    font-family: Font Awesome\5 Free;
 }
 .x-tool-type-move:before {
     content: "open_with";
@@ -10542,11 +10542,11 @@ div.x-trigger.x-grouped {
 }
 .x-pagingtoolbar .x-pagingtoolbar-prev:before {
     content: "\f104";
-    font-family: Font awesome\5 Free;
+    font-family: Font Awesome\5 Free;
 }
 .x-pagingtoolbar .x-pagingtoolbar-next:before {
     content: "\f105";
-    font-family: Font awesome\5 Free;
+    font-family: Font Awesome\5 Free;
 }
 .x-gridviewoptions {
     background-color: #fafafa;
