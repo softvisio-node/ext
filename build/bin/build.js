@@ -3,6 +3,7 @@
 import fs from "fs";
 import module from "module";
 import path from "path";
+import child_process from "child_process";
 
 // patch trial version
 {
@@ -23,6 +24,11 @@ import path from "path";
 }
 
 // build
-const root = path.dirname( module.createRequire( import.meta.url ).resolve( "#root/package.json" ) );
+const rootDir = path.dirname( module.createRequire( import.meta.url ).resolve( "#root/package.json" ) ),
+    dataDir = path.join( rootDir, "data" );
 
-console.log( root );
+if ( fs.existsSync( dataDir ) ) fs.rmSync( dataDir, { "recursive": true, "force": true } );
+
+fs.mkdirSync( dataDir, { "recursive": true } );
+
+child_process.spawnSync( "npx", ["sencha", "app", "build", "development"], { "cwd": dataDir, "stdio": "inherit", "shell": true } );
