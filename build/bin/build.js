@@ -45,14 +45,28 @@ fs.rmSync( dataDir + "/resources/ext", { "recursive": true, "force": true } );
 fs.rmSync( dataDir + "/resources/font-awesome", { "recursive": true, "force": true } );
 fs.rmSync( dataDir + "/resources/images/pictos", { "recursive": true, "force": true } );
 
-// fix url(images/tree/loading.gif)
+// fix: url(images/tree/loading.gif) -> url(resources/images/tree/loading.gif)
 {
     let content = fs.readFileSync( dataDir + "/ext_1.css", "utf8" );
     content = content.replaceAll( "url(images/tree/loading.gif)", "url(resources/images/tree/loading.gif)" );
     fs.writeFileSync( dataDir + "/ext_1.css", content );
 }
 
-// patch css-vars.js
+// fix: align-items: start; -> align-items: flex-start;
+{
+    let content = fs.readFileSync( dataDir + "/ext_1.css", "utf8" );
+    content = content.replaceAll( "align-items: start;", "align-items: flex-start;" );
+    fs.writeFileSync( dataDir + "/ext_1.css", content );
+}
+
+// fix: display: box; -> display: flex;
+{
+    let content = fs.readFileSync( dataDir + "/ext_2.css", "utf8" );
+    content = content.replaceAll( "display: box;", "display: flex;" );
+    fs.writeFileSync( dataDir + "/ext_2.css", content );
+}
+
+// patch: css-vars.js
 {
     let content = fs.readFileSync( dataDir + "/css-vars.js", "utf8" );
     content = content.replace( "(function (f) {", "(function (f) { window.Fashion = f(); return;" );
