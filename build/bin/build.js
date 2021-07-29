@@ -40,3 +40,29 @@ fs.rmSync( dataDir + "/resources/Readme.md", { "recursive": true, "force": true 
 fs.rmSync( dataDir + "/resources/ext", { "recursive": true, "force": true } );
 fs.rmSync( dataDir + "/resources/font-awesome", { "recursive": true, "force": true } );
 fs.rmSync( dataDir + "/resources/images/pictos", { "recursive": true, "force": true } );
+
+// fix url(images/tree/loading.gif)
+{
+    let content = fs.readFileSync( dataDir + "/ext_1.css", "utf8" );
+    content = content.replaceAll( "url(images/tree/loading.gif)", "url(resources/images/tree/loading.gif)" );
+    fs.writeFileSync( dataDir + "/ext_1.css", content );
+}
+
+// patch css-vars.js
+{
+    let content = fs.readFileSync( dataDir + "/css-vars.js", "utf8" );
+    content = content.replace( "(function (f) {", "(function (f) { window.Fashion = f(); return;" );
+    fs.writeFileSync( dataDir + "/css-vars.js", content );
+}
+
+// extract charts code
+{
+    const ext = fs.readFileSync( dataDir + "/ext.js", "utf8" );
+    const idx = ext.indexOf( `Ext.define('Ext.draw.ContainerBase'` );
+    fs.writeFileSync( dataDir + "/ext.js", ext.substring( 0, idx ) + "window.Ext = Ext;\n" );
+    fs.writeFileSync( dataDir + "/charts.js", ext.substr( idx ) );
+}
+
+// XXX remove font-awesome, remove css blocks, that belongs to the `ext-font-awesome`;
+
+// XXX compress / decompress .css files;
