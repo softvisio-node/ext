@@ -80,3 +80,9 @@ fs.rmSync( dataDir + "/resources/images/pictos", { "recursive": true, "force": t
     fs.writeFileSync( dataDir + "/ext.js", ext.substring( 0, idx ) + "window.Ext = Ext;\n" );
     fs.writeFileSync( dataDir + "/charts.js", ext.substr( idx ) );
 }
+
+// lint
+{
+    child_process.spawnSync( "softvisio-cli", ["lint", "**/*.css", "--action=compress"], { "cwd": dataDir, "stdio": "inherit", "shell": true } );
+    child_process.spawnSync( "softvisio-cli", ["lint", "**/*.css"], { "cwd": dataDir, "stdio": "inherit", "shell": true } );
+}
