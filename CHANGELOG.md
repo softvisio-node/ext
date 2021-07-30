@@ -1,5 +1,11 @@
 # Changelog
 
+### 3.3.3 (2021-07-30)
+
+Added:
+
+-   build lint commands added
+
 ### 3.3.2 (2021-07-30)
 
 Fixed:
