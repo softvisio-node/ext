@@ -1,5 +1,11 @@
 # Changelog
 
+### 3.3.2 (2021-07-30)
+
+Fixed:
+
+-   charts wrapper removed
+
 ### 3.3.1 (2021-07-29)
 
 Fixed:
