@@ -1,5 +1,11 @@
 # Changelog
 
+### 4.0.0-alpha.0 (2021-09-11)
+
+Breaking changes:
+
+-   feat!: webpack aliases renamed
+
 ### 3.3.3 (2021-07-30)
 
 Added:
