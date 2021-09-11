@@ -1,5 +1,11 @@
 # Changelog
 
+### 4.0.0 (2021-09-11)
+
+Breaking changes:
+
+-   refactor!: app
+
 ### 4.0.0-alpha.1 (2021-09-11)
 
 Breaking changes:
