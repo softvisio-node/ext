@@ -1,5 +1,11 @@
 # Changelog
 
+### 4.1.0 (2021-09-19)
+
+Features:
+
+-   feat: ext badge style
+
 ### 4.0.0 (2021-09-11)
 
 Breaking changes:
