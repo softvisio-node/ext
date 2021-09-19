@@ -1,5 +1,11 @@
 # Changelog
 
+### 4.1.1 (2021-09-19)
+
+Fixes:
+
+-   fix: ext badge padding
+
 ### 4.1.0 (2021-09-19)
 
 Features:
