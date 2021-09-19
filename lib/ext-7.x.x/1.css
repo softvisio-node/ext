@@ -1,17 +1,5 @@
 .x-button .x-badge-el {
-    background-color: #ff9800;
-    background-color: var(--accent-color);
-    background-image: none;
-    border-color: transparent;
     border-radius: 3px;
-    color: #222;
-    color: var(--accent-foreground-color);
-    font-family: Roboto, sans-serif;
-    font-size: 12px;
-    line-height: 16px;
-    max-width: 55%;
-    min-width: 24px;
     padding: 0px;
     right: 0px;
-    top: -10px;
 }
