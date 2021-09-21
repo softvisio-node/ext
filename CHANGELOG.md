@@ -1,5 +1,11 @@
 # Changelog
 
+### 4.1.2 (2021-09-21)
+
+Fixes:
+
+-   fix: boolean props
+
 ### 4.1.1 (2021-09-19)
 
 Fixes:
