@@ -19,9 +19,6 @@ export function filterProp ( propertyValue, property, me ) {
 }
 
 export function doProp ( me, prop ) {
-
-    // if ( !BOOL_PROPS.has( prop ) ) return doPropOrig( me, prop );
-
     Object.defineProperty( me, prop, { "configurable": true } );
 
     doPropOrig( me, prop );
