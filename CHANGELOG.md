@@ -1,5 +1,13 @@
 # Changelog
 
+### 5.0.0 (2021-09-24)
+
+No notable changes since the previous release.
+
+Migration:
+
+-   Result meta property.
+
 ### 5.0.0-alpha.0 (2021-09-24)
 
 Breaking changes:
