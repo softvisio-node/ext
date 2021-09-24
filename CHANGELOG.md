@@ -1,5 +1,15 @@
 # Changelog
 
+### 5.0.0-alpha.0 (2021-09-24)
+
+Breaking changes:
+
+-   feat!: meta property
+
+Migration:
+
+-   Result meta property added.
+
 ### 4.1.2 (2021-09-21)
 
 Fixes:
