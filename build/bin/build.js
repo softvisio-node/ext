@@ -3,7 +3,7 @@
 import fs from "fs";
 import module from "module";
 import path from "path";
-import childProcess from "childProcess";
+import childProcess from "child_process";
 
 // patch trial version
 {
