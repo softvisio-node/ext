@@ -3,7 +3,7 @@
 import fs from "fs";
 import module from "module";
 import path from "path";
-import child_process from "child_process";
+import childProcess from "childProcess";
 
 // patch trial version
 {
@@ -36,7 +36,7 @@ if ( fs.existsSync( dataDir ) ) fs.rmSync( dataDir, { "recursive": true, "force"
 
 fs.mkdirSync( dataDir, { "recursive": true } );
 
-child_process.spawnSync( "npx", ["sencha", "--cwd", srcDir, "app", "build", "development"], { "cwd": dataDir, "stdio": "inherit", "shell": true } );
+childProcess.spawnSync( "npx", ["sencha", "--cwd", srcDir, "app", "build", "development"], { "cwd": dataDir, "stdio": "inherit", "shell": true } );
 
 // cleanup
 fs.rmSync( dataDir + "/ext.scss", { "recursive": true, "force": true } );
@@ -83,6 +83,6 @@ fs.rmSync( dataDir + "/resources/images/pictos", { "recursive": true, "force": t
 
 // lint
 {
-    child_process.spawnSync( "softvisio-cli", ["lint", "**/*.css", "--action=compress"], { "cwd": dataDir, "stdio": "inherit", "shell": true } );
-    child_process.spawnSync( "softvisio-cli", ["lint", "**/*.css"], { "cwd": dataDir, "stdio": "inherit", "shell": true } );
+    childProcess.spawnSync( "softvisio-cli", ["lint", "**/*.css", "--action=compress"], { "cwd": dataDir, "stdio": "inherit", "shell": true } );
+    childProcess.spawnSync( "softvisio-cli", ["lint", "**/*.css"], { "cwd": dataDir, "stdio": "inherit", "shell": true } );
 }
