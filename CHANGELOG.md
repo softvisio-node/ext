@@ -1,5 +1,9 @@
 # Changelog
 
+### 5.0.1 (2021-10-04)
+
+No notable changes since the previous release.
+
 ### 5.0.0 (2021-09-24)
 
 No notable changes since the previous release.
