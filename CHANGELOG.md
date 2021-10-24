@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.1.1 (2021-10-24)
+
+Fixes:
+
+-   fix: dialog defaults
+
 ### 5.1.0 (2021-10-24)
 
 Features:
