@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.1.0 (2021-10-24)
+
+Features:
+
+-   feat: dialog on mask tap respect closable settings
+
 ### 5.0.1 (2021-10-04)
 
 No notable changes since the previous release.
