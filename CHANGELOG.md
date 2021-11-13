@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.3.0 (2021-11-13)
+
+Features:
+
+-   feat: store meta data
+
 ### 5.2.0 (2021-11-13)
 
 Features:
