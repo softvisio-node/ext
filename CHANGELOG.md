@@ -1,5 +1,16 @@
 # Changelog
 
+### 5.2.0 (2021-11-13)
+
+Features:
+
+-   feat: autopaging
+-   feat: virtual store tuned
+
+Fixes:
+
+-   fix: autopaging adaptive total count
+
 ### 5.1.1 (2021-10-24)
 
 Fixes:
