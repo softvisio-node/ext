@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.3.2 (2021-11-14)
+
+Fixes:
+
+-   fix: npmignore
+
 ### 5.3.1 (2021-11-14)
 
 Fixes:
