@@ -1,8 +1,7 @@
 {
     "name": "@softvisio/ext",
     "version": "5.3.1",
-    "private": true,
-    "description": "Softisio ExtJS pre-built package",
+    "description": "ExtJS patches",
     "keywords": [
         "softvisio",
         "extjs",
