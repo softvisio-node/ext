@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.3.1 (2021-11-14)
+
+Fixes:
+
+-   fix: store metadata before fire store load event
+
 ### 5.3.0 (2021-11-13)
 
 Features:
