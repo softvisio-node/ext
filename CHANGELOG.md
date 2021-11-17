@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.4.0 (2021-11-17)
+
+Features:
+
+-   feat: read next_page property
+
 ### 5.3.2 (2021-11-14)
 
 Fixes:
