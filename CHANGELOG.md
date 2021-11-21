@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.4.1 (2021-11-21)
+
+Fixes:
+
+-   fix: total property renamed to total_rows
+
 ### 5.4.0 (2021-11-17)
 
 Features:
