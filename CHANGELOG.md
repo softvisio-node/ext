@@ -1,5 +1,13 @@
 # Changelog
 
+### 5.5.0 (2021-12-09)
+
+Features:
+
+-   feat: ewc v7.5.0
+-   feat: ext v7.5.0
+-   feat: v7.4.0 removed
+
 ### 5.4.1 (2021-11-21)
 
 Fixes:
