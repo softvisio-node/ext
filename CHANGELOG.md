@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.5.1 (2021-12-24)
+
+Fixes:
+
+-   fix: froala patch removed
+
 ### 5.5.0 (2021-12-09)
 
 Features:
