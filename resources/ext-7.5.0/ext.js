@@ -96437,4 +96437,145 @@ if (Ext.platformTags.android && Ext.platformTags.chrome && Ext.manifest.material
 }
 Ext.namespace('Ext.theme.is').Material = true;
 Ext.theme.name = 'Material';
+Ext.define('Ext.froala.Mixin', {extend:Ext.Mixin, twoWayBindable:['value'], defaultBindProperty:'value', config:{activationKey:undefined, defaultEditor:{iconsTemplate:'font_awesome_5'}, value:'', editor:{}}, isFroalaEditor:true, isReady:false, applyEditor:function(config) {
+  var me = this, froalaEditor;
+  if (config === null) {
+    froalaEditor = me.getEditor();
+    froalaEditor.destroy();
+    me.getFroalaEditorDomElement().innerHTML = '';
+    return null;
+  }
+  return me.createFroalaEditor(config);
+}, createFroalaEditor:function(config) {
+  var me = this, defaultConfig = me.getDefaultEditor(), options, froalaEditor, key = Ext.manifest.froala, froalaEditorDomElement = me.getFroalaEditorDomElement(), bufferedChangedEvent = Ext.Function.createBuffered(me.onFroalaContentChanged, 50, me);
+  options = Ext.merge(config, defaultConfig);
+  key = me.getActivationKey() || key && key['activation-key'];
+  if (key) {
+    options.key = key;
+  }
+  froalaEditor = new FroalaEditor(froalaEditorDomElement, options, function() {
+    froalaEditor.component = me;
+    me.monitorConfiguredListeners();
+    froalaEditor.isReady = true;
+    me.fireEvent('ready', me, froalaEditor);
+    froalaEditor.events.on('contentChanged', bufferedChangedEvent);
+    froalaEditor.html.set(me.getValue());
+  });
+  froalaEditor.isReady = false;
+  return froalaEditor;
+}, onFroalaContentChanged:function() {
+  this.setValue(this.getEditor().html.get());
+}, updateValue:function(value) {
+  var me = this, editor = this.getEditor(), editorValue;
+  if (editor && editor.isReady) {
+    editorValue = editor.html.get();
+    me.fireEvent('change', me, value);
+    if (value !== editorValue) {
+      editor.html.set(value);
+    }
+  }
+}, updateDisabled:function(disabled) {
+  var editor = this.getEditor();
+  if (editor) {
+    editor.edit[disabled ? 'off' : 'on']();
+  }
+}, privates:{monitorConfiguredListeners:function(froalaEditor) {
+  var me = this, originalName, eventNames = Object.keys(me.hasListeners);
+  eventNames.forEach(function(event) {
+    if (me.isFroalaEvent(event)) {
+      originalName = me.froalaListenersConfigNames[event];
+      me.setupListener(originalName);
+    }
+  });
+}, froalaNamePrefixRe:/froala\./, isFroalaEvent:function(event) {
+  return !!event.match(this.froalaNamePrefixRe);
+}, translateFroalaEventName:function(event) {
+  return event.replace(this.froalaNamePrefixRe, '');
+}, setupListener:function(event) {
+  var me = this, froalaEditor = me.getEditor(), translatedFroalaEventName, froalaEventsBeingMonitored;
+  if (!me.isFroalaEvent(event)) {
+    return;
+  }
+  froalaEventsBeingMonitored = me.getFroalaEventsBeingMonitored();
+  if (!froalaEventsBeingMonitored[event]) {
+    translatedFroalaEventName = me.translateFroalaEventName(event);
+    froalaEditor.events.on(translatedFroalaEventName, createHandler(event, me));
+    froalaEventsBeingMonitored[event] = true;
+  }
+  function createHandler(name) {
+    return function() {
+      var args = Array.prototype.slice.call(arguments);
+      args.unshift(me);
+      me.fireEventArgs(name, args);
+    };
+  }
+}, handleAddListener:function(ename) {
+  var me = this, froalaEditor, isBeingRunFromListenersConfig;
+  if (!me.isFroalaEvent(ename)) {
+    return;
+  }
+  froalaEditor = me.getEditor();
+  isBeingRunFromListenersConfig = !(froalaEditor && froalaEditor.isReady);
+  if (isBeingRunFromListenersConfig) {
+    me.froalaListenersConfigNames[ename.toLowerCase()] = ename;
+  } else {
+    me.setupListener(ename);
+  }
+}, froalaListenersConfigNames:{}, handleRemoveListener:function(ename) {
+  var me = this, froalaEditor = me.getEditor();
+  if (!(froalaEditor && froalaEditor.isReady)) {
+    return;
+  }
+  if (me.isFroalaEvent(ename)) {
+    if (!me.hasListeners[ename]) {
+      delete me.getFroalaEventsBeingMonitored()[ename];
+    }
+  }
+}, getFroalaEventsBeingMonitored:function() {
+  return this.froalaEventsBeingMonitored = this.froalaEventsBeingMonitored || {};
+}}, getFroalaEditorDomElement:function() {
+  Ext.raise('getFroalaEditorDomElement must be overridden in the class using froala/Mixins');
+}});
+Ext.define('Ext.froala.Editor', {extend:Ext.Component, xtype:'froalaeditor', mixins:{froalaeditor:Ext.froala.Mixin}, element:{reference:'element', children:[{reference:'editorElement', classList:[Ext.baseCSSPrefix + 'froala']}]}, twoWayBindable:['value'], defaultBindProperty:'value', getFroalaEditorDomElement:function() {
+  return this.editorElement.dom;
+}, doDestroy:function() {
+  var me = this;
+  me.setEditor(null);
+  me.callParent();
+}, updateValue:function(value) {
+  this.mixins.froalaeditor.updateValue.call(this, value);
+}, updateDisabled:function(disabled) {
+  this.mixins.froalaeditor.updateDisabled.call(this, disabled);
+}, privates:{doAddListener:function(ename) {
+  var me = this, result;
+  result = me.callParent(arguments);
+  this.mixins.froalaeditor.handleAddListener.call(this, ename);
+  return result;
+}, doRemoveListener:function(ename) {
+  var me = this, result;
+  result = me.callParent(arguments);
+  this.mixins.froalaeditor.handleRemoveListener.call(this, ename);
+  return result;
+}}});
+Ext.define('Ext.froala.EditorField', {extend:Ext.field.Container, xtype:'froalaeditorfield', mixins:{froalaeditor:Ext.froala.Mixin}, isField:true, twoWayBindable:['value'], defaultBindProperty:'value', layout:'fit', items:[{xtype:'component', itemId:'froalaComponent', cls:Ext.baseCSSPrefix + 'froala'}], getFroalaEditorDomElement:function() {
+  return this.down('#froalaComponent').element.dom;
+}, doDestroy:function() {
+  var me = this;
+  me.setEditor(null);
+  me.callParent();
+}, updateValue:function(value) {
+  this.mixins.froalaeditor.updateValue.call(this, value);
+}, updateDisabled:function(disabled) {
+  this.mixins.froalaeditor.updateDisabled.call(this, disabled);
+}, privates:{doAddListener:function(ename) {
+  var me = this, result;
+  result = me.callParent(arguments);
+  this.mixins.froalaeditor.handleAddListener.call(this, ename);
+  return result;
+}, doRemoveListener:function(ename) {
+  var me = this, result;
+  result = me.callParent(arguments);
+  this.mixins.froalaeditor.handleRemoveListener.call(this, ename);
+  return result;
+}}});
 window.Ext = Ext;

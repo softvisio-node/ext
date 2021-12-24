@@ -2535,6 +2535,181 @@ html {
 .x-big .x-tabbar-body-el {
     padding: 0;
 }
+.x-froala {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+.x-froala .fr-wrapper {
+    flex: 1;
+}
+.x-froala i.fas.fa-markdown {
+    font-family: Font Awesome\5 Brands;
+    font-weight: 400;
+}
+.x-froala i.fas.fa-enable-tracking:before {
+    content: "\f573";
+}
+.x-froala i.fas.fa-show-changes:before {
+    content: "\f06e";
+}
+.x-froala i.fas.fa-apply-all:before {
+    content: "\f560";
+}
+.x-froala i.fas.fa-remove-all:before {
+    content: "\f0e2";
+}
+.x-froala i.fas.fa-apply-last:before {
+    content: "\f00c";
+}
+.x-froala i.fas.fa-remove-last:before {
+    content: "\f0e2";
+}
+.fr-popup .fr-dropdown-list a.fr-command i.fas {
+    line-height: 200%;
+    text-align: center;
+    width: 100%;
+}
+.x-froala.fr-box.fr-basic .fr-wrapper {
+    background-color: #fafafa;
+    background-color: var(--background-color);
+    border-color: #e0e0e0;
+    border-color: var(--reverse-border-color);
+    border-style: solid;
+}
+.x-froala.fr-box.fr-basic .fr-wrapper .fr-element {
+    color: #111;
+    color: var(--color);
+}
+.x-froala .second-toolbar {
+    background-color: #fafafa;
+    background-color: var(--background-color);
+    border-color: #e0e0e0;
+    border-color: var(--reverse-border-color);
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+    border-radius: 0;
+    border-style: solid;
+}
+.x-froala .fr-modal,
+.x-froala .fr-popup,
+.x-froala .fr-toolbar {
+    background-color: #f5f5f5;
+    background-color: var(--alt-background-color);
+    border-color: #e0e0e0;
+    border-color: var(--reverse-border-color);
+    border-style: solid;
+    color: #111;
+    color: var(--color);
+}
+.x-froala .fr-modal .fr-newline,
+.x-froala .fr-popup .fr-newline,
+.x-froala .fr-toolbar .fr-newline {
+    background: #e0e0e0;
+    background: var(--reverse-alt-border-color);
+    height: 2px;
+}
+.x-froala .fr-modal .fr-more-toolbar,
+.x-froala .fr-modal .fr-more-toolbar.fr-expanded,
+.x-froala .fr-popup .fr-more-toolbar,
+.x-froala .fr-popup .fr-more-toolbar.fr-expanded,
+.x-froala .fr-toolbar .fr-more-toolbar,
+.x-froala .fr-toolbar .fr-more-toolbar.fr-expanded {
+    background-color: #f5f5f5;
+    background-color: var(--alt-background-color);
+}
+.x-froala .fr-modal .fr-command.fr-btn,
+.x-froala .fr-popup .fr-command.fr-btn,
+.x-froala .fr-toolbar .fr-command.fr-btn {
+    color: #2196f3;
+    color: var(--base-color);
+    font-size: 13px;
+}
+.x-froala .fr-modal .fr-command.fr-btn.fr-btn-hover:not(.fr-table-cell),
+.x-froala .fr-modal .fr-command.fr-btn.fr-expanded:not(.fr-table-cell),
+.x-froala .fr-modal .fr-command.fr-btn:not(.fr-table-cell):focus,
+.x-froala .fr-popup .fr-command.fr-btn.fr-btn-hover:not(.fr-table-cell),
+.x-froala .fr-popup .fr-command.fr-btn.fr-expanded:not(.fr-table-cell),
+.x-froala .fr-popup .fr-command.fr-btn:not(.fr-table-cell):focus,
+.x-froala .fr-toolbar .fr-command.fr-btn.fr-btn-hover:not(.fr-table-cell),
+.x-froala .fr-toolbar .fr-command.fr-btn.fr-expanded:not(.fr-table-cell),
+.x-froala .fr-toolbar .fr-command.fr-btn:not(.fr-table-cell):focus {
+    background: #eee;
+    background: var(--hovered-background-color);
+}
+.x-froala .fr-modal .fr-command.fr-btn.fr-open:not(:hover):not(:focus):not(:active),
+.x-froala .fr-popup .fr-command.fr-btn.fr-open:not(:hover):not(:focus):not(:active),
+.x-froala .fr-toolbar .fr-command.fr-btn.fr-open:not(:hover):not(:focus):not(:active) {
+    background: #f5f5f5;
+    background: var(--alt-background-color);
+}
+.x-froala .fr-modal .fr-command.fr-btn.fr-dropdown:after,
+.x-froala .fr-popup .fr-command.fr-btn.fr-dropdown:after,
+.x-froala .fr-toolbar .fr-command.fr-btn.fr-dropdown:after {
+    border-top-color: #2196f3;
+    border-top-color: var(--base-color);
+}
+.x-froala .fr-modal .fr-command.fr-btn.fr-dropdown.fr-active,
+.x-froala .fr-modal .fr-command.fr-btn.fr-dropdown.fr-active:hover,
+.x-froala .fr-popup .fr-command.fr-btn.fr-dropdown.fr-active,
+.x-froala .fr-popup .fr-command.fr-btn.fr-dropdown.fr-active:hover,
+.x-froala .fr-toolbar .fr-command.fr-btn.fr-dropdown.fr-active,
+.x-froala .fr-toolbar .fr-command.fr-btn.fr-dropdown.fr-active:hover {
+    background: #eee;
+    background: var(--hovered-background-color);
+}
+.x-froala .fr-modal .fr-command.fr-btn.fr-dropdown.fr-active:after,
+.x-froala .fr-popup .fr-command.fr-btn.fr-dropdown.fr-active:after,
+.x-froala .fr-toolbar .fr-command.fr-btn.fr-dropdown.fr-active:after {
+    border-bottom-color: #2196f3;
+    border-bottom-color: var(--base-color);
+}
+.x-froala .fr-modal .fr-command.fr-btn + .fr-dropdown-menu,
+.x-froala .fr-popup .fr-command.fr-btn + .fr-dropdown-menu,
+.x-froala .fr-toolbar .fr-command.fr-btn + .fr-dropdown-menu {
+    background: #fafafa;
+    background: var(--background-color);
+}
+.x-froala .fr-modal .fr-command.fr-btn + .fr-dropdown-menu .fr-dropdown-wrapper .fr-dropdown-content ul.fr-dropdown-list li a.fr-active,
+.x-froala .fr-modal .fr-command.fr-btn + .fr-dropdown-menu .fr-dropdown-wrapper .fr-dropdown-content ul.fr-dropdown-list li a:hover,
+.x-froala .fr-popup .fr-command.fr-btn + .fr-dropdown-menu .fr-dropdown-wrapper .fr-dropdown-content ul.fr-dropdown-list li a.fr-active,
+.x-froala .fr-popup .fr-command.fr-btn + .fr-dropdown-menu .fr-dropdown-wrapper .fr-dropdown-content ul.fr-dropdown-list li a:hover,
+.x-froala .fr-toolbar .fr-command.fr-btn + .fr-dropdown-menu .fr-dropdown-wrapper .fr-dropdown-content ul.fr-dropdown-list li a.fr-active,
+.x-froala .fr-toolbar .fr-command.fr-btn + .fr-dropdown-menu .fr-dropdown-wrapper .fr-dropdown-content ul.fr-dropdown-list li a:hover {
+    background: #eee;
+    background: var(--hovered-background-color);
+}
+.x-froala .fr-modal .fr-command.fr-btn i,
+.x-froala .fr-popup .fr-command.fr-btn i,
+.x-froala .fr-toolbar .fr-command.fr-btn i {
+    color: #2196f3;
+    color: var(--base-color);
+    font-size: 13px;
+}
+.x-froala .fr-modal .fr-command.fr-btn:hover,
+.x-froala .fr-popup .fr-command.fr-btn:hover,
+.x-froala .fr-toolbar .fr-command.fr-btn:hover {
+    background: hsla(0, 0%, 7%, 0.075);
+}
+.x-froala .fr-modal.fr-top,
+.x-froala .fr-popup.fr-top,
+.x-froala .fr-toolbar.fr-top {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+    border-radius: 0;
+}
+.x-froala .fr-modal .fr-dropdown-content .fr-command i,
+.x-froala .fr-popup .fr-dropdown-content .fr-command i,
+.x-froala .fr-toolbar .fr-dropdown-content .fr-command i {
+    color: #2196f3;
+    color: var(--base-color);
+    font-size: 13px;
+}
 .x-surface,
 .x-surface-canvas {
     position: absolute;
