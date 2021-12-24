@@ -2,6 +2,7 @@
     "framework": "ext",
     "toolkit": "modern",
     "requires": [
+        "froala-editor",
         "charts"
     ],
     "overrides": [
@@ -11,7 +12,7 @@
     "packages": {
         "dir": [
             "../../node_modules/@sencha",
-            "../../modern/packages"
+            "../ext-addons/packages"
         ]
     },
     "output": {

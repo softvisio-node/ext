@@ -27,13 +27,15 @@
             "${workspace.dir}/../../node_modules/@sencha/ext-${toolkit.name}-theme-graphite",
             "${workspace.dir}/../../node_modules/@sencha/ext-react-renderercell",
             "${workspace.dir}/../../node_modules/@sencha/ext-web-components-renderercell",
-            "${workspace.dir}/../../node_modules/@sencha/ext-calendar",
             "${workspace.dir}/../../node_modules/@sencha/ext-charts",
-            "${workspace.dir}/../../node_modules/@sencha/ext-d3",
-            "${workspace.dir}/../../node_modules/@sencha/ext-exporter",
-            "${workspace.dir}/../../node_modules/@sencha/ext-pivot",
-            "${workspace.dir}/../../node_modules/@sencha/ext-pivot-d3",
-            "${workspace.dir}/../../node_modules/@sencha/ext-ux"
+            "${workspace.dir}/../../node_modules/@sencha/ext-ux",
+            "${workspace.dir}/../ext-addons/packages/calendar",
+            "${workspace.dir}/../ext-addons/packages/d3",
+            "${workspace.dir}/../ext-addons/packages/exporter",
+            "${workspace.dir}/../ext-addons/packages/froala-editor",
+            "${workspace.dir}/../ext-addons/packages/pivot",
+            "${workspace.dir}/../ext-addons/packages/pivot-d3",
+            "${workspace.dir}/../ext-addons/packages/pivot-locale"
         ],
         "extract": "${workspace.dir}/../../packages/remote"
     }
