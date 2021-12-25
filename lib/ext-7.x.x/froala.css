@@ -4,10 +4,17 @@
     height: 0px;
 }
 
-/* div.fr-wrapper > div:first-child:not([class]) { */
-/*     display: none; */
-/* } */
-
-/* div.fr-second-toolbar > #fr-logo { */
-/*     display: none; */
-/* } */
+/* XXX error in default class selector .x-froala .second-toolbar -> .x-froala .fr-second-toolbar  */
+/* XXX can be removed after fix */
+.x-froala .fr-second-toolbar {
+    background-color: #fafafa;
+    background-color: var(--background-color);
+    border-color: #e0e0e0;
+    border-color: var(--reverse-border-color);
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+    border-radius: 0;
+    border-style: solid;
+}
