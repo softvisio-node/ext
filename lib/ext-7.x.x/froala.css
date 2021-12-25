@@ -1,0 +1,13 @@
+.x-froala .fr-wrapper {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    height: 0px;
+}
+
+/* div.fr-wrapper > div:first-child:not([class]) { */
+/*     display: none; */
+/* } */
+
+/* div.fr-second-toolbar > #fr-logo { */
+/*     display: none; */
+/* } */
