@@ -1,5 +1,16 @@
 # Changelog
 
+### 5.6.0 (2021-12-25)
+
+Features:
+
+-   feat: ext-addons
+-   feat: froala overrides
+
+Fixes:
+
+-   fix: lintignore
+
 ### 5.5.1 (2021-12-24)
 
 Fixes:
