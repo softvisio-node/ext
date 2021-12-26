@@ -2582,7 +2582,7 @@ html {
     color: #111;
     color: var(--color);
 }
-.x-froala .second-toolbar {
+.x-froala .fr-second-toolbar {
     background-color: #fafafa;
     background-color: var(--background-color);
     border-color: #e0e0e0;
