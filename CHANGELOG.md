@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.6.2 (2021-12-26)
+
+Fixes:
+
+-   fix: froala css
+
 ### 5.6.1 (2021-12-26)
 
 Fixes:
