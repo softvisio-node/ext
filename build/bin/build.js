@@ -66,6 +66,13 @@ fs.rmSync( dataDir + "/resources/images/pictos", { "recursive": true, "force": t
     fs.writeFileSync( dataDir + "/ext_2.css", content );
 }
 
+// fix: .x-froala .second-toolbar -> .x-froala .fr-second-toolbar
+{
+    let content = fs.readFileSync( dataDir + "/ext_2.css", "utf8" );
+    content = content.replaceAll( ".x-froala .second-toolbar {", ".x-froala .fr-second-toolbar {" );
+    fs.writeFileSync( dataDir + "/ext_2.css", content );
+}
+
 // patch: css-vars.js
 {
     let content = fs.readFileSync( dataDir + "/css-vars.js", "utf8" );
