@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.6.1 (2021-12-26)
+
+Fixes:
+
+-   fix: froala adaptive index
+
 ### 5.6.0 (2021-12-25)
 
 Features:
