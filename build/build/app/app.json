@@ -6,8 +6,7 @@
         "charts"
     ],
     "overrides": [
-        "overrides",
-        "jsdom-environment.js"
+        "overrides"
     ],
     "packages": {
         "dir": [
@@ -15,7 +14,16 @@
             "../ext-addons/packages"
         ]
     },
+    "language": {
+        "js": {
+            "input": "ES8",
+            "output": "ES8"
+        }
+    },
     "output": {
+        "js": {
+            "version": "ES8"
+        },
         "base": ".",
         "resources": {
             "path": "./resources",
