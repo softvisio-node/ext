@@ -1,5 +1,15 @@
 # Changelog
 
+### 5.7.0 (2021-12-28)
+
+Features:
+
+-   feat: ext-charts
+
+Fixes:
+
+-   fix: build extjs without transpilation
+
 ### 5.6.2 (2021-12-26)
 
 Fixes:
