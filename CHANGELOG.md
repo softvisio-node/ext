@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.7.1 (2021-12-28)
+
+Fixes:
+
+-   fix: charts overrides
+
 ### 5.7.0 (2021-12-28)
 
 Features:
