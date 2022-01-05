@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.8.0 (2022-01-05)
+
+Features:
+
+-   feat: store autoload on filter
+
 ### 5.7.1 (2021-12-28)
 
 Fixes:
