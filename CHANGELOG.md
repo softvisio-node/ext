@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.8.1 (2022-01-07)
+
+Fixes:
+
+-   fix: froala editor focus in dialog
+
 ### 5.8.0 (2022-01-05)
 
 Features:
