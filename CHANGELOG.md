@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.8.2 (2022-02-21)
+
+Fixes:
+
+-   fix: metadata update
+
 ### 5.8.1 (2022-01-07)
 
 Fixes:
