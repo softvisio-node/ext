@@ -8,10 +8,10 @@
         "ewc",
         "ext web components"
     ],
-    "homepage": "https://github.com/softvisio/ext",
+    "homepage": "https://softvisio.github.io/ext/",
     "bugs": {
         "url": "https://github.com/softvisio/ext/issues",
-        "email": "zdm@softvisio.net"
+        "email": "zdm <zdm@softvisio.net>"
     },
     "repository": {
         "type": "git",
