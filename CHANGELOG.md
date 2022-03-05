@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.9.1 (2022-03-05)
+
+Fixes:
+
+-   fix: ext v7.5.0 removed
+
 ### 5.9.0 (2022-03-05)
 
 Features:
