@@ -1,5 +1,15 @@
 # Changelog
 
+### 5.9.0 (2022-03-05)
+
+Features:
+
+-   feat: ext v7.5.1
+
+Fixes:
+
+-   fix: autoLoadOnFilter removed
+
 ### 5.8.2 (2022-02-21)
 
 Fixes:
