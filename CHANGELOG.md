@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.9.2 (2022-03-25)
+
+Fixes:
+
+-   fix: autopage if no page size
+
 ### 5.9.1 (2022-03-05)
 
 Fixes:
