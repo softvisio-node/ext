@@ -36,7 +36,12 @@ if ( fs.existsSync( dataDir ) ) fs.rmSync( dataDir, { "recursive": true, "force"
 
 fs.mkdirSync( dataDir, { "recursive": true } );
 
-childProcess.spawnSync( "npx", ["sencha", "--cwd", srcDir, "app", "build", "development"], { "cwd": dataDir, "stdio": "inherit", "shell": true } );
+const res = childProcess.spawnSync( "npx", ["sencha", "--cwd", srcDir, "app", "build", "development"], {
+    "cwd": dataDir,
+    "shell": true,
+    "stdio": "inherit",
+} );
+if ( res.status ) process.exit( res.status );
 
 // cleanup
 fs.rmSync( dataDir + "/ext.scss", { "recursive": true, "force": true } );
@@ -90,6 +95,17 @@ fs.rmSync( dataDir + "/resources/images/pictos", { "recursive": true, "force": t
 
 // lint
 {
-    childProcess.spawnSync( "softvisio-cli", ["lint", "**/*.css", "--action=compress"], { "cwd": dataDir, "stdio": "inherit", "shell": true } );
-    childProcess.spawnSync( "softvisio-cli", ["lint", "**/*.css"], { "cwd": dataDir, "stdio": "inherit", "shell": true } );
+    let res = childProcess.spawnSync( "softvisio-cli", ["lint", "**/*.css", "--action=compress"], {
+        "cwd": dataDir,
+        "shell": true,
+        "stdio": "inherit",
+    } );
+    if ( res.status ) process.exit( res.status );
+
+    res = childProcess.spawnSync( "softvisio-cli", ["lint", "**/*.css"], {
+        "cwd": dataDir,
+        "shell": true,
+        "stdio": "inherit",
+    } );
+    if ( res.status ) process.exit( res.status );
 }
