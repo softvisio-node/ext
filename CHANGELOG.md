@@ -1,5 +1,12 @@
 # Changelog
 
+### 5.9.3 (2022-04-22)
+
+Fixes:
+
+-   fix: build script
+-   fix: quote shell params
+
 ### 5.9.2 (2022-03-25)
 
 Fixes:
