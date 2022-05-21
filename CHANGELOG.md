@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.9.4 (2022-05-21)
+
+Fixes:
+
+-   fix: data panel fix removed
+
 ### 5.9.3 (2022-04-22)
 
 Fixes:
