@@ -1,4 +1,0 @@
-.x-datepanel .x-dateview caption {
-    /* fix for date panel title in dark mode */
-    color: var(--base-foreground-color);
-}
