@@ -1,6 +1,6 @@
 {
     "name": "@softvisio/ext",
-    "version": "5.9.4",
+    "version": "5.10.0",
     "description": "ExtJS patches",
     "keywords": [
         "softvisio",
