@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-06-03 10:16+0300\n"
+"POT-Creation-Date: 2022-06-05 20:20+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -10,14 +10,242 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Poedit-Basepath: .\n"
+"X-Poedit-Basepath: ..\n"
 "X-Generator: Poedit 3.0.1\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: lib/ext-7.x.x/localization/grid/menu/SortAsc.js:5:16
+#: locale/Date.js:4:4
+msgid "Sunday"
+msgstr ""
+
+#: locale/Date.js:5:4
+msgid "Monday"
+msgstr ""
+
+#: locale/Date.js:6:4
+msgid "Tuesday"
+msgstr ""
+
+#: locale/Date.js:7:4
+msgid "Wednesday"
+msgstr ""
+
+#: locale/Date.js:8:4
+msgid "Thursday"
+msgstr ""
+
+#: locale/Date.js:9:4
+msgid "Friday"
+msgstr ""
+
+#: locale/Date.js:10:4
+msgid "Saturday"
+msgstr ""
+
+#. short day name for Sunday
+#: locale/Date.js:16:4
+msgid "Sun"
+msgstr ""
+
+#. short day name for Monday
+#: locale/Date.js:17:4
+msgid "Mon"
+msgstr ""
+
+#. short day name for  Tuesday
+#: locale/Date.js:18:4
+msgid "Tue"
+msgstr ""
+
+#. short day name for Wednesday
+#: locale/Date.js:19:4
+msgid "Wed"
+msgstr ""
+
+#. short day name for Thursday
+#: locale/Date.js:20:4
+msgid "Thu"
+msgstr ""
+
+#. short day name for  Friday
+#: locale/Date.js:21:4
+msgid "Fri"
+msgstr ""
+
+#. short day name for Saturday
+#: locale/Date.js:22:4
+msgid "Sat"
+msgstr ""
+
+#: locale/Date.js:28:4
+msgid "January"
+msgstr ""
+
+#: locale/Date.js:29:4
+msgid "February"
+msgstr ""
+
+#: locale/Date.js:30:4
+msgid "March"
+msgstr ""
+
+#: locale/Date.js:31:4
+msgid "April"
+msgstr ""
+
+#. short month name for May
+#: locale/Date.js:32:4 locale/Date.js:49:4
+msgid "May"
+msgstr ""
+
+#: locale/Date.js:33:4
+msgid "June"
+msgstr ""
+
+#: locale/Date.js:34:4
+msgid "July"
+msgstr ""
+
+#: locale/Date.js:35:4
+msgid "August"
+msgstr ""
+
+#: locale/Date.js:36:4
+msgid "September"
+msgstr ""
+
+#: locale/Date.js:37:4
+msgid "October"
+msgstr ""
+
+#: locale/Date.js:38:4
+msgid "November"
+msgstr ""
+
+#: locale/Date.js:39:4
+msgid "December"
+msgstr ""
+
+#. short month name for January
+#: locale/Date.js:45:4
+msgid "Jan"
+msgstr ""
+
+#. short month name for February
+#: locale/Date.js:46:4
+msgid "Feb"
+msgstr ""
+
+#. short month name for  March
+#: locale/Date.js:47:4
+msgid "Mar"
+msgstr ""
+
+#. short month name for April
+#: locale/Date.js:48:4
+msgid "Apr"
+msgstr ""
+
+#. short month name for  June
+#: locale/Date.js:50:4
+msgid "Jun"
+msgstr ""
+
+#. short month name for July
+#: locale/Date.js:51:4
+msgid "Jul"
+msgstr ""
+
+#. short month name for August
+#: locale/Date.js:52:4
+msgid "Aug"
+msgstr ""
+
+#. short month name for September
+#: locale/Date.js:53:4
+msgid "Sep"
+msgstr ""
+
+#. short month name for October
+#: locale/Date.js:54:4
+msgid "Oct"
+msgstr ""
+
+#. short month name for November
+#: locale/Date.js:55:4
+msgid "Nov"
+msgstr ""
+
+#. short month name for  December
+#: locale/Date.js:56:4
+msgid "Dec"
+msgstr ""
+
+#: locale/Panel.js:5:25
+msgid "Close panel"
+msgstr ""
+
+#: locale/grid/menu/AddGroup.js:5:16
+msgid "Add to grouping"
+msgstr ""
+
+#: locale/grid/menu/Columns.js:5:16 locale/grid/plugin/ViewOptions.js:41:25
+#: locale/grid/plugin/ViewOptions.js:65:32
+msgid "Columns"
+msgstr ""
+
+#: locale/grid/menu/GroupByThis.js:5:16
+msgid "Group by this field"
+msgstr ""
+
+#: locale/grid/menu/Groups.js:5:16
+msgid "Groups"
+msgstr ""
+
+#: locale/grid/menu/Groups.js:9:24
+msgid "Expand all"
+msgstr ""
+
+#: locale/grid/menu/Groups.js:12:24
+msgid "Collapse all"
+msgstr ""
+
+#: locale/grid/menu/RemoveGroup.js:4:16
+msgid "Remove from grouping"
+msgstr ""
+
+#: locale/grid/menu/ShowInGroups.js:5:16
+msgid "Show in groups"
+msgstr ""
+
+#: locale/grid/menu/SortAsc.js:5:16
 msgid "Sort Ascending"
 msgstr ""
 
-#: lib/ext-7.x.x/localization/grid/menu/SortDesc.js:5:16
+#: locale/grid/menu/SortDesc.js:5:16
 msgid "Sort Descending"
+msgstr ""
+
+#: locale/grid/plugin/ViewOptions.js:14:33
+msgid "Customize"
+msgstr ""
+
+#: locale/grid/plugin/ViewOptions.js:18:40 locale/picker/Picker.js:18:24
+msgid "Done"
+msgstr ""
+
+#: locale/picker/Date.js:5:21
+msgid "Month"
+msgstr ""
+
+#: locale/picker/Date.js:6:19
+msgid "Day"
+msgstr ""
+
+#: locale/picker/Date.js:7:20
+msgid "Year"
+msgstr ""
+
+#: locale/picker/Picker.js:39:24
+msgid "Cancel"
 msgstr ""
