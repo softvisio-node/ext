@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-06-05 07:09+0300\n"
+"POT-Creation-Date: 2022-06-05 07:19+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -13,6 +13,14 @@ msgstr ""
 "X-Poedit-Basepath: ../..\n"
 "X-Generator: Poedit 3.0.1\n"
 "X-Poedit-SearchPath-0: lib\n"
+
+#: lib/ext-7.x.x/localization/grid/menu/AddGroup.js:5:16
+msgid "Add to grouping"
+msgstr "Добавить в группировку"
+
+#: lib/ext-7.x.x/localization/grid/menu/Columns.js:5:16
+msgid "Columns"
+msgstr "Колонки"
 
 #: lib/ext-7.x.x/localization/grid/menu/GroupByThis.js:5:16
 msgid "Group by this field"
@@ -29,6 +37,10 @@ msgstr "Развернуть все"
 #: lib/ext-7.x.x/localization/grid/menu/Groups.js:12:24
 msgid "Collapse all"
 msgstr "Свернуть все"
+
+#: lib/ext-7.x.x/localization/grid/menu/RemoveGroup.js:4:16
+msgid "Remove from grouping"
+msgstr "Удалить из группировки"
 
 #: lib/ext-7.x.x/localization/grid/menu/ShowInGroups.js:5:16
 msgid "Show in groups"
