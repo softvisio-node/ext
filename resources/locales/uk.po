@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-06-05 09:31+0300\n"
+"POT-Creation-Date: 2022-06-05 15:27+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -24,6 +24,7 @@ msgid "Add to grouping"
 msgstr ""
 
 #: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/Columns.js:17:10
+#: build/patch/node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:230:23
 #: build/patch/node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:263:30
 msgid "Columns"
 msgstr ""
