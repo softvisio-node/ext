@@ -1,0 +1,135 @@
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js	2022-04-27 19:26:01.564182500 +0300
++++ node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js	2022-06-05 08:02:55.370004100 +0300
+@@ -13,5 +13,5 @@
+      * The menu item text for the "Add to grouping" menu item.
+      * @locale
+      */
+-    text: 'Add to grouping'
++    text: window.i18n('Add to grouping')
+ });
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/Columns.js node_modules/@sencha/ext-modern/src/grid/menu/Columns.js
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/Columns.js	2022-04-27 19:26:02.116705500 +0300
++++ node_modules/@sencha/ext-modern/src/grid/menu/Columns.js	2022-06-05 08:03:11.419069700 +0300
+@@ -14,7 +14,7 @@
+      * The menu item text for the column visibility sub-menu.
+      * @locale
+      */
+-    text: 'Columns',
++    text: window.i18n('Columns'),
+ 
+     menu: {},
+ 
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js	2022-04-27 19:26:02.564018100 +0300
++++ node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js	2022-06-05 08:03:36.095864400 +0300
+@@ -14,5 +14,5 @@
+      * The menu item text for the "Group by this field" menu item.
+      * @locale
+      */
+-    text: 'Group by this field'
++    text: window.i18n('Group by this field')
+ });
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/Groups.js node_modules/@sencha/ext-modern/src/grid/menu/Groups.js
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/Groups.js	2022-04-27 19:26:02.571996800 +0300
++++ node_modules/@sencha/ext-modern/src/grid/menu/Groups.js	2022-06-05 08:04:03.662373800 +0300
+@@ -13,15 +13,15 @@
+      * The menu item text for the "Groups" menu item.
+      * @locale
+      */
+-    text: 'Groups',
++    text: window.i18n('Groups'),
+ 
+     menu: [{
+         iconCls: Ext.baseCSSPrefix + 'headermenu-expand-groups',
+-        text: 'Expand all',
++        text: window.i18n('Expand all'),
+         handler: 'up.expandAll'
+     }, {
+         iconCls: Ext.baseCSSPrefix + 'headermenu-collapse-groups',
+-        text: 'Collapse all',
++        text: window.i18n('Collapse all'),
+         handler: 'up.collapseAll'
+     }]
+ });
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js	2022-04-27 19:26:02.953487800 +0300
++++ node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js	2022-06-05 08:04:15.413451200 +0300
+@@ -13,5 +13,5 @@
+      * The menu item text for the "Remove from grouping" menu item.
+      * @locale
+      */
+-    text: 'Remove from grouping'
++    text: window.i18n('Remove from grouping')
+ });
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js	2022-04-27 19:26:03.088130400 +0300
++++ node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js	2022-06-05 08:04:33.168439900 +0300
+@@ -14,5 +14,5 @@
+      * Text displayed in the grid header for enabling/disabling grouping.
+      * @locale
+      */
+-    text: 'Show in groups'
++    text: window.i18n('Show in groups')
+ });
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js	2022-04-27 19:26:03.122037200 +0300
++++ node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js	2022-06-05 08:04:50.756283300 +0300
+@@ -14,7 +14,7 @@
+      * The menu item text for the Sort Ascending menu item.
+      * @locale
+      */
+-    text: 'Sort Ascending',
++    text: window.i18n('Sort Ascending'),
+ 
+     value: 'ASC',
+ 
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js	2022-04-27 19:26:03.125030800 +0300
++++ node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js	2022-06-05 08:05:03.159455600 +0300
+@@ -14,7 +14,7 @@
+      * The menu item text for the Sort Ascending menu item.
+      * @locale
+      */
+-    text: 'Sort Descending',
++    text: window.i18n('Sort Descending'),
+ 
+     value: 'DESC',
+ 
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js
+--- ../node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2022-04-27 19:26:03.383338200 +0300
++++ node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2022-06-05 08:02:35.990164500 +0300
+@@ -200,10 +200,10 @@
+                 items: [{
+                     docked: 'top',
+                     xtype: 'titlebar',
+-                    title: 'Customize',
++                    title: window.i18n('Customize'),
+                     items: [{
+                         xtype: 'button',
+-                        text: 'Done',
++                        text: window.i18n('Done'),
+                         ui: 'action',
+                         align: 'right',
+                         role: 'donebutton'
+@@ -260,7 +260,7 @@
+                         'groupable'
+                     ],
+                     root: {
+-                        text: 'Columns'
++                        text: window.i18n('Columns')
+                     }
+                 }
+             }
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/Panel.js node_modules/@sencha/ext-modern/src/Panel.js
+--- ../node_modules/@sencha/ext-modern/src/Panel.js	2022-04-27 19:26:02.855749600 +0300
++++ node_modules/@sencha/ext-modern/src/Panel.js	2022-06-05 08:00:16.881160900 +0300
+@@ -748,7 +748,7 @@
+          * **Note:** Applicable when the panel is {@link #closable}: true
+          * @locale
+          */
+-        closeToolText: 'Close panel'
++        closeToolText: window.i18n( "Close panel" )
+     },
+ 
+     /**
