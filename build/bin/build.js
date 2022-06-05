@@ -5,56 +5,37 @@ import module from "module";
 import path from "path";
 import childProcess from "child_process";
 
+// patch trial version
+{
+    const path = module.createRequire( import.meta.url ).resolve( "@sencha/ext-modern-theme-base/sass/etc/all.scss" );
+
+    const content = fs.readFileSync( path, "utf8" );
+
+    // not patched
+    if ( content.includes( "$ext-trial: true!default;" ) ) {
+        console.log( "Trial variable patched" );
+
+        const patched = content.replace( "$ext-trial: true!default;", "$ext-trial: false!default;" );
+
+        fs.writeFileSync( path, patched );
+    }
+}
+
+// remove font-awesome
+{
+    const path = module.createRequire( import.meta.url ).resolve( "@sencha/ext-font-awesome/sass/src/all.scss" );
+    fs.writeFileSync( path, "" );
+}
+
 // build
 const rootDir = path.dirname( module.createRequire( import.meta.url ).resolve( "#root/package.json" ) ),
     dataDir = path.join( rootDir, "data" ),
     srcDir = path.join( rootDir, "build/app" );
 
 if ( fs.existsSync( dataDir ) ) fs.rmSync( dataDir, { "recursive": true, "force": true } );
+
 fs.mkdirSync( dataDir, { "recursive": true } );
 
-// apply patch
-{
-    let res = childProcess.spawnSync( "patch", ["--dry-run", "--forward", "-p1", "-i", "patch/patch"], {
-        "cwd": rootDir,
-        "shell": true,
-        "stdio": "inherit",
-    } );
-
-    if ( res.status ) process.exit();
-
-    res = childProcess.spawnSync( "patch", ["--quiet", "--forward", "-p1", "-i", "patch/patch"], {
-        "cwd": rootDir,
-        "shell": true,
-        "stdio": "inherit",
-    } );
-
-    if ( res.status ) process.exit();
-}
-
-// patch trial version
-// {
-//     const path = module.createRequire( import.meta.url ).resolve( "@sencha/ext-modern-theme-base/sass/etc/all.scss" );
-
-//     const content = fs.readFileSync( path, "utf8" );
-
-//     // not patched
-//     if ( content.includes( "$ext-trial: true!default;" ) ) {
-//         console.log( "Trial variable patched" );
-
-//         const patched = content.replace( "$ext-trial: true!default;", "$ext-trial: false!default;" );
-
-//         fs.writeFileSync( path, patched );
-//     }
-// }
-
-// remove font-awesome
-// {
-//     const path = module.createRequire( import.meta.url ).resolve( "@sencha/ext-font-awesome/sass/src/all.scss" );
-//     fs.writeFileSync( path, "" );
-// }
-
-// build
 const res = childProcess.spawnSync( "npx", ["sencha", "--cwd", `"${srcDir}"`, "app", "build", "development"], {
     "cwd": dataDir,
     "shell": true,

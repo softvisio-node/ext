@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-06-05 15:27+0300\n"
+"POT-Creation-Date: 2022-06-03 10:16+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -13,58 +13,11 @@ msgstr ""
 "X-Poedit-Basepath: ../..\n"
 "X-Generator: Poedit 3.0.1\n"
 "X-Poedit-SearchPath-0: lib\n"
-"X-Poedit-SearchPath-1: build/patch\n"
 
-#: build/patch/node_modules/@sencha/ext-modern/src/Panel.js:751:23
-msgid "Close panel"
-msgstr ""
-
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js:16:10
-msgid "Add to grouping"
-msgstr ""
-
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/Columns.js:17:10
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:230:23
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:263:30
-msgid "Columns"
-msgstr ""
-
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js:17:10
-msgid "Group by this field"
-msgstr ""
-
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/Groups.js:16:10
-msgid "Groups"
-msgstr ""
-
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/Groups.js:20:14
-msgid "Expand all"
-msgstr ""
-
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/Groups.js:24:14
-msgid "Collapse all"
-msgstr ""
-
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js:16:10
-msgid "Remove from grouping"
-msgstr ""
-
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js:17:10
-msgid "Show in groups"
-msgstr ""
-
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js:17:10
+#: lib/ext-7.x.x/localization/grid/menu/SortAsc.js:5:16
 msgid "Sort Ascending"
 msgstr ""
 
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js:17:10
+#: lib/ext-7.x.x/localization/grid/menu/SortDesc.js:5:16
 msgid "Sort Descending"
-msgstr ""
-
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:203:27
-msgid "Customize"
-msgstr ""
-
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:206:30
-msgid "Done"
 msgstr ""

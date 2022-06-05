@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-06-05 15:27+0300\n"
+"POT-Creation-Date: 2022-06-05 07:26+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -13,58 +13,47 @@ msgstr ""
 "X-Poedit-Basepath: ../..\n"
 "X-Generator: Poedit 3.0.1\n"
 "X-Poedit-SearchPath-0: lib\n"
-"X-Poedit-SearchPath-1: build/patch\n"
 
-#: build/patch/node_modules/@sencha/ext-modern/src/Panel.js:751:23
+#: lib/ext-7.x.x/localization/Panel.js:5:25
 msgid "Close panel"
 msgstr "Закрыть панель"
 
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js:16:10
+#: lib/ext-7.x.x/localization/grid/menu/AddGroup.js:5:16
 msgid "Add to grouping"
 msgstr "Добавить в группировку"
 
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/Columns.js:17:10
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:230:23
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:263:30
+#: lib/ext-7.x.x/localization/grid/menu/Columns.js:5:16
 msgid "Columns"
 msgstr "Колонки"
 
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js:17:10
+#: lib/ext-7.x.x/localization/grid/menu/GroupByThis.js:5:16
 msgid "Group by this field"
 msgstr "Группировать по этому полю"
 
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/Groups.js:16:10
+#: lib/ext-7.x.x/localization/grid/menu/Groups.js:5:16
 msgid "Groups"
 msgstr "Группы"
 
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/Groups.js:20:14
+#: lib/ext-7.x.x/localization/grid/menu/Groups.js:9:24
 msgid "Expand all"
 msgstr "Развернуть все"
 
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/Groups.js:24:14
+#: lib/ext-7.x.x/localization/grid/menu/Groups.js:12:24
 msgid "Collapse all"
 msgstr "Свернуть все"
 
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js:16:10
+#: lib/ext-7.x.x/localization/grid/menu/RemoveGroup.js:4:16
 msgid "Remove from grouping"
 msgstr "Удалить из группировки"
 
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js:17:10
+#: lib/ext-7.x.x/localization/grid/menu/ShowInGroups.js:5:16
 msgid "Show in groups"
 msgstr "Показать в группах"
 
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js:17:10
+#: lib/ext-7.x.x/localization/grid/menu/SortAsc.js:5:16
 msgid "Sort Ascending"
 msgstr "Сортировать по возрастанию"
 
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js:17:10
+#: lib/ext-7.x.x/localization/grid/menu/SortDesc.js:5:16
 msgid "Sort Descending"
 msgstr "Сортировать по убыванию"
-
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:203:27
-msgid "Customize"
-msgstr "Настроить"
-
-#: build/patch/node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:206:30
-msgid "Done"
-msgstr "Готово"
