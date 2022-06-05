@@ -1,5 +1,46 @@
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-font-awesome/sass/src/all.scss node_modules/@sencha/ext-font-awesome/sass/src/all.scss
+--- ../node_modules/@sencha/ext-font-awesome/sass/src/all.scss	2022-06-05 09:51:38.083142900 +0300
++++ node_modules/@sencha/ext-font-awesome/sass/src/all.scss	2022-06-05 09:55:32.335078000 +0300
+@@ -1,36 +1 @@
+-// All rule-generating imports go here vs in etc/all.scss so that they will
+-// cascade after the framework rules.  This ensures that where the framework provides
+-// a default icon, but also provides an iconCls to override it (for example tree icons)
+-// the fa rules will override the framework ones (assuming specificity of fa rules is
+-// the same or greater than the framework rules)
+-@import "../etc/_animated.scss";
+-@import "../etc/_bordered-pulled.scss";
+-@import "../etc/_core.scss";
+-@import "../etc/_fixed-width.scss";
+-@import "../etc/_icons.scss";
+-@import "../etc/_larger.scss";
+-@import "../etc/_list.scss";
+-@import "../etc/_rotated-flipped.scss";
+-@import "../etc/_screen-reader.scss";
+-@import "../etc/_stacked.scss";
+-@import "../etc/fa-brands.scss";
+-@import "../etc/fa-regular.scss";
+-@import "../etc/fa-solid.scss";  
+-
+-// The "x-fa" class should be used in Ext JS applications instead
+-// of "fa".  The "fa" class sets some properties that may collide
+-// with theme properties, whereas "x-fa" sets only the font-family.
+-.#{$prefix}fa,
+-.#{$prefix}fas {
+-    &:before {
+-        font-family: 'Font Awesome 5 Free' !important;
+-    }
+-}
+-.#{$prefix}far:before {
+-    font-family: 'Font Awesome 5 Free Regular' !important;
+-}
+-.#{$prefix}fab:before {
+-    font-family: 'Font Awesome 5 Brands' !important;
+-}
+-
+-// NOTE: _variables.scss is imported much earlier by ext/sass/etc/font-awesome-variables.scss
++// removed
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js	2022-04-27 19:26:01.564182500 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js	2022-06-05 09:51:38.268653500 +0300
 +++ node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js	2022-06-05 08:02:55.370004100 +0300
 @@ -13,5 +13,5 @@
       * The menu item text for the "Add to grouping" menu item.
@@ -9,7 +50,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
 +    text: window.i18n('Add to grouping')
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/Columns.js node_modules/@sencha/ext-modern/src/grid/menu/Columns.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/Columns.js	2022-04-27 19:26:02.116705500 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/Columns.js	2022-06-05 09:51:38.537926700 +0300
 +++ node_modules/@sencha/ext-modern/src/grid/menu/Columns.js	2022-06-05 08:03:11.419069700 +0300
 @@ -14,7 +14,7 @@
       * The menu item text for the column visibility sub-menu.
@@ -21,7 +62,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
      menu: {},
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js	2022-04-27 19:26:02.564018100 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js	2022-06-05 09:51:38.844107500 +0300
 +++ node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js	2022-06-05 08:03:36.095864400 +0300
 @@ -14,5 +14,5 @@
       * The menu item text for the "Group by this field" menu item.
@@ -31,7 +72,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
 +    text: window.i18n('Group by this field')
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/Groups.js node_modules/@sencha/ext-modern/src/grid/menu/Groups.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/Groups.js	2022-04-27 19:26:02.571996800 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/Groups.js	2022-06-05 09:51:38.848098400 +0300
 +++ node_modules/@sencha/ext-modern/src/grid/menu/Groups.js	2022-06-05 08:04:03.662373800 +0300
 @@ -13,15 +13,15 @@
       * The menu item text for the "Groups" menu item.
@@ -53,7 +94,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
      }]
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js	2022-04-27 19:26:02.953487800 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js	2022-06-05 09:51:39.066513900 +0300
 +++ node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js	2022-06-05 08:04:15.413451200 +0300
 @@ -13,5 +13,5 @@
       * The menu item text for the "Remove from grouping" menu item.
@@ -63,7 +104,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
 +    text: window.i18n('Remove from grouping')
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js	2022-04-27 19:26:03.088130400 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js	2022-06-05 09:51:39.133333900 +0300
 +++ node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js	2022-06-05 08:04:33.168439900 +0300
 @@ -14,5 +14,5 @@
       * Text displayed in the grid header for enabling/disabling grouping.
@@ -73,7 +114,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
 +    text: window.i18n('Show in groups')
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js	2022-04-27 19:26:03.122037200 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js	2022-06-05 09:51:39.149293100 +0300
 +++ node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js	2022-06-05 08:04:50.756283300 +0300
 @@ -14,7 +14,7 @@
       * The menu item text for the Sort Ascending menu item.
@@ -85,7 +126,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
      value: 'ASC',
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js	2022-04-27 19:26:03.125030800 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js	2022-06-05 09:51:39.150290800 +0300
 +++ node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js	2022-06-05 08:05:03.159455600 +0300
 @@ -14,7 +14,7 @@
       * The menu item text for the Sort Ascending menu item.
@@ -97,7 +138,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
      value: 'DESC',
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js
---- ../node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2022-04-27 19:26:03.383338200 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2022-06-05 09:51:39.215115200 +0300
 +++ node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2022-06-05 08:02:35.990164500 +0300
 @@ -200,10 +200,10 @@
                  items: [{
@@ -122,7 +163,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
                  }
              }
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/Panel.js node_modules/@sencha/ext-modern/src/Panel.js
---- ../node_modules/@sencha/ext-modern/src/Panel.js	2022-04-27 19:26:02.855749600 +0300
+--- ../node_modules/@sencha/ext-modern/src/Panel.js	2022-06-05 09:51:39.017643500 +0300
 +++ node_modules/@sencha/ext-modern/src/Panel.js	2022-06-05 08:00:16.881160900 +0300
 @@ -748,7 +748,7 @@
           * **Note:** Applicable when the panel is {@link #closable}: true
@@ -133,3 +174,13 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
      },
  
      /**
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss
+--- ../node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss	2022-06-05 09:51:37.486738000 +0300
++++ node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss	2022-06-05 09:52:54.962650000 +0300
+@@ -1,5 +1,5 @@
+ $ext-version: '7.5.1.5'!default;  // Updated automatically by the build script.
+-$ext-trial: true!default; // Updated automatically by the build script.
++$ext-trial: false !default; // Updated automatically by the build script.
+ $ext-beta: false !default; // Updated automatically by the build script.
+ @import 'compass/css3';
+ 
