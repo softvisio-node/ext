@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-06-05 16:47+0300\n"
+"POT-Creation-Date: 2022-06-05 17:27+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -23,8 +23,8 @@ msgid "Add to grouping"
 msgstr "Добавить в группировку"
 
 #: lib/ext-7.x.x/localization/grid/menu/Columns.js:5:16
-#: lib/ext-7.x.x/localization/grid/plugin/ViewOptions.js:42:21
-#: lib/ext-7.x.x/localization/grid/plugin/ViewOptions.js:66:28
+#: lib/ext-7.x.x/localization/grid/plugin/ViewOptions.js:41:25
+#: lib/ext-7.x.x/localization/grid/plugin/ViewOptions.js:65:32
 msgid "Columns"
 msgstr "Колонки"
 
@@ -65,5 +65,22 @@ msgid "Customize"
 msgstr "Настроить"
 
 #: lib/ext-7.x.x/localization/grid/plugin/ViewOptions.js:18:40
+#: lib/ext-7.x.x/localization/picker/Picker.js:18:24
 msgid "Done"
 msgstr "Готово"
+
+#: lib/ext-7.x.x/localization/picker/Date.js:5:21
+msgid "Month"
+msgstr "Месяц"
+
+#: lib/ext-7.x.x/localization/picker/Date.js:6:19
+msgid "Day"
+msgstr "День"
+
+#: lib/ext-7.x.x/localization/picker/Date.js:7:20
+msgid "Year"
+msgstr "Год"
+
+#: lib/ext-7.x.x/localization/picker/Picker.js:39:24
+msgid "Cancel"
+msgstr "Отменить"
