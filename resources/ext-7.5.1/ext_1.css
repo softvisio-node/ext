@@ -4085,10 +4085,9 @@ div.x-trigger.x-grouped {
     background-color: #fafafa;
     background-color: var(--background-color);
     border-color: #e2e2e2;
-    border-bottom: 1px solid var(--divider-color);
-    border-left: 0 solid var(--divider-color);
-    border-right: 1px solid var(--divider-color);
-    border-top: 0 solid var(--divider-color);
+    border-color: var(--divider-color);
+    border-style: solid;
+    border-width: 0 1px 1px 0;
     color: #111;
     color: var(--color);
     cursor: pointer;
@@ -4297,9 +4296,10 @@ div.x-trigger.x-grouped {
     font-size: 12px;
 }
 .x-grid-filterbar .x-grid-filter-base {
-    border: 0 solid #e2e2e2;
+    border-color: #e2e2e2;
     border-color: var(--divider-color);
-    border-right: 1px solid var(--divider-color);
+    border-style: solid;
+    border-width: 0 1px 0 0;
 }
 .x-big .x-grid-filterbar .x-trigger {
     width: 24px;
@@ -6471,9 +6471,9 @@ div.x-trigger.x-grouped {
     margin-left: 64px;
 }
 .x-menu-body-el.x-has-separator:before {
-    border: 0 solid #e2e2e2;
+    border: solid #e2e2e2;
     border-color: var(--divider-color);
-    border-left: 1px solid var(--divider-color);
+    border-width: 0 0 0 1px;
     margin-left: 48px;
     width: 1px;
 }
@@ -8545,10 +8545,9 @@ div.x-trigger.x-grouped {
     background-color: #fafafa;
     background-color: var(--background-color);
     border-color: #e2e2e2;
-    border-bottom: 1px solid var(--divider-color);
-    border-left: 0 solid var(--divider-color);
-    border-right: 0 solid var(--divider-color);
-    border-top: 1px solid var(--divider-color);
+    border-color: var(--divider-color);
+    border-style: solid;
+    border-width: 1px 0;
     color: #111;
     color: var(--color);
     font: 400 13px/16px Roboto, sans-serif;
@@ -9115,14 +9114,11 @@ div.x-trigger.x-grouped {
 }
 .x-pullrefreshspinner .x-pullrefreshspinner-arrow-main {
     border-color: #2196f3 #2196f3 transparent;
-    border-bottom-color: transparent;
-    border-left-color: var(--base-color);
-    border-right-color: var(--base-color);
-    border-top-color: var(--base-color);
+    border-color: var(--base-color) var(--base-color) transparent;
 }
 .x-pullrefreshspinner .x-pullrefreshspinner-arrow-main:before {
     border-color: #2196f3 transparent transparent;
-    border-top-color: var(--base-color);
+    border-color: var(--base-color) transparent transparent transparent;
 }
 .x-pullrefreshspinner .x-pullrefreshspinner-spinner-main .x-pullrefreshspinner-spinner-left .x-pullrefreshspinner-half-circle,
 .x-pullrefreshspinner .x-pullrefreshspinner-spinner-main .x-pullrefreshspinner-spinner-right .x-pullrefreshspinner-half-circle {
@@ -9998,9 +9994,9 @@ div.x-trigger.x-grouped {
 .x-headercontainer {
     background-color: #fafafa;
     background-color: var(--background-color);
-    border: 0 solid #e2e2e2;
+    border: solid #e2e2e2;
     border-color: var(--divider-color);
-    border-bottom: 1px solid var(--divider-color);
+    border-width: 0 0 1px;
 }
 .x-menucheckitem .x-body-el {
     color: #111;
@@ -10096,10 +10092,9 @@ div.x-trigger.x-grouped {
     background-color: #fafafa;
     background-color: var(--background-color);
     border-color: #e2e2e2;
-    border-bottom: 1px solid var(--divider-color);
-    border-left: 0 solid var(--divider-color);
-    border-right: 1px solid var(--divider-color);
-    border-top: 0 solid var(--divider-color);
+    border-color: var(--divider-color);
+    border-style: solid;
+    border-width: 0 1px 1px 0;
     color: #111;
     color: var(--color);
     font: 400 13px/16px Roboto, sans-serif;
@@ -10114,9 +10109,9 @@ div.x-trigger.x-grouped {
     background-color: var(--background-color);
 }
 .x-gridcolumn > .x-header-el .x-trigger-el {
-    border: 0 solid #e2e2e2;
+    border: solid #e2e2e2;
     border-color: var(--divider-color);
-    border-left: 1px solid var(--divider-color);
+    border-width: 0 0 0 1px;
     color: grey;
     width: 20px;
 }
@@ -10396,9 +10391,9 @@ div.x-trigger.x-grouped {
     content: "check_circle";
 }
 .x-drop-indicator-before:before {
-    border: 0 solid #7cb342;
+    border: solid #7cb342;
     border-color: var(--confirm-color);
-    border-top: 1px solid var(--confirm-color);
+    border-width: 1px 0 0;
 }
 .x-drop-indicator-after:after,
 .x-drop-indicator-before:before {
@@ -10408,20 +10403,20 @@ div.x-trigger.x-grouped {
     width: 100%;
 }
 .x-drop-indicator-after:after {
-    border: 0 solid #7cb342;
+    border: solid #7cb342;
     border-color: var(--confirm-color);
-    border-bottom: 1px solid var(--confirm-color);
+    border-width: 0 0 1px;
     bottom: 0;
 }
 .x-big .x-drop-indicator-before:before {
-    border: 0 solid #7cb342;
+    border: solid #7cb342;
     border-color: var(--confirm-color);
-    border-top: 5px solid var(--confirm-color);
+    border-width: 5px 0 0;
 }
 .x-big .x-drop-indicator-after:after {
-    border: 0 solid #7cb342;
+    border: solid #7cb342;
     border-color: var(--confirm-color);
-    border-bottom: 5px solid var(--confirm-color);
+    border-width: 0 0 5px;
 }
 .x-listitem.x-drag-indicator,
 .x-show-selection > .x-listitem.x-drag-indicator {
@@ -10528,19 +10523,21 @@ div.x-trigger.x-grouped {
     content: "save";
 }
 .x-lockedgrid .x-lockedgridregion.x-lock-start {
-    border: 0 solid #2196f3;
+    border-color: #2196f3;
     border-color: var(--base-color);
-    border-right: 2px solid var(--base-color);
+    border-style: solid;
+    border-width: 0 2px 0 0;
 }
 .x-lockedgrid .x-lockedgridregion.x-lock-end {
-    border: 0 solid #2196f3;
+    border-color: #2196f3;
     border-color: var(--base-color);
-    border-left: 2px solid var(--base-color);
+    border-style: solid;
+    border-width: 0 0 0 2px;
 }
 .x-menuseparator {
-    border: 0 solid #e2e2e2;
+    border: solid #e2e2e2;
     border-color: var(--divider-color);
-    border-top: 1px solid var(--divider-color);
+    border-width: 1px 0 0;
     height: 1px;
     margin: 8px 0;
 }
@@ -10890,10 +10887,9 @@ div.x-trigger.x-grouped {
     background-color: #f5f5f5;
     background-color: var(--header-background-color);
     border-color: #e2e2e2;
-    border-bottom: 1px solid var(--divider-color);
-    border-left: 0 solid var(--divider-color);
-    border-right: 0 solid var(--divider-color);
-    border-top: 1px solid var(--divider-color);
+    border-color: var(--divider-color);
+    border-style: solid;
+    border-width: 1px 0;
     margin-bottom: 0;
     transition: top 0.3s;
 }
