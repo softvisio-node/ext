@@ -5,6 +5,21 @@ import module from "module";
 import path from "path";
 import childProcess from "child_process";
 
+// apply patch
+{
+    let res = childProcess.spawnSync( "patch", ["--dry-run", "--forward", "-p1", "-i", "patch/patch"], {
+        "cwd": "",
+    } );
+
+    console.log( res );
+
+    process.exit();
+
+    res = childProcess.spawnSync( "patch", ["--quiet", "--forward", "-p1", "-i", "patch/patch"], {
+        "cwd": "",
+    } );
+}
+
 // patch trial version
 {
     const path = module.createRequire( import.meta.url ).resolve( "@sencha/ext-modern-theme-base/sass/etc/all.scss" );
