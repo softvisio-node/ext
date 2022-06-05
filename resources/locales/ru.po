@@ -13,6 +13,7 @@ msgstr ""
 "X-Poedit-Basepath: ../..\n"
 "X-Generator: Poedit 3.0.1\n"
 "X-Poedit-SearchPath-0: lib\n"
+"X-Poedit-SearchPath-1: build/patch\n"
 
 #: lib/ext-7.x.x/localization/Panel.js:5:25
 msgid "Close panel"
