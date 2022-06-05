@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-06-05 07:26+0300\n"
+"POT-Creation-Date: 2022-06-05 16:47+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -23,6 +23,8 @@ msgid "Add to grouping"
 msgstr "Добавить в группировку"
 
 #: lib/ext-7.x.x/localization/grid/menu/Columns.js:5:16
+#: lib/ext-7.x.x/localization/grid/plugin/ViewOptions.js:42:21
+#: lib/ext-7.x.x/localization/grid/plugin/ViewOptions.js:66:28
 msgid "Columns"
 msgstr "Колонки"
 
@@ -57,3 +59,11 @@ msgstr "Сортировать по возрастанию"
 #: lib/ext-7.x.x/localization/grid/menu/SortDesc.js:5:16
 msgid "Sort Descending"
 msgstr "Сортировать по убыванию"
+
+#: lib/ext-7.x.x/localization/grid/plugin/ViewOptions.js:14:33
+msgid "Customize"
+msgstr "Настроить"
+
+#: lib/ext-7.x.x/localization/grid/plugin/ViewOptions.js:18:40
+msgid "Done"
+msgstr "Готово"
