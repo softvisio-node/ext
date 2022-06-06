@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.10.3 (2022-06-06)
+
+Fixes:
+
+-   fix: locale domains
+
 ### 5.10.2 (2022-06-05)
 
 Fixes:
