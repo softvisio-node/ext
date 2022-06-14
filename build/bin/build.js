@@ -30,7 +30,7 @@ import childProcess from "child_process";
 // build
 const rootDir = path.dirname( module.createRequire( import.meta.url ).resolve( "#root/package.json" ) ),
     dataDir = path.join( rootDir, "data" ),
-    srcDir = path.join( rootDir, "build/app" );
+    srcDir = path.join( rootDir, "src/app" );
 
 if ( fs.existsSync( dataDir ) ) fs.rmSync( dataDir, { "recursive": true, "force": true } );
 
