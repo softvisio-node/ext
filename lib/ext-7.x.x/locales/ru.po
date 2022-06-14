@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-06-06 23:49+0300\n"
+"POT-Creation-Date: 2022-06-14 13:29+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: locale/Date.js:4:4
@@ -219,11 +219,11 @@ msgid "Show in groups"
 msgstr "Показать в группах"
 
 #: locale/grid/menu/SortAsc.js:5:16
-msgid "Sort Ascending"
+msgid "Sort ascending"
 msgstr "Сортировать по возрастанию"
 
 #: locale/grid/menu/SortDesc.js:5:16
-msgid "Sort Descending"
+msgid "Sort descending"
 msgstr "Сортировать по убыванию"
 
 #: locale/grid/plugin/ViewOptions.js:14:33

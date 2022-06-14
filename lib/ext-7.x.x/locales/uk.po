@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-06-06 23:49+0300\n"
+"POT-Creation-Date: 2022-06-14 13:28+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11,36 +11,36 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: locale/Date.js:4:4
 msgid "Sunday"
-msgstr ""
+msgstr "Неділя"
 
 #: locale/Date.js:5:4
 msgid "Monday"
-msgstr ""
+msgstr "Понеділок"
 
 #: locale/Date.js:6:4
 msgid "Tuesday"
-msgstr ""
+msgstr "Вівторок"
 
 #: locale/Date.js:7:4
 msgid "Wednesday"
-msgstr ""
+msgstr "Середа"
 
 #: locale/Date.js:8:4
 msgid "Thursday"
-msgstr ""
+msgstr "Четвер"
 
 #: locale/Date.js:9:4
 msgid "Friday"
-msgstr ""
+msgstr "П'ятниця"
 
 #: locale/Date.js:10:4
 msgid "Saturday"
-msgstr ""
+msgstr "Субота"
 
 #. short day name for Sunday
 #: locale/Date.js:16:4
@@ -79,52 +79,52 @@ msgstr ""
 
 #: locale/Date.js:28:4
 msgid "January"
-msgstr ""
+msgstr "Січня"
 
 #: locale/Date.js:29:4
 msgid "February"
-msgstr ""
+msgstr "Лютий"
 
 #: locale/Date.js:30:4
 msgid "March"
-msgstr ""
+msgstr "Березень"
 
 #: locale/Date.js:31:4
 msgid "April"
-msgstr ""
+msgstr "Квітень"
 
 #. short month name for May
 #: locale/Date.js:32:4 locale/Date.js:49:4
 msgid "May"
-msgstr ""
+msgstr "Травень"
 
 #: locale/Date.js:33:4
 msgid "June"
-msgstr ""
+msgstr "Червень"
 
 #: locale/Date.js:34:4
 msgid "July"
-msgstr ""
+msgstr "Липень"
 
 #: locale/Date.js:35:4
 msgid "August"
-msgstr ""
+msgstr "Серпень"
 
 #: locale/Date.js:36:4
 msgid "September"
-msgstr ""
+msgstr "Вересень"
 
 #: locale/Date.js:37:4
 msgid "October"
-msgstr ""
+msgstr "Жовтень"
 
 #: locale/Date.js:38:4
 msgid "November"
-msgstr ""
+msgstr "Листопад"
 
 #: locale/Date.js:39:4
 msgid "December"
-msgstr ""
+msgstr "Грудень"
 
 #. short month name for January
 #: locale/Date.js:45:4
@@ -183,69 +183,69 @@ msgstr ""
 
 #: locale/Panel.js:5:25
 msgid "Close panel"
-msgstr ""
+msgstr "Закрити панель"
 
 #: locale/grid/menu/AddGroup.js:5:16
 msgid "Add to grouping"
-msgstr ""
+msgstr "Додати до групування"
 
 #: locale/grid/menu/Columns.js:5:16 locale/grid/plugin/ViewOptions.js:41:25
 #: locale/grid/plugin/ViewOptions.js:65:32
 msgid "Columns"
-msgstr ""
+msgstr "Колонки"
 
 #: locale/grid/menu/GroupByThis.js:5:16
 msgid "Group by this field"
-msgstr ""
+msgstr "Групувати за цим полем"
 
 #: locale/grid/menu/Groups.js:5:16
 msgid "Groups"
-msgstr ""
+msgstr "Групи"
 
 #: locale/grid/menu/Groups.js:9:24
 msgid "Expand all"
-msgstr ""
+msgstr "Розгорнути все"
 
 #: locale/grid/menu/Groups.js:12:24
 msgid "Collapse all"
-msgstr ""
+msgstr "Згорнути все"
 
 #: locale/grid/menu/RemoveGroup.js:4:16
 msgid "Remove from grouping"
-msgstr ""
+msgstr "Видалити з групування"
 
 #: locale/grid/menu/ShowInGroups.js:5:16
 msgid "Show in groups"
-msgstr ""
+msgstr "Показати в групах"
 
 #: locale/grid/menu/SortAsc.js:5:16
-msgid "Sort Ascending"
-msgstr ""
+msgid "Sort ascending"
+msgstr "Сортувати за зростанням"
 
 #: locale/grid/menu/SortDesc.js:5:16
-msgid "Sort Descending"
-msgstr ""
+msgid "Sort descending"
+msgstr "Сортувати за спаданням"
 
 #: locale/grid/plugin/ViewOptions.js:14:33
 msgid "Customize"
-msgstr ""
+msgstr "Налаштувати"
 
 #: locale/grid/plugin/ViewOptions.js:18:40 locale/picker/Picker.js:18:24
 msgid "Done"
-msgstr ""
+msgstr "Готово"
 
 #: locale/picker/Date.js:5:21
 msgid "Month"
-msgstr ""
+msgstr "Місяць"
 
 #: locale/picker/Date.js:6:19
 msgid "Day"
-msgstr ""
+msgstr "День"
 
 #: locale/picker/Date.js:7:20
 msgid "Year"
-msgstr ""
+msgstr "Рік"
 
 #: locale/picker/Picker.js:39:24
 msgid "Cancel"
-msgstr ""
+msgstr "Скасувати"
