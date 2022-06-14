@@ -2,7 +2,7 @@
   "name": "d3",
   "namespace": "Ext",
   "format": "1",
-  "version": "7.5.0.55",
+  "version": "7.5.1.5",
   "creator": "Sencha",
   "summary": "Sencha D3",
   "detailedDescription": "Sencha D3 is a package that allows to visualize Ext stores via a set of components built on top of D3, as well as creating custom visualizations.",
@@ -14,10 +14,10 @@
     {
       "name": "Sencha",
       "uuid": "1d6b0d9c-3333-4e65-885f-5b07a1fc3198",
-      "created": "2021-11-19T15:28:36Z",
+      "created": "2022-02-04T16:12:02Z",
       "algorithm": "SHA1withRSA",
-      "nonce": "n2a/N74UgLM\u003d",
-      "signature": "YqMFk1k6fCj4Y3Xkcs1LsR9AEw7IBExnkTUpnIN6DdvDGmLgY5CDO2ng4jePlutjXqhrAjlSLwdqezdEZnp+2igMG2cxpneTxBJ12uQbsB9DYlmCj0e07ylhNeo+YtWRso/J1Ukc3ZS1J7bftX1ZyloorFHmxuo9f/so8E9UGAB2mN7wV0EDrp3unV7Ftu9/X3b2j5T04K7rmurZ/+pM8CwrvfIyaG6TFxf3gh+/pTaULlpoPaByB6cPzMnjDjaNcSFu6SMA7ffGQqGqw23clQYcDDHOESmJfvMe42s4XH+48CjXfiee9uBOynTQjbqQe5tKcOfQUf2LtXcclanYFQ\u003d\u003d"
+      "nonce": "c5gNvPJioz0\u003d",
+      "signature": "c28BB3x25x3AtLsv0QN+25u91gmtTHtPHbt26UPJ/vh5Tlb80fRSIVuAWui40GFpVAUOaVBfYuap6NbwKWcODX8nbuJwcdJUXc+py3PF4mWBweP+sbCj88l7DIkHzfg6smrUYxdTMMIJ5tKQOm1EMVu00erUHUzt8pssyF1Zembn9N+lDOarlcsntlLZIS1bGJbzIYM+umIvT7tUAkjxmzGXGgFj9iHaVCZVF/U7nWsppT9HBLEWU3QpIgmk+eEO16yibPm/IOXavxJnv54+jFHjOe+CIl7aoyG8gMJHvhi1W3V8LCic/WhiAy5pkhkQYaMA/oOZQZ/wsJKNNjXDHw\u003d\u003d"
     }
   ],
   "js": [

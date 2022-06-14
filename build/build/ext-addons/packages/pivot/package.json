@@ -2,7 +2,7 @@
   "name": "pivot",
   "namespace": "Ext",
   "format": "1",
-  "version": "7.5.0.55",
+  "version": "7.5.1.5",
   "creator": "Sencha",
   "summary": "Sencha Pivot",
   "detailedDescription": "Pivot components",
@@ -14,10 +14,10 @@
     {
       "name": "Sencha",
       "uuid": "1d6b0d9c-3333-4e65-885f-5b07a1fc3198",
-      "created": "2021-11-19T15:33:05Z",
+      "created": "2022-02-04T16:16:31Z",
       "algorithm": "SHA1withRSA",
-      "nonce": "9dYvmdNAopY\u003d",
-      "signature": "NMVtVOdT3HNz7PnLd8BQZ6vFYm95OE1wTaRMix6TYqwlzJc9PJ/yHnK+Hsu0spCqPHuDowTIGAdEUHuZU0P0r8xnNUz0i4dpcMw7kxNl0DXH29MeiSe2h4VRpkTa4PAYPlKW4Pd61xbYmv56tjjaq4ygX4Bg2qKHO/HUH0HcW7UxZ0FhMqdKbLK3lyK8ulHuFeJwJCQ2GrFCrikbopo/V1fBVvUUXhzB8soLHkBt3P0h98SUHyrbY4wcmAQID4LGkhwR791IwdcUgLa+ZI83zo0s4y850ykiIR22YhYA4SxroBPKp0jmTxY5Va+3ig7ArSLQuEEiN+kHxAlC+CNsoQ\u003d\u003d"
+      "nonce": "HpgZOKMnYKc\u003d",
+      "signature": "IXpqMGAn5KXLALk8hDjJWCBxIErj5YRToNc1tvDzT1kHIBsM/BEfFN48Bqd6cJavOpzTXj2zfs5a8+6R2/JSBN6WH9fl4aOW2YAUtdX0b6UlMBzpVnlDx42A15omS4ntskOBiivLV+NlOcPZs7WV8Ourp4qBdT2hDifw4TaDCTsenTR9HExm1cZ1rQZIXmVhv8BgxO3M+fCTXiXpM8AG0Qf95gz01dgKC21TbSNM3xqmYYzUL+JKSYig7C4xyYBeFWVophxD5DIwXN375nWWotNA2hQnhU4oBQhzbMorLVPq20JGIcXskjtAssFldVgEXxXO/FUjdHVcA8fQ04v3vA\u003d\u003d"
     }
   ],
   "resources": [
