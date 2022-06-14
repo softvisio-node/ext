@@ -1,5 +1,12 @@
 # Changelog
 
+### 5.10.5 (2022-06-14)
+
+Fixes:
+
+-   fix: ext-addons update
+-   fix: readme
+
 ### 5.10.4 (2022-06-09)
 
 Fixes:
