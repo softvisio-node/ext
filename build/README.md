@@ -4,8 +4,4 @@ Ext-addons package [https://trials.sencha.com/ext/ext-addons-7.5.0-trial.zip](ht
 
 ```sh
 npm run build
-
-# lint .css files
-softvisio-cli lint -a compress **/*.css
-softvisio-cli lint **/*.css
 ```
