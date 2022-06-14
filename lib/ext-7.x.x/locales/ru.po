@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-06-14 13:29+0300\n"
+"POT-Creation-Date: 2022-06-14 20:01+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -13,173 +13,6 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Generator: Poedit 3.1\n"
 "X-Poedit-SearchPath-0: .\n"
-
-#: locale/Date.js:4:4
-msgid "Sunday"
-msgstr "Воскресенье"
-
-#: locale/Date.js:5:4
-msgid "Monday"
-msgstr "Понедельник"
-
-#: locale/Date.js:6:4
-msgid "Tuesday"
-msgstr "Вторник"
-
-#: locale/Date.js:7:4
-msgid "Wednesday"
-msgstr "Среда"
-
-#: locale/Date.js:8:4
-msgid "Thursday"
-msgstr "Четверг"
-
-#: locale/Date.js:9:4
-msgid "Friday"
-msgstr "Пятница"
-
-#: locale/Date.js:10:4
-msgid "Saturday"
-msgstr "Cуббота"
-
-#. short day name for Sunday
-#: locale/Date.js:16:4
-msgid "Sun"
-msgstr "Вс"
-
-#. short day name for Monday
-#: locale/Date.js:17:4
-msgid "Mon"
-msgstr "Пн"
-
-#. short day name for  Tuesday
-#: locale/Date.js:18:4
-msgid "Tue"
-msgstr "Вт"
-
-#. short day name for Wednesday
-#: locale/Date.js:19:4
-msgid "Wed"
-msgstr "Ср"
-
-#. short day name for Thursday
-#: locale/Date.js:20:4
-msgid "Thu"
-msgstr "Чт"
-
-#. short day name for  Friday
-#: locale/Date.js:21:4
-msgid "Fri"
-msgstr "Пт"
-
-#. short day name for Saturday
-#: locale/Date.js:22:4
-msgid "Sat"
-msgstr "Сб"
-
-#: locale/Date.js:28:4
-msgid "January"
-msgstr "Январь"
-
-#: locale/Date.js:29:4
-msgid "February"
-msgstr "Февраль"
-
-#: locale/Date.js:30:4
-msgid "March"
-msgstr "Март"
-
-#: locale/Date.js:31:4
-msgid "April"
-msgstr "Апрель"
-
-#. short month name for May
-#: locale/Date.js:32:4 locale/Date.js:49:4
-msgid "May"
-msgstr "Май"
-
-#: locale/Date.js:33:4
-msgid "June"
-msgstr "Июнь"
-
-#: locale/Date.js:34:4
-msgid "July"
-msgstr "Июль"
-
-#: locale/Date.js:35:4
-msgid "August"
-msgstr "Август"
-
-#: locale/Date.js:36:4
-msgid "September"
-msgstr "Сентябрь"
-
-#: locale/Date.js:37:4
-msgid "October"
-msgstr "Октябрь"
-
-#: locale/Date.js:38:4
-msgid "November"
-msgstr "Ноябрь"
-
-#: locale/Date.js:39:4
-msgid "December"
-msgstr "Декабрь"
-
-#. short month name for January
-#: locale/Date.js:45:4
-msgid "Jan"
-msgstr "Янв"
-
-#. short month name for February
-#: locale/Date.js:46:4
-msgid "Feb"
-msgstr "Фев"
-
-#. short month name for  March
-#: locale/Date.js:47:4
-msgid "Mar"
-msgstr "Мар"
-
-#. short month name for April
-#: locale/Date.js:48:4
-msgid "Apr"
-msgstr "Апр"
-
-#. short month name for  June
-#: locale/Date.js:50:4
-msgid "Jun"
-msgstr "Июн"
-
-#. short month name for July
-#: locale/Date.js:51:4
-msgid "Jul"
-msgstr "Июл"
-
-#. short month name for August
-#: locale/Date.js:52:4
-msgid "Aug"
-msgstr "Авг"
-
-#. short month name for September
-#: locale/Date.js:53:4
-msgid "Sep"
-msgstr "Сен"
-
-#. short month name for October
-#: locale/Date.js:54:4
-msgid "Oct"
-msgstr "Окт"
-
-#. short month name for November
-#: locale/Date.js:55:4
-msgid "Nov"
-msgstr "Ноя"
-
-#. short month name for  December
-#: locale/Date.js:56:4
-msgid "Dec"
-msgstr "Дек"
 
 #: locale/Panel.js:5:25
 msgid "Close panel"
@@ -249,3 +82,114 @@ msgstr "Год"
 #: locale/picker/Picker.js:39:24
 msgid "Cancel"
 msgstr "Отменить"
+
+#~ msgid "Sunday"
+#~ msgstr "Воскресенье"
+
+#~ msgid "Monday"
+#~ msgstr "Понедельник"
+
+#~ msgid "Tuesday"
+#~ msgstr "Вторник"
+
+#~ msgid "Wednesday"
+#~ msgstr "Среда"
+
+#~ msgid "Thursday"
+#~ msgstr "Четверг"
+
+#~ msgid "Friday"
+#~ msgstr "Пятница"
+
+#~ msgid "Saturday"
+#~ msgstr "Cуббота"
+
+#~ msgid "Sun"
+#~ msgstr "Вс"
+
+#~ msgid "Mon"
+#~ msgstr "Пн"
+
+#~ msgid "Tue"
+#~ msgstr "Вт"
+
+#~ msgid "Wed"
+#~ msgstr "Ср"
+
+#~ msgid "Thu"
+#~ msgstr "Чт"
+
+#~ msgid "Fri"
+#~ msgstr "Пт"
+
+#~ msgid "Sat"
+#~ msgstr "Сб"
+
+#~ msgid "January"
+#~ msgstr "Январь"
+
+#~ msgid "February"
+#~ msgstr "Февраль"
+
+#~ msgid "March"
+#~ msgstr "Март"
+
+#~ msgid "April"
+#~ msgstr "Апрель"
+
+#~ msgid "May"
+#~ msgstr "Май"
+
+#~ msgid "June"
+#~ msgstr "Июнь"
+
+#~ msgid "July"
+#~ msgstr "Июль"
+
+#~ msgid "August"
+#~ msgstr "Август"
+
+#~ msgid "September"
+#~ msgstr "Сентябрь"
+
+#~ msgid "October"
+#~ msgstr "Октябрь"
+
+#~ msgid "November"
+#~ msgstr "Ноябрь"
+
+#~ msgid "December"
+#~ msgstr "Декабрь"
+
+#~ msgid "Jan"
+#~ msgstr "Янв"
+
+#~ msgid "Feb"
+#~ msgstr "Фев"
+
+#~ msgid "Mar"
+#~ msgstr "Мар"
+
+#~ msgid "Apr"
+#~ msgstr "Апр"
+
+#~ msgid "Jun"
+#~ msgstr "Июн"
+
+#~ msgid "Jul"
+#~ msgstr "Июл"
+
+#~ msgid "Aug"
+#~ msgstr "Авг"
+
+#~ msgid "Sep"
+#~ msgstr "Сен"
+
+#~ msgid "Oct"
+#~ msgstr "Окт"
+
+#~ msgid "Nov"
+#~ msgstr "Ноя"
+
+#~ msgid "Dec"
+#~ msgstr "Дек"
