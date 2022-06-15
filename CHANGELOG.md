@@ -1,5 +1,12 @@
 # Changelog
 
+### 5.10.6 (2022-06-15)
+
+Fixes:
+
+-   fix: locales
+-   fix: translations
+
 ### 5.10.5 (2022-06-14)
 
 Fixes:
