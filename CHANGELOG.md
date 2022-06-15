@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.10.7 (2022-06-15)
+
+Fixes:
+
+-   fix: date format
+
 ### 5.10.6 (2022-06-15)
 
 Fixes:
