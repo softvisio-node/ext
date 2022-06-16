@@ -1,5 +1,13 @@
 # Changelog
 
+### 5.10.8 (2022-06-16)
+
+Fixes:
+
+-   fix: ext date
+-   fix: ext format parser
+-   fix: locale hout12
+
 ### 5.10.7 (2022-06-15)
 
 Fixes:
