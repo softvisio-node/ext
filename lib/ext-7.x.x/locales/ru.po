@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-06-15 12:28+0300\n"
+"POT-Creation-Date: 2022-06-16 10:37+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -13,6 +13,14 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Generator: Poedit 3.1\n"
 "X-Poedit-SearchPath-0: .\n"
+
+#: locale/Ext.field.Date.js:7:26
+msgid "The date in this field must be equal to or after {0}"
+msgstr "Дата в этом поле должна быть равна или больше {0}."
+
+#: locale/Ext.field.Date.js:8:26
+msgid "The date in this field must be equal to or before {0}"
+msgstr "Дата в этом поле должна быть равна или меньше {0}."
 
 #: locale/Panel.js:5:25
 msgid "Close panel"
