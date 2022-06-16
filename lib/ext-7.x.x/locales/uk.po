@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-06-16 10:39+0300\n"
+"POT-Creation-Date: 2022-06-16 21:52+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -14,13 +14,21 @@ msgstr ""
 "X-Generator: Poedit 3.1\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: locale/Ext.field.Date.js:7:26
+#: locale/Ext.field.Date.js:5:26
 msgid "The date in this field must be equal to or after {0}"
 msgstr "Дата в цьому полі має дорівнювати або пізніше {0}"
 
-#: locale/Ext.field.Date.js:8:26
+#: locale/Ext.field.Date.js:6:26
 msgid "The date in this field must be equal to or before {0}"
 msgstr "Дата в цьому полі має бути рівною або перед {0}"
+
+#: locale/Ext.panel.TimeView.js:11:24
+msgid "Ok"
+msgstr "Ok"
+
+#: locale/Ext.panel.TimeView.js:15:24 locale/picker/Picker.js:39:24
+msgid "Cancel"
+msgstr "Скасувати"
 
 #: locale/Panel.js:5:25
 msgid "Close panel"
@@ -86,10 +94,6 @@ msgstr "День"
 #: locale/picker/Date.js:7:20
 msgid "Year"
 msgstr "Рік"
-
-#: locale/picker/Picker.js:39:24
-msgid "Cancel"
-msgstr "Скасувати"
 
 #~ msgid "Sunday"
 #~ msgstr "Неділя"
