@@ -1,5 +1,12 @@
 # Changelog
 
+### 5.10.9 (2022-06-17)
+
+Fixes:
+
+-   fix: locale number options
+-   fix: number field override
+
 ### 5.10.8 (2022-06-16)
 
 Fixes:
