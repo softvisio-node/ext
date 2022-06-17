@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-06-16 21:52+0300\n"
+"POT-Creation-Date: 2022-06-17 07:10+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -21,6 +21,22 @@ msgstr "Дата в этом поле должна быть равна или б
 #: locale/Ext.field.Date.js:6:26
 msgid "The date in this field must be equal to or before {0}"
 msgstr "Дата в этом поле должна быть равна или меньше {0}."
+
+#: locale/Ext.field.Number.js:5:24
+msgid "The minimum value for this field is {0}"
+msgstr "Минимальное значение для этого поля: {0}."
+
+#: locale/Ext.field.Number.js:6:24
+msgid "The maximum value for this field is {0}"
+msgstr "Максимальное значение для этого поля: {0}"
+
+#: locale/Ext.field.Number.js:7:24
+msgid "The maximum decimal places is {0}"
+msgstr "Максимальное количество знаков после запятой: {0}"
+
+#: locale/Ext.field.Number.js:8:28
+msgid "Value is not a valid number"
+msgstr "Значение не является допустимым числом"
 
 #: locale/Ext.panel.TimeView.js:11:24
 msgid "Ok"
