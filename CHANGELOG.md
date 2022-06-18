@@ -1,5 +1,13 @@
 # Changelog
 
+### 5.10.10 (2022-06-18)
+
+Fixes:
+
+-   fix: currency formatter
+-   fix: date field translations
+-   fix: number field
+
 ### 5.10.9 (2022-06-17)
 
 Fixes:
