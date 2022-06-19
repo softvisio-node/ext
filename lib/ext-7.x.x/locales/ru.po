@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-06-17 07:10+0300\n"
+"POT-Creation-Date: 2022-06-19 10:39+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -13,29 +13,75 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Generator: Poedit 3.1\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPath-1: ../../build/patch\node_modules\n"
+"X-Poedit-SearchPath-1: ../../build/patch/node_modules\n"
 
-#: locale/Ext.field.Date.js:5:26
+#: ../../build/patch/node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js:16:10
+#: locale/grid/menu/AddGroup.js:5:16
+msgid "Add to grouping"
+msgstr "Добавить в группировку"
+
+#: ../../build/patch/node_modules/@sencha/ext-modern/src/grid/menu/Columns.js:17:10
+#: locale/grid/menu/Columns.js:5:16 locale/grid/plugin/ViewOptions.js:41:25
+#: locale/grid/plugin/ViewOptions.js:65:32
+msgid "Columns"
+msgstr "Колонки"
+
+#: ../../build/patch/node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js:17:10
+#: locale/grid/menu/GroupByThis.js:5:16
+msgid "Group by this field"
+msgstr "Группировать по этому полю"
+
+#: ../../build/patch/node_modules/@sencha/ext-modern/src/grid/menu/Groups.js:20:14
+#: locale/grid/menu/Groups.js:9:24
+msgid "Expand all"
+msgstr "Развернуть все"
+
+#: ../../build/patch/node_modules/@sencha/ext-modern/src/grid/menu/Groups.js:24:14
+#: locale/grid/menu/Groups.js:12:24
+msgid "Collapse all"
+msgstr "Свернуть все"
+
+#: ../../build/patch/node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js:16:10
+#: locale/grid/menu/RemoveGroup.js:4:16
+msgid "Remove from grouping"
+msgstr "Удалить из группировки"
+
+#: ../../build/patch/node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js:17:10
+#: locale/grid/menu/ShowInGroups.js:5:16
+msgid "Show in groups"
+msgstr "Показать в группах"
+
+#: ../../build/patch/node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js:17:10
+#: locale/grid/menu/SortAsc.js:5:16
+msgid "Sort ascending"
+msgstr "Сортировать по возрастанию"
+
+#: ../../build/patch/node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js:17:10
+#: locale/grid/menu/SortDesc.js:5:16
+msgid "Sort descending"
+msgstr "Сортировать по убыванию"
+
+#: locale/Ext.field.Date.js:10:22
 msgid "The date in this field must be equal to or after {0}"
 msgstr "Дата в этом поле должна быть равна или больше {0}."
 
-#: locale/Ext.field.Date.js:6:26
+#: locale/Ext.field.Date.js:11:22
 msgid "The date in this field must be equal to or before {0}"
 msgstr "Дата в этом поле должна быть равна или меньше {0}."
 
-#: locale/Ext.field.Number.js:5:24
+#: locale/Ext.field.Number.js:7:24
 msgid "The minimum value for this field is {0}"
 msgstr "Минимальное значение для этого поля: {0}."
 
-#: locale/Ext.field.Number.js:6:24
+#: locale/Ext.field.Number.js:8:24
 msgid "The maximum value for this field is {0}"
 msgstr "Максимальное значение для этого поля: {0}"
 
-#: locale/Ext.field.Number.js:7:24
+#: locale/Ext.field.Number.js:9:24
 msgid "The maximum decimal places is {0}"
 msgstr "Максимальное количество знаков после запятой: {0}"
 
-#: locale/Ext.field.Number.js:8:28
+#: locale/Ext.field.Number.js:10:28
 msgid "Value is not a valid number"
 msgstr "Значение не является допустимым числом"
 
@@ -51,46 +97,9 @@ msgstr "Отменить"
 msgid "Close panel"
 msgstr "Закрыть панель"
 
-#: locale/grid/menu/AddGroup.js:5:16
-msgid "Add to grouping"
-msgstr "Добавить в группировку"
-
-#: locale/grid/menu/Columns.js:5:16 locale/grid/plugin/ViewOptions.js:41:25
-#: locale/grid/plugin/ViewOptions.js:65:32
-msgid "Columns"
-msgstr "Колонки"
-
-#: locale/grid/menu/GroupByThis.js:5:16
-msgid "Group by this field"
-msgstr "Группировать по этому полю"
-
 #: locale/grid/menu/Groups.js:5:16
 msgid "Groups"
 msgstr "Группы"
-
-#: locale/grid/menu/Groups.js:9:24
-msgid "Expand all"
-msgstr "Развернуть все"
-
-#: locale/grid/menu/Groups.js:12:24
-msgid "Collapse all"
-msgstr "Свернуть все"
-
-#: locale/grid/menu/RemoveGroup.js:4:16
-msgid "Remove from grouping"
-msgstr "Удалить из группировки"
-
-#: locale/grid/menu/ShowInGroups.js:5:16
-msgid "Show in groups"
-msgstr "Показать в группах"
-
-#: locale/grid/menu/SortAsc.js:5:16
-msgid "Sort ascending"
-msgstr "Сортировать по возрастанию"
-
-#: locale/grid/menu/SortDesc.js:5:16
-msgid "Sort descending"
-msgstr "Сортировать по убыванию"
 
 #: locale/grid/plugin/ViewOptions.js:14:33
 msgid "Customize"
