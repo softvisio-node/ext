@@ -214,6 +214,61 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
      },
  
      /**
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/picker/Date.js node_modules/@sencha/ext-modern/src/picker/Date.js
+--- ../node_modules/@sencha/ext-modern/src/picker/Date.js	2022-06-16 09:43:04.616812000 +0300
++++ node_modules/@sencha/ext-modern/src/picker/Date.js	2022-06-19 11:01:41.772844000 +0300
+@@ -160,21 +160,21 @@
+          * The label to show for the month column.
+          * @accessor
+          */
+-        monthText: 'Month',
++        monthText: window.i18nd( "ext", "Month" ),
+ 
+         /**
+          * @cfg {String} dayText
+          * The label to show for the day column.
+          * @accessor
+          */
+-        dayText: 'Day',
++        dayText: window.i18nd( "ext", "Day" ),
+ 
+         /**
+          * @cfg {String} yearText
+          * The label to show for the year column.
+          * @accessor
+          */
+-        yearText: 'Year',
++        yearText: window.i18nd( "ext", "Year" ),
+ 
+         /**
+          * @cfg {Array} slotOrder
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/picker/Picker.js node_modules/@sencha/ext-modern/src/picker/Picker.js
+--- ../node_modules/@sencha/ext-modern/src/picker/Picker.js	2022-06-16 09:43:05.166500800 +0300
++++ node_modules/@sencha/ext-modern/src/picker/Picker.js	2022-06-19 11:03:46.768633400 +0300
+@@ -1,4 +1,4 @@
+-/**
++    /**
+  * A general picker class. {@link Ext.picker.Slot}s are used to organize multiple scrollable
+  * slots into a single picker. {@link #slots} is the only necessary configuration.
+  *
+@@ -512,7 +512,7 @@
+ 
+             Ext.applyIf(config, {
+                 align: 'right',
+-                text: 'Done'
++                text: window.i18nd( "ext", "Done" )
+             });
+         }
+ 
+@@ -549,7 +549,7 @@
+ 
+             Ext.applyIf(config, {
+                 align: 'left',
+-                text: 'Cancel'
++                text: window.i18nd( "ext", "Cancel" )
+             });
+         }
+ 
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss
 --- ../node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss	2022-06-16 09:43:03.910118800 +0300
 +++ node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss	2022-06-18 10:04:01.967746400 +0300
