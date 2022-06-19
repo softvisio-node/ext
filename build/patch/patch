@@ -132,6 +132,88 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
  
      value: 'DESC',
  
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js
+--- ../node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2022-06-16 09:43:05.449961000 +0300
++++ node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2022-06-19 10:57:33.068802600 +0300
+@@ -72,9 +72,9 @@
+  * import '@sencha/ext-web-components/dist/ext-container.component';
+  * import '@sencha/ext-web-components/dist/ext-grid.component';
+  * import '@sencha/ext-web-components/dist/ext-column.component';
+- * 
++ *
+  * Ext.require('Ext.grid.plugin.ViewOptions');
+- * 
++ *
+  * export default class BasicGridComponent {
+  *     constructor() {
+  *        this.store = new Ext.data.Store({
+@@ -86,20 +86,20 @@
+  *           ]
+  *        });
+  *     }
+- * 
++ *
+  *     onGridReady(event) {
+  *         this.basicGridCmp = event.detail.cmp;
+  *         this.basicGridCmp.setStore(this.store);
+  *     }
+  * }
+- * 
++ *
+  *   window.basicgrid = new BasicGridComponent();
+  * ```
+  * ```javascript
+  * @example({framework: 'ext-react', packages:['ext-react']})
+  * import React, { Component } from 'react'
+  * import { ExtGrid, ExtColumn } from '@sencha/ext-react';
+- * 
++ *
+  * Ext.require('Ext.grid.plugin.ViewOptions');
+  *
+  * export default class MyExample extends Component {
+@@ -200,10 +200,10 @@
+                 items: [{
+                     docked: 'top',
+                     xtype: 'titlebar',
+-                    title: 'Customize',
++                    title: window.i18nd( "ext", "Customize" ),
+                     items: [{
+                         xtype: 'button',
+-                        text: 'Done',
++                        text: window.i18nd( "ext", "Done" ),
+                         ui: 'action',
+                         align: 'right',
+                         role: 'donebutton'
+@@ -227,7 +227,7 @@
+             lazy: true,
+             $value: {
+                 xtype: 'nestedlist',
+-                title: 'Columns',
++                title: window.i18nd( "ext", "Columns" ),
+                 clearSelectionOnListChange: false,
+                 listConfig: {
+                     triggerEvent: null,
+@@ -260,7 +260,7 @@
+                         'groupable'
+                     ],
+                     root: {
+-                        text: 'Columns'
++                        text: window.i18nd( "ext", "Columns" )
+                     }
+                 }
+             }
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/Panel.js node_modules/@sencha/ext-modern/src/Panel.js
+--- ../node_modules/@sencha/ext-modern/src/Panel.js	2022-06-16 09:43:05.148549000 +0300
++++ node_modules/@sencha/ext-modern/src/Panel.js	2022-06-19 10:53:22.431495200 +0300
+@@ -748,7 +748,7 @@
+          * **Note:** Applicable when the panel is {@link #closable}: true
+          * @locale
+          */
+-        closeToolText: 'Close panel'
++        closeToolText: window.i18nd( "ext", "Close panel" )
+     },
+ 
+     /**
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss
 --- ../node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss	2022-06-16 09:43:03.910118800 +0300
 +++ node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss	2022-06-18 10:04:01.967746400 +0300
