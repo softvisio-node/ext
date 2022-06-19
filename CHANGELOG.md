@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.10.12 (2022-06-19)
+
+Fixes:
+
+-   fix: locale chunk name
+
 ### 5.10.11 (2022-06-19)
 
 Fixes:
