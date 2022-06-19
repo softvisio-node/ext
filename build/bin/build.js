@@ -5,6 +5,10 @@ import module from "module";
 import path from "path";
 import childProcess from "child_process";
 
+const rootDir = path.dirname( module.createRequire( import.meta.url ).resolve( "#root/package.json" ) ),
+    dataDir = path.join( rootDir, "data" ),
+    srcDir = path.join( rootDir, "src/app" );
+
 // apply patch
 {
     let res = childProcess.spawnSync( "patch", ["--dry-run", "--forward", "-p1", "-i", "patch/patch"], {
@@ -47,10 +51,6 @@ import childProcess from "child_process";
 // }
 
 // build
-const rootDir = path.dirname( module.createRequire( import.meta.url ).resolve( "#root/package.json" ) ),
-    dataDir = path.join( rootDir, "data" ),
-    srcDir = path.join( rootDir, "src/app" );
-
 if ( fs.existsSync( dataDir ) ) fs.rmSync( dataDir, { "recursive": true, "force": true } );
 
 fs.mkdirSync( dataDir, { "recursive": true } );
