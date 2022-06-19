@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.11.0 (2022-06-19)
+
+Features:
+
+-   feat: patch system
+
 ### 5.10.12 (2022-06-19)
 
 Fixes:
