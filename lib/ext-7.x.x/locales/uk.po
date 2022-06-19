@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-06-19 11:06+0300\n"
+"POT-Creation-Date: 2022-06-19 11:25+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -79,35 +79,35 @@ msgid "Year"
 msgstr "Рік"
 
 #: ../../build/patch/node_modules/@sencha/ext-modern/src/picker/Picker.js:552:22
-#: locale/Ext.panel.TimeView.js:15:24
+#: Ext.overrides.panel.TimeView.js:15:24
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: locale/Ext.field.Date.js:10:22
+#: Ext.overrides.field.Date.js:10:22
 msgid "The date in this field must be equal to or after {0}"
 msgstr "Дата в цьому полі має дорівнювати або пізніше {0}"
 
-#: locale/Ext.field.Date.js:11:22
+#: Ext.overrides.field.Date.js:11:22
 msgid "The date in this field must be equal to or before {0}"
 msgstr "Дата в цьому полі має бути рівною або перед {0}"
 
-#: locale/Ext.field.Number.js:7:24
+#: Ext.overrides.field.Number.js:7:24
 msgid "The minimum value for this field is {0}"
 msgstr "Мінімальне значення для цього поля – {0}"
 
-#: locale/Ext.field.Number.js:8:24
+#: Ext.overrides.field.Number.js:8:24
 msgid "The maximum value for this field is {0}"
 msgstr "Максимальне значення для цього поля становить {0}"
 
-#: locale/Ext.field.Number.js:9:24
+#: Ext.overrides.field.Number.js:9:24
 msgid "The maximum decimal places is {0}"
 msgstr "Максимальна кількість десяткових знаків – {0}"
 
-#: locale/Ext.field.Number.js:10:28
+#: Ext.overrides.field.Number.js:10:28
 msgid "Value is not a valid number"
 msgstr "Значення не є дійсним числом"
 
-#: locale/Ext.panel.TimeView.js:11:24
+#: Ext.overrides.panel.TimeView.js:11:24
 msgid "Ok"
 msgstr "Ok"
 
