@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.10.11 (2022-06-19)
+
+Fixes:
+
+-   fix: webpack chuncks
+
 ### 5.10.10 (2022-06-18)
 
 Fixes:
