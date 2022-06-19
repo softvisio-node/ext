@@ -1,3 +1,280 @@
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/Model.js node_modules/@sencha/ext-core/src/data/Model.js
+--- ../node_modules/@sencha/ext-core/src/data/Model.js	2022-06-16 09:43:05.027704600 +0300
++++ node_modules/@sencha/ext-core/src/data/Model.js	2022-06-20 01:58:14.594912300 +0300
+@@ -111,7 +111,7 @@
+  * values.
+  *
+  * # Associations
+- * 
++ *
+  * Models often have associations with other Models. These associations can be defined by
+  * fields (often called "foreign keys") or by other data such as a many-to-many (or "matrix").
+  * See {@link Ext.data.schema.Association} for information about configuring and using associations.
+@@ -173,7 +173,7 @@
+  *             console.log('The User was destroyed!');
+  *         }
+  *     });
+- * 
++ *
+  * # HTTP Parameter names when using a {@link Ext.data.proxy.Ajax Ajax proxy}
+  *
+  * By default, the model ID is specified in an HTTP parameter named `id`. To change the
+@@ -383,7 +383,7 @@
+      * shortened name.
+      *
+      * All entities in a given `schema` must have a unique `entityName`.
+-     * 
++     *
+      * For more details see "Relative Naming" in {@link Ext.data.schema.Schema}.
+      */
+ 
+@@ -611,13 +611,13 @@
+     // @cmd-auto-dependency {aliasPrefix: "data.field."}
+     /**
+      * @cfg {Object[]/String[]} fields
+-     * An Array of `Ext.data.field.Field` config objects, simply the field 
+-     * {@link Ext.data.field.Field#name name}, or a mix of config objects and strings. 
++     * An Array of `Ext.data.field.Field` config objects, simply the field
++     * {@link Ext.data.field.Field#name name}, or a mix of config objects and strings.
+      * If just a name is given, the field type defaults to `auto`.
+-     * 
+-     * In a {@link Ext.data.field.Field Field} config object you may pass the alias of 
++     *
++     * In a {@link Ext.data.field.Field Field} config object you may pass the alias of
+      * the `Ext.data.field.*` type using the `type` config option.
+-     * 
++     *
+      *     // two fields are set:
+      *     // - an 'auto' field with a name of 'firstName'
+      *     // - and an Ext.data.field.Integer field with a name of 'age'
+@@ -625,13 +625,13 @@
+      *         type: 'int',
+      *         name: 'age'
+      *     }]
+-     * 
+-     * Fields will automatically be created at read time for any for any keys in the 
+-     * data passed to the Model's {@link #proxy proxy's} 
+-     * {@link Ext.data.reader.Reader reader} whose name is not explicitly configured in 
++     *
++     * Fields will automatically be created at read time for any for any keys in the
++     * data passed to the Model's {@link #proxy proxy's}
++     * {@link Ext.data.reader.Reader reader} whose name is not explicitly configured in
+      * the `fields` config.
+-     * 
+-     * Extending a Model class will inherit all the `fields` from the superclass / 
++     *
++     * Extending a Model class will inherit all the `fields` from the superclass /
+      * ancestor classes.
+      */
+     /**
+@@ -647,9 +647,9 @@
+      * This property is indexed by field name and contains the ordinal of that field. The
+      * ordinal often has meaning to servers and is derived based on the position in the
+      * `fields` array.
+-     * 
++     *
+      * This can be used like so:
+-     * 
++     *
+      *      Ext.define('MyApp.models.User', {
+      *          extend: 'Ext.data.Model',
+      *
+@@ -657,9 +657,9 @@
+      *              { name: 'name' }
+      *          ]
+      *      });
+-     * 
++     *
+      *      var nameOrdinal = MyApp.models.User.fieldOrdinals.name;
+-     *      
++     *
+      *      // or, if you have an instance:
+      *
+      *      var user = new MyApp.models.User();
+@@ -763,13 +763,13 @@
+      * If specified, this is the name of the property that contains the entity "version".
+      * The version property is used to manage a long-running transaction and allows the
+      * detection of simultaneous modification.
+-     * 
++     *
+      * The way a version property is used is that the client receives the version as it
+      * would any other entity property. When saving an entity, this property is always
+      * included in the request and the server uses the value in a "conditional update".
+      * If the current version of the entity on the server matches the version property
+      * sent by the client, the update is allowed. Otherwise, the update fails.
+-     * 
++     *
+      * On successful update, both the client and server increment the version. This is
+      * done on the server in the conditional update and on the client when it receives a
+      * success on its update request.
+@@ -798,17 +798,17 @@
+ 
+     /**
+      * @cfg {Boolean} convertOnSet
+-     * Set to `false` to prevent any converters from being called on fields specified in 
++     * Set to `false` to prevent any converters from being called on fields specified in
+      * a {@link Ext.data.Model#set set} operation.
+-     * 
+-     * **Note:** Setting the config to `false` will only prevent the convert / calculate 
+-     * call when the set `fieldName` param matches the field's `{@link #name}`.  In the 
+-     * following example the calls to set `salary` will not execute the convert method 
+-     * on `set` while the calls to set `vested` will execute the convert method on the 
++     *
++     * **Note:** Setting the config to `false` will only prevent the convert / calculate
++     * call when the set `fieldName` param matches the field's `{@link #name}`.  In the
++     * following example the calls to set `salary` will not execute the convert method
++     * on `set` while the calls to set `vested` will execute the convert method on the
+      * initial read as well as on `set`.
+-     * 
++     *
+      * Example model definition:
+-     * 
++     *
+      *     Ext.define('MyApp.model.Employee', {
+      *         extend: 'Ext.data.Model',
+      *         fields: ['yearsOfService', {
+@@ -826,15 +826,15 @@
+      *         }],
+      *         convertOnSet: false
+      *     });
+-     *     
++     *
+      *     var tina = Ext.create('MyApp.model.Employee', {
+      *         salary: 50000,
+      *         yearsOfService: 3
+      *     });
+-     *     
++     *
+      *     console.log(tina.get('salary')); // logs 55000
+      *     console.log(tina.get('vested')); // logs false
+-     *     
++     *
+      *     tina.set({
+      *         salary: 60000,
+      *         yearsOfService: 4
+@@ -1087,35 +1087,35 @@
+ 
+     /**
+      * Sets the given field to the given value. For example:
+-     * 
++     *
+      *      record.set('name', 'value');
+-     * 
++     *
+      * This method can also be passed an object containing multiple values to set at once.
+      * For example:
+-     * 
++     *
+      *      record.set({
+      *          name: 'value',
+      *          age: 42
+      *      });
+-     * 
++     *
+      * The following store events are fired when the modified record belongs to a store:
+      *
+      *  - {@link Ext.data.Store#event-beginupdate beginupdate}
+      *  - {@link Ext.data.Store#event-update update}
+      *  - {@link Ext.data.Store#event-endupdate endupdate}
+-     * 
+-     * @param {String/Object} fieldName The field to set, or an object containing key/value 
++     *
++     * @param {String/Object} fieldName The field to set, or an object containing key/value
+      * pairs.
+      * @param {Object} newValue The value for the field (if `fieldName` is a string).
+      * @param {Object} [options] Options for governing this update.
+-     * @param {Boolean} [options.convert=true] Set to `false` to  prevent any converters from 
+-     * being called during the set operation. This may be useful when setting a large bunch of 
++     * @param {Boolean} [options.convert=true] Set to `false` to  prevent any converters from
++     * being called during the set operation. This may be useful when setting a large bunch of
+      * raw values.
+      * @param {Boolean} [options.dirty=true] Pass `false` if the field values are to be
+      * understood as non-dirty (fresh from the server). When `true`, this change will be
+      * reflected in the `modified` collection.
+-     * @param {Boolean} [options.commit=false] Pass `true` to call the {@link #commit} method 
+-     * after setting fields. If this option is passed, the usual after change processing will 
++     * @param {Boolean} [options.commit=false] Pass `true` to call the {@link #commit} method
++     * after setting fields. If this option is passed, the usual after change processing will
+      * be bypassed. {@link #commit Commit} will be called even if there are no field changes.
+      * @param {Boolean} [options.silent=false] Pass `true` to suppress notification of any
+      * changes made by this call. Use with caution.
+@@ -1756,7 +1756,7 @@
+     /**
+      * This method is called by the {@link Ext.data.reader.Reader} after loading a model from
+      * the server. This is after processing any inline associations that are available.
+-     * 
++     *
+      * @method onLoad
+      *
+      * @protected
+@@ -2141,20 +2141,20 @@
+      * The callback is passed the following parameters:
+      * @param {Ext.data.Model} options.success.record The record.
+      * @param {Ext.data.operation.Operation} options.success.operation The operation.
+-     * 
++     *
+      * @param {Function} options.failure A function to be called when the
+      * model is unable to be processed by the server.
+      * The callback is passed the following parameters:
+      * @param {Ext.data.Model} options.failure.record The record.
+      * @param {Ext.data.operation.Operation} options.failure.operation The operation.
+-     * 
++     *
+      * @param {Function} options.callback A function to be called whether the proxy
+      * transaction was successful or not.
+      * The callback is passed the following parameters:
+      * @param {Ext.data.Model} options.callback.record The record.
+      * @param {Ext.data.operation.Operation} options.callback.operation The operation.
+      * @param {Boolean} options.callback.success `true` if the operation was successful.
+-     * 
++     *
+      * @param {Object} options.scope The scope in which to execute the callback
+      * functions.  Defaults to the model instance.
+      *
+@@ -2806,6 +2806,9 @@
+                             type: proxy
+                         };
+                     }
++                    else if ( proxy ) {
++                        proxy.type = "softvisio";
++                    }
+ 
+                     // We have nothing or a config for the proxy. Get some defaults from
+                     // the Schema and smash anything we've provided over the top.
+@@ -2895,13 +2898,13 @@
+          * The callback is passed the following parameters:
+          * @param {Ext.data.Model} options.success.record The record.
+          * @param {Ext.data.operation.Operation} options.success.operation The operation.
+-         * 
++         *
+          * @param {Function} options.failure A function to be called when the
+          * model is unable to be processed by the server.
+          * The callback is passed the following parameters:
+          * @param {Ext.data.Model} options.failure.record The record.
+          * @param {Ext.data.operation.Operation} options.failure.operation The operation.
+-         * 
++         *
+          * @param {Function} options.callback A function to be called whether the proxy
+          * transaction was successful or not.
+          * The callback is passed the following parameters:
+@@ -2910,7 +2913,7 @@
+          * operation.
+          * @param {Boolean} options.callback.success `true` if the operation was
+          * successful.
+-         * 
++         *
+          * @param {Object} options.scope The scope in which to execute the callback
+          * functions.  Defaults to the model instance.
+          *
+@@ -2920,7 +2923,7 @@
+          * (probably) still be loading once it is returned from this method. To do any
+          * post-processing on the data, the appropriate place to do see is in the
+          * callback.
+-         * 
++         *
+          * @static
+          * @inheritable
+          */
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-font-awesome/sass/src/all.scss node_modules/@sencha/ext-font-awesome/sass/src/all.scss
 --- ../node_modules/@sencha/ext-font-awesome/sass/src/all.scss	2022-06-16 09:43:04.363907200 +0300
 +++ node_modules/@sencha/ext-font-awesome/sass/src/all.scss	2022-06-18 10:04:01.966749300 +0300
@@ -202,6 +479,45 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
                      }
                  }
              }
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/panel/Date.js node_modules/@sencha/ext-modern/src/panel/Date.js
+--- ../node_modules/@sencha/ext-modern/src/panel/Date.js	2022-06-16 09:43:04.615805300 +0300
++++ node_modules/@sencha/ext-modern/src/panel/Date.js	2022-06-20 02:20:09.898169900 +0300
+@@ -350,7 +350,7 @@
+     tools: {
+         previousMonth: {
+             reference: 'navigatePrevMonth',
+-            iconCls: 'x-fa fa-angle-left',
++            iconCls: 'fa-solid fa-angle-left', // patched
+             cls: Ext.baseCSSPrefix + 'left-year-tool ',
+             weight: -100,
+             increment: -1,
+@@ -363,7 +363,7 @@
+         },
+         previousYear: {
+             reference: 'navigatePrevYear',
+-            iconCls: 'x-fa fa-angle-double-left',
++            iconCls: 'fa-solid fa-angle-double-left', // patched
+             cls: Ext.baseCSSPrefix + 'left-month-tool',
+             weight: -90,
+             increment: -12,
+@@ -376,7 +376,7 @@
+         },
+         nextYear: {
+             reference: 'navigateNextYear',
+-            iconCls: 'x-fa fa-angle-double-right',
++            iconCls: 'fa-solid fa-angle-double-right', // patched
+             cls: Ext.baseCSSPrefix + 'right-month-tool',
+             weight: 90,
+             increment: 12,
+@@ -389,7 +389,7 @@
+         },
+         nextMonth: {
+             reference: 'navigateNextMonth',
+-            iconCls: 'x-fa fa-angle-right',
++            iconCls: 'fa-solid fa-angle-right', // patched
+             cls: Ext.baseCSSPrefix + 'right-year-tool',
+             weight: 100,
+             increment: 1,
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/Panel.js node_modules/@sencha/ext-modern/src/Panel.js
 --- ../node_modules/@sencha/ext-modern/src/Panel.js	2022-06-16 09:43:05.148549000 +0300
 +++ node_modules/@sencha/ext-modern/src/Panel.js	2022-06-19 10:53:22.431495200 +0300
