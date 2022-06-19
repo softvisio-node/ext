@@ -13,6 +13,7 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Generator: Poedit 3.1\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ../../build/patch\node_modules\n"
 
 #: locale/Ext.field.Date.js:5:26
 msgid "The date in this field must be equal to or after {0}"

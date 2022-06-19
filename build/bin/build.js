@@ -5,27 +5,46 @@ import module from "module";
 import path from "path";
 import childProcess from "child_process";
 
-// patch trial version
+// apply patch
 {
-    const path = module.createRequire( import.meta.url ).resolve( "@sencha/ext-modern-theme-base/sass/etc/all.scss" );
+    let res = childProcess.spawnSync( "patch", ["--dry-run", "--forward", "-p1", "-i", "patch/patch"], {
+        "cwd": rootDir,
+        "shell": true,
+        "stdio": "inherit",
+    } );
 
-    const content = fs.readFileSync( path, "utf8" );
+    if ( res.status ) process.exit();
 
-    // not patched
-    if ( content.includes( "$ext-trial: true!default;" ) ) {
-        console.log( "Trial variable patched" );
+    res = childProcess.spawnSync( "patch", ["--quiet", "--forward", "-p1", "-i", "patch/patch"], {
+        "cwd": rootDir,
+        "shell": true,
+        "stdio": "inherit",
+    } );
 
-        const patched = content.replace( "$ext-trial: true!default;", "$ext-trial: false!default;" );
-
-        fs.writeFileSync( path, patched );
-    }
+    if ( res.status ) process.exit();
 }
+
+// patch trial version
+// {
+//     const path = module.createRequire( import.meta.url ).resolve( "@sencha/ext-modern-theme-base/sass/etc/all.scss" );
+
+//     const content = fs.readFileSync( path, "utf8" );
+
+//     // not patched
+//     if ( content.includes( "$ext-trial: true!default;" ) ) {
+//         console.log( "Trial variable patched" );
+
+//         const patched = content.replace( "$ext-trial: true!default;", "$ext-trial: false!default;" );
+
+//         fs.writeFileSync( path, patched );
+//     }
+// }
 
 // remove font-awesome
-{
-    const path = module.createRequire( import.meta.url ).resolve( "@sencha/ext-font-awesome/sass/src/all.scss" );
-    fs.writeFileSync( path, "" );
-}
+// {
+//     const path = module.createRequire( import.meta.url ).resolve( "@sencha/ext-font-awesome/sass/src/all.scss" );
+//     fs.writeFileSync( path, "" );
+// }
 
 // build
 const rootDir = path.dirname( module.createRequire( import.meta.url ).resolve( "#root/package.json" ) ),

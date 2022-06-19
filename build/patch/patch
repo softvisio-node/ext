@@ -1,0 +1,231 @@
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-font-awesome/sass/src/all.scss node_modules/@sencha/ext-font-awesome/sass/src/all.scss
+--- ../node_modules/@sencha/ext-font-awesome/sass/src/all.scss	2022-06-05 15:30:05.811423300 +0300
++++ node_modules/@sencha/ext-font-awesome/sass/src/all.scss	2022-06-05 11:00:09.480578900 +0300
+@@ -1,36 +1 @@
+-// All rule-generating imports go here vs in etc/all.scss so that they will
+-// cascade after the framework rules.  This ensures that where the framework provides
+-// a default icon, but also provides an iconCls to override it (for example tree icons)
+-// the fa rules will override the framework ones (assuming specificity of fa rules is
+-// the same or greater than the framework rules)
+-@import "../etc/_animated.scss";
+-@import "../etc/_bordered-pulled.scss";
+-@import "../etc/_core.scss";
+-@import "../etc/_fixed-width.scss";
+-@import "../etc/_icons.scss";
+-@import "../etc/_larger.scss";
+-@import "../etc/_list.scss";
+-@import "../etc/_rotated-flipped.scss";
+-@import "../etc/_screen-reader.scss";
+-@import "../etc/_stacked.scss";
+-@import "../etc/fa-brands.scss";
+-@import "../etc/fa-regular.scss";
+-@import "../etc/fa-solid.scss";  
+-
+-// The "x-fa" class should be used in Ext JS applications instead
+-// of "fa".  The "fa" class sets some properties that may collide
+-// with theme properties, whereas "x-fa" sets only the font-family.
+-.#{$prefix}fa,
+-.#{$prefix}fas {
+-    &:before {
+-        font-family: 'Font Awesome 5 Free' !important;
+-    }
+-}
+-.#{$prefix}far:before {
+-    font-family: 'Font Awesome 5 Free Regular' !important;
+-}
+-.#{$prefix}fab:before {
+-    font-family: 'Font Awesome 5 Brands' !important;
+-}
+-
+-// NOTE: _variables.scss is imported much earlier by ext/sass/etc/font-awesome-variables.scss
++// FontAwesome removed from ExtJS
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js	2022-06-05 15:30:05.774522300 +0300
++++ node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js	2022-06-05 08:02:55.370004100 +0300
+@@ -13,5 +13,5 @@
+      * The menu item text for the "Add to grouping" menu item.
+      * @locale
+      */
+-    text: 'Add to grouping'
++    text: window.i18n('Add to grouping')
+ });
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/Columns.js node_modules/@sencha/ext-modern/src/grid/menu/Columns.js
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/Columns.js	2022-06-05 15:30:06.767642800 +0300
++++ node_modules/@sencha/ext-modern/src/grid/menu/Columns.js	2022-06-05 08:03:11.419069700 +0300
+@@ -14,7 +14,7 @@
+      * The menu item text for the column visibility sub-menu.
+      * @locale
+      */
+-    text: 'Columns',
++    text: window.i18n('Columns'),
+ 
+     menu: {},
+ 
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js	2022-06-05 15:30:07.029120800 +0300
++++ node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js	2022-06-05 08:03:36.095864400 +0300
+@@ -14,5 +14,5 @@
+      * The menu item text for the "Group by this field" menu item.
+      * @locale
+      */
+-    text: 'Group by this field'
++    text: window.i18n('Group by this field')
+ });
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/Groups.js node_modules/@sencha/ext-modern/src/grid/menu/Groups.js
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/Groups.js	2022-06-05 15:30:07.036102400 +0300
++++ node_modules/@sencha/ext-modern/src/grid/menu/Groups.js	2022-06-05 08:04:03.662373800 +0300
+@@ -13,15 +13,15 @@
+      * The menu item text for the "Groups" menu item.
+      * @locale
+      */
+-    text: 'Groups',
++    text: window.i18n('Groups'),
+ 
+     menu: [{
+         iconCls: Ext.baseCSSPrefix + 'headermenu-expand-groups',
+-        text: 'Expand all',
++        text: window.i18n('Expand all'),
+         handler: 'up.expandAll'
+     }, {
+         iconCls: Ext.baseCSSPrefix + 'headermenu-collapse-groups',
+-        text: 'Collapse all',
++        text: window.i18n('Collapse all'),
+         handler: 'up.collapseAll'
+     }]
+ });
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js	2022-06-05 15:30:07.309881700 +0300
++++ node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js	2022-06-05 08:04:15.413451200 +0300
+@@ -13,5 +13,5 @@
+      * The menu item text for the "Remove from grouping" menu item.
+      * @locale
+      */
+-    text: 'Remove from grouping'
++    text: window.i18n('Remove from grouping')
+ });
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js	2022-06-05 15:30:07.397646500 +0300
++++ node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js	2022-06-05 08:04:33.168439900 +0300
+@@ -14,5 +14,5 @@
+      * Text displayed in the grid header for enabling/disabling grouping.
+      * @locale
+      */
+-    text: 'Show in groups'
++    text: window.i18n('Show in groups')
+ });
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js	2022-06-05 15:30:07.420584900 +0300
++++ node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js	2022-06-05 08:04:50.756283300 +0300
+@@ -14,7 +14,7 @@
+      * The menu item text for the Sort Ascending menu item.
+      * @locale
+      */
+-    text: 'Sort Ascending',
++    text: window.i18n('Sort Ascending'),
+ 
+     value: 'ASC',
+ 
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js	2022-06-05 15:30:07.423577000 +0300
++++ node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js	2022-06-05 08:05:03.159455600 +0300
+@@ -14,7 +14,7 @@
+      * The menu item text for the Sort Ascending menu item.
+      * @locale
+      */
+-    text: 'Sort Descending',
++    text: window.i18n('Sort Descending'),
+ 
+     value: 'DESC',
+ 
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js
+--- ../node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2022-06-05 15:30:07.562206400 +0300
++++ node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2022-06-05 15:26:59.325814600 +0300
+@@ -72,9 +72,9 @@
+  * import '@sencha/ext-web-components/dist/ext-container.component';
+  * import '@sencha/ext-web-components/dist/ext-grid.component';
+  * import '@sencha/ext-web-components/dist/ext-column.component';
+- * 
++ *
+  * Ext.require('Ext.grid.plugin.ViewOptions');
+- * 
++ *
+  * export default class BasicGridComponent {
+  *     constructor() {
+  *        this.store = new Ext.data.Store({
+@@ -86,20 +86,20 @@
+  *           ]
+  *        });
+  *     }
+- * 
++ *
+  *     onGridReady(event) {
+  *         this.basicGridCmp = event.detail.cmp;
+  *         this.basicGridCmp.setStore(this.store);
+  *     }
+  * }
+- * 
++ *
+  *   window.basicgrid = new BasicGridComponent();
+  * ```
+  * ```javascript
+  * @example({framework: 'ext-react', packages:['ext-react']})
+  * import React, { Component } from 'react'
+  * import { ExtGrid, ExtColumn } from '@sencha/ext-react';
+- * 
++ *
+  * Ext.require('Ext.grid.plugin.ViewOptions');
+  *
+  * export default class MyExample extends Component {
+@@ -200,10 +200,10 @@
+                 items: [{
+                     docked: 'top',
+                     xtype: 'titlebar',
+-                    title: 'Customize',
++                    title: window.i18n('Customize'),
+                     items: [{
+                         xtype: 'button',
+-                        text: 'Done',
++                        text: window.i18n('Done'),
+                         ui: 'action',
+                         align: 'right',
+                         role: 'donebutton'
+@@ -227,7 +227,7 @@
+             lazy: true,
+             $value: {
+                 xtype: 'nestedlist',
+-                title: 'Columns',
++                title: window.i18n('Columns'),
+                 clearSelectionOnListChange: false,
+                 listConfig: {
+                     triggerEvent: null,
+@@ -260,7 +260,7 @@
+                         'groupable'
+                     ],
+                     root: {
+-                        text: 'Columns'
++                        text: window.i18n('Columns')
+                     }
+                 }
+             }
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/Panel.js node_modules/@sencha/ext-modern/src/Panel.js
+--- ../node_modules/@sencha/ext-modern/src/Panel.js	2022-06-05 15:30:07.249043500 +0300
++++ node_modules/@sencha/ext-modern/src/Panel.js	2022-06-05 08:00:16.881160900 +0300
+@@ -748,7 +748,7 @@
+          * **Note:** Applicable when the panel is {@link #closable}: true
+          * @locale
+          */
+-        closeToolText: 'Close panel'
++        closeToolText: window.i18n( "Close panel" )
+     },
+ 
+     /**
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss
+--- ../node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss	2022-06-05 15:30:05.738618500 +0300
++++ node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss	2022-06-05 09:52:54.962650000 +0300
+@@ -1,5 +1,5 @@
+ $ext-version: '7.5.1.5'!default;  // Updated automatically by the build script.
+-$ext-trial: true!default; // Updated automatically by the build script.
++$ext-trial: false !default; // Updated automatically by the build script.
+ $ext-beta: false !default; // Updated automatically by the build script.
+ @import 'compass/css3';
+ 
