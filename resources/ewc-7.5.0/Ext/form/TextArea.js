@@ -133,6 +133,7 @@ export default class Ext_form_TextArea extends Ext_field_Text {
     'viewModel',
     'weight',
     'width',
+    'wrap',
     'x',
     'xtype',
     'y',

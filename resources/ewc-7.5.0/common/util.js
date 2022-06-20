@@ -1,3 +1,9 @@
+// known VueJS boolean props (@vue/shared/isBooleanAttr):
+// allowfullscreen, async, autofocus, autoplay, checked, controls, default, defer, disabled, formnovalidate, hidden, ismap, itemscope, loop, multiple, muted, nomodule, novalidate, open, readonly, required, reversed, scoped, seamless, selected
+
+// known ExtJS boolean props, which are conflicts with the VueJS boolean props
+const BOOL_PROPS = new Set( ["checked", "disabled", "hidden"] );
+
 export function addRuntime(toolkit, theme) {
   var xhrObj = new XMLHttpRequest();
 
@@ -51,7 +57,7 @@ export function addRuntime(toolkit, theme) {
     `
     window.stop();
   };
-  if (scriptIt() != 0) 
+  if (scriptIt() != 0)
 
   console.warn('[Deprecation] error below is expected');
 
@@ -112,6 +118,9 @@ export function doProp(me, prop) {
 function doSet(me,prop,val) {
   //console.log('doSet: ' + prop)
 
+    // VueJS set properties as is, without any coercion, for boolean props we need stringify boolean values
+    if ( typeof val === "boolean" ) val = val.toString();
+
   if (prop == 'plugins') {
     return;
   }
@@ -166,6 +175,12 @@ function doGet(me,prop) {
 }
 
 export function filterProp(propertyValue, property, me) {
+
+    // patch for vue3 boolean attributes coercion
+    // if boolean attribute is set, vue3 converts it value to "", here we need to convert it back to the boolean
+    // if attribute is set - value is ""
+    if ( BOOL_PROPS.has( property ) ) return propertyValue === "";
+
   try {
     if (propertyValue == 'error') {
       return me.attributeObjects[property]
