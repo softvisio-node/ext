@@ -1,5 +1,5 @@
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/Model.js node_modules/@sencha/ext-core/src/data/Model.js
---- ../node_modules/@sencha/ext-core/src/data/Model.js	2022-06-16 09:43:05.027704600 +0300
+--- ../node_modules/@sencha/ext-core/src/data/Model.js	2022-06-20 02:30:42.264156400 +0300
 +++ node_modules/@sencha/ext-core/src/data/Model.js	2022-06-20 01:58:14.594912300 +0300
 @@ -111,7 +111,7 @@
   * values.
@@ -276,7 +276,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
           * @inheritable
           */
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-font-awesome/sass/src/all.scss node_modules/@sencha/ext-font-awesome/sass/src/all.scss
---- ../node_modules/@sencha/ext-font-awesome/sass/src/all.scss	2022-06-16 09:43:04.363907200 +0300
+--- ../node_modules/@sencha/ext-font-awesome/sass/src/all.scss	2022-06-20 02:30:41.849238600 +0300
 +++ node_modules/@sencha/ext-font-awesome/sass/src/all.scss	2022-06-18 10:04:01.966749300 +0300
 @@ -1,36 +1 @@
 -// All rule-generating imports go here vs in etc/all.scss so that they will
@@ -317,7 +317,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-font-
 -// NOTE: _variables.scss is imported much earlier by ext/sass/etc/font-awesome-variables.scss
 +// FontAwesome removed from ExtJS
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js	2022-06-16 09:43:04.237244200 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js	2022-06-20 02:30:42.517477200 +0300
 +++ node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js	2022-06-19 10:28:53.231180600 +0300
 @@ -13,5 +13,5 @@
       * The menu item text for the "Add to grouping" menu item.
@@ -327,7 +327,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
 +    text: window.i18nd( "ext", "Add to grouping" )
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/Columns.js node_modules/@sencha/ext-modern/src/grid/menu/Columns.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/Columns.js	2022-06-16 09:43:04.547785500 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/Columns.js	2022-06-20 02:30:42.809696100 +0300
 +++ node_modules/@sencha/ext-modern/src/grid/menu/Columns.js	2022-06-19 10:29:12.320367700 +0300
 @@ -14,7 +14,7 @@
       * The menu item text for the column visibility sub-menu.
@@ -339,7 +339,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
      menu: {},
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js	2022-06-16 09:43:04.892066300 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js	2022-06-20 02:30:42.947841000 +0300
 +++ node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js	2022-06-19 10:29:35.840355400 +0300
 @@ -14,5 +14,5 @@
       * The menu item text for the "Group by this field" menu item.
@@ -349,7 +349,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
 +    text: window.i18nd( "ext", "Group by this field" )
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/Groups.js node_modules/@sencha/ext-modern/src/grid/menu/Groups.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/Groups.js	2022-06-16 09:43:04.898051400 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/Groups.js	2022-06-20 02:30:42.949835300 +0300
 +++ node_modules/@sencha/ext-modern/src/grid/menu/Groups.js	2022-06-19 10:30:14.366350500 +0300
 @@ -17,11 +17,11 @@
  
@@ -366,7 +366,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
      }]
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js	2022-06-16 09:43:05.216367900 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js	2022-06-20 02:30:43.071515800 +0300
 +++ node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js	2022-06-19 10:30:36.619963800 +0300
 @@ -13,5 +13,5 @@
       * The menu item text for the "Remove from grouping" menu item.
@@ -376,7 +376,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
 +    text: window.i18nd( "ext", "Remove from grouping" )
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js	2022-06-16 09:43:05.310712800 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js	2022-06-20 02:30:43.102434200 +0300
 +++ node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js	2022-06-19 10:30:56.282535600 +0300
 @@ -14,5 +14,5 @@
       * Text displayed in the grid header for enabling/disabling grouping.
@@ -386,7 +386,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
 +    text: window.i18nd( "ext", "Show in groups" )
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js	2022-06-16 09:43:05.327666800 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js	2022-06-20 02:30:43.110412200 +0300
 +++ node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js	2022-06-19 10:31:27.644502000 +0300
 @@ -14,7 +14,7 @@
       * The menu item text for the Sort Ascending menu item.
@@ -398,7 +398,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
      value: 'ASC',
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js	2022-06-16 09:43:05.328663800 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js	2022-06-20 02:30:43.111410400 +0300
 +++ node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js	2022-06-19 10:31:41.952534800 +0300
 @@ -14,7 +14,7 @@
       * The menu item text for the Sort Ascending menu item.
@@ -410,7 +410,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
      value: 'DESC',
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js
---- ../node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2022-06-16 09:43:05.449961000 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2022-06-20 02:30:43.169261900 +0300
 +++ node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2022-06-19 10:57:33.068802600 +0300
 @@ -72,9 +72,9 @@
   * import '@sencha/ext-web-components/dist/ext-container.component';
@@ -480,7 +480,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
                  }
              }
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/panel/Date.js node_modules/@sencha/ext-modern/src/panel/Date.js
---- ../node_modules/@sencha/ext-modern/src/panel/Date.js	2022-06-16 09:43:04.615805300 +0300
+--- ../node_modules/@sencha/ext-modern/src/panel/Date.js	2022-06-20 02:30:42.854577300 +0300
 +++ node_modules/@sencha/ext-modern/src/panel/Date.js	2022-06-20 02:20:09.898169900 +0300
 @@ -350,7 +350,7 @@
      tools: {
@@ -519,7 +519,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
              weight: 100,
              increment: 1,
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/Panel.js node_modules/@sencha/ext-modern/src/Panel.js
---- ../node_modules/@sencha/ext-modern/src/Panel.js	2022-06-16 09:43:05.148549000 +0300
+--- ../node_modules/@sencha/ext-modern/src/Panel.js	2022-06-20 02:30:43.045597800 +0300
 +++ node_modules/@sencha/ext-modern/src/Panel.js	2022-06-19 10:53:22.431495200 +0300
 @@ -748,7 +748,7 @@
           * **Note:** Applicable when the panel is {@link #closable}: true
@@ -531,7 +531,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
  
      /**
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/picker/Date.js node_modules/@sencha/ext-modern/src/picker/Date.js
---- ../node_modules/@sencha/ext-modern/src/picker/Date.js	2022-06-16 09:43:04.616812000 +0300
+--- ../node_modules/@sencha/ext-modern/src/picker/Date.js	2022-06-20 02:30:42.856572600 +0300
 +++ node_modules/@sencha/ext-modern/src/picker/Date.js	2022-06-19 11:01:41.772844000 +0300
 @@ -160,21 +160,21 @@
           * The label to show for the month column.
@@ -559,7 +559,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
          /**
           * @cfg {Array} slotOrder
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/picker/Picker.js node_modules/@sencha/ext-modern/src/picker/Picker.js
---- ../node_modules/@sencha/ext-modern/src/picker/Picker.js	2022-06-16 09:43:05.166500800 +0300
+--- ../node_modules/@sencha/ext-modern/src/picker/Picker.js	2022-06-20 02:30:43.053564400 +0300
 +++ node_modules/@sencha/ext-modern/src/picker/Picker.js	2022-06-19 11:03:46.768633400 +0300
 @@ -1,4 +1,4 @@
 -/**
@@ -586,7 +586,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
          }
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss
---- ../node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss	2022-06-16 09:43:03.910118800 +0300
+--- ../node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss	2022-06-20 02:30:42.200325500 +0300
 +++ node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss	2022-06-18 10:04:01.967746400 +0300
 @@ -1,5 +1,5 @@
  $ext-version: '7.5.1.5'!default;  // Updated automatically by the build script.
@@ -595,3 +595,59 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
  $ext-beta: false !default; // Updated automatically by the build script.
  @import 'compass/css3';
  
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-web-components-modern/src/common/util.js node_modules/@sencha/ext-web-components-modern/src/common/util.js
+--- ../node_modules/@sencha/ext-web-components-modern/src/common/util.js	2022-06-20 02:30:42.907435900 +0300
++++ node_modules/@sencha/ext-web-components-modern/src/common/util.js	2022-06-20 03:27:45.055517800 +0300
+@@ -1,3 +1,9 @@
++// known VueJS boolean props (@vue/shared/isBooleanAttr):
++// allowfullscreen, async, autofocus, autoplay, checked, controls, default, defer, disabled, formnovalidate, hidden, ismap, itemscope, loop, multiple, muted, nomodule, novalidate, open, readonly, required, reversed, scoped, seamless, selected
++
++// known ExtJS boolean props, which are conflicts with the VueJS boolean props
++const BOOL_PROPS = new Set( ["checked", "disabled", "hidden"] );
++
+ export function addRuntime(toolkit, theme) {
+   var xhrObj = new XMLHttpRequest();
+ 
+@@ -51,7 +57,7 @@
+     `
+     window.stop();
+   };
+-  if (scriptIt() != 0) 
++  if (scriptIt() != 0)
+ 
+   console.warn('[Deprecation] error below is expected');
+ 
+@@ -112,6 +118,9 @@
+ function doSet(me,prop,val) {
+   //console.log('doSet: ' + prop)
+ 
++    // VueJS set properties as is, without any coercion, for boolean props we need stringify boolean values
++    if ( typeof val === "boolean" ) val = val.toString();
++
+   if (prop == 'plugins') {
+     return;
+   }
+@@ -166,6 +175,12 @@
+ }
+ 
+ export function filterProp(propertyValue, property, me) {
++
++    // patch for vue3 boolean attributes coercion
++    // if boolean attribute is set, vue3 converts it value to "", here we need to convert it back to the boolean
++    // if attribute is set - value is ""
++    if ( BOOL_PROPS.has( property ) ) return propertyValue === "";
++
+   try {
+     if (propertyValue == 'error') {
+       return me.attributeObjects[property]
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js node_modules/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js
+--- ../node_modules/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js	2022-06-20 02:30:42.844603800 +0300
++++ node_modules/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js	2022-06-20 03:12:53.612754200 +0300
+@@ -133,6 +133,7 @@
+     'viewModel',
+     'weight',
+     'width',
++    'wrap',
+     'x',
+     'xtype',
+     'y',
