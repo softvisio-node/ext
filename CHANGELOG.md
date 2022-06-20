@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.11.4 (2022-06-20)
+
+Fixes:
+
+-   fix: fa chunk
+
 ### 5.11.3 (2022-06-20)
 
 Fixes:
