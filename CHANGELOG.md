@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.11.6 (2022-06-21)
+
+Fixes:
+
+-   fix: theme registry refactored
+
 ### 5.11.5 (2022-06-20)
 
 Fixes:
