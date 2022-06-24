@@ -17,113 +17,101 @@ msgstr ""
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/field/Field.js:387:27
 msgid "This field is invalid"
-msgstr ""
+msgstr "Це поле недійсне"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Bound.js:29:22
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Presence.js:19:17
 msgid "Must be present"
-msgstr ""
+msgstr "Повинен бути присутнім"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Bound.js:37:24
 msgid "Value must be greater than {0}"
-msgstr ""
+msgstr "Значення має бути більше за {0}"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Bound.js:45:24
 msgid "Value must be less than {0}"
-msgstr ""
+msgstr "Значення має бути менше ніж {0}"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Bound.js:53:21
 msgid "Value must be between {0} and {1}"
-msgstr ""
+msgstr "Значення має бути від {0} до {1}"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/CIDRv4.js:18:13
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/CIDRv6.js:19:13
 msgid "Is not a valid CIDR block"
-msgstr ""
+msgstr "Не є дійсним блоком CIDR"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Currency.js:39:13
 msgid "Is not a valid currency amount"
-msgstr ""
+msgstr "Недійсна сума в валюті"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Date.js:17:13
-#, fuzzy
-#| msgid "Value is not a valid number"
 msgid "Is not a valid date"
-msgstr "Значення не є дійсним числом"
+msgstr "Недійсна дата"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/DateTime.js:17:13
-#, fuzzy
-#| msgid "Value is not a valid number"
 msgid "Is not a valid date and time"
-msgstr "Значення не є дійсним числом"
+msgstr "Недійсні дата та час"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Email.js:15:13
 msgid "Is not a valid email address"
-msgstr ""
+msgstr "Недійсна адреса електронної пошти"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Exclusion.js:16:13
 msgid "Is a value that has been excluded"
-msgstr ""
+msgstr "Це значення, яке було виключено"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Format.js:17:17
 msgid "Is in the wrong format"
-msgstr ""
+msgstr "У неправильному форматі"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/IPAddress.js:17:13
 msgid "Is not a valid IP address"
-msgstr ""
+msgstr "Недійсна IP-адреса"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Inclusion.js:16:13
 msgid "Is not in the list of acceptable values"
-msgstr ""
+msgstr "Не входить у список допустимих значень"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Length.js:26:20
 msgid "Length must be at least {0}"
-msgstr ""
+msgstr "Довжина має бути принаймні {0}"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Length.js:34:20
 msgid "Length must be no more than {0}"
-msgstr ""
+msgstr "Довжина не повинна перевищувати {0}"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Length.js:42:17
 msgid "Length must be between {0} and {1}"
-msgstr ""
+msgstr "Довжина має бути від {0} до {1}"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Number.js:24:17
-#, fuzzy
-#| msgid "Value is not a valid number"
 msgid "Is not a valid number"
-msgstr "Значення не є дійсним числом"
+msgstr "Недійсне число"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Phone.js:18:13
-#, fuzzy
-#| msgid "Value is not a valid number"
 msgid "Is not a valid phone number"
-msgstr "Значення не є дійсним числом"
+msgstr "Недійсний номер телефону"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Range.js:25:20
 msgid "Must be at least {0}"
-msgstr ""
+msgstr "Must be at least {0}"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Range.js:32:20
 msgid "Must be no more than than {0}"
-msgstr ""
+msgstr "Має бути не більше ніж {0}"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Range.js:39:17
 msgid "Must be between {0} and {1}"
-msgstr ""
+msgstr "Має бути від {0} до {1}"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Time.js:17:13
-#, fuzzy
-#| msgid "Value is not a valid number"
 msgid "Is not a valid time"
-msgstr "Значення не є дійсним числом"
+msgstr "Недійсний час"
 
 #: ../../build/patch/node_modules/@sencha/ext-core/src/data/validator/Url.js:15:13
-#, fuzzy
-#| msgid "Value is not a valid number"
 msgid "Is not a valid URL"
-msgstr "Значення не є дійсним числом"
+msgstr "Недійсна URL-адреса"
 
 #: ../../build/patch/node_modules/@sencha/ext-modern/src/Panel.js:751:23
 msgid "Close panel"
