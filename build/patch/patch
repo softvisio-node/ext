@@ -1,3 +1,152 @@
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/field/Field.js node_modules/@sencha/ext-core/src/data/field/Field.js
+--- ../node_modules/@sencha/ext-core/src/data/field/Field.js	2022-06-20 02:30:42.048732100 +0300
++++ node_modules/@sencha/ext-core/src/data/field/Field.js	2022-06-24 08:42:17.046330400 +0300
+@@ -133,9 +133,9 @@
+  *
+  * ### Updating
+  *
+- * Fields modified with the {@link Ext.data.Model#set set} method will have their stored 
++ * Fields modified with the {@link Ext.data.Model#set set} method will have their stored
+  * value set using the convert / calculate method when present.
+- * 
++ *
+  * For example:
+  *
+  *     Ext.define('MyApp.model.Employee', {
+@@ -149,21 +149,21 @@
+  *         }],
+  *         convertOnSet: false
+  *     });
+- *     
++ *
+  *     var tina = Ext.create('MyApp.model.Employee', {
+  *         salary: 50000
+  *     });
+- *     
++ *
+  *     console.log(tina.get('salary')); // logs 55000
+- *     
++ *
+  *     tina.set('salary', 60000);
+  *     console.log(tina.get('salary')); // logs 60000
+- * 
+- * This default behavior can be disabled by setting the Model's 
++ *
++ * This default behavior can be disabled by setting the Model's
+  * `{@link Ext.data.Model#cfg-convertOnSet}` config to `false`.
+- * 
+- * **Note:** convertOnSet `false` only prevents the convert / calculate call when the 
+- * set `fieldName` param matches the field's `{@link #name}`.  See 
++ *
++ * **Note:** convertOnSet `false` only prevents the convert / calculate call when the
++ * set `fieldName` param matches the field's `{@link #name}`.  See
+  * {@link Ext.data.Model#convertOnSet convertOnSet} for additional details.
+  *
+  * ### Dependencies
+@@ -349,14 +349,14 @@
+      *
+      * The only advantage of a `calculate` method over a `convert` method is automatic
+      * determination of `depends`.
+-     * 
+-     * **Note:** The use of calculate and {@link #method-convert} are exclusive.  The 
++     *
++     * **Note:** The use of calculate and {@link #method-convert} are exclusive.  The
+      * calculate method will override the convert method if both are configured.
+-     * 
++     *
+      * **Note:** Fields used by the calculate method must be explicitly defined in the
+      * {@link Ext.data.Model#cfg-fields #fields} of the model.
+      *
+-     * @param {Object} data An object with all values for each field in the parent 
++     * @param {Object} data An object with all values for each field in the parent
+      * model.  See {@link Ext.data.Model#getData getData}.
+      * @return {Mixed} value The value of the calculated field
+      */
+@@ -365,8 +365,8 @@
+      * @cfg {Function} convert
+      * If specified this config overrides the `{@link #method-convert convert}` method.
+      * See also `{@link #cfg-calculate calculate}` for simple field calculations.
+-     * 
+-     * **Note:** The use of {@link #calculate} and convert are exclusive.  The calculate 
++     *
++     * **Note:** The use of {@link #calculate} and convert are exclusive.  The calculate
+      * method will override the convert method if both are configured.
+      */
+ 
+@@ -374,7 +374,7 @@
+      * @cfg {Boolean} critical
+      * A critical field is a field that must always be sent to the server even if it has
+      * not changed. The most common example of such a field is the "id" of a record (see
+-     * `{@link Ext.data.Model#idProperty}` but the 
++     * `{@link Ext.data.Model#idProperty}` but the
+      * `{@link Ext.data.Model#versionProperty}` is similarly a `critical` field.
+      */
+     critical: false,
+@@ -384,7 +384,7 @@
+      * The default message to present for an invalid field.
+      * @since 5.0.0
+      */
+-    defaultInvalidMessage: 'This field is invalid',
++    defaultInvalidMessage: window.i18nd( "ext", "This field is invalid" ),
+ 
+     /**
+      * @cfg {Object} defaultValue
+@@ -461,14 +461,14 @@
+      *
+      *     {
+      *         name: 'name',
+-     *     
++     *
+      *         // Will be called whenever forename or surname fields are set
+      *         convert: function (v, rec) {
+      *             return rec.get('firstName') + ' ' + rec.get('lastName');
+      *         },
+-     *     
++     *
+      *         depends: [ 'firstName', 'lastName' ],
+-     *     
++     *
+      *         // It should not be returned to the server - it's not a database field
+      *         persist: false
+      *     }
+@@ -503,7 +503,7 @@
+      * - {@link Ext.data.reader.Json}
+      *
+      *   The mapping is a string containing the javascript expression to reference the
+-     *   data from an element of the data item's 
++     *   data from an element of the data item's
+      *   {@link Ext.data.reader.Json#cfg-rootProperty rootProperty} Array. Defaults to
+      *   the field name. If a function is passed, a single argument is received which
+      *   contains the raw json object:
+@@ -587,7 +587,7 @@
+      * @cfg {String/Object} reference
+      * The {@link Ext.data.Model#entityName name} of the entity referenced by this field.
+      * In most databases, this relationship is represented by a "foreign key". That is, a
+-     * value for such a field matches the value of the 
++     * value for such a field matches the value of the
+      * {@link Ext.data.Model#idProperty id} for an entity of this type.
+      *
+      * For further documentation, see {@link Ext.data.schema.Reference}.
+@@ -608,7 +608,7 @@
+      * - If an object, a config for one of the Ext.data.summary types.
+      * - If a function, it should match the signature for
+      * {@link Ext.data.summary.Base#method-calculate calculate}.
+-     * 
++     *
+      * @since 6.5.0
+      */
+     summary: null,
+@@ -703,8 +703,8 @@
+      *          return ...
+      *      }
+      *
+-     * **NOTE:** It is recommended for such fields to use 
+-     * `{@link #cfg-calculate calculate}` or explicitly specify the fields used by 
++     * **NOTE:** It is recommended for such fields to use
++     * `{@link #cfg-calculate calculate}` or explicitly specify the fields used by
+      * `{@link #method-convert convert}` using `{@link #cfg-depends depends}`.
+      *
+      * @readonly
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/Model.js node_modules/@sencha/ext-core/src/data/Model.js
 --- ../node_modules/@sencha/ext-core/src/data/Model.js	2022-06-20 02:30:42.264156400 +0300
 +++ node_modules/@sencha/ext-core/src/data/Model.js	2022-06-20 01:58:14.594912300 +0300
@@ -275,6 +424,283 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
           * @static
           * @inheritable
           */
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Bound.js node_modules/@sencha/ext-core/src/data/validator/Bound.js
+--- ../node_modules/@sencha/ext-core/src/data/validator/Bound.js	2022-06-20 02:30:41.662416500 +0300
++++ node_modules/@sencha/ext-core/src/data/validator/Bound.js	2022-06-24 08:30:18.577479700 +0300
+@@ -26,7 +26,7 @@
+          * The error message to return when the value is empty.
+          * @locale
+          */
+-        emptyMessage: 'Must be present',
++        emptyMessage: window.i18nd( "ext", "Must be present" ),
+ 
+         /**
+          * @cfg {String} minOnlyMessage
+@@ -34,7 +34,7 @@
+          * and only a minimum is specified.
+          * @locale
+          */
+-        minOnlyMessage: 'Value must be greater than {0}',
++        minOnlyMessage: window.i18nd( "ext", "Value must be greater than {0}" ),
+ 
+         /**
+          * @cfg {String} maxOnlyMessage
+@@ -42,7 +42,7 @@
+          * and only a maximum is specified.
+          * @locale
+          */
+-        maxOnlyMessage: 'Value must be less than {0}',
++        maxOnlyMessage: window.i18nd( "ext", "Value must be less than {0}" ),
+ 
+         /**
+          * @cfg {String} bothMessage
+@@ -50,7 +50,7 @@
+          * and both the minimum and maximum are specified.
+          * @locale
+          */
+-        bothMessage: 'Value must be between {0} and {1}'
++        bothMessage: window.i18nd( "ext", "Value must be between {0} and {1}" )
+     },
+ 
+     resetMessages: function() {
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/CIDRv4.js node_modules/@sencha/ext-core/src/data/validator/CIDRv4.js
+--- ../node_modules/@sencha/ext-core/src/data/validator/CIDRv4.js	2022-06-20 02:30:41.828294400 +0300
++++ node_modules/@sencha/ext-core/src/data/validator/CIDRv4.js	2022-06-24 08:31:44.094524500 +0300
+@@ -15,7 +15,7 @@
+      * The error message to return when the value is not a valid CIDR block.
+      * @locale
+      */
+-    message: 'Is not a valid CIDR block',
++    message: window.i18nd( "ext", "Is not a valid CIDR block" ),
+ 
+     // http://www.regexpal.com/93987
+ 
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/CIDRv6.js node_modules/@sencha/ext-core/src/data/validator/CIDRv6.js
+--- ../node_modules/@sencha/ext-core/src/data/validator/CIDRv6.js	2022-06-20 02:30:41.831286600 +0300
++++ node_modules/@sencha/ext-core/src/data/validator/CIDRv6.js	2022-06-24 08:32:10.068251600 +0300
+@@ -16,7 +16,7 @@
+      * The error message to return when the value is not a valid CIDR block.
+      * @locale
+      */
+-    message: 'Is not a valid CIDR block',
++    message: window.i18nd( "ext", "Is not a valid CIDR block" ),
+ 
+     // http://www.regexpal.com/93987
+ 
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Currency.js node_modules/@sencha/ext-core/src/data/validator/Currency.js
+--- ../node_modules/@sencha/ext-core/src/data/validator/Currency.js	2022-06-20 02:30:41.931533500 +0300
++++ node_modules/@sencha/ext-core/src/data/validator/Currency.js	2022-06-24 08:32:37.011950500 +0300
+@@ -36,7 +36,7 @@
+      * The error message to return when the value is not a valid currency amount.
+      * @locale
+      */
+-    message: 'Is not a valid currency amount',
++    message: window.i18nd( "ext", "Is not a valid currency amount" ),
+ 
+     applySymbolAtEnd: function(value) {
+         return value === undefined ? Ext.util.Format.currencyAtEnd : value;
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Date.js node_modules/@sencha/ext-core/src/data/validator/Date.js
+--- ../node_modules/@sencha/ext-core/src/data/validator/Date.js	2022-06-20 02:30:41.936520200 +0300
++++ node_modules/@sencha/ext-core/src/data/validator/Date.js	2022-06-24 08:33:13.951570500 +0300
+@@ -14,7 +14,7 @@
+      * The error message to return when the value is not a valid date.
+      * @locale
+      */
+-    message: 'Is not a valid date',
++    message: window.i18nd( "ext", "Is not a valid date" ),
+ 
+     /**
+      * @cfg {String/String[]} format
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/DateTime.js node_modules/@sencha/ext-core/src/data/validator/DateTime.js
+--- ../node_modules/@sencha/ext-core/src/data/validator/DateTime.js	2022-06-20 02:30:41.943501200 +0300
++++ node_modules/@sencha/ext-core/src/data/validator/DateTime.js	2022-06-24 08:33:41.161995000 +0300
+@@ -14,7 +14,7 @@
+      * The error message to return when the value is not a valid time.
+      * @locale
+      */
+-    message: 'Is not a valid date and time',
++    message: window.i18nd( "ext", "Is not a valid date and time" ),
+ 
+     /**
+      * @cfg {String/String[]} format
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Email.js node_modules/@sencha/ext-core/src/data/validator/Email.js
+--- ../node_modules/@sencha/ext-core/src/data/validator/Email.js	2022-06-20 02:30:41.998355000 +0300
++++ node_modules/@sencha/ext-core/src/data/validator/Email.js	2022-06-24 08:34:17.129679600 +0300
+@@ -12,7 +12,7 @@
+      * The error message to return when the value is not a valid email
+      * @locale
+      */
+-    message: 'Is not a valid email address',
++    message: window.i18nd( "ext", "Is not a valid email address" ),
+ 
+     // http://en.wikipedia.org/wiki/Email_address#Local_part
+     // http://stackoverflow.com/a/2049510
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Exclusion.js node_modules/@sencha/ext-core/src/data/validator/Exclusion.js
+--- ../node_modules/@sencha/ext-core/src/data/validator/Exclusion.js	2022-06-20 02:30:42.025794300 +0300
++++ node_modules/@sencha/ext-core/src/data/validator/Exclusion.js	2022-06-24 08:34:37.731034100 +0300
+@@ -13,7 +13,7 @@
+      * specified {@link #list}.
+      * @locale
+      */
+-    message: 'Is a value that has been excluded',
++    message: window.i18nd( "ext", "Is a value that has been excluded" ),
+ 
+     //<debug>
+     constructor: function() {
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Format.js node_modules/@sencha/ext-core/src/data/validator/Format.js
+--- ../node_modules/@sencha/ext-core/src/data/validator/Format.js	2022-06-20 02:30:42.081642800 +0300
++++ node_modules/@sencha/ext-core/src/data/validator/Format.js	2022-06-24 08:34:56.645010800 +0300
+@@ -14,7 +14,7 @@
+          * The error message to return when the value does not match the format.
+          * @locale
+          */
+-        message: 'Is in the wrong format',
++        message: window.i18nd( "ext", "Is in the wrong format" ),
+ 
+         /**
+          * @cfg {RegExp} matcher (required) The matcher regex to test against the value.
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Inclusion.js node_modules/@sencha/ext-core/src/data/validator/Inclusion.js
+--- ../node_modules/@sencha/ext-core/src/data/validator/Inclusion.js	2022-06-20 02:30:42.135500100 +0300
++++ node_modules/@sencha/ext-core/src/data/validator/Inclusion.js	2022-06-24 08:35:16.625591900 +0300
+@@ -13,7 +13,7 @@
+      * in the specified {@link #list}.
+      * @locale
+      */
+-    message: 'Is not in the list of acceptable values',
++    message: window.i18nd( "ext", "Is not in the list of acceptable values" ),
+ 
+     //<debug>
+     constructor: function() {
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/IPAddress.js node_modules/@sencha/ext-core/src/data/validator/IPAddress.js
+--- ../node_modules/@sencha/ext-core/src/data/validator/IPAddress.js	2022-06-20 02:30:42.153452200 +0300
++++ node_modules/@sencha/ext-core/src/data/validator/IPAddress.js	2022-06-24 08:35:35.617214000 +0300
+@@ -14,7 +14,7 @@
+      * The error message to return when the value is not a valid IP address
+      * @locale
+      */
+-    message: 'Is not a valid IP address',
++    message: window.i18nd( "ext", "Is not a valid IP address" ),
+ 
+     // http://stackoverflow.com/questions/23483855/javascript-regex-to-validate-ipv4-and-ipv6-address-no-hostnames
+     /**
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Length.js node_modules/@sencha/ext-core/src/data/validator/Length.js
+--- ../node_modules/@sencha/ext-core/src/data/validator/Length.js	2022-06-20 02:30:42.191350900 +0300
++++ node_modules/@sencha/ext-core/src/data/validator/Length.js	2022-06-24 08:36:15.181677600 +0300
+@@ -23,7 +23,7 @@
+      * length and only a minimum is specified.
+      * @locale
+      */
+-    minOnlyMessage: 'Length must be at least {0}',
++    minOnlyMessage: window.i18nd( "ext", "Length must be at least {0}" ),
+ 
+     /**
+      * @cfg {String} maxOnlyMessage
+@@ -31,7 +31,7 @@
+      * length and only a maximum is specified.
+      * @locale
+      */
+-    maxOnlyMessage: 'Length must be no more than {0}',
++    maxOnlyMessage: window.i18nd( "ext", "Length must be no more than {0}" ),
+ 
+     /**
+      * @cfg {String} bothMessage
+@@ -39,7 +39,7 @@
+      * range and both the minimum and maximum are specified.
+      * @locale
+      */
+-    bothMessage: 'Length must be between {0} and {1}',
++    bothMessage: window.i18nd( "ext", "Length must be between {0} and {1}" ),
+ 
+     getValue: function(v) {
+         return String(v).length;
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Number.js node_modules/@sencha/ext-core/src/data/validator/Number.js
+--- ../node_modules/@sencha/ext-core/src/data/validator/Number.js	2022-06-20 02:30:42.309038600 +0300
++++ node_modules/@sencha/ext-core/src/data/validator/Number.js	2022-06-24 08:37:23.853526400 +0300
+@@ -21,7 +21,7 @@
+          * The error message to return when the value is not a valid number.
+          * @locale
+          */
+-        message: 'Is not a valid number',
++        message: window.i18nd( "ext", "Is not a valid number" ),
+ 
+         /**
+          * @cfg {String} thousandSeparator
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Phone.js node_modules/@sencha/ext-core/src/data/validator/Phone.js
+--- ../node_modules/@sencha/ext-core/src/data/validator/Phone.js	2022-06-20 02:30:42.366881700 +0300
++++ node_modules/@sencha/ext-core/src/data/validator/Phone.js	2022-06-24 08:37:55.567234900 +0300
+@@ -15,7 +15,7 @@
+      * The error message to return when the value is not a valid phone.
+      * @locale
+      */
+-    message: 'Is not a valid phone number',
++    message: window.i18nd( "ext", "Is not a valid phone number" ),
+ 
+     /**
+      * @cfg {RegExp} matcher
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Presence.js node_modules/@sencha/ext-core/src/data/validator/Presence.js
+--- ../node_modules/@sencha/ext-core/src/data/validator/Presence.js	2022-06-20 02:30:42.387824500 +0300
++++ node_modules/@sencha/ext-core/src/data/validator/Presence.js	2022-06-24 08:38:17.313567500 +0300
+@@ -16,7 +16,7 @@
+          * The error message to return when the value is not specified.
+          * @locale
+          */
+-        message: 'Must be present',
++        message: window.i18nd( "ext", "Must be present" ),
+ 
+         /**
+          * @cfg {Boolean} allowEmpty
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Range.js node_modules/@sencha/ext-core/src/data/validator/Range.js
+--- ../node_modules/@sencha/ext-core/src/data/validator/Range.js	2022-06-20 02:30:42.417744000 +0300
++++ node_modules/@sencha/ext-core/src/data/validator/Range.js	2022-06-24 08:38:57.307902300 +0300
+@@ -22,21 +22,21 @@
+      * @inheritdoc
+      * @locale
+      */
+-    minOnlyMessage: 'Must be at least {0}',
++    minOnlyMessage: window.i18nd( "ext", "Must be at least {0}" ),
+ 
+     /**
+      * @cfg maxOnlyMessage
+      * @inheritdoc
+      * @locale
+      */
+-    maxOnlyMessage: 'Must be no more than than {0}',
++    maxOnlyMessage: window.i18nd( "ext", "Must be no more than than {0}" ),
+ 
+     /**
+      * @cfg bothMessage
+      * @inheritdoc
+      * @locale
+      */
+-    bothMessage: 'Must be between {0} and {1}',
++    bothMessage: window.i18nd( "ext", "Must be between {0} and {1}" ),
+ 
+     config: {
+         /**
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Time.js node_modules/@sencha/ext-core/src/data/validator/Time.js
+--- ../node_modules/@sencha/ext-core/src/data/validator/Time.js	2022-06-20 02:30:42.617210900 +0300
++++ node_modules/@sencha/ext-core/src/data/validator/Time.js	2022-06-24 08:39:15.931475800 +0300
+@@ -14,7 +14,7 @@
+      * The error message to return when the value is not a valid time.
+      * @locale
+      */
+-    message: 'Is not a valid time',
++    message: window.i18nd( "ext", "Is not a valid time" ),
+ 
+     /**
+      * @cfg {String/String[]} format
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Url.js node_modules/@sencha/ext-core/src/data/validator/Url.js
+--- ../node_modules/@sencha/ext-core/src/data/validator/Url.js	2022-06-20 02:30:42.663088800 +0300
++++ node_modules/@sencha/ext-core/src/data/validator/Url.js	2022-06-24 08:39:37.588764300 +0300
+@@ -12,7 +12,7 @@
+      * The error message to return when the value is not a valid URL.
+      * @locale
+      */
+-    message: 'Is not a valid URL',
++    message: window.i18nd( "ext", "Is not a valid URL" ),
+ 
+     // URL validator that works is non-trivial
+     // There are numerous examples online but not all pass rigoruous test:
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-font-awesome/sass/src/all.scss node_modules/@sencha/ext-font-awesome/sass/src/all.scss
 --- ../node_modules/@sencha/ext-font-awesome/sass/src/all.scss	2022-06-20 02:30:41.849238600 +0300
 +++ node_modules/@sencha/ext-font-awesome/sass/src/all.scss	2022-06-18 10:04:01.966749300 +0300
