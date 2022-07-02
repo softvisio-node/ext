@@ -1,5 +1,12 @@
 # Changelog
 
+### 5.11.8 (2022-07-02)
+
+Fixes:
+
+-   fix: format refactored
+-   fix: patch refactored
+
 ### 5.11.7 (2022-06-24)
 
 Fixes:
