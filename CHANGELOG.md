@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.11.9 (2022-07-24)
+
+Fixes:
+
+-   fix: dialog prevent defalt event action on escape
+
 ### 5.11.8 (2022-07-02)
 
 Fixes:
