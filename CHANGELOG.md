@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.12.0 (2022-07-26)
+
+Features:
+
+-   feat: file size formatter
+
 ### 5.11.9 (2022-07-24)
 
 Fixes:
