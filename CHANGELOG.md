@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.12.1 (2022-08-10)
+
+Fixes:
+
+-   fix: video component
+
 ### 5.12.0 (2022-07-26)
 
 Features:
