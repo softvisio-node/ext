@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-08-12 21:29+0300\n"
+"POT-Creation-Date: 2022-08-12 22:16+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -123,22 +123,18 @@ msgid "This field is required"
 msgstr "Это поле обязательно к заполнению"
 
 #: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:194:18
-#: Ext.overrides.field.Number.js:9:24
 msgid "The minimum value for this field is {0}"
 msgstr "Минимальное значение для этого поля: {0}."
 
 #: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:202:18
-#: Ext.overrides.field.Number.js:10:24
 msgid "The maximum value for this field is {0}"
 msgstr "Максимальное значение для этого поля: {0}"
 
 #: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:211:18
-#: Ext.overrides.field.Number.js:11:24
 msgid "The maximum decimal places is {0}"
 msgstr "Максимальное количество знаков после запятой: {0}"
 
 #: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:213:22
-#: Ext.overrides.field.Number.js:12:28
 msgid "Value is not a valid number"
 msgstr "Значение не является допустимым числом"
 
