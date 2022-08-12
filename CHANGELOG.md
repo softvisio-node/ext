@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.12.3 (2022-08-12)
+
+Fixes:
+
+-   fix: translations
+
 ### 5.12.2 (2022-08-12)
 
 Fixes:
