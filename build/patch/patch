@@ -755,6 +755,60 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
          me.close(event);
  
          if (sibling) {
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/field/Field.js node_modules_patch/@sencha/ext-modern/src/field/Field.js
+--- ../node_modules/@sencha/ext-modern/src/field/Field.js	2022-06-20 02:30:42.898460300 +0300
++++ node_modules_patch/@sencha/ext-modern/src/field/Field.js	2022-08-12 21:18:48.357738300 +0300
+@@ -163,7 +163,7 @@
+          * The error message to display when {@link #required} is `true` and the field's
+          * value is "empty" (`null`, `undefined`, or empty string).
+          */
+-        requiredMessage: 'This field is required',
++        requiredMessage: window.i18nd( "ext", "This field is required" ),
+ 
+         /**
+          * @cfg {Mixed}
+@@ -225,7 +225,7 @@
+          * @cfg {String} validationMessage
+          * For validation, regex, etc., this is the error message returned if field is invalid.
+          */
+-        validationMessage: 'Is in the wrong format',
++        validationMessage: window.i18nd( "ext", "Is in the wrong format" ),
+ 
+         /**
+          * @cfg {Boolean} [validateDisabled=false]
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/field/Number.js node_modules_patch/@sencha/ext-modern/src/field/Number.js
+--- ../node_modules/@sencha/ext-modern/src/field/Number.js	2022-06-20 02:30:43.030620200 +0300
++++ node_modules_patch/@sencha/ext-modern/src/field/Number.js	2022-08-12 21:22:13.138073600 +0300
+@@ -191,7 +191,7 @@
+      * @Locale
+      * @since 6.5.1
+      */
+-    minValueText: 'The minimum value for this field is {0}',
++    minValueText: window.i18nd( "ext", "The minimum value for this field is {0}" ),
+ 
+     /**
+      * @cfg {String} maxValueText
+@@ -199,7 +199,7 @@
+      * @Locale
+      * @since 6.5.1
+      */
+-    maxValueText: 'The maximum value for this field is {0}',
++    maxValueText: window.i18nd( "ext", "The maximum value for this field is {0}" ),
+ 
+     /**
+      * @cfg {String} decimalsText
+@@ -208,9 +208,9 @@
+      * @Locale
+      * @since 6.5.1
+      */
+-    decimalsText: 'The maximum decimal places is {0}',
++    decimalsText: window.i18nd( "ext", "The maximum decimal places is {0}" ),
+ 
+-    badFormatMessage: 'Value is not a valid number',
++    badFormatMessage: window.i18nd( "ext", "Value is not a valid number" ),
+ 
+     classCls: Ext.baseCSSPrefix + 'numberfield',
+ 
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js node_modules_patch/@sencha/ext-modern/src/grid/menu/AddGroup.js
 --- ../node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js	2022-06-20 02:30:42.517477200 +0300
 +++ node_modules_patch/@sencha/ext-modern/src/grid/menu/AddGroup.js	2022-07-02 15:18:21.338305100 +0300
