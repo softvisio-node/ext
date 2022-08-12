@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.12.2 (2022-08-12)
+
+Fixes:
+
+-   fix: ext format label removed
+
 ### 5.12.1 (2022-08-10)
 
 Fixes:
