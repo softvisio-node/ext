@@ -1,5 +1,16 @@
 # Changelog
 
+### 5.13.0 (2022-09-02)
+
+Features:
+
+-   feat: ext v7.6.0
+
+Fixes:
+
+-   fix: et 7.5.1 removed
+-   fix: patch
+
 ### 5.12.4 (2022-08-12)
 
 Fixes:
