@@ -315,10 +315,26 @@ Ext.define('Ext.calendar.view.Weeks', {
                 scope: me,
                 touchstart: 'onTouchStart',
                 touchmove: 'onTouchMove',
+                drag: 'onDrag',
                 touchend: 'onTouchEnd',
                 longpress: 'onLongPress'
             });
         }
+    },
+
+    onDrag: function(e) {
+        var me = this;
+
+        // Canceling as needed to perform range selection for mouse drag.
+        if (e.pointerType === 'mouse') {
+            return;
+        }
+
+        // Clearing the current selection.
+        e.preventDefault();
+        me.isSelecting = false;
+        me.selectedStartIndex = me.selectedEndIndex = null;
+        me.clearSelected();
     },
 
     updateDayFormat: function(dayFormat) {
@@ -1240,7 +1256,7 @@ Ext.define('Ext.calendar.view.Weeks', {
                 el = me.element,
                 cell;
 
-            if (e.pointerType === 'touch' || e.getTarget('.' + me.$overflowCls, el) ||
+            if (e.getTarget('.' + me.$overflowCls, el) ||
                 e.getTarget('.' + me.$overflowPopupCls, el)) {
                 return;
             }

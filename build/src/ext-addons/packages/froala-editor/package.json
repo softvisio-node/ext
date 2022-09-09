@@ -2,7 +2,7 @@
   "name": "froala-editor",
   "namespace": "Ext",
   "format": "1",
-  "version": "7.5.1.5",
+  "version": "7.6.0.41",
   "creator": "Sencha",
   "summary": "Sencha Froala Editor",
   "detailedDescription": "Sencha Froala Editor is a package that provides a rich editor component built on top of Froala Editor.",
@@ -14,10 +14,10 @@
     {
       "name": "Sencha",
       "uuid": "1d6b0d9c-3333-4e65-885f-5b07a1fc3198",
-      "created": "2022-02-04T16:12:54Z",
+      "created": "2022-04-28T18:22:42Z",
       "algorithm": "SHA1withRSA",
-      "nonce": "9U5JaESLLX0\u003d",
-      "signature": "l4iwYbv8wpgBV7aTTNzGbwTzdqcsblq8kGM148ydOOPCujVwWNNNUvvupGLuQ77VlUustrC34vo1kUDJlxDJdCccrcUcHjCJXiovZ1754m/2aN0nHOhsC5CBiuw4lL4FImvcnduuljhJmYiQ9jCbO9O0LFFFJkZHzG3TbOkeNKOHvul4d0cGg2QzQnSNEUZfCAmf+7afbQjspqpqGy/J7avV/H5JUos1JmqmnIOa73MHN+ONPVAK+FAVHZoVIFsokKzC8kZt6d10Ysi9NODnk4TbuWuFHyLFpBY3sPGRNvuIE9rAf6rvYDvFqGOwvCuD34bQjfp34eRajxJFTl0dhw\u003d\u003d"
+      "nonce": "+OZNmT5QMto\u003d",
+      "signature": "BU0VxUoMvwXS07USw9mVWnEuEqXv/Gc8dKhZKMmhTejjB3fNi3WwM8k+Npr4LYAOogLx7LKzSR8L84QxPP4s90HCcViSSCjHv1ilY2o0Mm1p1MYcoPMVxaR+0ObFcVfMHvbU1tqk/VmwrFVM5PiIx1MNzePo5pthhN9PADbFC5dOEQs6qrSJtcCJqSOA7sPjZx/SnUVUzpiJPedxWOGQ77a/qquxV4ce3jRolJFb/1ZEy/Q6Q7vW/aqRYj/HxXUgPdIc/qg5fDYzyKeoHrQXnfilTOZfhxsF99WKIO2VmlDVH6QlDnvumJDC+xnVCMnXK8rKbT35fP0BdutqxHTOIQ\u003d\u003d"
     }
   ],
   "js": [

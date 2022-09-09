@@ -1455,12 +1455,12 @@ Ext.define('Ext.calendar.view.Days', {
                 return;
             }
 
+            e.preventDefault();
             w = creating.widget;
 
             if (!w) {
                 w = me.createEvent(null, {}, true);
                 el = w.element;
-
                 w.setPalette(me.getDefaultPalette());
                 w.addCls(me.$resizingCls);
                 w.setWidth('100%');
@@ -1518,7 +1518,7 @@ Ext.define('Ext.calendar.view.Days', {
                 D = Ext.Date,
                 col, index, d;
 
-            if (e.pointerType === 'touch' || e.getTarget('.' + me.$eventCls, me.bodyTable)) {
+            if (e.getTarget('.' + me.$eventCls, me.bodyTable)) {
                 return;
             }
 

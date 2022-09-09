@@ -3,27 +3,60 @@ $jscomp.scope = {};
 $jscomp.ASSUME_ES5 = false;
 $jscomp.ASSUME_NO_NATIVE_MAP = false;
 $jscomp.ASSUME_NO_NATIVE_SET = false;
+$jscomp.SIMPLE_FROUND_POLYFILL = false;
+$jscomp.ISOLATE_POLYFILLS = false;
+$jscomp.FORCE_POLYFILL_PROMISE = false;
+$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION = false;
 $jscomp.defineProperty = $jscomp.ASSUME_ES5 || typeof Object.defineProperties == 'function' ? Object.defineProperty : function(target, property, descriptor) {
-  descriptor = descriptor;
   if (target == Array.prototype || target == Object.prototype) {
-    return;
+    return target;
   }
   target[property] = descriptor.value;
+  return target;
 };
-$jscomp.getGlobal = function(maybeGlobal) {
-  return typeof window != 'undefined' && window === maybeGlobal ? maybeGlobal : typeof global != 'undefined' && global != null ? global : maybeGlobal;
+$jscomp.getGlobal = function(passedInThis) {
+  var possibleGlobals = ['object' == typeof globalThis && globalThis, passedInThis, 'object' == typeof window && window, 'object' == typeof self && self, 'object' == typeof global && global,];
+  for (var i = 0; i < possibleGlobals.length; ++i) {
+    var maybeGlobal = possibleGlobals[i];
+    if (maybeGlobal && maybeGlobal['Math'] == Math) {
+      return maybeGlobal;
+    }
+  }
+  return {valueOf:function() {
+    throw new Error('Cannot find global object');
+  }}.valueOf();
 };
 $jscomp.global = $jscomp.getGlobal(this);
+$jscomp.IS_SYMBOL_NATIVE = typeof Symbol === 'function' && typeof Symbol('x') === 'symbol';
+$jscomp.TRUST_ES6_POLYFILLS = !$jscomp.ISOLATE_POLYFILLS || $jscomp.IS_SYMBOL_NATIVE;
+$jscomp.polyfills = {};
+$jscomp.propertyToPolyfillSymbol = {};
+$jscomp.POLYFILL_PREFIX = '$jscp$';
+var $jscomp$lookupPolyfilledValue = function(target, property) {
+  var obfuscatedName = $jscomp.propertyToPolyfillSymbol[property];
+  if (obfuscatedName == null) {
+    return target[property];
+  }
+  var polyfill = target[obfuscatedName];
+  return polyfill !== undefined ? polyfill : target[property];
+};
 $jscomp.polyfill = function(target, polyfill, fromLang, toLang) {
   if (!polyfill) {
     return;
   }
+  if ($jscomp.ISOLATE_POLYFILLS) {
+    $jscomp.polyfillIsolated(target, polyfill, fromLang, toLang);
+  } else {
+    $jscomp.polyfillUnisolated(target, polyfill, fromLang, toLang);
+  }
+};
+$jscomp.polyfillUnisolated = function(target, polyfill, fromLang, toLang) {
   var obj = $jscomp.global;
   var split = target.split('.');
   for (var i = 0; i < split.length - 1; i++) {
     var key = split[i];
     if (!(key in obj)) {
-      obj[key] = {};
+      return;
     }
     obj = obj[key];
   }
@@ -35,102 +68,163 @@ $jscomp.polyfill = function(target, polyfill, fromLang, toLang) {
   }
   $jscomp.defineProperty(obj, property, {configurable:true, writable:true, value:impl});
 };
+$jscomp.polyfillIsolated = function(target, polyfill, fromLang, toLang) {
+  var split = target.split('.');
+  var isSimpleName = split.length === 1;
+  var root = split[0];
+  var ownerObject;
+  if (!isSimpleName && root in $jscomp.polyfills) {
+    ownerObject = $jscomp.polyfills;
+  } else {
+    ownerObject = $jscomp.global;
+  }
+  for (var i = 0; i < split.length - 1; i++) {
+    var key = split[i];
+    if (!(key in ownerObject)) {
+      return;
+    }
+    ownerObject = ownerObject[key];
+  }
+  var property = split[split.length - 1];
+  var nativeImpl = $jscomp.IS_SYMBOL_NATIVE && fromLang === 'es6' ? ownerObject[property] : null;
+  var impl = polyfill(nativeImpl);
+  if (impl == null) {
+    return;
+  }
+  if (isSimpleName) {
+    $jscomp.defineProperty($jscomp.polyfills, property, {configurable:true, writable:true, value:impl});
+  } else if (impl !== nativeImpl) {
+    if ($jscomp.propertyToPolyfillSymbol[property] === undefined) {
+      var BIN_ID = Math.random() * 1e9 >>> 0;
+      $jscomp.propertyToPolyfillSymbol[property] = $jscomp.IS_SYMBOL_NATIVE ? $jscomp.global['Symbol'](property) : $jscomp.POLYFILL_PREFIX + BIN_ID + '$' + property;
+    }
+    var obfuscatedName = $jscomp.propertyToPolyfillSymbol[property];
+    $jscomp.defineProperty(ownerObject, obfuscatedName, {configurable:true, writable:true, value:impl});
+  }
+};
 $jscomp.polyfill('Array.prototype.copyWithin', function(orig) {
   if (orig) {
     return orig;
   }
   var polyfill = function(target, start, opt_end) {
     var len = this.length;
-    target = Number(target);
-    start = Number(start);
-    opt_end = Number(opt_end != null ? opt_end : len);
-    if (target < start) {
-      opt_end = Math.min(opt_end, len);
-      while (start < opt_end) {
-        if (start in this) {
-          this[target++] = this[start++];
+    target = toInteger(target);
+    start = toInteger(start);
+    var end = opt_end === undefined ? len : toInteger(opt_end);
+    var to = target < 0 ? Math.max(len + target, 0) : Math.min(target, len);
+    var from = start < 0 ? Math.max(len + start, 0) : Math.min(start, len);
+    var final = end < 0 ? Math.max(len + end, 0) : Math.min(end, len);
+    if (to < from) {
+      while (from < final) {
+        if (from in this) {
+          this[to++] = this[from++];
         } else {
-          delete this[target++];
-          start++;
+          delete this[to++];
+          from++;
         }
       }
     } else {
-      opt_end = Math.min(opt_end, len + start - target);
-      target += opt_end - start;
-      while (opt_end > start) {
-        if (--opt_end in this) {
-          this[--target] = this[opt_end];
+      final = Math.min(final, len + from - to);
+      to += final - from;
+      while (final > from) {
+        if (--final in this) {
+          this[--to] = this[final];
         } else {
-          delete this[target];
+          delete this[--to];
         }
       }
     }
     return this;
   };
+  function toInteger(arg) {
+    var n = Number(arg);
+    if (n === Infinity || n === -Infinity) {
+      return n;
+    }
+    return n | 0;
+  }
   return polyfill;
 }, 'es6', 'es3');
-$jscomp.SYMBOL_PREFIX = 'jscomp_symbol_';
-$jscomp.initSymbol = function() {
-  $jscomp.initSymbol = function() {
-  };
-  if (!$jscomp.global['Symbol']) {
-    $jscomp.global['Symbol'] = $jscomp.Symbol;
-  }
-};
-$jscomp.Symbol = function() {
-  var counter = 0;
-  function Symbol(opt_description) {
-    return $jscomp.SYMBOL_PREFIX + (opt_description || '') + counter++;
-  }
-  return Symbol;
-}();
-$jscomp.initSymbolIterator = function() {
-  $jscomp.initSymbol();
-  var symbolIterator = $jscomp.global['Symbol'].iterator;
-  if (!symbolIterator) {
-    symbolIterator = $jscomp.global['Symbol'].iterator = $jscomp.global['Symbol']('iterator');
-  }
-  if (typeof Array.prototype[symbolIterator] != 'function') {
-    $jscomp.defineProperty(Array.prototype, symbolIterator, {configurable:true, writable:true, value:function() {
-      return $jscomp.arrayIterator(this);
-    }});
-  }
-  $jscomp.initSymbolIterator = function() {
-  };
-};
-$jscomp.arrayIterator = function(array) {
+$jscomp.arrayIteratorImpl = function(array) {
   var index = 0;
-  return $jscomp.iteratorPrototype(function() {
+  return function() {
     if (index < array.length) {
-      return {done:false, value:array[index++]};
+      return {done:false, value:array[index++],};
     } else {
       return {done:true};
     }
-  });
+  };
 };
+$jscomp.arrayIterator = function(array) {
+  return {next:$jscomp.arrayIteratorImpl(array)};
+};
+$jscomp.initSymbol = function() {
+};
+$jscomp.polyfill('Symbol', function(orig) {
+  if (orig) {
+    return orig;
+  }
+  var SymbolClass = function(id, opt_description) {
+    this.$jscomp$symbol$id_ = id;
+    this.description;
+    $jscomp.defineProperty(this, 'description', {configurable:true, writable:true, value:opt_description});
+  };
+  SymbolClass.prototype.toString = function() {
+    return this.$jscomp$symbol$id_;
+  };
+  var BIN_ID = Math.random() * 1e9 >>> 0;
+  var SYMBOL_PREFIX = 'jscomp_symbol_' + BIN_ID + '_';
+  var counter = 0;
+  var symbolPolyfill = function(opt_description) {
+    if (this instanceof symbolPolyfill) {
+      throw new TypeError('Symbol is not a constructor');
+    }
+    return new SymbolClass(SYMBOL_PREFIX + (opt_description || '') + '_' + counter++, opt_description);
+  };
+  return symbolPolyfill;
+}, 'es6', 'es3');
+$jscomp.polyfill('Symbol.iterator', function(orig) {
+  if (orig) {
+    return orig;
+  }
+  var symbolIterator = Symbol('Symbol.iterator');
+  var arrayLikes = ['Array', 'Int8Array', 'Uint8Array', 'Uint8ClampedArray', 'Int16Array', 'Uint16Array', 'Int32Array', 'Uint32Array', 'Float32Array', 'Float64Array'];
+  for (var i = 0; i < arrayLikes.length; i++) {
+    var ArrayLikeCtor = $jscomp.global[arrayLikes[i]];
+    if (typeof ArrayLikeCtor === 'function' && typeof ArrayLikeCtor.prototype[symbolIterator] != 'function') {
+      $jscomp.defineProperty(ArrayLikeCtor.prototype, symbolIterator, {configurable:true, writable:true, value:function() {
+        return $jscomp.iteratorPrototype($jscomp.arrayIteratorImpl(this));
+      }});
+    }
+  }
+  return symbolIterator;
+}, 'es6', 'es3');
+$jscomp.polyfill('Symbol.asyncIterator', function(orig) {
+  if (orig) {
+    return orig;
+  }
+  return Symbol('Symbol.asyncIterator');
+}, 'es9', 'es3');
 $jscomp.iteratorPrototype = function(next) {
-  $jscomp.initSymbolIterator();
   var iterator = {next:next};
-  iterator[$jscomp.global['Symbol'].iterator] = function() {
+  iterator[Symbol.iterator] = function() {
     return this;
   };
   return iterator;
 };
 $jscomp.iteratorFromArray = function(array, transform) {
-  $jscomp.initSymbolIterator();
   if (array instanceof String) {
     array = array + '';
   }
   var i = 0;
+  var done = false;
   var iter = {next:function() {
-    if (i < array.length) {
+    if (!done && i < array.length) {
       var index = i++;
       return {value:transform(index, array[index]), done:false};
     }
-    iter.next = function() {
-      return {done:true, value:void 0};
-    };
-    return iter.next();
+    done = true;
+    return {done:true, value:void 0};
   }};
   iter[Symbol.iterator] = function() {
     return iter;
@@ -202,17 +296,54 @@ $jscomp.polyfill('Array.prototype.findIndex', function(orig) {
   };
   return polyfill;
 }, 'es6', 'es3');
+$jscomp.polyfill('Array.prototype.flat', function(orig) {
+  if (orig) {
+    return orig;
+  }
+  var flat = function(depth) {
+    depth = depth === undefined ? 1 : depth;
+    var flattened = [];
+    for (var i = 0; i < this.length; i++) {
+      var element = this[i];
+      if (Array.isArray(element) && depth > 0) {
+        var inner = Array.prototype.flat.call(element, depth - 1);
+        flattened.push.apply(flattened, inner);
+      } else {
+        flattened.push(element);
+      }
+    }
+    return flattened;
+  };
+  return flat;
+}, 'es9', 'es5');
+$jscomp.polyfill('Array.prototype.flatMap', function(orig) {
+  if (orig) {
+    return orig;
+  }
+  var flatMap = function(callback, thisArg) {
+    var mapped = [];
+    for (var i = 0; i < this.length; i++) {
+      var result = callback.call(thisArg, this[i], i, this);
+      if (Array.isArray(result)) {
+        mapped.push.apply(mapped, result);
+      } else {
+        mapped.push(result);
+      }
+    }
+    return mapped;
+  };
+  return flatMap;
+}, 'es9', 'es5');
 $jscomp.polyfill('Array.from', function(orig) {
   if (orig) {
     return orig;
   }
   var polyfill = function(arrayLike, opt_mapFn, opt_thisArg) {
-    $jscomp.initSymbolIterator();
     opt_mapFn = opt_mapFn != null ? opt_mapFn : function(x) {
       return x;
     };
     var result = [];
-    var iteratorFunction = arrayLike[Symbol.iterator];
+    var iteratorFunction = typeof Symbol != 'undefined' && Symbol.iterator && arrayLike[Symbol.iterator];
     if (typeof iteratorFunction == 'function') {
       arrayLike = iteratorFunction.call(arrayLike);
       var next;
@@ -299,273 +430,232 @@ $jscomp.polyfill('Array.prototype.values', function(orig) {
   return polyfill;
 }, 'es8', 'es3');
 $jscomp.makeIterator = function(iterable) {
-  $jscomp.initSymbolIterator();
-  var iteratorFunction = iterable[Symbol.iterator];
+  var iteratorFunction = typeof Symbol != 'undefined' && Symbol.iterator && iterable[Symbol.iterator];
   return iteratorFunction ? iteratorFunction.call(iterable) : $jscomp.arrayIterator(iterable);
 };
-$jscomp.FORCE_POLYFILL_PROMISE = false;
-$jscomp.polyfill('Promise', function(NativePromise) {
-  if (NativePromise && !$jscomp.FORCE_POLYFILL_PROMISE) {
-    return NativePromise;
+$jscomp.makeAsyncIterator = function(iterable) {
+  var asyncIteratorFunction = iterable[Symbol.asyncIterator];
+  if (asyncIteratorFunction !== undefined) {
+    return asyncIteratorFunction.call(iterable);
   }
-  function AsyncExecutor() {
-    this.batch_ = null;
-  }
-  AsyncExecutor.prototype.asyncExecute = function(f) {
-    if (this.batch_ == null) {
-      this.batch_ = [];
-      this.asyncExecuteBatch_();
-    }
-    this.batch_.push(f);
+  return new $jscomp.AsyncIteratorFromSyncWrapper($jscomp.makeIterator(iterable));
+};
+$jscomp.AsyncIteratorFromSyncWrapper = function(iterator) {
+  this[Symbol.asyncIterator] = function() {
     return this;
   };
-  AsyncExecutor.prototype.asyncExecuteBatch_ = function() {
-    var self = this;
-    this.asyncExecuteFunction(function() {
-      self.executeBatch_();
-    });
+  this[Symbol.iterator] = function() {
+    return iterator;
   };
-  var nativeSetTimeout = $jscomp.global['setTimeout'];
-  AsyncExecutor.prototype.asyncExecuteFunction = function(f) {
-    nativeSetTimeout(f, 0);
+  this.next = function(param) {
+    return Promise.resolve(iterator.next(param));
   };
-  AsyncExecutor.prototype.executeBatch_ = function() {
-    while (this.batch_ && this.batch_.length) {
-      var executingBatch = this.batch_;
-      this.batch_ = [];
-      for (var i = 0; i < executingBatch.length; ++i) {
-        var f = executingBatch[i];
-        executingBatch[i] = null;
-        try {
-          f();
-        } catch (error) {
-          this.asyncThrow_(error);
-        }
-      }
-    }
-    this.batch_ = null;
-  };
-  AsyncExecutor.prototype.asyncThrow_ = function(exception) {
-    this.asyncExecuteFunction(function() {
-      throw exception;
-    });
-  };
-  var PromiseState = {PENDING:0, FULFILLED:1, REJECTED:2};
-  var PolyfillPromise = function(executor) {
-    this.state_ = PromiseState.PENDING;
-    this.result_ = undefined;
-    this.onSettledCallbacks_ = [];
-    var resolveAndReject = this.createResolveAndReject_();
-    try {
-      executor(resolveAndReject.resolve, resolveAndReject.reject);
-    } catch (e) {
-      resolveAndReject.reject(e);
-    }
-  };
-  PolyfillPromise.prototype.createResolveAndReject_ = function() {
-    var thisPromise = this;
-    var alreadyCalled = false;
-    function firstCallWins(method) {
-      return function(x) {
-        if (!alreadyCalled) {
-          alreadyCalled = true;
-          method.call(thisPromise, x);
-        }
-      };
-    }
-    return {resolve:firstCallWins(this.resolveTo_), reject:firstCallWins(this.reject_)};
-  };
-  PolyfillPromise.prototype.resolveTo_ = function(value) {
-    if (value === this) {
-      this.reject_(new TypeError('A Promise cannot resolve to itself'));
-    } else {
-      if (value instanceof PolyfillPromise) {
-        this.settleSameAsPromise_(value);
-      } else {
-        if (isObject(value)) {
-          this.resolveToNonPromiseObj_(value);
-        } else {
-          this.fulfill_(value);
-        }
-      }
-    }
-  };
-  PolyfillPromise.prototype.resolveToNonPromiseObj_ = function(obj) {
-    var thenMethod = undefined;
-    try {
-      thenMethod = obj.then;
-    } catch (error) {
-      this.reject_(error);
-      return;
-    }
-    if (typeof thenMethod == 'function') {
-      this.settleSameAsThenable_(thenMethod, obj);
-    } else {
-      this.fulfill_(obj);
-    }
-  };
-  function isObject(value) {
-    switch(typeof value) {
-      case 'object':
-        return value != null;
-      case 'function':
-        return true;
-      default:
-        return false;
+  if (iterator['throw'] !== undefined) {
+    this['throw'] = function(param) {
+      return Promise.resolve(iterator['throw'](param));
+    };
+  }
+  if (iterator['return'] !== undefined) {
+    this['return'] = function(param) {
+      return Promise.resolve(iterator['return'](param));
+    };
+  }
+};
+$jscomp.AsyncGeneratorWrapper$ActionEnum = {YIELD_VALUE:0, YIELD_STAR:1, AWAIT_VALUE:2,};
+$jscomp.AsyncGeneratorWrapper$ActionRecord = function(action, value) {
+  this.action = action;
+  this.value = value;
+};
+$jscomp.AsyncGeneratorWrapper$GeneratorMethod = {NEXT:'next', THROW:'throw', RETURN:'return',};
+$jscomp.AsyncGeneratorWrapper$ExecutionFrame_ = function(method, param, resolve, reject) {
+  this.method = method;
+  this.param = param;
+  this.resolve = resolve;
+  this.reject = reject;
+};
+$jscomp.AsyncGeneratorWrapper$ExecutionNode_ = function(frame, next) {
+  this.frame = frame;
+  this.next = next;
+};
+$jscomp.AsyncGeneratorWrapper$ExecutionQueue_ = function() {
+  this.head_ = null;
+  this.tail_ = null;
+};
+$jscomp.AsyncGeneratorWrapper$ExecutionQueue_.prototype.isEmpty = function() {
+  return this.head_ === null;
+};
+$jscomp.AsyncGeneratorWrapper$ExecutionQueue_.prototype.first = function() {
+  if (this.head_) {
+    return this.head_.frame;
+  } else {
+    throw new Error('no frames in executionQueue');
+  }
+};
+$jscomp.AsyncGeneratorWrapper$ExecutionQueue_.prototype.drop = function() {
+  if (this.head_) {
+    this.head_ = this.head_.next;
+    if (!this.head_) {
+      this.tail_ = null;
     }
   }
-  PolyfillPromise.prototype.reject_ = function(reason) {
-    this.settle_(PromiseState.REJECTED, reason);
+};
+$jscomp.AsyncGeneratorWrapper$ExecutionQueue_.prototype.enqueue = function(newFrame) {
+  var node = new $jscomp.AsyncGeneratorWrapper$ExecutionNode_(newFrame, null);
+  if (this.tail_) {
+    this.tail_.next = node;
+    this.tail_ = node;
+  } else {
+    this.head_ = node;
+    this.tail_ = node;
+  }
+};
+$jscomp.AsyncGeneratorWrapper = function(generator) {
+  this.generator_ = generator;
+  this.delegate_ = null;
+  this.executionQueue_ = new $jscomp.AsyncGeneratorWrapper$ExecutionQueue_();
+  this[Symbol.asyncIterator] = function() {
+    return this;
   };
-  PolyfillPromise.prototype.fulfill_ = function(value) {
-    this.settle_(PromiseState.FULFILLED, value);
+  var self = this;
+  this.boundHandleDelegateResult_ = function(record) {
+    self.handleDelegateResult_(record);
   };
-  PolyfillPromise.prototype.settle_ = function(settledState, valueOrReason) {
-    if (this.state_ != PromiseState.PENDING) {
-      throw new Error('Cannot settle(' + settledState + ', ' + valueOrReason + '): Promise already settled in state' + this.state_);
+  this.boundHandleDelegateError_ = function(thrownError) {
+    self.handleDelegateError_(thrownError);
+  };
+  this.boundRejectAndClose_ = function(err) {
+    self.rejectAndClose_(err);
+  };
+};
+$jscomp.AsyncGeneratorWrapper.prototype.enqueueMethod_ = function(method, param) {
+  var self = this;
+  return new Promise(function(resolve, reject) {
+    var wasEmpty = self.executionQueue_.isEmpty();
+    self.executionQueue_.enqueue(new $jscomp.AsyncGeneratorWrapper$ExecutionFrame_(method, param, resolve, reject));
+    if (wasEmpty) {
+      self.runFrame_();
     }
-    this.state_ = settledState;
-    this.result_ = valueOrReason;
-    this.executeOnSettledCallbacks_();
-  };
-  PolyfillPromise.prototype.executeOnSettledCallbacks_ = function() {
-    if (this.onSettledCallbacks_ != null) {
-      for (var i = 0; i < this.onSettledCallbacks_.length; ++i) {
-        asyncExecutor.asyncExecute(this.onSettledCallbacks_[i]);
-      }
-      this.onSettledCallbacks_ = null;
-    }
-  };
-  var asyncExecutor = new AsyncExecutor;
-  PolyfillPromise.prototype.settleSameAsPromise_ = function(promise) {
-    var methods = this.createResolveAndReject_();
-    promise.callWhenSettled_(methods.resolve, methods.reject);
-  };
-  PolyfillPromise.prototype.settleSameAsThenable_ = function(thenMethod, thenable) {
-    var methods = this.createResolveAndReject_();
+  });
+};
+$jscomp.AsyncGeneratorWrapper.prototype.next = function(opt_value) {
+  return this.enqueueMethod_($jscomp.AsyncGeneratorWrapper$GeneratorMethod.NEXT, opt_value);
+};
+$jscomp.AsyncGeneratorWrapper.prototype["return"] = function(value) {
+  return this.enqueueMethod_($jscomp.AsyncGeneratorWrapper$GeneratorMethod.RETURN, new $jscomp.AsyncGeneratorWrapper$ActionRecord($jscomp.AsyncGeneratorWrapper$ActionEnum.YIELD_VALUE, value));
+};
+$jscomp.AsyncGeneratorWrapper.prototype["throw"] = function(exception) {
+  return this.enqueueMethod_($jscomp.AsyncGeneratorWrapper$GeneratorMethod.THROW, exception);
+};
+$jscomp.AsyncGeneratorWrapper.prototype.runFrame_ = function() {
+  if (!this.executionQueue_.isEmpty()) {
     try {
-      thenMethod.call(thenable, methods.resolve, methods.reject);
-    } catch (error) {
-      methods.reject(error);
-    }
-  };
-  PolyfillPromise.prototype.then = function(onFulfilled, onRejected) {
-    var resolveChild;
-    var rejectChild;
-    var childPromise = new PolyfillPromise(function(resolve, reject) {
-      resolveChild = resolve;
-      rejectChild = reject;
-    });
-    function createCallback(paramF, defaultF) {
-      if (typeof paramF == 'function') {
-        return function(x) {
-          try {
-            resolveChild(paramF(x));
-          } catch (error) {
-            rejectChild(error);
-          }
-        };
+      if (this.delegate_) {
+        this.runDelegateFrame_();
       } else {
-        return defaultF;
+        this.runGeneratorFrame_();
       }
+    } catch (err) {
+      this.rejectAndClose_(err);
     }
-    this.callWhenSettled_(createCallback(onFulfilled, resolveChild), createCallback(onRejected, rejectChild));
-    return childPromise;
-  };
-  PolyfillPromise.prototype['catch'] = function(onRejected) {
-    return this.then(undefined, onRejected);
-  };
-  PolyfillPromise.prototype.callWhenSettled_ = function(onFulfilled, onRejected) {
-    var thisPromise = this;
-    function callback() {
-      switch(thisPromise.state_) {
-        case PromiseState.FULFILLED:
-          onFulfilled(thisPromise.result_);
-          break;
-        case PromiseState.REJECTED:
-          onRejected(thisPromise.result_);
-          break;
+  }
+};
+$jscomp.AsyncGeneratorWrapper.prototype.runGeneratorFrame_ = function() {
+  var self = this;
+  var frame = this.executionQueue_.first();
+  try {
+    var genRec = this.generator_[frame.method](frame.param);
+    if (genRec.value instanceof $jscomp.AsyncGeneratorWrapper$ActionRecord) {
+      switch(genRec.value.action) {
+        case $jscomp.AsyncGeneratorWrapper$ActionEnum.YIELD_VALUE:
+          Promise.resolve(genRec.value.value).then(function(resolvedValue) {
+            frame.resolve({value:resolvedValue, done:genRec.done});
+            self.executionQueue_.drop();
+            self.runFrame_();
+          }, function(e) {
+            frame.reject(e);
+            self.executionQueue_.drop();
+            self.runFrame_();
+          })["catch"](this.boundRejectAndClose_);
+          return;
+        case $jscomp.AsyncGeneratorWrapper$ActionEnum.YIELD_STAR:
+          self.delegate_ = $jscomp.makeAsyncIterator(genRec.value.value);
+          frame.method = $jscomp.AsyncGeneratorWrapper$GeneratorMethod.NEXT;
+          frame.param = undefined;
+          self.runFrame_();
+          return;
+        case $jscomp.AsyncGeneratorWrapper$ActionEnum.AWAIT_VALUE:
+          Promise.resolve(genRec.value.value).then(function(resolvedValue) {
+            frame.method = $jscomp.AsyncGeneratorWrapper$GeneratorMethod.NEXT;
+            frame.param = resolvedValue;
+            self.runFrame_();
+          }, function(thrownErr) {
+            frame.method = $jscomp.AsyncGeneratorWrapper$GeneratorMethod.THROW;
+            frame.param = thrownErr;
+            self.runFrame_();
+          })["catch"](this.boundRejectAndClose_);
+          return;
         default:
-          throw new Error('Unexpected state: ' + thisPromise.state_);
+          throw new Error('Unrecognized AsyncGeneratorWrapper$ActionEnum');
       }
-    }
-    if (this.onSettledCallbacks_ == null) {
-      asyncExecutor.asyncExecute(callback);
     } else {
-      this.onSettledCallbacks_.push(callback);
+      frame.resolve(genRec);
+      self.executionQueue_.drop();
+      self.runFrame_();
     }
-  };
-  function resolvingPromise(opt_value) {
-    if (opt_value instanceof PolyfillPromise) {
-      return opt_value;
-    } else {
-      return new PolyfillPromise(function(resolve, reject) {
-        resolve(opt_value);
-      });
-    }
+  } catch (e) {
+    frame.reject(e);
+    self.executionQueue_.drop();
+    self.runFrame_();
   }
-  PolyfillPromise['resolve'] = resolvingPromise;
-  PolyfillPromise['reject'] = function(opt_reason) {
-    return new PolyfillPromise(function(resolve, reject) {
-      reject(opt_reason);
-    });
-  };
-  PolyfillPromise['race'] = function(thenablesOrValues) {
-    return new PolyfillPromise(function(resolve, reject) {
-      var iterator = $jscomp.makeIterator(thenablesOrValues);
-      for (var iterRec = iterator.next(); !iterRec.done; iterRec = iterator.next()) {
-        resolvingPromise(iterRec.value).callWhenSettled_(resolve, reject);
-      }
-    });
-  };
-  PolyfillPromise['all'] = function(thenablesOrValues) {
-    var iterator = $jscomp.makeIterator(thenablesOrValues);
-    var iterRec = iterator.next();
-    if (iterRec.done) {
-      return resolvingPromise([]);
-    } else {
-      return new PolyfillPromise(function(resolveAll, rejectAll) {
-        var resultsArray = [];
-        var unresolvedCount = 0;
-        function onFulfilled(i) {
-          return function(ithResult) {
-            resultsArray[i] = ithResult;
-            unresolvedCount--;
-            if (unresolvedCount == 0) {
-              resolveAll(resultsArray);
-            }
-          };
-        }
-        do {
-          resultsArray.push(undefined);
-          unresolvedCount++;
-          resolvingPromise(iterRec.value).callWhenSettled_(onFulfilled(resultsArray.length - 1), rejectAll);
-          iterRec = iterator.next();
-        } while (!iterRec.done);
-      });
-    }
-  };
-  return PolyfillPromise;
-}, 'es6', 'es3');
-$jscomp.polyfill('Promise.prototype.finally', function(orig) {
-  if (orig) {
-    return orig;
+};
+$jscomp.AsyncGeneratorWrapper.prototype.runDelegateFrame_ = function() {
+  if (!this.delegate_) {
+    throw new Error('no delegate to perform execution');
   }
-  var polyfill = function(onFinally) {
-    return this.then(function(value) {
-      var promise = Promise.resolve(onFinally());
-      return promise.then(function() {
-        return value;
-      });
-    }, function(reason) {
-      var promise = Promise.resolve(onFinally());
-      return promise.then(function() {
-        throw reason;
-      });
-    });
-  };
-  return polyfill;
-}, 'es9', 'es3');
+  var frame = this.executionQueue_.first();
+  if (frame.method in this.delegate_) {
+    try {
+      this.delegate_[frame.method](frame.param).then(this.boundHandleDelegateResult_, this.boundHandleDelegateError_)["catch"](this.boundRejectAndClose_);
+    } catch (err) {
+      this.handleDelegateError_(err);
+    }
+  } else {
+    this.delegate_ = null;
+    this.runFrame_();
+  }
+};
+$jscomp.AsyncGeneratorWrapper.prototype.handleDelegateResult_ = function(record) {
+  var frame = this.executionQueue_.first();
+  if (record.done === true) {
+    this.delegate_ = null;
+    frame.method = $jscomp.AsyncGeneratorWrapper$GeneratorMethod.NEXT;
+    frame.param = record.value;
+    this.runFrame_();
+  } else {
+    frame.resolve({value:record.value, done:false});
+    this.executionQueue_.drop();
+    this.runFrame_();
+  }
+};
+$jscomp.AsyncGeneratorWrapper.prototype.handleDelegateError_ = function(thrownError) {
+  var frame = this.executionQueue_.first();
+  this.delegate_ = null;
+  frame.method = $jscomp.AsyncGeneratorWrapper$GeneratorMethod.THROW;
+  frame.param = thrownError;
+  this.runFrame_();
+};
+$jscomp.AsyncGeneratorWrapper.prototype.rejectAndClose_ = function(err) {
+  if (!this.executionQueue_.isEmpty()) {
+    this.executionQueue_.first().reject(err);
+    this.executionQueue_.drop();
+  }
+  if (this.delegate_ && 'return' in this.delegate_) {
+    this.delegate_['return'](undefined);
+    this.delegate_ = null;
+  }
+  this.generator_['return'](undefined);
+  this.runFrame_();
+};
 $jscomp.underscoreProtoCanBeSet = function() {
   var x = {a:true};
   var y = {};
@@ -576,7 +666,7 @@ $jscomp.underscoreProtoCanBeSet = function() {
   }
   return false;
 };
-$jscomp.setPrototypeOf = typeof Object.setPrototypeOf == 'function' ? Object.setPrototypeOf : $jscomp.underscoreProtoCanBeSet() ? function(target, proto) {
+$jscomp.setPrototypeOf = $jscomp.TRUST_ES6_POLYFILLS && typeof Object.setPrototypeOf == 'function' ? Object.setPrototypeOf : $jscomp.underscoreProtoCanBeSet() ? function(target, proto) {
   target.__proto__ = proto;
   if (target.__proto__ !== proto) {
     throw new TypeError(target + ' is not extensible');
@@ -619,7 +709,7 @@ $jscomp.generator.Context.prototype.throw_ = function(e) {
   this.abruptCompletion_ = {exception:e, isException:true};
   this.jumpToErrorHandler_();
 };
-$jscomp.generator.Context.prototype['return'] = function(value) {
+$jscomp.generator.Context.prototype["return"] = function(value) {
   this.abruptCompletion_ = {'return':value};
   this.nextAddress = this.finallyAddress_;
 };
@@ -716,7 +806,7 @@ $jscomp.generator.Context.PropertyIterator.prototype.getNext = function() {
   return null;
 };
 $jscomp.generator.Engine_ = function(program) {
-  this.context_ = new $jscomp.generator.Context;
+  this.context_ = new $jscomp.generator.Context();
   this.program_ = program;
 };
 $jscomp.generator.Engine_.prototype.next_ = function(value) {
@@ -734,9 +824,9 @@ $jscomp.generator.Engine_.prototype.return_ = function(value) {
     var returnFunction = 'return' in yieldAllIterator ? yieldAllIterator['return'] : function(v) {
       return {value:v, done:true};
     };
-    return this.yieldAllStep_(returnFunction, value, this.context_['return']);
+    return this.yieldAllStep_(returnFunction, value, this.context_["return"]);
   }
-  this.context_['return'](value);
+  this.context_["return"](value);
   return this.nextStep_();
 };
 $jscomp.generator.Engine_.prototype.throw_ = function(exception) {
@@ -785,7 +875,7 @@ $jscomp.generator.Engine_.prototype.nextStep_ = function() {
     if (abruptCompletion.isException) {
       throw abruptCompletion.exception;
     }
-    return {value:abruptCompletion['return'], done:true};
+    return {value:abruptCompletion["return"], done:true};
   }
   return {value:undefined, done:true};
 };
@@ -793,20 +883,19 @@ $jscomp.generator.Generator_ = function(engine) {
   this.next = function(opt_value) {
     return engine.next_(opt_value);
   };
-  this['throw'] = function(exception) {
+  this["throw"] = function(exception) {
     return engine.throw_(exception);
   };
-  this['return'] = function(value) {
+  this["return"] = function(value) {
     return engine.return_(value);
   };
-  $jscomp.initSymbolIterator();
   this[Symbol.iterator] = function() {
     return this;
   };
 };
 $jscomp.generator.createGenerator = function(generator, program) {
   var result = new $jscomp.generator.Generator_(new $jscomp.generator.Engine_(program));
-  if ($jscomp.setPrototypeOf) {
+  if ($jscomp.setPrototypeOf && generator.prototype) {
     $jscomp.setPrototypeOf(result, generator.prototype);
   }
   return result;
@@ -816,7 +905,7 @@ $jscomp.asyncExecutePromiseGenerator = function(generator) {
     return generator.next(value);
   }
   function passErrorToGenerator(error) {
-    return generator['throw'](error);
+    return generator["throw"](error);
   }
   return new Promise(function(resolve, reject) {
     function handleGeneratorRecord(genRec) {
@@ -835,6 +924,9 @@ $jscomp.asyncExecutePromiseGeneratorFunction = function(generatorFunction) {
 $jscomp.asyncExecutePromiseGeneratorProgram = function(program) {
   return $jscomp.asyncExecutePromiseGenerator(new $jscomp.generator.Generator_(new $jscomp.generator.Engine_(program)));
 };
+$jscomp.polyfill('globalThis', function(orig) {
+  return orig || $jscomp.global;
+}, 'es_2020', 'es3');
 $jscomp.checkEs6ConformanceViaProxy = function() {
   try {
     var proxied = {};
@@ -863,7 +955,7 @@ $jscomp.polyfill('WeakMap', function(NativeWeakMap) {
       if (map.get(x) != 2 || map.get(y) != 3) {
         return false;
       }
-      map['delete'](x);
+      map["delete"](x);
       map.set(y, 4);
       return !map.has(x) && map.get(y) == 4;
     } catch (err) {
@@ -880,18 +972,33 @@ $jscomp.polyfill('WeakMap', function(NativeWeakMap) {
     }
   }
   var prop = '$jscomp_hidden_' + Math.random();
+  function WeakMapMembership() {
+  }
+  function isValidKey(key) {
+    var type = typeof key;
+    return type === 'object' && key !== null || type === 'function';
+  }
   function insert(target) {
     if (!$jscomp.owns(target, prop)) {
-      var obj = {};
+      var obj = new WeakMapMembership();
       $jscomp.defineProperty(target, prop, {value:obj});
     }
   }
   function patch(name) {
+    if ($jscomp.ISOLATE_POLYFILLS) {
+      return;
+    }
     var prev = Object[name];
     if (prev) {
       Object[name] = function(target) {
-        insert(target);
-        return prev(target);
+        if (target instanceof WeakMapMembership) {
+          return target;
+        } else {
+          if (Object.isExtensible(target)) {
+            insert(target);
+          }
+          return prev(target);
+        }
       };
     }
   }
@@ -902,8 +1009,6 @@ $jscomp.polyfill('WeakMap', function(NativeWeakMap) {
   var PolyfillWeakMap = function(opt_iterable) {
     this.id_ = (index += Math.random() + 1).toString();
     if (opt_iterable) {
-      $jscomp.initSymbol();
-      $jscomp.initSymbolIterator();
       var iter = $jscomp.makeIterator(opt_iterable);
       var entry;
       while (!(entry = iter.next()).done) {
@@ -913,6 +1018,9 @@ $jscomp.polyfill('WeakMap', function(NativeWeakMap) {
     }
   };
   PolyfillWeakMap.prototype.set = function(key, value) {
+    if (!isValidKey(key)) {
+      throw new Error('Invalid WeakMap key');
+    }
     insert(key);
     if (!$jscomp.owns(key, prop)) {
       throw new Error('WeakMap key fail: ' + key);
@@ -921,13 +1029,13 @@ $jscomp.polyfill('WeakMap', function(NativeWeakMap) {
     return this;
   };
   PolyfillWeakMap.prototype.get = function(key) {
-    return $jscomp.owns(key, prop) ? key[prop][this.id_] : undefined;
+    return isValidKey(key) && $jscomp.owns(key, prop) ? key[prop][this.id_] : undefined;
   };
   PolyfillWeakMap.prototype.has = function(key) {
-    return $jscomp.owns(key, prop) && $jscomp.owns(key[prop], this.id_);
+    return isValidKey(key) && $jscomp.owns(key, prop) && $jscomp.owns(key[prop], this.id_);
   };
-  PolyfillWeakMap.prototype['delete'] = function(key) {
-    if (!$jscomp.owns(key, prop) || !$jscomp.owns(key[prop], this.id_)) {
+  PolyfillWeakMap.prototype["delete"] = function(key) {
+    if (!isValidKey(key) || !$jscomp.owns(key, prop) || !$jscomp.owns(key[prop], this.id_)) {
       return false;
     }
     return delete key[prop][this.id_];
@@ -976,9 +1084,7 @@ $jscomp.polyfill('Map', function(NativeMap) {
       return NativeMap;
     }
   }
-  $jscomp.initSymbol();
-  $jscomp.initSymbolIterator();
-  var idMap = new WeakMap;
+  var idMap = new WeakMap();
   var PolyfillMap = function(opt_iterable) {
     this.data_ = {};
     this.head_ = createHead();
@@ -999,7 +1105,7 @@ $jscomp.polyfill('Map', function(NativeMap) {
       r.list = this.data_[r.id] = [];
     }
     if (!r.entry) {
-      r.entry = {next:this.head_, previous:this.head_.previous, head:this.head_, key:key, value:value};
+      r.entry = {next:this.head_, previous:this.head_.previous, head:this.head_, key:key, value:value,};
       r.list.push(r.entry);
       this.head_.previous.next = r.entry;
       this.head_.previous = r.entry;
@@ -1009,7 +1115,7 @@ $jscomp.polyfill('Map', function(NativeMap) {
     }
     return this;
   };
-  PolyfillMap.prototype['delete'] = function(key) {
+  PolyfillMap.prototype["delete"] = function(key) {
     var r = maybeGetEntry(this, key);
     if (r.entry && r.list) {
       r.list.splice(r.index, 1);
@@ -1247,33 +1353,47 @@ $jscomp.polyfill('Math.expm1', function(orig) {
   };
   return polyfill;
 }, 'es6', 'es3');
+$jscomp.polyfill('Math.fround', function(orig) {
+  if (orig) {
+    return orig;
+  }
+  if ($jscomp.SIMPLE_FROUND_POLYFILL || typeof Float32Array !== 'function') {
+    return function(arg) {
+      return arg;
+    };
+  }
+  var arr = new Float32Array(1);
+  var polyfill = function(arg) {
+    arr[0] = arg;
+    return arr[0];
+  };
+  return polyfill;
+}, 'es6', 'es3');
 $jscomp.polyfill('Math.hypot', function(orig) {
   if (orig) {
     return orig;
   }
-  var polyfill = function(x, y, var_args) {
-    x = Number(x);
-    y = Number(y);
-    var i, z, sum;
-    var max = Math.max(Math.abs(x), Math.abs(y));
-    for (i = 2; i < arguments.length; i++) {
+  var polyfill = function(var_args) {
+    if (arguments.length < 2) {
+      return arguments.length ? Math.abs(arguments[0]) : 0;
+    }
+    var i, z, sum, max;
+    for (max = 0, i = 0; i < arguments.length; i++) {
       max = Math.max(max, Math.abs(arguments[i]));
     }
     if (max > 1e100 || max < 1e-100) {
       if (!max) {
         return max;
       }
-      x = x / max;
-      y = y / max;
-      sum = x * x + y * y;
-      for (i = 2; i < arguments.length; i++) {
+      sum = 0;
+      for (i = 0; i < arguments.length; i++) {
         z = Number(arguments[i]) / max;
         sum += z * z;
       }
       return Math.sqrt(sum) * max;
     } else {
-      sum = x * x + y * y;
-      for (i = 2; i < arguments.length; i++) {
+      sum = 0;
+      for (i = 0; i < arguments.length; i++) {
         z = Number(arguments[i]);
         sum += z * z;
       }
@@ -1426,7 +1546,7 @@ $jscomp.polyfill('Number.parseFloat', function(orig) {
 $jscomp.polyfill('Number.parseInt', function(orig) {
   return orig || parseInt;
 }, 'es6', 'es3');
-$jscomp.assign = typeof Object.assign == 'function' ? Object.assign : function(target, var_args) {
+$jscomp.assign = $jscomp.TRUST_ES6_POLYFILLS && typeof Object.assign == 'function' ? Object.assign : function(target, var_args) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];
     if (!source) {
@@ -1458,6 +1578,36 @@ $jscomp.polyfill('Object.entries', function(orig) {
   };
   return entries;
 }, 'es8', 'es3');
+$jscomp.polyfill('Object.fromEntries', function(orig) {
+  if (orig) {
+    return orig;
+  }
+  function fromEntries(iter) {
+    var obj = {};
+    if (!(Symbol.iterator in iter)) {
+      throw new TypeError('' + iter + ' is not iterable');
+    }
+    var iteratorFn = iter[Symbol.iterator];
+    var iterator = iteratorFn.call(iter);
+    for (var result = iterator.next(); !result.done; result = iterator.next()) {
+      var pair = result.value;
+      if (Object(pair) !== pair) {
+        throw new TypeError('iterable for fromEntries should yield objects');
+      }
+      var key = pair[0];
+      var val = pair[1];
+      obj[key] = val;
+    }
+    return obj;
+  }
+  return fromEntries;
+}, 'es_2019', 'es3');
+$jscomp.polyfill('Reflect', function(orig) {
+  if (orig) {
+    return orig;
+  }
+  return {};
+}, 'es6', 'es3');
 $jscomp.polyfill('Object.getOwnPropertySymbols', function(orig) {
   if (orig) {
     return orig;
@@ -1517,6 +1667,401 @@ $jscomp.polyfill('Object.values', function(orig) {
   };
   return values;
 }, 'es8', 'es3');
+$jscomp.polyfill('Promise', function(NativePromise) {
+  function platformSupportsPromiseRejectionEvents() {
+    return typeof $jscomp.global['PromiseRejectionEvent'] !== 'undefined';
+  }
+  function globalPromiseIsNative() {
+    return $jscomp.global['Promise'] && $jscomp.global['Promise'].toString().indexOf('[native code]') !== -1;
+  }
+  function shouldForcePolyfillPromise() {
+    return ($jscomp.FORCE_POLYFILL_PROMISE || $jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION && !platformSupportsPromiseRejectionEvents()) && globalPromiseIsNative();
+  }
+  if (NativePromise && !shouldForcePolyfillPromise()) {
+    return NativePromise;
+  }
+  function AsyncExecutor() {
+    this.batch_ = null;
+  }
+  AsyncExecutor.prototype.asyncExecute = function(f) {
+    if (this.batch_ == null) {
+      this.batch_ = [];
+      var self = this;
+      this.asyncExecuteFunction(function() {
+        self.executeBatch_();
+      });
+    }
+    this.batch_.push(f);
+  };
+  var nativeSetTimeout = $jscomp.global['setTimeout'];
+  AsyncExecutor.prototype.asyncExecuteFunction = function(f) {
+    nativeSetTimeout(f, 0);
+  };
+  AsyncExecutor.prototype.executeBatch_ = function() {
+    while (this.batch_ && this.batch_.length) {
+      var executingBatch = this.batch_;
+      this.batch_ = [];
+      for (var i = 0; i < executingBatch.length; ++i) {
+        var f = executingBatch[i];
+        executingBatch[i] = null;
+        try {
+          f();
+        } catch (error) {
+          this.asyncThrow_(error);
+        }
+      }
+    }
+    this.batch_ = null;
+  };
+  AsyncExecutor.prototype.asyncThrow_ = function(exception) {
+    this.asyncExecuteFunction(function() {
+      throw exception;
+    });
+  };
+  var PromiseState = {PENDING:0, FULFILLED:1, REJECTED:2};
+  var PolyfillPromise = function(executor) {
+    this.state_ = PromiseState.PENDING;
+    this.result_ = undefined;
+    this.onSettledCallbacks_ = [];
+    this.isRejectionHandled_ = false;
+    var resolveAndReject = this.createResolveAndReject_();
+    try {
+      executor(resolveAndReject.resolve, resolveAndReject.reject);
+    } catch (e) {
+      resolveAndReject.reject(e);
+    }
+  };
+  PolyfillPromise.prototype.createResolveAndReject_ = function() {
+    var thisPromise = this;
+    var alreadyCalled = false;
+    function firstCallWins(method) {
+      return function(x) {
+        if (!alreadyCalled) {
+          alreadyCalled = true;
+          method.call(thisPromise, x);
+        }
+      };
+    }
+    return {resolve:firstCallWins(this.resolveTo_), reject:firstCallWins(this.reject_)};
+  };
+  PolyfillPromise.prototype.resolveTo_ = function(value) {
+    if (value === this) {
+      this.reject_(new TypeError('A Promise cannot resolve to itself'));
+    } else if (value instanceof PolyfillPromise) {
+      this.settleSameAsPromise_(value);
+    } else if (isObject(value)) {
+      this.resolveToNonPromiseObj_(value);
+    } else {
+      this.fulfill_(value);
+    }
+  };
+  PolyfillPromise.prototype.resolveToNonPromiseObj_ = function(obj) {
+    var thenMethod = undefined;
+    try {
+      thenMethod = obj.then;
+    } catch (error) {
+      this.reject_(error);
+      return;
+    }
+    if (typeof thenMethod == 'function') {
+      this.settleSameAsThenable_(thenMethod, obj);
+    } else {
+      this.fulfill_(obj);
+    }
+  };
+  function isObject(value) {
+    switch(typeof value) {
+      case 'object':
+        return value != null;
+      case 'function':
+        return true;
+      default:
+        return false;
+    }
+  }
+  PolyfillPromise.prototype.reject_ = function(reason) {
+    this.settle_(PromiseState.REJECTED, reason);
+  };
+  PolyfillPromise.prototype.fulfill_ = function(value) {
+    this.settle_(PromiseState.FULFILLED, value);
+  };
+  PolyfillPromise.prototype.settle_ = function(settledState, valueOrReason) {
+    if (this.state_ != PromiseState.PENDING) {
+      throw new Error('Cannot settle(' + settledState + ', ' + valueOrReason + '): Promise already settled in state' + this.state_);
+    }
+    this.state_ = settledState;
+    this.result_ = valueOrReason;
+    if (this.state_ === PromiseState.REJECTED) {
+      this.scheduleUnhandledRejectionCheck_();
+    }
+    this.executeOnSettledCallbacks_();
+  };
+  PolyfillPromise.prototype.scheduleUnhandledRejectionCheck_ = function() {
+    var self = this;
+    nativeSetTimeout(function() {
+      if (self.notifyUnhandledRejection_()) {
+        var nativeConsole = $jscomp.global['console'];
+        if (typeof nativeConsole !== 'undefined') {
+          nativeConsole.error(self.result_);
+        }
+      }
+    }, 1);
+  };
+  PolyfillPromise.prototype.notifyUnhandledRejection_ = function() {
+    if (this.isRejectionHandled_) {
+      return false;
+    }
+    var NativeCustomEvent = $jscomp.global['CustomEvent'];
+    var NativeEvent = $jscomp.global['Event'];
+    var nativeDispatchEvent = $jscomp.global['dispatchEvent'];
+    if (typeof nativeDispatchEvent === 'undefined') {
+      return true;
+    }
+    var event;
+    if (typeof NativeCustomEvent === 'function') {
+      event = new NativeCustomEvent('unhandledrejection', {cancelable:true});
+    } else if (typeof NativeEvent === 'function') {
+      event = new NativeEvent('unhandledrejection', {cancelable:true});
+    } else {
+      event = $jscomp.global['document'].createEvent('CustomEvent');
+      event.initCustomEvent('unhandledrejection', false, true, event);
+    }
+    event.promise = this;
+    event.reason = this.result_;
+    return nativeDispatchEvent(event);
+  };
+  PolyfillPromise.prototype.executeOnSettledCallbacks_ = function() {
+    if (this.onSettledCallbacks_ != null) {
+      for (var i = 0; i < this.onSettledCallbacks_.length; ++i) {
+        asyncExecutor.asyncExecute(this.onSettledCallbacks_[i]);
+      }
+      this.onSettledCallbacks_ = null;
+    }
+  };
+  var asyncExecutor = new AsyncExecutor();
+  PolyfillPromise.prototype.settleSameAsPromise_ = function(promise) {
+    var methods = this.createResolveAndReject_();
+    promise.callWhenSettled_(methods.resolve, methods.reject);
+  };
+  PolyfillPromise.prototype.settleSameAsThenable_ = function(thenMethod, thenable) {
+    var methods = this.createResolveAndReject_();
+    try {
+      thenMethod.call(thenable, methods.resolve, methods.reject);
+    } catch (error) {
+      methods.reject(error);
+    }
+  };
+  PolyfillPromise.prototype.then = function(onFulfilled, onRejected) {
+    var resolveChild;
+    var rejectChild;
+    var childPromise = new PolyfillPromise(function(resolve, reject) {
+      resolveChild = resolve;
+      rejectChild = reject;
+    });
+    function createCallback(paramF, defaultF) {
+      if (typeof paramF == 'function') {
+        return function(x) {
+          try {
+            resolveChild(paramF(x));
+          } catch (error) {
+            rejectChild(error);
+          }
+        };
+      } else {
+        return defaultF;
+      }
+    }
+    this.callWhenSettled_(createCallback(onFulfilled, resolveChild), createCallback(onRejected, rejectChild));
+    return childPromise;
+  };
+  PolyfillPromise.prototype["catch"] = function(onRejected) {
+    return this.then(undefined, onRejected);
+  };
+  PolyfillPromise.prototype.callWhenSettled_ = function(onFulfilled, onRejected) {
+    var thisPromise = this;
+    function callback() {
+      switch(thisPromise.state_) {
+        case PromiseState.FULFILLED:
+          onFulfilled(thisPromise.result_);
+          break;
+        case PromiseState.REJECTED:
+          onRejected(thisPromise.result_);
+          break;
+        default:
+          throw new Error('Unexpected state: ' + thisPromise.state_);
+      }
+    }
+    if (this.onSettledCallbacks_ == null) {
+      asyncExecutor.asyncExecute(callback);
+    } else {
+      this.onSettledCallbacks_.push(callback);
+    }
+    this.isRejectionHandled_ = true;
+  };
+  function resolvingPromise(opt_value) {
+    if (opt_value instanceof PolyfillPromise) {
+      return opt_value;
+    } else {
+      return new PolyfillPromise(function(resolve, reject) {
+        resolve(opt_value);
+      });
+    }
+  }
+  PolyfillPromise['resolve'] = resolvingPromise;
+  PolyfillPromise['reject'] = function(opt_reason) {
+    return new PolyfillPromise(function(resolve, reject) {
+      reject(opt_reason);
+    });
+  };
+  PolyfillPromise['race'] = function(thenablesOrValues) {
+    return new PolyfillPromise(function(resolve, reject) {
+      var iterator = $jscomp.makeIterator(thenablesOrValues);
+      for (var iterRec = iterator.next(); !iterRec.done; iterRec = iterator.next()) {
+        resolvingPromise(iterRec.value).callWhenSettled_(resolve, reject);
+      }
+    });
+  };
+  PolyfillPromise['all'] = function(thenablesOrValues) {
+    var iterator = $jscomp.makeIterator(thenablesOrValues);
+    var iterRec = iterator.next();
+    if (iterRec.done) {
+      return resolvingPromise([]);
+    } else {
+      return new PolyfillPromise(function(resolveAll, rejectAll) {
+        var resultsArray = [];
+        var unresolvedCount = 0;
+        function onFulfilled(i) {
+          return function(ithResult) {
+            resultsArray[i] = ithResult;
+            unresolvedCount--;
+            if (unresolvedCount == 0) {
+              resolveAll(resultsArray);
+            }
+          };
+        }
+        do {
+          resultsArray.push(undefined);
+          unresolvedCount++;
+          resolvingPromise(iterRec.value).callWhenSettled_(onFulfilled(resultsArray.length - 1), rejectAll);
+          iterRec = iterator.next();
+        } while (!iterRec.done);
+      });
+    }
+  };
+  return PolyfillPromise;
+}, 'es6', 'es3');
+$jscomp.polyfill('Promise.allSettled', function(orig) {
+  if (orig) {
+    return orig;
+  }
+  function fulfilledResult(value) {
+    return {status:'fulfilled', value:value};
+  }
+  function rejectedResult(reason) {
+    return {status:'rejected', reason:reason};
+  }
+  var polyfill = function(thenablesOrValues) {
+    var PromiseConstructor = this;
+    function convertToAllSettledResult(maybeThenable) {
+      return PromiseConstructor.resolve(maybeThenable).then(fulfilledResult, rejectedResult);
+    }
+    var wrappedResults = Array.from(thenablesOrValues, convertToAllSettledResult);
+    return PromiseConstructor.all(wrappedResults);
+  };
+  return polyfill;
+}, 'es_2020', 'es3');
+$jscomp.polyfill('Promise.prototype.finally', function(orig) {
+  if (orig) {
+    return orig;
+  }
+  var polyfill = function(onFinally) {
+    return this.then(function(value) {
+      var promise = Promise.resolve(onFinally());
+      return promise.then(function() {
+        return value;
+      });
+    }, function(reason) {
+      var promise = Promise.resolve(onFinally());
+      return promise.then(function() {
+        throw reason;
+      });
+    });
+  };
+  return polyfill;
+}, 'es9', 'es3');
+$jscomp.objectCreate = $jscomp.ASSUME_ES5 || typeof Object.create == 'function' ? Object.create : function(prototype) {
+  var ctor = function() {
+  };
+  ctor.prototype = prototype;
+  return new ctor();
+};
+$jscomp.inherits = function(childCtor, parentCtor) {
+  childCtor.prototype = $jscomp.objectCreate(parentCtor.prototype);
+  childCtor.prototype.constructor = childCtor;
+  if ($jscomp.setPrototypeOf) {
+    var setPrototypeOf = $jscomp.setPrototypeOf;
+    setPrototypeOf(childCtor, parentCtor);
+  } else {
+    for (var p in parentCtor) {
+      if (p == 'prototype') {
+        continue;
+      }
+      if (Object.defineProperties) {
+        var descriptor = Object.getOwnPropertyDescriptor(parentCtor, p);
+        if (descriptor) {
+          Object.defineProperty(childCtor, p, descriptor);
+        }
+      } else {
+        childCtor[p] = parentCtor[p];
+      }
+    }
+  }
+  childCtor.superClass_ = parentCtor.prototype;
+};
+$jscomp.polyfill('AggregateError', function(orig) {
+  if (orig) {
+    return orig;
+  }
+  var polyfill = function(errors, message) {
+    var $jscomp$tmp$error = Error(message);
+    if ('stack' in $jscomp$tmp$error) {
+      this.stack = $jscomp$tmp$error.stack;
+    }
+    this.errors = errors;
+    this.message = $jscomp$tmp$error.message;
+  };
+  $jscomp.inherits(polyfill, Error);
+  polyfill.prototype.name = 'AggregateError';
+  return polyfill;
+}, 'es_2021', 'es3');
+$jscomp.polyfill('Promise.any', function(orig) {
+  if (orig) {
+    return orig;
+  }
+  var aggregate_error_msg = 'All promises were rejected';
+  function resolvingArray(iterable) {
+    if (iterable instanceof Array) {
+      return iterable;
+    } else {
+      return Array.from(iterable);
+    }
+  }
+  var polyfill = function(thenablesOrValues) {
+    thenablesOrValues = resolvingArray(thenablesOrValues);
+    return Promise.all(thenablesOrValues.map(function(p) {
+      return Promise.resolve(p).then(function(val) {
+        throw val;
+      }, function(err) {
+        return err;
+      });
+    })).then(function(errors) {
+      throw new AggregateError(errors, aggregate_error_msg);
+    }, function(val) {
+      return val;
+    });
+  };
+  return polyfill;
+}, 'es_2021', 'es3');
 $jscomp.polyfill('Reflect.apply', function(orig) {
   if (orig) {
     return orig;
@@ -1527,23 +2072,17 @@ $jscomp.polyfill('Reflect.apply', function(orig) {
   };
   return polyfill;
 }, 'es6', 'es3');
-$jscomp.objectCreate = $jscomp.ASSUME_ES5 || typeof Object.create == 'function' ? Object.create : function(prototype) {
-  var ctor = function() {
-  };
-  ctor.prototype = prototype;
-  return new ctor;
-};
-$jscomp.construct = function() {
+$jscomp.getConstructImplementation = function() {
   function reflectConstructWorks() {
     function Base() {
     }
     function Derived() {
     }
-    new Base;
+    new Base();
     Reflect.construct(Base, [], Derived);
-    return new Base instanceof Base;
+    return new Base() instanceof Base;
   }
-  if (typeof Reflect != 'undefined' && Reflect.construct) {
+  if ($jscomp.TRUST_ES6_POLYFILLS && typeof Reflect != 'undefined' && Reflect.construct) {
     if (reflectConstructWorks()) {
       return Reflect.construct;
     }
@@ -1568,7 +2107,8 @@ $jscomp.construct = function() {
     return out || obj;
   }
   return construct;
-}();
+};
+$jscomp.construct = {valueOf:$jscomp.getConstructImplementation}.valueOf();
 $jscomp.polyfill('Reflect.construct', function(orig) {
   return $jscomp.construct;
 }, 'es6', 'es3');
@@ -1690,11 +2230,9 @@ $jscomp.polyfill('Reflect.set', function(orig) {
     if (property.set) {
       property.set.call(arguments.length > 3 ? opt_receiver : target, value);
       return true;
-    } else {
-      if (property.writable && !Object.isFrozen(target)) {
-        target[propertyKey] = value;
-        return true;
-      }
+    } else if (property.writable && !Object.isFrozen(target)) {
+      target[propertyKey] = value;
+      return true;
     }
     return false;
   };
@@ -1703,21 +2241,19 @@ $jscomp.polyfill('Reflect.set', function(orig) {
 $jscomp.polyfill('Reflect.setPrototypeOf', function(orig) {
   if (orig) {
     return orig;
+  } else if ($jscomp.setPrototypeOf) {
+    var setPrototypeOf = $jscomp.setPrototypeOf;
+    var polyfill = function(target, proto) {
+      try {
+        setPrototypeOf(target, proto);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    };
+    return polyfill;
   } else {
-    if ($jscomp.setPrototypeOf) {
-      var setPrototypeOf = $jscomp.setPrototypeOf;
-      var polyfill = function(target, proto) {
-        try {
-          setPrototypeOf(target, proto);
-          return true;
-        } catch (e) {
-          return false;
-        }
-      };
-      return polyfill;
-    } else {
-      return null;
-    }
+    return null;
   }
 }, 'es6', 'es5');
 $jscomp.polyfill('Set', function(NativeSet) {
@@ -1755,10 +2291,8 @@ $jscomp.polyfill('Set', function(NativeSet) {
       return NativeSet;
     }
   }
-  $jscomp.initSymbol();
-  $jscomp.initSymbolIterator();
   var PolyfillSet = function(opt_iterable) {
-    this.map_ = new Map;
+    this.map_ = new Map();
     if (opt_iterable) {
       var iter = $jscomp.makeIterator(opt_iterable);
       var entry;
@@ -1775,8 +2309,8 @@ $jscomp.polyfill('Set', function(NativeSet) {
     this.size = this.map_.size;
     return this;
   };
-  PolyfillSet.prototype['delete'] = function(value) {
-    var result = this.map_['delete'](value);
+  PolyfillSet.prototype["delete"] = function(value) {
+    var result = this.map_["delete"](value);
     this.size = this.map_.size;
     return result;
   };
@@ -1890,6 +2424,38 @@ $jscomp.polyfill('String.prototype.includes', function(orig) {
   };
   return polyfill;
 }, 'es6', 'es3');
+$jscomp.polyfill('String.prototype.matchAll', function(orig) {
+  if (orig) {
+    return orig;
+  }
+  var polyfill = function(regexp) {
+    if (regexp instanceof RegExp && !regexp.global) {
+      throw new TypeError('RegExp passed into String.prototype.matchAll() must have global tag.');
+    }
+    var regexCopy = new RegExp(regexp, regexp instanceof RegExp ? undefined : 'g');
+    var matchString = this;
+    var finished = false;
+    var matchAllIterator = {next:function() {
+      if (finished) {
+        return {value:undefined, done:true};
+      }
+      var match = regexCopy.exec(matchString);
+      if (!match) {
+        finished = true;
+        return {value:undefined, done:true};
+      }
+      if (match[0] === '') {
+        regexCopy.lastIndex += 1;
+      }
+      return {value:match, done:false};
+    }};
+    matchAllIterator[Symbol.iterator] = function() {
+      return matchAllIterator;
+    };
+    return matchAllIterator;
+  };
+  return polyfill;
+}, 'es_2020', 'es3');
 $jscomp.polyfill('String.prototype.repeat', function(orig) {
   if (orig) {
     return orig;
@@ -1943,6 +2509,45 @@ $jscomp.polyfill('String.prototype.padStart', function(orig) {
   };
   return padStart;
 }, 'es8', 'es3');
+$jscomp.polyfill('String.raw', function(orig) {
+  if (orig) {
+    return orig;
+  }
+  var stringRaw = function(strings, var_args) {
+    if (strings == null) {
+      throw new TypeError('Cannot convert undefined or null to object');
+    }
+    var raw = strings.raw;
+    var rawlen = raw.length;
+    var result = '';
+    for (var i = 0; i < rawlen; ++i) {
+      result += raw[i];
+      if (i + 1 < rawlen && i + 1 < arguments.length) {
+        result += String(arguments[i + 1]);
+      }
+    }
+    return result;
+  };
+  return stringRaw;
+}, 'es6', 'es3');
+$jscomp.polyfill('String.prototype.replaceAll', function(orig) {
+  if (orig) {
+    return orig;
+  }
+  function regExpEscape(s) {
+    return String(s).replace(/([-()\[\]{}+?*.$\^|,:#<!\\])/g, '\\$1').replace(/\x08/g, '\\x08');
+  }
+  var polyfill = function(searchValue, replacement) {
+    if (searchValue instanceof RegExp && !searchValue.global) {
+      throw new TypeError('String.prototype.replaceAll called with a non-global RegExp argument.');
+    }
+    if (searchValue instanceof RegExp) {
+      return this.replace(searchValue, replacement);
+    }
+    return this.replace(new RegExp(regExpEscape(searchValue), 'g'), replacement);
+  };
+  return polyfill;
+}, 'es_2021', 'es3');
 $jscomp.polyfill('String.prototype.startsWith', function(orig) {
   if (orig) {
     return orig;
@@ -1963,6 +2568,62 @@ $jscomp.polyfill('String.prototype.startsWith', function(orig) {
   };
   return polyfill;
 }, 'es6', 'es3');
+$jscomp.polyfill('String.prototype.trimRight', function(orig) {
+  function polyfill() {
+    return this.replace(/[\s\xa0]+$/, '');
+  }
+  return orig || polyfill;
+}, 'es_2019', 'es3');
+$jscomp.polyfill('String.prototype.trimEnd', function(orig) {
+  return orig || String.prototype.trimRight;
+}, 'es_2019', 'es3');
+$jscomp.polyfill('String.prototype.trimLeft', function(orig) {
+  function polyfill() {
+    return this.replace(/^[\s\xa0]+/, '');
+  }
+  return orig || polyfill;
+}, 'es_2019', 'es3');
+$jscomp.polyfill('String.prototype.trimStart', function(orig) {
+  return orig || String.prototype.trimLeft;
+}, 'es_2019', 'es3');
+$jscomp.typedArrayCopyWithin = function(orig) {
+  if (orig) {
+    return orig;
+  }
+  return Array.prototype.copyWithin;
+};
+$jscomp.polyfill('Int8Array.prototype.copyWithin', $jscomp.typedArrayCopyWithin, 'es6', 'es5');
+$jscomp.polyfill('Uint8Array.prototype.copyWithin', $jscomp.typedArrayCopyWithin, 'es6', 'es5');
+$jscomp.polyfill('Uint8ClampedArray.prototype.copyWithin', $jscomp.typedArrayCopyWithin, 'es6', 'es5');
+$jscomp.polyfill('Int16Array.prototype.copyWithin', $jscomp.typedArrayCopyWithin, 'es6', 'es5');
+$jscomp.polyfill('Uint16Array.prototype.copyWithin', $jscomp.typedArrayCopyWithin, 'es6', 'es5');
+$jscomp.polyfill('Int32Array.prototype.copyWithin', $jscomp.typedArrayCopyWithin, 'es6', 'es5');
+$jscomp.polyfill('Uint32Array.prototype.copyWithin', $jscomp.typedArrayCopyWithin, 'es6', 'es5');
+$jscomp.polyfill('Float32Array.prototype.copyWithin', $jscomp.typedArrayCopyWithin, 'es6', 'es5');
+$jscomp.polyfill('Float64Array.prototype.copyWithin', $jscomp.typedArrayCopyWithin, 'es6', 'es5');
+$jscomp.typedArrayFill = function(orig) {
+  if (orig) {
+    return orig;
+  }
+  return Array.prototype.fill;
+};
+$jscomp.polyfill('Int8Array.prototype.fill', $jscomp.typedArrayFill, 'es6', 'es5');
+$jscomp.polyfill('Uint8Array.prototype.fill', $jscomp.typedArrayFill, 'es6', 'es5');
+$jscomp.polyfill('Uint8ClampedArray.prototype.fill', $jscomp.typedArrayFill, 'es6', 'es5');
+$jscomp.polyfill('Int16Array.prototype.fill', $jscomp.typedArrayFill, 'es6', 'es5');
+$jscomp.polyfill('Uint16Array.prototype.fill', $jscomp.typedArrayFill, 'es6', 'es5');
+$jscomp.polyfill('Int32Array.prototype.fill', $jscomp.typedArrayFill, 'es6', 'es5');
+$jscomp.polyfill('Uint32Array.prototype.fill', $jscomp.typedArrayFill, 'es6', 'es5');
+$jscomp.polyfill('Float32Array.prototype.fill', $jscomp.typedArrayFill, 'es6', 'es5');
+$jscomp.polyfill('Float64Array.prototype.fill', $jscomp.typedArrayFill, 'es6', 'es5');
+$jscomp.createTemplateTagFirstArg = function(arrayStrings) {
+  arrayStrings.raw = arrayStrings;
+  return arrayStrings;
+};
+$jscomp.createTemplateTagFirstArgWithRaw = function(arrayStrings, rawArrayStrings) {
+  arrayStrings.raw = rawArrayStrings;
+  return arrayStrings;
+};
 $jscomp.arrayFromIterator = function(iterator) {
   var i;
   var arr = [];
@@ -1978,28 +2639,13 @@ $jscomp.arrayFromIterable = function(iterable) {
     return $jscomp.arrayFromIterator($jscomp.makeIterator(iterable));
   }
 };
-$jscomp.inherits = function(childCtor, parentCtor) {
-  childCtor.prototype = $jscomp.objectCreate(parentCtor.prototype);
-  childCtor.prototype.constructor = childCtor;
-  if ($jscomp.setPrototypeOf) {
-    var setPrototypeOf = $jscomp.setPrototypeOf;
-    setPrototypeOf(childCtor, parentCtor);
-  } else {
-    for (var p in parentCtor) {
-      if (p == 'prototype') {
-        continue;
-      }
-      if (Object.defineProperties) {
-        var descriptor = Object.getOwnPropertyDescriptor(parentCtor, p);
-        if (descriptor) {
-          Object.defineProperty(childCtor, p, descriptor);
-        }
-      } else {
-        childCtor[p] = parentCtor[p];
-      }
-    }
+$jscomp.getRestArguments = function() {
+  var startIndex = Number(this);
+  var restArgs = [];
+  for (var i = startIndex; i < arguments.length; i++) {
+    restArgs[i - startIndex] = arguments[i];
   }
-  childCtor.superClass_ = parentCtor.prototype;
+  return restArgs;
 };
 $jscomp.polyfill('WeakSet', function(NativeWeakSet) {
   function isConformant() {
@@ -2013,7 +2659,7 @@ $jscomp.polyfill('WeakSet', function(NativeWeakSet) {
       if (!set.has(x) || set.has(y)) {
         return false;
       }
-      set['delete'](x);
+      set["delete"](x);
       set.add(y);
       return !set.has(x) && set.has(y);
     } catch (err) {
@@ -2030,10 +2676,8 @@ $jscomp.polyfill('WeakSet', function(NativeWeakSet) {
     }
   }
   var PolyfillWeakSet = function(opt_iterable) {
-    this.map_ = new WeakMap;
+    this.map_ = new WeakMap();
     if (opt_iterable) {
-      $jscomp.initSymbol();
-      $jscomp.initSymbolIterator();
       var iter = $jscomp.makeIterator(opt_iterable);
       var entry;
       while (!(entry = iter.next()).done) {
@@ -2049,8 +2693,8 @@ $jscomp.polyfill('WeakSet', function(NativeWeakSet) {
   PolyfillWeakSet.prototype.has = function(elem) {
     return this.map_.has(elem);
   };
-  PolyfillWeakSet.prototype['delete'] = function(elem) {
-    return this.map_['delete'](elem);
+  PolyfillWeakSet.prototype["delete"] = function(elem) {
+    return this.map_["delete"](elem);
   };
   return PolyfillWeakSet;
 }, 'es6', 'es3');
@@ -2240,14 +2884,10 @@ try {
     var step0 = Math.abs(stop - start) / Math.max(0, count), step1 = Math.pow(10, Math.floor(Math.log(step0) / Math.LN10)), error = step0 / step1;
     if (error >= e10) {
       step1 *= 10;
-    } else {
-      if (error >= e5) {
-        step1 *= 5;
-      } else {
-        if (error >= e2) {
-          step1 *= 2;
-        }
-      }
+    } else if (error >= e5) {
+      step1 *= 5;
+    } else if (error >= e2) {
+      step1 *= 2;
     }
     return stop < start ? -step1 : step1;
   }
@@ -2645,11 +3285,9 @@ try {
     while (++i < n) {
       if (t = (typename = T[i]).type) {
         _[t] = set(_[t], typename.name, callback);
-      } else {
-        if (callback == null) {
-          for (t in _) {
-            _[t] = set(_[t], typename.name, null);
-          }
+      } else if (callback == null) {
+        for (t in _) {
+          _[t] = set(_[t], typename.name, null);
         }
       }
     }
@@ -2725,7 +3363,7 @@ try {
   };
   var nextId = 0;
   function local$1() {
-    return new Local;
+    return new Local();
   }
   function Local() {
     this._ = '@' + (++nextId).toString(36);
@@ -3684,7 +4322,7 @@ try {
       o = color(o);
     }
     if (!o) {
-      return new Rgb;
+      return new Rgb();
     }
     o = o.rgb();
     return new Rgb(o.r, o.g, o.b, o.opacity);
@@ -3716,14 +4354,10 @@ try {
   function hsla(h, s, l, a) {
     if (a <= 0) {
       h = s = l = NaN;
-    } else {
-      if (l <= 0 || l >= 1) {
-        h = s = NaN;
-      } else {
-        if (s <= 0) {
-          h = NaN;
-        }
-      }
+    } else if (l <= 0 || l >= 1) {
+      h = s = NaN;
+    } else if (s <= 0) {
+      h = NaN;
     }
     return new Hsl(h, s, l, a);
   }
@@ -3735,7 +4369,7 @@ try {
       o = color(o);
     }
     if (!o) {
-      return new Hsl;
+      return new Hsl();
     }
     if (o instanceof Hsl) {
       return o;
@@ -3745,12 +4379,10 @@ try {
     if (s) {
       if (r === max) {
         h = (g - b) / s + (g < b) * 6;
+      } else if (g === max) {
+        h = (b - r) / s + 2;
       } else {
-        if (g === max) {
-          h = (b - r) / s + 2;
-        } else {
-          h = (r - g) / s + 4;
-        }
+        h = (r - g) / s + 4;
       }
       s /= l < 0.5 ? max + min : 2 - max - min;
       h *= 60;
@@ -4002,7 +4634,7 @@ try {
     };
   };
   var date = function(a, b) {
-    var d = new Date;
+    var d = new Date();
     return a = +a, b -= a, function(t) {
       return d.setTime(a + b * t), d;
     };
@@ -4151,45 +4783,35 @@ try {
       if (xa !== xb || ya !== yb) {
         var i = s.push('translate(', null, pxComma, null, pxParen);
         q.push({i:i - 4, x:reinterpolate(xa, xb)}, {i:i - 2, x:reinterpolate(ya, yb)});
-      } else {
-        if (xb || yb) {
-          s.push('translate(' + xb + pxComma + yb + pxParen);
-        }
+      } else if (xb || yb) {
+        s.push('translate(' + xb + pxComma + yb + pxParen);
       }
     }
     function rotate(a, b, s, q) {
       if (a !== b) {
         if (a - b > 180) {
           b += 360;
-        } else {
-          if (b - a > 180) {
-            a += 360;
-          }
+        } else if (b - a > 180) {
+          a += 360;
         }
         q.push({i:s.push(pop(s) + 'rotate(', null, degParen) - 2, x:reinterpolate(a, b)});
-      } else {
-        if (b) {
-          s.push(pop(s) + 'rotate(' + b + degParen);
-        }
+      } else if (b) {
+        s.push(pop(s) + 'rotate(' + b + degParen);
       }
     }
     function skewX(a, b, s, q) {
       if (a !== b) {
         q.push({i:s.push(pop(s) + 'skewX(', null, degParen) - 2, x:reinterpolate(a, b)});
-      } else {
-        if (b) {
-          s.push(pop(s) + 'skewX(' + b + degParen);
-        }
+      } else if (b) {
+        s.push(pop(s) + 'skewX(' + b + degParen);
       }
     }
     function scale(xa, ya, xb, yb, s, q) {
       if (xa !== xb || ya !== yb) {
         var i = s.push(pop(s) + 'scale(', null, ',', null, ')');
         q.push({i:i - 4, x:reinterpolate(xa, xb)}, {i:i - 2, x:reinterpolate(ya, yb)});
-      } else {
-        if (xb !== 1 || yb !== 1) {
-          s.push(pop(s) + 'scale(' + xb + ',' + yb + ')');
-        }
+      } else if (xb !== 1 || yb !== 1) {
+        s.push(pop(s) + 'scale(' + xb + ',' + yb + ')');
       }
     }
     return function(a, b) {
@@ -4352,7 +4974,7 @@ try {
     }
   }};
   function timer(callback, delay, time) {
-    var t = new Timer;
+    var t = new Timer();
     t.restart(callback, delay, time);
     return t;
   }
@@ -4424,7 +5046,7 @@ try {
     }
   }
   var timeout$1 = function(callback, delay, time) {
-    var t = new Timer;
+    var t = new Timer();
     delay = delay == null ? 0 : +delay;
     t.restart(function(elapsed) {
       t.stop();
@@ -4433,7 +5055,7 @@ try {
     return t;
   };
   var interval$1 = function(callback, delay, time) {
-    var t = new Timer, total = delay;
+    var t = new Timer(), total = delay;
     if (delay == null) {
       return t.restart(callback, delay, time), t;
     }
@@ -4458,10 +5080,8 @@ try {
     var schedules = node.__transition;
     if (!schedules) {
       node.__transition = {};
-    } else {
-      if (id in schedules) {
-        return;
-      }
+    } else if (id in schedules) {
+      return;
     }
     create(node, id, {name:name, index:index, group:group, on:emptyOn, tween:emptyTween, time:timing.time, delay:timing.delay, duration:timing.duration, ease:timing.ease, timer:null, state:CREATED});
   };
@@ -4515,12 +5135,10 @@ try {
           o.timer.stop();
           o.on.call('interrupt', node, node.__data__, o.index, o.group);
           delete schedules[i];
-        } else {
-          if (+i < id) {
-            o.state = ENDED;
-            o.timer.stop();
-            delete schedules[i];
-          }
+        } else if (+i < id) {
+          o.state = ENDED;
+          o.timer.stop();
+          delete schedules[i];
         }
       }
       timeout$1(function() {
@@ -4612,7 +5230,7 @@ try {
   function tweenFunction(id, name, value) {
     var tween0, tween1;
     if (typeof value !== 'function') {
-      throw new Error;
+      throw new Error();
     }
     return function() {
       var schedule = set$1(this, id), tween = schedule.tween;
@@ -4738,7 +5356,7 @@ try {
       return this.tween(key, null);
     }
     if (typeof value !== 'function') {
-      throw new Error;
+      throw new Error();
     }
     var fullname = namespace(name);
     return this.tween(key, (fullname.local ? attrTweenNS : attrTween)(fullname, value));
@@ -4773,7 +5391,7 @@ try {
   };
   function easeConstant(id, value) {
     if (typeof value !== 'function') {
-      throw new Error;
+      throw new Error();
     }
     return function() {
       set$1(this, id).ease = value;
@@ -4798,7 +5416,7 @@ try {
   };
   var transition_merge = function(transition) {
     if (transition._id !== this._id) {
-      throw new Error;
+      throw new Error();
     }
     for (var groups0 = this._groups, groups1 = transition._groups, m0 = groups0.length, m1 = groups1.length, m = Math.min(m0, m1), merges = new Array(m0), j = 0; j < m; ++j) {
       for (var group0 = groups0[j], group1 = groups1[j], n = group0.length, merge = merges[j] = new Array(n), node, i = 0; i < n; ++i) {
@@ -4945,7 +5563,7 @@ try {
       return this.tween(key, null);
     }
     if (typeof value !== 'function') {
-      throw new Error;
+      throw new Error();
     }
     return this.tween(key, styleTween(name, value, priority == null ? '' : priority));
   };
@@ -5365,10 +5983,8 @@ try {
         if (exports.event.changedTouches.length < exports.event.touches.length) {
           return noevent$1();
         }
-      } else {
-        if (touchending) {
-          return;
-        }
+      } else if (touchending) {
+        return;
       }
       if (!filter.apply(this, arguments)) {
         return;
@@ -5433,17 +6049,13 @@ try {
             {
               if (signX < 0) {
                 dx = Math.max(W - w0, Math.min(E - w0, dx)), w1 = w0 + dx, e1 = e0;
-              } else {
-                if (signX > 0) {
-                  dx = Math.max(W - e0, Math.min(E - e0, dx)), w1 = w0, e1 = e0 + dx;
-                }
+              } else if (signX > 0) {
+                dx = Math.max(W - e0, Math.min(E - e0, dx)), w1 = w0, e1 = e0 + dx;
               }
               if (signY < 0) {
                 dy = Math.max(N - n0, Math.min(S - n0, dy)), n1 = n0 + dy, s1 = s0;
-              } else {
-                if (signY > 0) {
-                  dy = Math.max(N - s0, Math.min(S - s0, dy)), n1 = n0, s1 = s0 + dy;
-                }
+              } else if (signY > 0) {
+                dy = Math.max(N - s0, Math.min(S - s0, dy)), n1 = n0, s1 = s0 + dy;
               }
               break;
             }
@@ -5542,17 +6154,13 @@ try {
               if (mode === MODE_HANDLE || mode === MODE_CENTER) {
                 if (signX < 0) {
                   e0 = e1 - dx;
-                } else {
-                  if (signX > 0) {
-                    w0 = w1 - dx;
-                  }
+                } else if (signX > 0) {
+                  w0 = w1 - dx;
                 }
                 if (signY < 0) {
                   s0 = s1 - dy;
-                } else {
-                  if (signY > 0) {
-                    n0 = n1 - dy;
-                  }
+                } else if (signY > 0) {
+                  n0 = n1 - dy;
                 }
                 mode = MODE_SPACE;
                 overlay.attr('cursor', cursors.selection);
@@ -5580,17 +6188,13 @@ try {
               if (mode === MODE_CENTER) {
                 if (signX < 0) {
                   e0 = e1;
-                } else {
-                  if (signX > 0) {
-                    w0 = w1;
-                  }
+                } else if (signX > 0) {
+                  w0 = w1;
                 }
                 if (signY < 0) {
                   s0 = s1;
-                } else {
-                  if (signY > 0) {
-                    n0 = n1;
-                  }
+                } else if (signY > 0) {
+                  n0 = n1;
                 }
                 mode = MODE_HANDLE;
                 move();
@@ -5611,17 +6215,13 @@ try {
                 } else {
                   if (signX < 0) {
                     e0 = e1;
-                  } else {
-                    if (signX > 0) {
-                      w0 = w1;
-                    }
+                  } else if (signX > 0) {
+                    w0 = w1;
                   }
                   if (signY < 0) {
                     s0 = s1;
-                  } else {
-                    if (signY > 0) {
-                      n0 = n1;
-                    }
+                  } else if (signY > 0) {
+                    n0 = n1;
                   }
                   mode = MODE_HANDLE;
                 }
@@ -5747,7 +6347,7 @@ try {
     this._ = '';
   }
   function path() {
-    return new Path;
+    return new Path();
   }
   Path.prototype = path.prototype = {constructor:Path, moveTo:function(x, y) {
     this._ += 'M' + (this._x0 = this._x1 = +x) + ',' + (this._y0 = this._y1 = +y);
@@ -5770,19 +6370,15 @@ try {
     }
     if (this._x1 === null) {
       this._ += 'M' + (this._x1 = x1) + ',' + (this._y1 = y1);
+    } else if (!(l01_2 > epsilon$1)) {
+    } else if (!(Math.abs(y01 * x21 - y21 * x01) > epsilon$1) || !r) {
+      this._ += 'L' + (this._x1 = x1) + ',' + (this._y1 = y1);
     } else {
-      if (!(l01_2 > epsilon$1)) {
-      } else {
-        if (!(Math.abs(y01 * x21 - y21 * x01) > epsilon$1) || !r) {
-          this._ += 'L' + (this._x1 = x1) + ',' + (this._y1 = y1);
-        } else {
-          var x20 = x2 - x0, y20 = y2 - y0, l21_2 = x21 * x21 + y21 * y21, l20_2 = x20 * x20 + y20 * y20, l21 = Math.sqrt(l21_2), l01 = Math.sqrt(l01_2), l = r * Math.tan((pi$2 - Math.acos((l21_2 + l01_2 - l20_2) / (2 * l21 * l01))) / 2), t01 = l / l01, t21 = l / l21;
-          if (Math.abs(t01 - 1) > epsilon$1) {
-            this._ += 'L' + (x1 + t01 * x01) + ',' + (y1 + t01 * y01);
-          }
-          this._ += 'A' + r + ',' + r + ',0,0,' + +(y01 * x20 > x01 * y20) + ',' + (this._x1 = x1 + t21 * x21) + ',' + (this._y1 = y1 + t21 * y21);
-        }
+      var x20 = x2 - x0, y20 = y2 - y0, l21_2 = x21 * x21 + y21 * y21, l20_2 = x20 * x20 + y20 * y20, l21 = Math.sqrt(l21_2), l01 = Math.sqrt(l01_2), l = r * Math.tan((pi$2 - Math.acos((l21_2 + l01_2 - l20_2) / (2 * l21 * l01))) / 2), t01 = l / l01, t21 = l / l21;
+      if (Math.abs(t01 - 1) > epsilon$1) {
+        this._ += 'L' + (x1 + t01 * x01) + ',' + (y1 + t01 * y01);
       }
+      this._ += 'A' + r + ',' + r + ',0,0,' + +(y01 * x20 > x01 * y20) + ',' + (this._x1 = x1 + t21 * x21) + ',' + (this._y1 = y1 + t21 * y21);
     }
   }, arc:function(x, y, r, a0, a1, ccw) {
     x = +x, y = +y, r = +r;
@@ -5792,10 +6388,8 @@ try {
     }
     if (this._x1 === null) {
       this._ += 'M' + x0 + ',' + y0;
-    } else {
-      if (Math.abs(this._x1 - x0) > epsilon$1 || Math.abs(this._y1 - y0) > epsilon$1) {
-        this._ += 'L' + x0 + ',' + y0;
-      }
+    } else if (Math.abs(this._x1 - x0) > epsilon$1 || Math.abs(this._y1 - y0) > epsilon$1) {
+      this._ += 'L' + x0 + ',' + y0;
     }
     if (!r) {
       return;
@@ -5805,10 +6399,8 @@ try {
     }
     if (da > tauEpsilon) {
       this._ += 'A' + r + ',' + r + ',0,1,' + cw + ',' + (x - dx) + ',' + (y - dy) + 'A' + r + ',' + r + ',0,1,' + cw + ',' + (this._x1 = x0) + ',' + (this._y1 = y0);
-    } else {
-      if (da > epsilon$1) {
-        this._ += 'A' + r + ',' + r + ',0,' + +(da >= pi$2) + ',' + cw + ',' + (this._x1 = x + r * Math.cos(a1)) + ',' + (this._y1 = y + r * Math.sin(a1));
-      }
+    } else if (da > epsilon$1) {
+      this._ += 'A' + r + ',' + r + ',0,' + +(da >= pi$2) + ',' + cw + ',' + (this._x1 = x + r * Math.cos(a1)) + ',' + (this._y1 = y + r * Math.sin(a1));
     }
   }, rect:function(x, y, w, h) {
     this._ += 'M' + (this._x0 = this._x1 = +x) + ',' + (this._y0 = this._y1 = +y) + 'h' + +w + 'v' + +h + 'h' + -w + 'Z';
@@ -5935,29 +6527,25 @@ try {
     }
   }};
   function map$1(object, f) {
-    var map = new Map;
+    var map = new Map();
     if (object instanceof Map) {
       object.each(function(value, key) {
         map.set(key, value);
       });
-    } else {
-      if (Array.isArray(object)) {
-        var i = -1, n = object.length, o;
-        if (f == null) {
-          while (++i < n) {
-            map.set(i, object[i]);
-          }
-        } else {
-          while (++i < n) {
-            map.set(f(o = object[i], i, object), o);
-          }
+    } else if (Array.isArray(object)) {
+      var i = -1, n = object.length, o;
+      if (f == null) {
+        while (++i < n) {
+          map.set(i, object[i]);
         }
       } else {
-        if (object) {
-          for (var key in object) {
-            map.set(key, object[key]);
-          }
+        while (++i < n) {
+          map.set(f(o = object[i], i, object), o);
         }
+      }
+    } else if (object) {
+      for (var key in object) {
+        map.set(key, object[key]);
       }
     }
     return map;
@@ -6038,22 +6626,20 @@ try {
     return this;
   }, remove:proto.remove, clear:proto.clear, values:proto.keys, size:proto.size, empty:proto.empty, each:proto.each};
   function set$2(object, f) {
-    var set = new Set;
+    var set = new Set();
     if (object instanceof Set) {
       object.each(function(value) {
         set.add(value);
       });
-    } else {
-      if (object) {
-        var i = -1, n = object.length;
-        if (f == null) {
-          while (++i < n) {
-            set.add(object[i]);
-          }
-        } else {
-          while (++i < n) {
-            set.add(f(object[i], i, object));
-          }
+    } else if (object) {
+      var i = -1, n = object.length;
+      if (f == null) {
+        while (++i < n) {
+          set.add(object[i]);
+        }
+      } else {
+        while (++i < n) {
+          set.add(f(object[i], i, object));
         }
       }
     }
@@ -6141,10 +6727,8 @@ try {
             if (text.charCodeAt(i + 2) === 10) {
               ++I;
             }
-          } else {
-            if (c === 10) {
-              eol = true;
-            }
+          } else if (c === 10) {
+            eol = true;
           }
           return text.slice(j + 1, i).replace(/""/g, '"');
         }
@@ -6153,17 +6737,13 @@ try {
           c = text.charCodeAt(I++);
           if (c === 10) {
             eol = true;
-          } else {
-            if (c === 13) {
-              eol = true;
-              if (text.charCodeAt(I) === 10) {
-                ++I, ++k;
-              }
-            } else {
-              if (c !== delimiterCode) {
-                continue;
-              }
+          } else if (c === 13) {
+            eol = true;
+            if (text.charCodeAt(I) === 10) {
+              ++I, ++k;
             }
+          } else if (c !== delimiterCode) {
+            continue;
           }
           return text.slice(j, I - k);
         }
@@ -6337,45 +6917,43 @@ try {
     if (isNaN(x0)) {
       x1 = (x0 = Math.floor(x)) + 1;
       y1 = (y0 = Math.floor(y)) + 1;
-    } else {
-      if (x0 > x || x > x1 || y0 > y || y > y1) {
-        var z = x1 - x0, node = this._root, parent, i;
-        switch(i = (y < (y0 + y1) / 2) << 1 | x < (x0 + x1) / 2) {
-          case 0:
-            {
-              do {
-                parent = new Array(4), parent[i] = node, node = parent;
-              } while (z *= 2, x1 = x0 + z, y1 = y0 + z, x > x1 || y > y1);
-              break;
-            }
-          case 1:
-            {
-              do {
-                parent = new Array(4), parent[i] = node, node = parent;
-              } while (z *= 2, x0 = x1 - z, y1 = y0 + z, x0 > x || y > y1);
-              break;
-            }
-          case 2:
-            {
-              do {
-                parent = new Array(4), parent[i] = node, node = parent;
-              } while (z *= 2, x1 = x0 + z, y0 = y1 - z, x > x1 || y0 > y);
-              break;
-            }
-          case 3:
-            {
-              do {
-                parent = new Array(4), parent[i] = node, node = parent;
-              } while (z *= 2, x0 = x1 - z, y0 = y1 - z, x0 > x || y0 > y);
-              break;
-            }
-        }
-        if (this._root && this._root.length) {
-          this._root = node;
-        }
-      } else {
-        return this;
+    } else if (x0 > x || x > x1 || y0 > y || y > y1) {
+      var z = x1 - x0, node = this._root, parent, i;
+      switch(i = (y < (y0 + y1) / 2) << 1 | x < (x0 + x1) / 2) {
+        case 0:
+          {
+            do {
+              parent = new Array(4), parent[i] = node, node = parent;
+            } while (z *= 2, x1 = x0 + z, y1 = y0 + z, x > x1 || y > y1);
+            break;
+          }
+        case 1:
+          {
+            do {
+              parent = new Array(4), parent[i] = node, node = parent;
+            } while (z *= 2, x0 = x1 - z, y1 = y0 + z, x0 > x || y > y1);
+            break;
+          }
+        case 2:
+          {
+            do {
+              parent = new Array(4), parent[i] = node, node = parent;
+            } while (z *= 2, x1 = x0 + z, y0 = y1 - z, x > x1 || y0 > y);
+            break;
+          }
+        case 3:
+          {
+            do {
+              parent = new Array(4), parent[i] = node, node = parent;
+            } while (z *= 2, x0 = x1 - z, y0 = y1 - z, x0 > x || y0 > y);
+            break;
+          }
       }
+      if (this._root && this._root.length) {
+        this._root = node;
+      }
+    } else {
+      return this;
     }
     this._x0 = x0;
     this._y0 = y0;
@@ -6970,10 +7548,8 @@ try {
           node.vy += y$$1 * quad.value * alpha / l;
         }
         return true;
-      } else {
-        if (quad.length || l >= distanceMax2) {
-          return;
-        }
+      } else if (quad.length || l >= distanceMax2) {
+        return;
       }
       if (quad.data !== node || quad.next) {
         if (x$$1 === 0) {
@@ -7187,10 +7763,8 @@ try {
     var match, fill = match[1] || ' ', align = match[2] || '\x3e', sign = match[3] || '-', symbol = match[4] || '', zero = !!match[5], width = match[6] && +match[6], comma = !!match[7], precision = match[8] && +match[8].slice(1), type = match[9] || '';
     if (type === 'n') {
       comma = true, type = 'g';
-    } else {
-      if (!formatTypes[type]) {
-        type = '';
-      }
+    } else if (!formatTypes[type]) {
+      type = '';
     }
     if (zero || fill === '0' && align === '\x3d') {
       zero = true, fill = '0', align = '\x3d';
@@ -7300,7 +7874,7 @@ try {
     return Math.max(0, exponent$1(max) - exponent$1(step)) + 1;
   };
   var adder = function() {
-    return new Adder;
+    return new Adder();
   };
   function Adder() {
     this.reset();
@@ -7318,7 +7892,7 @@ try {
   }, valueOf:function() {
     return this.s;
   }};
-  var temp = new Adder;
+  var temp = new Adder();
   function add$1(adder, a, b) {
     var x = adder.s = a + b, bv = x - a, av = x - bv;
     adder.t = a - av + (b - bv);
@@ -7511,14 +8085,10 @@ try {
     boundsStream.lineEnd = boundsLineEnd;
     if (areaRingSum < 0) {
       lambda0$1 = -(lambda1 = 180), phi0 = -(phi1 = 90);
-    } else {
-      if (deltaSum > epsilon$2) {
-        phi1 = 90;
-      } else {
-        if (deltaSum < -epsilon$2) {
-          phi0 = -90;
-        }
-      }
+    } else if (deltaSum > epsilon$2) {
+      phi1 = 90;
+    } else if (deltaSum < -epsilon$2) {
+      phi0 = -90;
     }
     range[0] = lambda0$1, range[1] = lambda1;
   }};
@@ -7543,19 +8113,17 @@ try {
         if (phii > phi1) {
           phi1 = phii;
         }
+      } else if (lambdai = (lambdai + 360) % 360 - 180, antimeridian ^ (sign$$1 * lambda2 < lambdai && lambdai < sign$$1 * lambda)) {
+        phii = -inflection[1] * degrees$1;
+        if (phii < phi0) {
+          phi0 = phii;
+        }
       } else {
-        if (lambdai = (lambdai + 360) % 360 - 180, antimeridian ^ (sign$$1 * lambda2 < lambdai && lambdai < sign$$1 * lambda)) {
-          phii = -inflection[1] * degrees$1;
-          if (phii < phi0) {
-            phi0 = phii;
-          }
-        } else {
-          if (phi < phi0) {
-            phi0 = phi;
-          }
-          if (phi > phi1) {
-            phi1 = phi;
-          }
+        if (phi < phi0) {
+          phi0 = phi;
+        }
+        if (phi > phi1) {
+          phi1 = phi;
         }
       }
       if (antimeridian) {
@@ -7911,14 +8479,12 @@ try {
       if (r < t1) {
         t1 = r;
       }
-    } else {
-      if (dx > 0) {
-        if (r > t1) {
-          return;
-        }
-        if (r > t0) {
-          t0 = r;
-        }
+    } else if (dx > 0) {
+      if (r > t1) {
+        return;
+      }
+      if (r > t0) {
+        t0 = r;
       }
     }
     r = x1 - ax;
@@ -7933,14 +8499,12 @@ try {
       if (r > t0) {
         t0 = r;
       }
-    } else {
-      if (dx > 0) {
-        if (r < t0) {
-          return;
-        }
-        if (r < t1) {
-          t1 = r;
-        }
+    } else if (dx > 0) {
+      if (r < t0) {
+        return;
+      }
+      if (r < t1) {
+        t1 = r;
       }
     }
     r = y0 - ay;
@@ -7955,14 +8519,12 @@ try {
       if (r < t1) {
         t1 = r;
       }
-    } else {
-      if (dy > 0) {
-        if (r > t1) {
-          return;
-        }
-        if (r > t0) {
-          t0 = r;
-        }
+    } else if (dy > 0) {
+      if (r > t1) {
+        return;
+      }
+      if (r > t0) {
+        t0 = r;
       }
     }
     r = y1 - ay;
@@ -7977,14 +8539,12 @@ try {
       if (r > t0) {
         t0 = r;
       }
-    } else {
-      if (dy > 0) {
-        if (r < t0) {
-          return;
-        }
-        if (r < t1) {
-          t1 = r;
-        }
+    } else if (dy > 0) {
+      if (r < t0) {
+        return;
+      }
+      if (r < t1) {
+        t1 = r;
       }
     }
     if (t0 > 0) {
@@ -8207,12 +8767,10 @@ try {
                 activeStream.lineEnd();
               }
               clean = false;
-            } else {
-              if (v) {
-                activeStream.lineStart();
-                activeStream.point(x, y);
-                clean = false;
-              }
+            } else if (v) {
+              activeStream.lineStart();
+              activeStream.point(x, y);
+              clean = false;
             }
           }
         }
@@ -8755,7 +9313,7 @@ try {
       if (!arguments.length) {
         return context;
       }
-      contextStream = _ == null ? (context = null, new PathString) : new PathContext(context = _);
+      contextStream = _ == null ? (context = null, new PathString()) : new PathContext(context = _);
       if (typeof pointRadius !== 'function') {
         contextStream.pointRadius(pointRadius);
       }
@@ -8790,15 +9348,13 @@ try {
             sink.polygonStart(), polygonStarted = true;
           }
           clipPolygon(segments, compareIntersection, startInside, interpolate, sink);
-        } else {
-          if (startInside) {
-            if (!polygonStarted) {
-              sink.polygonStart(), polygonStarted = true;
-            }
-            sink.lineStart();
-            interpolate(null, null, 1, sink);
-            sink.lineEnd();
+        } else if (startInside) {
+          if (!polygonStarted) {
+            sink.polygonStart(), polygonStarted = true;
           }
+          sink.lineStart();
+          interpolate(null, null, 1, sink);
+          sink.lineEnd();
         }
         if (polygonStarted) {
           sink.polygonEnd(), polygonStarted = false;
@@ -8894,21 +9450,19 @@ try {
         stream.point(sign1, phi0);
         stream.point(lambda1, phi0);
         clean = 0;
-      } else {
-        if (sign0 !== sign1 && delta >= pi$3) {
-          if (abs(lambda0 - sign0) < epsilon$2) {
-            lambda0 -= sign0 * epsilon$2;
-          }
-          if (abs(lambda1 - sign1) < epsilon$2) {
-            lambda1 -= sign1 * epsilon$2;
-          }
-          phi0 = clipAntimeridianIntersect(lambda0, phi0, lambda1, phi1);
-          stream.point(sign0, phi0);
-          stream.lineEnd();
-          stream.lineStart();
-          stream.point(sign1, phi0);
-          clean = 0;
+      } else if (sign0 !== sign1 && delta >= pi$3) {
+        if (abs(lambda0 - sign0) < epsilon$2) {
+          lambda0 -= sign0 * epsilon$2;
         }
+        if (abs(lambda1 - sign1) < epsilon$2) {
+          lambda1 -= sign1 * epsilon$2;
+        }
+        phi0 = clipAntimeridianIntersect(lambda0, phi0, lambda1, phi1);
+        stream.point(sign0, phi0);
+        stream.lineEnd();
+        stream.lineStart();
+        stream.point(sign1, phi0);
+        clean = 0;
       }
       stream.point(lambda0 = lambda1, phi0 = phi1);
       sign0 = sign1;
@@ -8936,16 +9490,14 @@ try {
       stream.point(-pi$3, -phi);
       stream.point(-pi$3, 0);
       stream.point(-pi$3, phi);
+    } else if (abs(from[0] - to[0]) > epsilon$2) {
+      var lambda = from[0] < to[0] ? pi$3 : -pi$3;
+      phi = direction * lambda / 2;
+      stream.point(-lambda, phi);
+      stream.point(0, phi);
+      stream.point(lambda, phi);
     } else {
-      if (abs(from[0] - to[0]) > epsilon$2) {
-        var lambda = from[0] < to[0] ? pi$3 : -pi$3;
-        phi = direction * lambda / 2;
-        stream.point(-lambda, phi);
-        stream.point(0, phi);
-        stream.point(lambda, phi);
-      } else {
-        stream.point(to[0], to[1]);
-      }
+      stream.point(to[0], to[1]);
     }
   }
   var clipCircle = function(radius, delta) {
@@ -8986,22 +9538,20 @@ try {
             stream.lineEnd();
           }
           point0 = point2;
-        } else {
-          if (notHemisphere && point0 && smallRadius ^ v) {
-            var t;
-            if (!(c & c0) && (t = intersect(point1, point0, true))) {
-              clean = 0;
-              if (smallRadius) {
-                stream.lineStart();
-                stream.point(t[0][0], t[0][1]);
-                stream.point(t[1][0], t[1][1]);
-                stream.lineEnd();
-              } else {
-                stream.point(t[1][0], t[1][1]);
-                stream.lineEnd();
-                stream.lineStart();
-                stream.point(t[0][0], t[0][1]);
-              }
+        } else if (notHemisphere && point0 && smallRadius ^ v) {
+          var t;
+          if (!(c & c0) && (t = intersect(point1, point0, true))) {
+            clean = 0;
+            if (smallRadius) {
+              stream.lineStart();
+              stream.point(t[0][0], t[0][1]);
+              stream.point(t[1][0], t[1][1]);
+              stream.lineEnd();
+            } else {
+              stream.point(t[1][0], t[1][1]);
+              stream.lineEnd();
+              stream.lineStart();
+              stream.point(t[0][0], t[0][1]);
             }
           }
         }
@@ -9054,17 +9604,13 @@ try {
       var r = smallRadius ? radius : pi$3 - radius, code = 0;
       if (lambda < -r) {
         code |= 1;
-      } else {
-        if (lambda > r) {
-          code |= 2;
-        }
+      } else if (lambda > r) {
+        code |= 2;
       }
       if (phi < -r) {
         code |= 4;
-      } else {
-        if (phi > r) {
-          code |= 8;
-        }
+      } else if (phi > r) {
+        code |= 8;
       }
       return code;
     }
@@ -9075,7 +9621,7 @@ try {
   };
   function transformer(methods) {
     return function(stream) {
-      var s = new TransformStream;
+      var s = new TransformStream();
       for (var key in methods) {
         s[key] = methods[key];
       }
@@ -9959,7 +10505,7 @@ try {
   }
   function required(f) {
     if (typeof f !== 'function') {
-      throw new Error;
+      throw new Error();
     }
     return f;
   }
@@ -10251,10 +10797,8 @@ try {
         } else {
           v.z = midpoint;
         }
-      } else {
-        if (w) {
-          v.z = w.z + separation(v._, w._);
-        }
+      } else if (w) {
+        v.z = w.z + separation(v._, w._);
       }
       v.parent.A = apportion(v, w, v.parent.A || siblings[0]);
     }
@@ -10586,7 +11130,7 @@ try {
   var noabort = {};
   function Queue(size) {
     if (!(size >= 1)) {
-      throw new Error;
+      throw new Error();
     }
     this._size = size;
     this._call = this._error = null;
@@ -10596,7 +11140,7 @@ try {
   }
   Queue.prototype = queue.prototype = {constructor:Queue, defer:function(callback) {
     if (typeof callback !== 'function' || this._call) {
-      throw new Error;
+      throw new Error();
     }
     if (this._error != null) {
       return this;
@@ -10613,7 +11157,7 @@ try {
     return this;
   }, await:function(callback) {
     if (typeof callback !== 'function' || this._call) {
-      throw new Error;
+      throw new Error();
     }
     this._call = function(error, results) {
       callback.apply(null, [error].concat(results));
@@ -10622,7 +11166,7 @@ try {
     return this;
   }, awaitAll:function(callback) {
     if (typeof callback !== 'function' || this._call) {
-      throw new Error;
+      throw new Error();
     }
     this._call = callback;
     maybeNotify(this);
@@ -10635,10 +11179,8 @@ try {
       } catch (e$0) {
         if (q._tasks[q._ended + q._active - 1]) {
           abort(q, e$0);
-        } else {
-          if (!q._data) {
-            throw e$0;
-          }
+        } else if (!q._data) {
+          throw e$0;
         }
       }
     }
@@ -10762,9 +11304,9 @@ try {
     };
   };
   var request = function(url, callback) {
-    var request, event = dispatch('beforesend', 'progress', 'load', 'error'), mimeType, headers = map$1(), xhr = new XMLHttpRequest, user = null, password = null, response, responseType, timeout = 0;
+    var request, event = dispatch('beforesend', 'progress', 'load', 'error'), mimeType, headers = map$1(), xhr = new XMLHttpRequest(), user = null, password = null, response, responseType, timeout = 0;
     if (typeof XDomainRequest !== 'undefined' && !('withCredentials' in xhr) && /^(http(s)?:)?\/\//.test(url)) {
-      xhr = new XDomainRequest;
+      xhr = new XDomainRequest();
     }
     'onload' in xhr ? xhr.onload = xhr.onerror = xhr.ontimeout = respond : xhr.onreadystatechange = function(o) {
       xhr.readyState > 3 && respond(o);
@@ -11460,8 +12002,8 @@ try {
     };
     return scale;
   }
-  var t0$1 = new Date;
-  var t1$1 = new Date;
+  var t0$1 = new Date();
+  var t1$1 = new Date();
   function newInterval(floori, offseti, count, field) {
     function interval(date) {
       return floori(date = new Date(+date)), date;
@@ -11829,10 +12371,8 @@ try {
           if (!parse || (j = parse(d, string, j)) < 0) {
             return -1;
           }
-        } else {
-          if (c != string.charCodeAt(j++)) {
-            return -1;
-          }
+        } else if (c != string.charCodeAt(j++)) {
+          return -1;
         }
       }
       return j;
@@ -12139,15 +12679,13 @@ try {
         if (i === tickIntervals.length) {
           step = tickStep(start / durationYear, stop / durationYear, interval);
           interval = year$$1;
+        } else if (i) {
+          i = tickIntervals[target / tickIntervals[i - 1][2] < tickIntervals[i][2] / target ? i - 1 : i];
+          step = i[1];
+          interval = i[0];
         } else {
-          if (i) {
-            i = tickIntervals[target / tickIntervals[i - 1][2] < tickIntervals[i][2] / target ? i - 1 : i];
-            step = i[1];
-            interval = i[0];
-          } else {
-            step = tickStep(start, stop, interval);
-            interval = millisecond$$1;
-          }
+          step = tickStep(start, stop, interval);
+          interval = millisecond$$1;
         }
       }
       return step == null ? interval : interval.every(step);
@@ -12299,74 +12837,68 @@ try {
       }
       if (!(r1 > epsilon$3)) {
         context.moveTo(0, 0);
+      } else if (da > tau$4 - epsilon$3) {
+        context.moveTo(r1 * cos$2(a0), r1 * sin$2(a0));
+        context.arc(0, 0, r1, a0, a1, !cw);
+        if (r0 > epsilon$3) {
+          context.moveTo(r0 * cos$2(a1), r0 * sin$2(a1));
+          context.arc(0, 0, r0, a1, a0, cw);
+        }
       } else {
-        if (da > tau$4 - epsilon$3) {
-          context.moveTo(r1 * cos$2(a0), r1 * sin$2(a0));
-          context.arc(0, 0, r1, a0, a1, !cw);
-          if (r0 > epsilon$3) {
-            context.moveTo(r0 * cos$2(a1), r0 * sin$2(a1));
-            context.arc(0, 0, r0, a1, a0, cw);
+        var a01 = a0, a11 = a1, a00 = a0, a10 = a1, da0 = da, da1 = da, ap = padAngle.apply(this, arguments) / 2, rp = ap > epsilon$3 && (padRadius ? +padRadius.apply(this, arguments) : sqrt$2(r0 * r0 + r1 * r1)), rc = min$1(abs$1(r1 - r0) / 2, +cornerRadius.apply(this, arguments)), rc0 = rc, rc1 = rc, t0, t1;
+        if (rp > epsilon$3) {
+          var p0 = asin$1(rp / r0 * sin$2(ap)), p1 = asin$1(rp / r1 * sin$2(ap));
+          if ((da0 -= p0 * 2) > epsilon$3) {
+            p0 *= cw ? 1 : -1, a00 += p0, a10 -= p0;
+          } else {
+            da0 = 0, a00 = a10 = (a0 + a1) / 2;
+          }
+          if ((da1 -= p1 * 2) > epsilon$3) {
+            p1 *= cw ? 1 : -1, a01 += p1, a11 -= p1;
+          } else {
+            da1 = 0, a01 = a11 = (a0 + a1) / 2;
+          }
+        }
+        var x01 = r1 * cos$2(a01), y01 = r1 * sin$2(a01), x10 = r0 * cos$2(a10), y10 = r0 * sin$2(a10);
+        if (rc > epsilon$3) {
+          var x11 = r1 * cos$2(a11), y11 = r1 * sin$2(a11), x00 = r0 * cos$2(a00), y00 = r0 * sin$2(a00);
+          if (da < pi$4) {
+            var oc = da0 > epsilon$3 ? intersect(x01, y01, x00, y00, x11, y11, x10, y10) : [x10, y10], ax = x01 - oc[0], ay = y01 - oc[1], bx = x11 - oc[0], by = y11 - oc[1], kc = 1 / sin$2(acos$1((ax * bx + ay * by) / (sqrt$2(ax * ax + ay * ay) * sqrt$2(bx * bx + by * by))) / 2), lc = sqrt$2(oc[0] * oc[0] + oc[1] * oc[1]);
+            rc0 = min$1(rc, (r0 - lc) / (kc - 1));
+            rc1 = min$1(rc, (r1 - lc) / (kc + 1));
+          }
+        }
+        if (!(da1 > epsilon$3)) {
+          context.moveTo(x01, y01);
+        } else if (rc1 > epsilon$3) {
+          t0 = cornerTangents(x00, y00, x01, y01, r1, rc1, cw);
+          t1 = cornerTangents(x11, y11, x10, y10, r1, rc1, cw);
+          context.moveTo(t0.cx + t0.x01, t0.cy + t0.y01);
+          if (rc1 < rc) {
+            context.arc(t0.cx, t0.cy, rc1, atan2$1(t0.y01, t0.x01), atan2$1(t1.y01, t1.x01), !cw);
+          } else {
+            context.arc(t0.cx, t0.cy, rc1, atan2$1(t0.y01, t0.x01), atan2$1(t0.y11, t0.x11), !cw);
+            context.arc(0, 0, r1, atan2$1(t0.cy + t0.y11, t0.cx + t0.x11), atan2$1(t1.cy + t1.y11, t1.cx + t1.x11), !cw);
+            context.arc(t1.cx, t1.cy, rc1, atan2$1(t1.y11, t1.x11), atan2$1(t1.y01, t1.x01), !cw);
           }
         } else {
-          var a01 = a0, a11 = a1, a00 = a0, a10 = a1, da0 = da, da1 = da, ap = padAngle.apply(this, arguments) / 2, rp = ap > epsilon$3 && (padRadius ? +padRadius.apply(this, arguments) : sqrt$2(r0 * r0 + r1 * r1)), rc = min$1(abs$1(r1 - r0) / 2, +cornerRadius.apply(this, arguments)), rc0 = rc, rc1 = rc, t0, t1;
-          if (rp > epsilon$3) {
-            var p0 = asin$1(rp / r0 * sin$2(ap)), p1 = asin$1(rp / r1 * sin$2(ap));
-            if ((da0 -= p0 * 2) > epsilon$3) {
-              p0 *= cw ? 1 : -1, a00 += p0, a10 -= p0;
-            } else {
-              da0 = 0, a00 = a10 = (a0 + a1) / 2;
-            }
-            if ((da1 -= p1 * 2) > epsilon$3) {
-              p1 *= cw ? 1 : -1, a01 += p1, a11 -= p1;
-            } else {
-              da1 = 0, a01 = a11 = (a0 + a1) / 2;
-            }
-          }
-          var x01 = r1 * cos$2(a01), y01 = r1 * sin$2(a01), x10 = r0 * cos$2(a10), y10 = r0 * sin$2(a10);
-          if (rc > epsilon$3) {
-            var x11 = r1 * cos$2(a11), y11 = r1 * sin$2(a11), x00 = r0 * cos$2(a00), y00 = r0 * sin$2(a00);
-            if (da < pi$4) {
-              var oc = da0 > epsilon$3 ? intersect(x01, y01, x00, y00, x11, y11, x10, y10) : [x10, y10], ax = x01 - oc[0], ay = y01 - oc[1], bx = x11 - oc[0], by = y11 - oc[1], kc = 1 / sin$2(acos$1((ax * bx + ay * by) / (sqrt$2(ax * ax + ay * ay) * sqrt$2(bx * bx + by * by))) / 2), lc = sqrt$2(oc[0] * oc[0] + oc[1] * oc[1]);
-              rc0 = min$1(rc, (r0 - lc) / (kc - 1));
-              rc1 = min$1(rc, (r1 - lc) / (kc + 1));
-            }
-          }
-          if (!(da1 > epsilon$3)) {
-            context.moveTo(x01, y01);
+          context.moveTo(x01, y01), context.arc(0, 0, r1, a01, a11, !cw);
+        }
+        if (!(r0 > epsilon$3) || !(da0 > epsilon$3)) {
+          context.lineTo(x10, y10);
+        } else if (rc0 > epsilon$3) {
+          t0 = cornerTangents(x10, y10, x11, y11, r0, -rc0, cw);
+          t1 = cornerTangents(x01, y01, x00, y00, r0, -rc0, cw);
+          context.lineTo(t0.cx + t0.x01, t0.cy + t0.y01);
+          if (rc0 < rc) {
+            context.arc(t0.cx, t0.cy, rc0, atan2$1(t0.y01, t0.x01), atan2$1(t1.y01, t1.x01), !cw);
           } else {
-            if (rc1 > epsilon$3) {
-              t0 = cornerTangents(x00, y00, x01, y01, r1, rc1, cw);
-              t1 = cornerTangents(x11, y11, x10, y10, r1, rc1, cw);
-              context.moveTo(t0.cx + t0.x01, t0.cy + t0.y01);
-              if (rc1 < rc) {
-                context.arc(t0.cx, t0.cy, rc1, atan2$1(t0.y01, t0.x01), atan2$1(t1.y01, t1.x01), !cw);
-              } else {
-                context.arc(t0.cx, t0.cy, rc1, atan2$1(t0.y01, t0.x01), atan2$1(t0.y11, t0.x11), !cw);
-                context.arc(0, 0, r1, atan2$1(t0.cy + t0.y11, t0.cx + t0.x11), atan2$1(t1.cy + t1.y11, t1.cx + t1.x11), !cw);
-                context.arc(t1.cx, t1.cy, rc1, atan2$1(t1.y11, t1.x11), atan2$1(t1.y01, t1.x01), !cw);
-              }
-            } else {
-              context.moveTo(x01, y01), context.arc(0, 0, r1, a01, a11, !cw);
-            }
+            context.arc(t0.cx, t0.cy, rc0, atan2$1(t0.y01, t0.x01), atan2$1(t0.y11, t0.x11), !cw);
+            context.arc(0, 0, r0, atan2$1(t0.cy + t0.y11, t0.cx + t0.x11), atan2$1(t1.cy + t1.y11, t1.cx + t1.x11), cw);
+            context.arc(t1.cx, t1.cy, rc0, atan2$1(t1.y11, t1.x11), atan2$1(t1.y01, t1.x01), !cw);
           }
-          if (!(r0 > epsilon$3) || !(da0 > epsilon$3)) {
-            context.lineTo(x10, y10);
-          } else {
-            if (rc0 > epsilon$3) {
-              t0 = cornerTangents(x10, y10, x11, y11, r0, -rc0, cw);
-              t1 = cornerTangents(x01, y01, x00, y00, r0, -rc0, cw);
-              context.lineTo(t0.cx + t0.x01, t0.cy + t0.y01);
-              if (rc0 < rc) {
-                context.arc(t0.cx, t0.cy, rc0, atan2$1(t0.y01, t0.x01), atan2$1(t1.y01, t1.x01), !cw);
-              } else {
-                context.arc(t0.cx, t0.cy, rc0, atan2$1(t0.y01, t0.x01), atan2$1(t0.y11, t0.x11), !cw);
-                context.arc(0, 0, r0, atan2$1(t0.cy + t0.y11, t0.cx + t0.x11), atan2$1(t1.cy + t1.y11, t1.cx + t1.x11), cw);
-                context.arc(t1.cx, t1.cy, rc0, atan2$1(t1.y11, t1.x11), atan2$1(t1.y01, t1.x01), !cw);
-              }
-            } else {
-              context.arc(0, 0, r0, a10, a00, cw);
-            }
-          }
+        } else {
+          context.arc(0, 0, r0, a10, a00, cw);
         }
       }
       context.closePath();
@@ -12573,12 +13105,10 @@ try {
         index.sort(function(i, j) {
           return sortValues(arcs[i], arcs[j]);
         });
-      } else {
-        if (sort != null) {
-          index.sort(function(i, j) {
-            return sort(data[i], data[j]);
-          });
-        }
+      } else if (sort != null) {
+        index.sort(function(i, j) {
+          return sort(data[i], data[j]);
+        });
       }
       for (i = 0, k = sum ? (da - n * pa) / sum : 0; i < n; ++i, a0 = a1) {
         j = index[i], v = arcs[j], a1 = a0 + (v > 0 ? v * k : 0) + pa, arcs[j] = {data:data[j], index:i, value:v, startAngle:a0, endAngle:a1, padAngle:p};
@@ -13687,18 +14217,16 @@ try {
         after.R = node;
       }
       parent = after;
+    } else if (this._) {
+      after = RedBlackFirst(this._);
+      node.P = null;
+      node.N = after;
+      after.P = after.L = node;
+      parent = after;
     } else {
-      if (this._) {
-        after = RedBlackFirst(this._);
-        node.P = null;
-        node.N = after;
-        after.P = after.L = node;
-        parent = after;
-      } else {
-        node.P = node.N = null;
-        this._ = node;
-        parent = null;
-      }
+      node.P = node.N = null;
+      this._ = node;
+      parent = null;
     }
     node.L = node.R = null;
     node.U = parent;
@@ -13753,12 +14281,10 @@ try {
     var parent = node.U, sibling, left = node.L, right = node.R, next, red;
     if (!left) {
       next = right;
+    } else if (!right) {
+      next = left;
     } else {
-      if (!right) {
-        next = left;
-      } else {
-        next = RedBlackFirst(right);
-      }
+      next = RedBlackFirst(right);
     }
     if (parent) {
       if (parent.L === node) {
@@ -13923,12 +14449,10 @@ try {
       edge[0] = vertex;
       edge.left = left;
       edge.right = right;
+    } else if (edge.left === right) {
+      edge[1] = vertex;
     } else {
-      if (edge.left === right) {
-        edge[1] = vertex;
-      } else {
-        edge[0] = vertex;
-      }
+      edge[0] = vertex;
     }
   }
   function clipEdge(edge, x0, y0, x1, y1) {
@@ -13945,14 +14469,12 @@ try {
       if (r < t1) {
         t1 = r;
       }
-    } else {
-      if (dx > 0) {
-        if (r > t1) {
-          return;
-        }
-        if (r > t0) {
-          t0 = r;
-        }
+    } else if (dx > 0) {
+      if (r > t1) {
+        return;
+      }
+      if (r > t0) {
+        t0 = r;
       }
     }
     r = x1 - ax;
@@ -13967,14 +14489,12 @@ try {
       if (r > t0) {
         t0 = r;
       }
-    } else {
-      if (dx > 0) {
-        if (r < t0) {
-          return;
-        }
-        if (r < t1) {
-          t1 = r;
-        }
+    } else if (dx > 0) {
+      if (r < t0) {
+        return;
+      }
+      if (r < t1) {
+        t1 = r;
       }
     }
     r = y0 - ay;
@@ -13989,14 +14509,12 @@ try {
       if (r < t1) {
         t1 = r;
       }
-    } else {
-      if (dy > 0) {
-        if (r > t1) {
-          return;
-        }
-        if (r > t0) {
-          t0 = r;
-        }
+    } else if (dy > 0) {
+      if (r > t1) {
+        return;
+      }
+      if (r > t0) {
+        t0 = r;
       }
     }
     r = y1 - ay;
@@ -14011,14 +14529,12 @@ try {
       if (r > t0) {
         t0 = r;
       }
-    } else {
-      if (dy > 0) {
-        if (r < t0) {
-          return;
-        }
-        if (r < t1) {
-          t1 = r;
-        }
+    } else if (dy > 0) {
+      if (r < t0) {
+        return;
+      }
+      if (r < t1) {
+        t1 = r;
       }
     }
     if (!(t0 > 0) && !(t1 < 1)) {
@@ -14045,19 +14561,15 @@ try {
       if (lx > rx) {
         if (!v0) {
           v0 = [fx, y0];
-        } else {
-          if (v0[1] >= y1) {
-            return;
-          }
+        } else if (v0[1] >= y1) {
+          return;
         }
         v1 = [fx, y1];
       } else {
         if (!v0) {
           v0 = [fx, y1];
-        } else {
-          if (v0[1] < y0) {
-            return;
-          }
+        } else if (v0[1] < y0) {
+          return;
         }
         v1 = [fx, y0];
       }
@@ -14068,19 +14580,15 @@ try {
         if (lx > rx) {
           if (!v0) {
             v0 = [(y0 - fb) / fm, y0];
-          } else {
-            if (v0[1] >= y1) {
-              return;
-            }
+          } else if (v0[1] >= y1) {
+            return;
           }
           v1 = [(y1 - fb) / fm, y1];
         } else {
           if (!v0) {
             v0 = [(y1 - fb) / fm, y1];
-          } else {
-            if (v0[1] < y0) {
-              return;
-            }
+          } else if (v0[1] < y0) {
+            return;
           }
           v1 = [(y0 - fb) / fm, y0];
         }
@@ -14088,19 +14596,15 @@ try {
         if (ly < ry) {
           if (!v0) {
             v0 = [x0, fm * x0 + fb];
-          } else {
-            if (v0[0] >= x1) {
-              return;
-            }
+          } else if (v0[0] >= x1) {
+            return;
           }
           v1 = [x1, fm * x1 + fb];
         } else {
           if (!v0) {
             v0 = [x1, fm * x1 + fb];
-          } else {
-            if (v0[0] < x0) {
-              return;
-            }
+          } else if (v0[0] < x0) {
+            return;
           }
           v1 = [x0, fm * x0 + fb];
         }
@@ -14235,7 +14739,7 @@ try {
       return;
     }
     var ha = ax * ax + ay * ay, hc = cx * cx + cy * cy, x = (cy * ha - ay * hc) / d, y = (ax * hc - cx * ha) / d;
-    var circle = circlePool.pop() || new Circle;
+    var circle = circlePool.pop() || new Circle();
     circle.arc = arc;
     circle.site = cSite;
     circle.x = x + bx;
@@ -14282,7 +14786,7 @@ try {
     this.edge = this.site = this.circle = null;
   }
   function createBeach(site) {
-    var beach = beachPool.pop() || new Beach;
+    var beach = beachPool.pop() || new Beach();
     beach.site = site;
     return beach;
   }
@@ -14343,13 +14847,11 @@ try {
           if (dxl > -epsilon$4) {
             lArc = node.P;
             rArc = node;
+          } else if (dxr > -epsilon$4) {
+            lArc = node;
+            rArc = node.N;
           } else {
-            if (dxr > -epsilon$4) {
-              lArc = node;
-              rArc = node.N;
-            } else {
-              lArc = rArc = node;
-            }
+            lArc = rArc = node;
           }
           break;
         }
@@ -14427,8 +14929,8 @@ try {
     var site = sites.sort(lexicographic).pop(), x, y, circle;
     edges = [];
     cells = new Array(sites.length);
-    beaches = new RedBlackTree;
-    circles = new RedBlackTree;
+    beaches = new RedBlackTree();
+    circles = new RedBlackTree();
     while (true) {
       circle = firstCircle;
       if (site && (!circle || site[1] < circle.y || site[1] === circle.y && site[0] < circle.x)) {
@@ -14437,12 +14939,10 @@ try {
           x = site[0], y = site[1];
         }
         site = sites.pop();
+      } else if (circle) {
+        removeBeach(circle.arc);
       } else {
-        if (circle) {
-          removeBeach(circle.arc);
-        } else {
-          break;
-        }
+        break;
       }
     }
     sortCellHalfedges();
@@ -14732,14 +15232,12 @@ try {
           g.mouse[1] = t.invert(g.mouse[0] = p);
         }
         clearTimeout(g.wheel);
+      } else if (t.k === k) {
+        return;
       } else {
-        if (t.k === k) {
-          return;
-        } else {
-          g.mouse = [p, t.invert(p)];
-          interrupt(this);
-          g.start();
-        }
+        g.mouse = [p, t.invert(p)];
+        interrupt(this);
+        g.start();
       }
       noevent$2();
       g.wheel = setTimeout(wheelidled, wheelDelay);
@@ -14794,10 +15292,8 @@ try {
         p = [p, this.__zoom.invert(p), t.identifier];
         if (!g.touch0) {
           g.touch0 = p, started = true;
-        } else {
-          if (!g.touch1) {
-            g.touch1 = p;
-          }
+        } else if (!g.touch1) {
+          g.touch1 = p;
         }
       }
       if (touchstarting) {
@@ -14829,10 +15325,8 @@ try {
         t = touches$$1[i], p = touch(this, touches$$1, t.identifier);
         if (g.touch0 && g.touch0[2] === t.identifier) {
           g.touch0[0] = p;
-        } else {
-          if (g.touch1 && g.touch1[2] === t.identifier) {
-            g.touch1[0] = p;
-          }
+        } else if (g.touch1 && g.touch1[2] === t.identifier) {
+          g.touch1[0] = p;
         }
       }
       t = g.that.__zoom;
@@ -14841,12 +15335,10 @@ try {
         t = scale(t, Math.sqrt(dp / dl));
         p = [(p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2];
         l = [(l0[0] + l1[0]) / 2, (l0[1] + l1[1]) / 2];
+      } else if (g.touch0) {
+        p = g.touch0[0], l = g.touch0[1];
       } else {
-        if (g.touch0) {
-          p = g.touch0[0], l = g.touch0[1];
-        } else {
-          return;
-        }
+        return;
       }
       g.zoom('touch', constrain(translate(t, p, l), g.extent));
     }
@@ -14863,10 +15355,8 @@ try {
         t = touches$$1[i];
         if (g.touch0 && g.touch0[2] === t.identifier) {
           delete g.touch0;
-        } else {
-          if (g.touch1 && g.touch1[2] === t.identifier) {
-            delete g.touch1;
-          }
+        } else if (g.touch1 && g.touch1[2] === t.identifier) {
+          delete g.touch1;
         }
       }
       if (g.touch1 && !g.touch0) {
@@ -15478,12 +15968,10 @@ Ext.define('Ext.d3.svg.Svg', {extend:'Ext.d3.Component', xtype:['d3-svg', 'd3'],
   var result;
   if (!Ext.isObject(padding)) {
     result = Ext.util.Format.parseBox(padding);
+  } else if (!oldPadding) {
+    result = padding;
   } else {
-    if (!oldPadding) {
-      result = padding;
-    } else {
-      result = Ext.apply(oldPadding, padding);
-    }
+    result = Ext.apply(oldPadding, padding);
   }
   return result;
 }, getSvg:function() {
@@ -15854,12 +16342,10 @@ Ext.define('Ext.d3.mixin.Detached', {extend:'Ext.Mixin', detached:null, construc
   }
   if (child instanceof d3.selection) {
     parent.appendChild(child.node());
+  } else if (child instanceof SVGElement) {
+    parent.appendChild(child);
   } else {
-    if (child instanceof SVGElement) {
-      parent.appendChild(child);
-    } else {
-      Ext.raise('The `child` must either be a D3 selection or an SVG element.');
-    }
+    Ext.raise('The `child` must either be a D3 selection or an SVG element.');
   }
 }, detach:function(child) {
   this.attach(this.detached, child);
@@ -15875,12 +16361,10 @@ Ext.define('Ext.d3.axis.Axis', {requires:['Ext.d3.Helpers'], mixins:{observable:
   config = config || {};
   if ('id' in config) {
     id = config.id;
+  } else if ('id' in me.config) {
+    id = me.config.id;
   } else {
-    if ('id' in me.config) {
-      id = me.config.id;
-    } else {
-      id = me.getId();
-    }
+    id = me.getId();
   }
   me.setId(id);
   me.mixins.detached.constructor.call(me, config);
@@ -16060,10 +16544,8 @@ Ext.define('Ext.d3.axis.Data', {extend:'Ext.d3.axis.Axis', config:{field:null, s
     axis = Ext.Object.chain(axis);
     if (axis.orient === 'left') {
       axis.orient = 'right';
-    } else {
-      if (axis.orient === 'right') {
-        axis.orient = 'left';
-      }
+    } else if (axis.orient === 'right') {
+      axis.orient = 'left';
     }
   }
   return this.callParent([axis, oldAxis]);
@@ -16093,12 +16575,10 @@ Ext.define('Ext.d3.axis.Color', {requires:['Ext.d3.Helpers'], mixins:{observable
   var scale = this.scale, field = this.field, processor = this.processor, color;
   if (processor) {
     color = processor(this, scale, value, field);
+  } else if (value && value.data && value.data.isModel && field) {
+    color = scale(value.data.data[field]);
   } else {
-    if (value && value.data && value.data.isModel && field) {
-      color = scale(value.data.data[field]);
-    } else {
-      color = scale(value);
-    }
+    color = scale(value);
   }
   return color;
 }, updateMinimum:function() {
@@ -16166,10 +16646,8 @@ Ext.define('Ext.d3.legend.Legend', {mixins:{observable:'Ext.mixin.Observable', d
   if (isRtl) {
     if (docked === 'left') {
       docked = 'right';
-    } else {
-      if (docked === 'right') {
-        docked = 'left';
-      }
+    } else if (docked === 'right') {
+      docked = 'left';
     }
   }
   return docked;
@@ -16634,12 +17112,10 @@ Ext.define('Ext.d3.canvas.HiDPI', {singleton:true, relFontSizeRegEx:/(^[0-9])*(\
     var n = arguments.length;
     if (n > 3) {
       return this.$isPointInPath(path, x * ratio, y * ratio, fillRule);
+    } else if (n > 2) {
+      return this.$isPointInPath(path * ratio, x * ratio, y);
     } else {
-      if (n > 2) {
-        return this.$isPointInPath(path * ratio, x * ratio, y);
-      } else {
-        return this.$isPointInPath(path * ratio, x * ratio);
-      }
+      return this.$isPointInPath(path * ratio, x * ratio);
     }
   }, isPointInStroke:function(path, x, y) {
     var n = arguments.length;
@@ -16652,12 +17128,10 @@ Ext.define('Ext.d3.canvas.HiDPI', {singleton:true, relFontSizeRegEx:/(^[0-9])*(\
     var n = arguments.length;
     if (n > 5) {
       this.$drawImage(image, sx, sy, sWidth, sHeight, dx * ratio, dy * ratio, dWidth * ratio, dHeight * ratio);
+    } else if (n > 3) {
+      this.$drawImage(image, sx * ratio, sy * ratio, sWidth * ratio, sHeight * ratio);
     } else {
-      if (n > 3) {
-        this.$drawImage(image, sx * ratio, sy * ratio, sWidth * ratio, sHeight * ratio);
-      } else {
-        this.$drawImage(image, sx * ratio, sy * ratio);
-      }
+      this.$drawImage(image, sx * ratio, sy * ratio);
     }
   }, putImageData:function(imagedata, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight) {
     this.$putImageData(imagedata, dx * ratio, dy * ratio, dirtyX, dirtyY, dirtyWidth, dirtyHeight);
@@ -16785,39 +17259,33 @@ Ext.define('Ext.d3.hierarchy.Hierarchy', {extend:'Ext.d3.svg.Svg', requires:['Ex
   var fn;
   if (typeof nodeText === 'function') {
     fn = nodeText;
-  } else {
-    if (typeof nodeText === 'string') {
-      fn = function(component, node) {
-        var data = node && node.data && node.data.data;
-        return data && data[nodeText] || '';
-      };
-    } else {
-      if (Array.isArray(nodeText)) {
-        fn = function(component, node) {
-          var data = node && node.data && node.data.data, text, i;
-          if (data) {
-            for (i = 0; i < nodeText.length && !text; i++) {
-              text = data[nodeText[i]];
-            }
-          }
-          return text || '';
-        };
-      } else {
-        Ext.raise('nodeText must be a string, array of strings, or a function ' + 'that returns a string.');
+  } else if (typeof nodeText === 'string') {
+    fn = function(component, node) {
+      var data = node && node.data && node.data.data;
+      return data && data[nodeText] || '';
+    };
+  } else if (Array.isArray(nodeText)) {
+    fn = function(component, node) {
+      var data = node && node.data && node.data.data, text, i;
+      if (data) {
+        for (i = 0; i < nodeText.length && !text; i++) {
+          text = data[nodeText[i]];
+        }
       }
-    }
+      return text || '';
+    };
+  } else {
+    Ext.raise('nodeText must be a string, array of strings, or a function ' + 'that returns a string.');
   }
   return fn;
 }, applyNodeClass:function(nodeClass, oldNodeClass) {
   var result;
   if (Ext.isFunction(nodeClass)) {
     result = nodeClass;
+  } else if (oldNodeClass) {
+    result = oldNodeClass;
   } else {
-    if (oldNodeClass) {
-      result = oldNodeClass;
-    } else {
-      result = this.defaultNodeClass;
-    }
+    result = this.defaultNodeClass;
   }
   if (result) {
     result = result.bind(this);
@@ -16848,16 +17316,12 @@ Ext.define('Ext.d3.hierarchy.Hierarchy', {extend:'Ext.d3.svg.Svg', requires:['Ex
     fn = function(record) {
       return record.data[nodeValue];
     };
-  } else {
-    if (Ext.isNumber(nodeValue)) {
-      fn = function() {
-        return nodeValue;
-      };
-    } else {
-      if (typeof nodeValue === 'function') {
-        fn = nodeValue;
-      }
-    }
+  } else if (Ext.isNumber(nodeValue)) {
+    fn = function() {
+      return nodeValue;
+    };
+  } else if (typeof nodeValue === 'function') {
+    fn = nodeValue;
   }
   if (fn) {
     if (noParentValue) {
@@ -16964,19 +17428,15 @@ Ext.define('Ext.d3.hierarchy.Hierarchy', {extend:'Ext.d3.svg.Svg', requires:['Ex
   var me = this, targetEl = me.el;
   if (eventName === 'mouseenter') {
     me.mouseEnterPlugin = me.addPlugin({type:'mouseenter', element:targetEl, delegate:'g.' + me.defaultCls.node, handler:handler});
-  } else {
-    if (eventName) {
-      targetEl.on(eventName, handler, me, {delegate:'g.' + me.defaultCls.node});
-    }
+  } else if (eventName) {
+    targetEl.on(eventName, handler, me, {delegate:'g.' + me.defaultCls.node});
   }
 }, removeNodeListener:function(eventName, handler) {
   var me = this, targetEl = me.el;
   if (eventName === 'mouseenter') {
     Ext.destroy(me.mouseEnterPlugin);
-  } else {
-    if (eventName) {
-      targetEl.un(eventName, handler, me, {delegate:'g.' + me.defaultCls.node});
-    }
+  } else if (eventName) {
+    targetEl.un(eventName, handler, me, {delegate:'g.' + me.defaultCls.node});
   }
 }, onSelectEvent:function(event, target) {
   var selection = d3.select(target), element = selection.node(), node = selection.datum();
@@ -17684,12 +18144,10 @@ Ext.define('Ext.d3.interaction.Abstract', {isInteraction:true, mixins:{observabl
   config = config || {};
   if ('id' in config) {
     id = config.id;
+  } else if ('id' in me.config) {
+    id = me.config.id;
   } else {
-    if ('id' in me.config) {
-      id = me.config.id;
-    } else {
-      id = me.getId();
-    }
+    id = me.getId();
   }
   me.setId(id);
   me.mixins.observable.constructor.call(me, config);
@@ -17912,21 +18370,17 @@ oldTranslation:null, dx:0, dy:0, velocityX:0, velocityY:0, pan:null, viewportRec
     maxY = constraints[3];
     if (x < minX) {
       x = x - minX;
+    } else if (x > maxX) {
+      x = x - maxX;
     } else {
-      if (x > maxX) {
-        x = x - maxX;
-      } else {
-        x = 0;
-      }
+      x = 0;
     }
     if (y < minY) {
       y = y - minY;
+    } else if (y > maxY) {
+      y = y - maxY;
     } else {
-      if (y > maxY) {
-        y = y - maxY;
-      } else {
-        y = 0;
-      }
+      y = 0;
     }
     if (x && Math.abs(x) < minimum) {
       x = 0;

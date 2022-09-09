@@ -1,5 +1,6 @@
 topSuite("Ext.calendar.panel.Panel", ['Ext.calendar.*'], function() {
-    var view;
+    var describeTouch =  Ext.supports.Touch ? describe : xdescribe,
+        view, cell;
 
     function makeView(cfg) {
         cfg = Ext.apply({
@@ -64,6 +65,74 @@ topSuite("Ext.calendar.panel.Panel", ['Ext.calendar.*'], function() {
                 var weekView = view.getView();
 
                 expect(weekView.el.selectNode('.' + dayCls)).toBeNull();
+            });
+        });
+    });
+
+    describeTouch("Touch interaction", function() {
+        var calendarView;
+
+        beforeEach(function() {
+            makeView({
+                highlightToday: true,
+                store: {
+                    model: 'Ext.calendar.model.Calendar',
+                    data: [{
+                        id: 1,
+                        name: 'Event A',
+                        startDate: new Date(),
+                        endDate: new Date(),
+                        allDay: true
+                    }]
+                }
+            });
+            calendarView = view.getView().activeView.getView();
+        });
+        afterEach(function() {
+            calendarView.form.getEl().down('.x-calendar-picker-field-icon').destroy();
+            view = view.destroy();
+        });
+        describe("month view", function() {
+            it("should display 'Add Events' form on tap", function() {
+                cell = calendarView.getCell(new Date());
+                Ext.testHelper.touchStart(cell);
+                waitsFor(function() {
+                    return calendarView.form && calendarView.form.isVisible();
+                });
+                runs(function() {
+                    expect(calendarView.form.isVisible()).toBeTruthy();
+                });
+            });
+        });
+
+        describe("week view", function() {
+            it("should display 'Add Events' form on tap", function() {
+                var calenderEvent, header, column, widget;
+
+                view.getView().setView('week');
+                calendarView = view.getView().activeView.getView();
+                column = calendarView.getColumn(0);
+                header = calendarView.getHeader(0);
+                Ext.testHelper.touchStart(calendarView.getColumn(0));
+                Ext.testHelper.touchMove(calendarView.getColumn(0), { x: 0, y: 60 });
+                Ext.testHelper.touchEnd(calendarView.getColumn(0));
+                calenderEvent = Ext.get(column).el.down('.x-calendar-event');
+                widget = Ext.get(column).down('.x-calendar-event-day').dom;
+                Ext.testHelper.touchStart(widget);
+                Ext.testHelper.touchEnd(widget);
+                waitsFor(function() {
+                    calenderEvent = calenderEvent.component.destroy();
+
+                    return calendarView.form && calendarView.form.isVisible();
+                });
+                runs(function() {
+                    expect(calendarView.form.isVisible()).toBeTruthy();
+                    Ext.get(header.cells[0]).destroy();
+                    header = header.destroy();
+                    widget = Ext.get(widget).destroy();
+                    Ext.get(column).down('.x-calendar-days-day-event-container').destroy();
+                    column = Ext.get(column).destroy();
+                });
             });
         });
     });
