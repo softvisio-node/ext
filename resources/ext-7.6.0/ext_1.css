@@ -1618,12 +1618,12 @@ html.x-fixed-viewport {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: "liga";
-    text-rendering: optimizeLegibility;
     direction: ltr;
     display: flex;
     font-style: normal;
     letter-spacing: normal;
     line-height: 1;
+    text-rendering: optimizeLegibility;
     text-transform: none;
     white-space: nowrap;
 }
