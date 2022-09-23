@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-08-12 22:17+0300\n"
+"POT-Creation-Date: 2022-09-23 09:30+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -201,6 +201,10 @@ msgstr "Рік"
 #: Ext.overrides.panel.TimeView.js:15:24
 msgid "Cancel"
 msgstr "Скасувати"
+
+#: Ext.data.validator.PasswordStrength.js:9:19
+msgid "Password is weak"
+msgstr "Пароль слабкий"
 
 #: Ext.overrides.field.Date.js:10:22
 msgid "The date in this field must be equal to or after {0}"
