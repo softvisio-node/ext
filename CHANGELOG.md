@@ -1,5 +1,12 @@
 # Changelog
 
+### 5.13.2 (2022-09-23)
+
+Fixes:
+
+-   fix: password strength validator
+-   fix: password strength valudator
+
 ### 5.13.1 (2022-09-09)
 
 Fixes:
