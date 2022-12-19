@@ -1,5 +1,12 @@
 # Changelog
 
+### 5.13.4 (2022-12-19)
+
+Fixes:
+
+-   fix: ewc boolean attrs patch fixed
+-   fix: ewc boolean attrs patch removed
+
 ### 5.13.3 (2022-09-30)
 
 Fixes:
