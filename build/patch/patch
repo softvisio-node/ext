@@ -1103,6 +1103,47 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
  $ext-beta: false !default; // Updated automatically by the build script.
  @import 'compass/css3';
  
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-web-components-modern/src/common/util.js node_modules_patch/@sencha/ext-web-components-modern/src/common/util.js
+--- ../node_modules/@sencha/ext-web-components-modern/src/common/util.js	2022-12-18 21:08:23.781741100 +0200
++++ node_modules_patch/@sencha/ext-web-components-modern/src/common/util.js	2022-12-19 09:26:09.392515700 +0200
+@@ -51,7 +51,7 @@
+     `
+     window.stop();
+   };
+-  if (scriptIt() != 0) 
++  if (scriptIt() != 0)
+ 
+   console.warn('[Deprecation] error below is expected');
+ 
+@@ -109,9 +109,14 @@
+   }
+ }
+ 
++// NOTE patch
+ function doSet(me,prop,val) {
+   //console.log('doSet: ' + prop)
+ 
++  // NOTE patch
++  // VueJS set properties as is, without any coercion, for boolean props we need stringify boolean values
++  if ( typeof val === "boolean" ) val = val.toString();
++
+   if (prop == 'plugins') {
+     return;
+   }
+@@ -165,7 +170,13 @@
+   }
+ }
+ 
++// NOTE patch
+ export function filterProp(propertyValue, property, me) {
++
++  // NOTE patch
++  // vue3 converts "hidden" attribute to string, false value converted to the ""
++  if ( property === "hidden" ) return propertyValue === "";
++
+   try {
+     if (propertyValue == 'error') {
+       return me.attributeObjects[property]
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js node_modules_patch/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js
 --- ../node_modules/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js	2022-12-18 21:08:23.730754700 +0200
 +++ node_modules_patch/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js	2022-07-02 15:18:21.341288800 +0300
