@@ -1103,6 +1103,30 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
  $ext-beta: false !default; // Updated automatically by the build script.
  @import 'compass/css3';
  
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern-theme-material/sass/var/Button.scss node_modules_patch/@sencha/ext-modern-theme-material/sass/var/Button.scss
+--- ../node_modules/@sencha/ext-modern-theme-material/sass/var/Button.scss	2022-12-18 21:08:20.413376200 +0200
++++ node_modules_patch/@sencha/ext-modern-theme-material/sass/var/Button.scss	2023-01-14 05:54:13.147531200 +0200
+@@ -59,7 +59,7 @@
+ $button-badge-padding: dynamic(4px);
+ $button-badge-line-height: dynamic(16px);
+ $button-badge-line-height-big: dynamic(16px);
+-$button-text-transform: dynamic(uppercase);
++$button-text-transform: dynamic(none);
+ $button-text-transform-big: dynamic(null);
+ $button-badge-min-width: dynamic($button-badge-line-height + horizontal($button-badge-padding));
+ $button-badge-min-width-big: dynamic($button-badge-line-height-big + horizontal($button-badge-padding-big));
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern-theme-material/sass/var/SplitButton.scss node_modules_patch/@sencha/ext-modern-theme-material/sass/var/SplitButton.scss
+--- ../node_modules/@sencha/ext-modern-theme-material/sass/var/SplitButton.scss	2022-12-18 21:08:20.594104500 +0200
++++ node_modules_patch/@sencha/ext-modern-theme-material/sass/var/SplitButton.scss	2023-01-14 05:54:54.531524200 +0200
+@@ -25,7 +25,7 @@
+ $splitButton-font-weight: dynamic(600);
+ $splitButton-line-height: dynamic(16px);
+ $splitButton-line-height-big: dynamic(24px);
+-$splitButton-text-transform: dynamic(uppercase);
++$splitButton-text-transform: dynamic(none);
+ $splitButton-padding: dynamic(8px 16px);
+ $splitButton-padding-big: dynamic(6px 16px);
+ $splitButton-pressed-icon-color: dynamic($splitButton-pressed-color);
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-web-components-modern/src/common/util.js node_modules_patch/@sencha/ext-web-components-modern/src/common/util.js
 --- ../node_modules/@sencha/ext-web-components-modern/src/common/util.js	2022-12-18 21:08:23.781741100 +0200
 +++ node_modules_patch/@sencha/ext-web-components-modern/src/common/util.js	2022-12-19 09:26:09.392515700 +0200

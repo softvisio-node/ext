@@ -5048,7 +5048,7 @@ div.x-trigger.x-grouped {
 }
 .x-button .x-text-el {
     min-height: 16px;
-    text-transform: uppercase;
+    text-transform: none;
 }
 .x-big .x-button .x-text-el {
     min-height: 24px;
@@ -6676,11 +6676,11 @@ div.x-trigger.x-grouped {
 }
 .x-splitButton .x-text-el {
     min-height: 16px;
-    text-transform: uppercase;
+    text-transform: none;
 }
 .x-big .x-splitButton .x-text-el {
     min-height: 24px;
-    text-transform: uppercase;
+    text-transform: none;
 }
 .x-splitButton .x-hovered.x-splitArrow-el,
 .x-splitButton .x-hovered.x-splitBody-el,
