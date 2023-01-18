@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.13.6 (2023-01-18)
+
+Fixes:
+
+-   fix: dialog close
+
 ### 5.13.5 (2023-01-14)
 
 Fixes:
