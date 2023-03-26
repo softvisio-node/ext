@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.13.10 (2023-03-26)
+
+Fixes:
+
+-   fix: theme store
+
 ### 5.13.9 (2023-03-26)
 
 Fixes:
