@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.13.9 (2023-03-26)
+
+Fixes:
+
+-   fix: button text uppercase
+
 ### 5.13.8 (2023-01-24)
 
 Fixes:
