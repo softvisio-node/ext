@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.13.11 (2023-04-25)
+
+Fixes:
+
+-   fix: softvisio proxt read method serialization
+
 ### 5.13.10 (2023-03-26)
 
 Fixes:
