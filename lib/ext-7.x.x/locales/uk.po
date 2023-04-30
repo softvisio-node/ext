@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-09-23 09:30+0300\n"
+"POT-Creation-Date: 2023-04-30 13:53+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ../../build/patch/node_modules_patch\n"
 
@@ -137,6 +137,22 @@ msgstr "Максимальна кількість десяткових знак�
 #: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:213:22
 msgid "Value is not a valid number"
 msgstr "Значення не є дійсним числом"
+
+#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:61:26
+msgid "Locked"
+msgstr ""
+
+#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:164:26
+msgid "Locked (Left)"
+msgstr ""
+
+#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:171:26
+msgid "Unlocked"
+msgstr ""
+
+#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:178:26
+msgid "Locked (Right)"
+msgstr ""
 
 #: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/AddGroup.js:16:10
 msgid "Add to grouping"
