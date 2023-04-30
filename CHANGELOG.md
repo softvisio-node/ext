@@ -1,5 +1,13 @@
 # Changelog
 
+### 5.13.12 (2023-04-30)
+
+Fixes:
+
+-   fix: charts
+-   fix: theme events
+-   fix: translation
+
 ### 5.13.11 (2023-04-25)
 
 Fixes:
