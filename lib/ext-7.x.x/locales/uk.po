@@ -140,19 +140,19 @@ msgstr "Значення не є дійсним числом"
 
 #: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:61:26
 msgid "Locked"
-msgstr ""
+msgstr "Закріплена"
 
 #: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:164:26
 msgid "Locked (Left)"
-msgstr ""
+msgstr "Закріплена (ліворуч)"
 
 #: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:171:26
 msgid "Unlocked"
-msgstr ""
+msgstr "Не закріплена"
 
 #: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:178:26
 msgid "Locked (Right)"
-msgstr ""
+msgstr "Закріплена (праворуч)"
 
 #: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/AddGroup.js:16:10
 msgid "Add to grouping"

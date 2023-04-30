@@ -144,7 +144,7 @@ msgstr "Закреплена"
 
 #: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:164:26
 msgid "Locked (Left)"
-msgstr "Закреплена (с лева)"
+msgstr "Закреплена (слева)"
 
 #: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:171:26
 msgid "Unlocked"
@@ -152,7 +152,7 @@ msgstr "Не закреплена"
 
 #: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:178:26
 msgid "Locked (Right)"
-msgstr "Закреплена (с права)"
+msgstr "Закреплена (справа)"
 
 #: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/AddGroup.js:16:10
 msgid "Add to grouping"
