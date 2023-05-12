@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.13.16 (2023-05-12)
+
+Fixes:
+
+-   fix: fontawesome
+
 ### 5.13.15 (2023-05-12)
 
 Fixes:
