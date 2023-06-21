@@ -79,7 +79,36 @@ topSuite("Ext.calendar.panel.Panel", ['Ext.calendar.*'], function() {
                     model: 'Ext.calendar.model.Calendar',
                     data: [{
                         id: 1,
+                        title: "Personal Meeting",
                         name: 'Event A',
+                        startDate: new Date(),
+                        endDate: new Date(),
+                        allDay: true
+                    }, {
+                        "id": 2,
+                        "title": "Office Meeting",
+                        name: 'Event B',
+                        startDate: new Date(),
+                        endDate: new Date(),
+                        allDay: true
+                    }, {
+                        "id": 3,
+                        "title": "Scrum Call",
+                        name: 'Event 5',
+                        startDate: new Date(),
+                        endDate: new Date(),
+                        allDay: true
+                    }, {
+                        "id": 4,
+                        "title": "Personal Alarm",
+                        name: 'Event 4',
+                        startDate: new Date(),
+                        endDate: new Date(),
+                        allDay: true
+                    }, {
+                        "id": 5,
+                        "title": "Appointment",
+                        name: 'Event 8',
                         startDate: new Date(),
                         endDate: new Date(),
                         allDay: true
@@ -89,7 +118,10 @@ topSuite("Ext.calendar.panel.Panel", ['Ext.calendar.*'], function() {
             calendarView = view.getView().activeView.getView();
         });
         afterEach(function() {
-            calendarView.form.getEl().down('.x-calendar-picker-field-icon').destroy();
+            if (calendarView.form.getEl) {
+                calendarView.form.getEl().down('.x-calendar-picker-field-icon').destroy();
+            }
+
             view = view.destroy();
         });
         describe("month view", function() {
@@ -107,31 +139,40 @@ topSuite("Ext.calendar.panel.Panel", ['Ext.calendar.*'], function() {
 
         describe("week view", function() {
             it("should display 'Add Events' form on tap", function() {
-                var calenderEvent, header, column, widget;
+                var calenderEvent, header, column, widget, selectField;
 
                 view.getView().setView('week');
                 calendarView = view.getView().activeView.getView();
-                column = calendarView.getColumn(0);
-                header = calendarView.getHeader(0);
-                Ext.testHelper.touchStart(calendarView.getColumn(0));
-                Ext.testHelper.touchMove(calendarView.getColumn(0), { x: 0, y: 60 });
-                Ext.testHelper.touchEnd(calendarView.getColumn(0));
-                calenderEvent = Ext.get(column).el.down('.x-calendar-event');
-                widget = Ext.get(column).down('.x-calendar-event-day').dom;
-                Ext.testHelper.touchStart(widget);
-                Ext.testHelper.touchEnd(widget);
-                waitsFor(function() {
-                    calenderEvent = calenderEvent.component.destroy();
 
-                    return calendarView.form && calendarView.form.isVisible();
+                waitsFor(function() {
+                    return calendarView.getColumn(0);
                 });
                 runs(function() {
-                    expect(calendarView.form.isVisible()).toBeTruthy();
-                    Ext.get(header.cells[0]).destroy();
-                    header = header.destroy();
-                    widget = Ext.get(widget).destroy();
-                    Ext.get(column).down('.x-calendar-days-day-event-container').destroy();
-                    column = Ext.get(column).destroy();
+                    column = calendarView.getColumn(0);
+                    header = calendarView.getHeader(0);
+                    Ext.testHelper.touchStart(calendarView.getColumn(0));
+                    Ext.testHelper.touchMove(calendarView.getColumn(0), { x: 0, y: 60 });
+                    Ext.testHelper.touchEnd(calendarView.getColumn(0));
+                    calenderEvent = Ext.get(column).el.down('.x-calendar-event');
+                    widget = Ext.get(column).down('.x-calendar-event-day').dom;
+                    Ext.testHelper.touchStart(widget);
+                    Ext.testHelper.touchEnd(widget);
+                    waitsFor(function() {
+                        calenderEvent = calenderEvent.component.destroy();
+
+                        return calendarView.form && calendarView.form.isVisible();
+                    });
+                    runs(function() {
+                        expect(calendarView.form.isVisible()).toBeTruthy();
+                        selectField = calendarView.form.down('calendar-calendar-picker');
+                        selectField.expand();
+                        expect(selectField.getPicker().isVisible()).toBeTruthy();
+                        Ext.get(header.cells[0]).destroy();
+                        header = header.destroy();
+                        widget = Ext.get(widget).destroy();
+                        Ext.get(column).down('.x-calendar-days-day-event-container').destroy();
+                        column = Ext.get(column).destroy();
+                    });
                 });
             });
         });

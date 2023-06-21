@@ -20,6 +20,12 @@ Ext.define('Ext.calendar.form.CalendarPicker', {
     },
     /* eslint-enable max-len */
 
+    // TPL used for slot in edgepicker.
+    /* eslint-disable max-len */
+    itemTpl: '<div><div class="' + Ext.baseCSSPrefix + 'calendar-picker-list-icon" style="background-color: {color};"></div>' +
+    '<div class="' + Ext.baseCSSPrefix + 'calendar-picker-list-text ' + Ext.baseCSSPrefix + 'list-label">{title:htmlEncode}</div></div>',
+    /* eslint-enable max-len */
+
     edgePicker: {
         userCls: Ext.baseCSSPrefix + 'calendar-picker-list'
     },
@@ -40,20 +46,6 @@ Ext.define('Ext.calendar.form.CalendarPicker', {
 
             dv.prepareData = me.prepareData;
         }
-
-        return picker;
-    },
-
-    createEdgePicker: function() {
-        var picker = this.callParent();
-
-        /* eslint-disable max-len, indent */
-        picker.slots[0].itemTpl =
-            '<div class="' + Ext.baseCSSPrefix + 'picker-item {cls}">' +
-                '<div class="' + Ext.baseCSSPrefix + 'calendar-picker-list-icon" style="background-color: {color};"></div>' +
-                '<span class="' + Ext.baseCSSPrefix + 'list-label">{title:htmlEncode}</span>' +
-            '</div>';
-        /* eslint-enable max-len, indent */
 
         return picker;
     },

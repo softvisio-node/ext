@@ -1,26 +1,26 @@
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:36 */
 .fi:before {
-    font-family: 'Font Awesome 5 Free' !important;
+    font-family: 'Material Icons' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-align-center:before {
-    content: '\f037' !important;
+    content: 'format_align_center' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-align-justify:before {
-    content: '\f039' !important;
+    content: 'format_align_justify' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-align-left:before {
-    content: '\f036' !important;
+    content: 'format_align_left' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-align-right:before {
-    content: '\f038' !important;
+    content: 'format_align_right' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-arrow-down:before {
-    content: '\f063' !important;
+    content: 'arrow_downward' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-arrow-left:before {
@@ -28,217 +28,261 @@
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-arrow-right:before {
-    content: '\f061' !important;
+    content: 'arrow_forward' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-arrow-up:before {
-    content: '\f062' !important;
+    content: 'arrow_upward' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-bars:before {
-    content: '\f0c9' !important;
+    content: 'menu' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-caret-down:before {
-    content: '\f0d7' !important;
+    content: 'arrow_drop_down' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-caret-left:before {
-    content: '\f0d9' !important;
+    content: 'arrow_drop_up' !important;
+    display: inline-block;
+    transform: rotate(270deg);
+    transform-origin: 50% 50%;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-caret-right:before {
-    content: '\f0da' !important;
+    content: 'arrow_drop_up' !important;
+    display: inline-block;
+    transform: rotate(90deg);
+    transform-origin: 50% 50%;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-caret-up:before {
-    content: '\f0d8' !important;
+    content: 'arrow_drop_up' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-check:before {
-    content: '\f00c' !important;
+    content: 'check' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-chevron-down:before {
-    content: '\f078' !important;
+    content: 'chevron_left' !important;
+    display: inline-block;
+    transform: rotate(270deg);
+    transform-origin: 50% 50%;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-chevron-left:before {
-    content: '\f053' !important;
+    content: 'chevron_left' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-chevron-right:before {
-    content: '\f054' !important;
+    content: 'chevron_right' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-chevron-up:before {
-    content: '\f077' !important;
+    content: 'chevron_left' !important;
+    display: inline-block;
+    transform: rotate(90deg);
+    transform-origin: 50% 50%;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-edit:before {
-    content: '\f044' !important;
+    content: 'edit' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-ellipsis-h:before {
-    content: '\f141' !important;
+    content: 'more_horiz' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-ellipsis-v:before {
-    content: '\f142' !important;
+    content: 'more_vert' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-filter:before {
-    content: '\f0b0' !important;
+    content: 'filter_list' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-gear:before {
-    content: '\f013' !important;
+    content: 'settings' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-group:before {
-    content: '\f0c0' !important;
+    content: 'group' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-home:before {
-    content: '\f015' !important;
+    content: 'home' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-lock:before {
-    content: '\f023' !important;
+    content: 'lock' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-minus:before {
-    content: '\f068' !important;
+    content: 'remove' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-pencil:before {
-    content: '\f303' !important;
+    content: 'edit' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-plus:before {
-    content: '\f067' !important;
+    content: 'add' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-print:before {
-    content: '\f02f' !important;
+    content: 'print' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-redo:before {
-    content: '\f021' !important;
+    content: 'redo' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-refresh:before {
-    content: '\f021' !important;
+    content: 'refresh' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-save:before {
-    content: '\f0c7' !important;
+    content: 'save' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-search:before {
-    content: '\f002' !important;
+    content: 'search' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-star:before {
-    content: '\f005' !important;
+    content: 'star' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-times:before {
-    content: '\f00d' !important;
+    content: 'close' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-trash:before {
-    content: '\f2ed' !important;
+    content: 'delete' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-th:before {
-    content: '\f00a' !important;
+    content: 'view_module' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-th-list:before {
-    content: '\f00b' !important;
+    content: 'list' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-undo:before {
-    content: '\f0e2' !important;
+    content: 'undo' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-unlock:before {
-    content: '\f09c' !important;
+    content: 'lock_open' !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/font-icons.scss:11 */
 .fi-user:before {
-    content: '\f007' !important;
+    content: 'person' !important;
 }
-/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-triton/sass/etc/all.scss:4 */
-@font-face {
-    font-family: 'Open Sans';
-    src: url('fonts/OpenSans-Light.ttf');
-    font-weight: 300;
-    font-style: normal;
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1599 */
+.x-button-alt.x-button-decline {
+    color: #fff;
 }
-/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-triton/sass/etc/all.scss:11 */
-@font-face {
-    font-family: 'Open Sans';
-    src: url('fonts/OpenSans-LightItalic.ttf');
-    font-weight: 300;
-    font-style: italic;
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1602 */
+.x-button-alt.x-button-decline .x-inner-el {
+    background-color: #c62828;
 }
-/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-triton/sass/etc/all.scss:18 */
-@font-face {
-    font-family: 'Open Sans';
-    src: url('fonts/OpenSans-Regular.ttf');
-    font-weight: 400;
-    font-style: normal;
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1606 */
+.x-button-alt.x-button-decline .x-icon-el {
+    color: #fff;
 }
-/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-triton/sass/etc/all.scss:25 */
-@font-face {
-    font-family: 'Open Sans';
-    src: url('fonts/OpenSans-Italic.ttf');
-    font-weight: 400;
-    font-style: italic;
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1610 */
+.x-button-alt.x-button-decline.x-hovered {
+    color: #fff;
 }
-/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-triton/sass/etc/all.scss:32 */
-@font-face {
-    font-family: 'Open Sans';
-    src: url('fonts/OpenSans-Semibold.ttf');
-    font-weight: 600;
-    font-style: normal;
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1613 */
+.x-button-alt.x-button-decline.x-hovered .x-inner-el {
+    background-color: #c62828;
 }
-/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-triton/sass/etc/all.scss:39 */
-@font-face {
-    font-family: 'Open Sans';
-    src: url('fonts/OpenSans-SemiboldItalic.ttf');
-    font-weight: 600;
-    font-style: italic;
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1617 */
+.x-button-alt.x-button-decline.x-hovered .x-icon-el {
+    color: #fff;
 }
-/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-triton/sass/etc/all.scss:46 */
-@font-face {
-    font-family: 'Open Sans';
-    src: url('fonts/OpenSans-Bold.ttf');
-    font-weight: 700;
-    font-style: normal;
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1622 */
+.x-button-alt.x-button-decline.x-pressing,
+.x-button-alt.x-button-decline.x-pressed {
+    color: #fff;
 }
-/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-triton/sass/etc/all.scss:53 */
-@font-face {
-    font-family: 'Open Sans';
-    src: url('fonts/OpenSans-BoldItalic.ttf');
-    font-weight: 700;
-    font-style: italic;
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1625 */
+.x-button-alt.x-button-decline.x-pressing .x-inner-el,
+.x-button-alt.x-button-decline.x-pressed .x-inner-el {
+    background-color: #c62828;
 }
-/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-triton/sass/etc/all.scss:60 */
-@font-face {
-    font-family: 'Open Sans';
-    src: url('fonts/OpenSans-ExtraBold.ttf');
-    font-weight: 800;
-    font-style: normal;
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1629 */
+.x-button-alt.x-button-decline.x-pressing .x-icon-el,
+.x-button-alt.x-button-decline.x-pressed .x-icon-el {
+    color: #fff;
 }
-/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-triton/sass/etc/all.scss:67 */
-@font-face {
-    font-family: 'Open Sans';
-    src: url('fonts/OpenSans-ExtraBoldItalic.ttf');
-    font-weight: 800;
-    font-style: italic;
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1635 */
+.x-keyboard-mode .x-button-alt.x-button-decline.x-focused {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1638 */
+.x-keyboard-mode .x-button-alt.x-button-decline.x-focused .x-inner-el {
+    background-color: #c62828;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1642 */
+.x-keyboard-mode .x-button-alt.x-button-decline.x-focused .x-icon-el {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1599 */
+.x-button-alt.x-button-confirm {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1602 */
+.x-button-alt.x-button-confirm .x-inner-el {
+    background-color: #7cb342;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1606 */
+.x-button-alt.x-button-confirm .x-icon-el {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1610 */
+.x-button-alt.x-button-confirm.x-hovered {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1613 */
+.x-button-alt.x-button-confirm.x-hovered .x-inner-el {
+    background-color: #7cb342;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1617 */
+.x-button-alt.x-button-confirm.x-hovered .x-icon-el {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1622 */
+.x-button-alt.x-button-confirm.x-pressing,
+.x-button-alt.x-button-confirm.x-pressed {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1625 */
+.x-button-alt.x-button-confirm.x-pressing .x-inner-el,
+.x-button-alt.x-button-confirm.x-pressed .x-inner-el {
+    background-color: #7cb342;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1629 */
+.x-button-alt.x-button-confirm.x-pressing .x-icon-el,
+.x-button-alt.x-button-confirm.x-pressed .x-icon-el {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1635 */
+.x-keyboard-mode .x-button-alt.x-button-confirm.x-focused {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1638 */
+.x-keyboard-mode .x-button-alt.x-button-confirm.x-focused .x-inner-el {
+    background-color: #7cb342;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1642 */
+.x-keyboard-mode .x-button-alt.x-button-confirm.x-focused .x-icon-el {
+    color: #fff;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Button.scss:1659 */
 .x-button .x-icon-el.fa-1x {
@@ -435,6 +479,264 @@
 .x-ie11 .x-button .x-icon-el.fa-sm:before {
     font-size: 0.875em;
 }
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1456 */
+.x-splitButton-alt.x-splitButton-decline {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1459 */
+.x-splitButton-alt.x-splitButton-decline .x-icon-el {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1463 */
+.x-splitButton-alt.x-splitButton-decline .x-arrow-el {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1467 */
+.x-splitButton-alt.x-splitButton-decline .x-splitBody-el {
+    background-color: #c62828;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1477 */
+.x-splitButton-alt.x-splitButton-decline.x-arrow-align-right .x-splitArrow-el {
+    border-left: 1px solid #fff;
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1480 */
+.x-splitButton-alt.x-splitButton-decline.x-arrow-align-right .x-splitArrow-el.x-hovered {
+    border-left: 1px solid #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1484 */
+.x-splitButton-alt.x-splitButton-decline.x-arrow-align-right .x-splitArrow-el.x-focused {
+    border-left: 1px solid #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1488 */
+.x-splitButton-alt.x-splitButton-decline.x-arrow-align-right .x-splitArrow-el.x-pressing,
+.x-splitButton-alt.x-splitButton-decline.x-arrow-align-right .x-splitArrow-el.x-pressed {
+    border-left: 1px solid #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1493 */
+.x-splitButton-alt.x-splitButton-decline.x-arrow-align-bottom .x-splitArrow-el {
+    border-top: 1px solid #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1496 */
+.x-splitButton-alt.x-splitButton-decline.x-arrow-align-bottom .x-splitArrow-el.x-hovered {
+    border-top: 1px solid #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1500 */
+.x-splitButton-alt.x-splitButton-decline.x-arrow-align-bottom .x-splitArrow-el.x-focused {
+    border-top: 1px solid #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1504 */
+.x-splitButton-alt.x-splitButton-decline.x-arrow-align-bottom .x-splitArrow-el.x-pressing,
+.x-splitButton-alt.x-splitButton-decline.x-arrow-align-bottom .x-splitArrow-el.x-pressed {
+    border-top: 1px solid #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1509 */
+.x-splitButton-alt.x-splitButton-decline.x-hovered {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1512 */
+.x-splitButton-alt.x-splitButton-decline.x-hovered .x-icon-el {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1517 */
+.x-splitButton-alt.x-splitButton-decline .x-hovered {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1520 */
+.x-splitButton-alt.x-splitButton-decline .x-hovered.x-splitBody-el {
+    background-color: #c62828;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1524 */
+.x-splitButton-alt.x-splitButton-decline .x-hovered.x-splitInner-el {
+    background-color: #c62828;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1528 */
+.x-splitButton-alt.x-splitButton-decline .x-hovered.x-splitArrow-el {
+    background-color: #c62828;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1533 */
+.x-splitButton-alt.x-splitButton-decline.x-pressing,
+.x-splitButton-alt.x-splitButton-decline.x-pressed {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1536 */
+.x-splitButton-alt.x-splitButton-decline.x-pressing .x-icon-el,
+.x-splitButton-alt.x-splitButton-decline.x-pressed .x-icon-el {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1541 */
+.x-splitButton-alt.x-splitButton-decline .x-pressing,
+.x-splitButton-alt.x-splitButton-decline .x-pressed {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1544 */
+.x-splitButton-alt.x-splitButton-decline .x-pressing.x-splitBody-el,
+.x-splitButton-alt.x-splitButton-decline .x-pressed.x-splitBody-el {
+    background-color: #c62828;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1548 */
+.x-splitButton-alt.x-splitButton-decline .x-pressing.x-splitInner-el,
+.x-splitButton-alt.x-splitButton-decline .x-pressed.x-splitInner-el {
+    background-color: #c62828;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1552 */
+.x-splitButton-alt.x-splitButton-decline .x-pressing.x-splitArrow-el,
+.x-splitButton-alt.x-splitButton-decline .x-pressed.x-splitArrow-el {
+    background-color: #c62828;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1558 */
+.x-keyboard-mode .x-splitButton-alt.x-splitButton-decline.x-focused {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1561 */
+.x-keyboard-mode .x-splitButton-alt.x-splitButton-decline.x-focused .x-icon-el {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1568 */
+.x-keyboard-mode .x-splitButton-alt.x-splitButton-decline .x-focused {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1571 */
+.x-keyboard-mode .x-splitButton-alt.x-splitButton-decline .x-focused.x-splitBody-el {
+    background-color: #c62828;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1575 */
+.x-keyboard-mode .x-splitButton-alt.x-splitButton-decline .x-focused.x-splitInner-el {
+    background-color: #c62828;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1579 */
+.x-keyboard-mode .x-splitButton-alt.x-splitButton-decline .x-focused.x-splitArrow-el {
+    background-color: #c62828;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1456 */
+.x-splitButton-alt.x-splitButton-confirm {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1459 */
+.x-splitButton-alt.x-splitButton-confirm .x-icon-el {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1463 */
+.x-splitButton-alt.x-splitButton-confirm .x-arrow-el {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1467 */
+.x-splitButton-alt.x-splitButton-confirm .x-splitBody-el {
+    background-color: #7cb342;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1477 */
+.x-splitButton-alt.x-splitButton-confirm.x-arrow-align-right .x-splitArrow-el {
+    border-left: 1px solid #fff;
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1480 */
+.x-splitButton-alt.x-splitButton-confirm.x-arrow-align-right .x-splitArrow-el.x-hovered {
+    border-left: 1px solid #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1484 */
+.x-splitButton-alt.x-splitButton-confirm.x-arrow-align-right .x-splitArrow-el.x-focused {
+    border-left: 1px solid #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1488 */
+.x-splitButton-alt.x-splitButton-confirm.x-arrow-align-right .x-splitArrow-el.x-pressing,
+.x-splitButton-alt.x-splitButton-confirm.x-arrow-align-right .x-splitArrow-el.x-pressed {
+    border-left: 1px solid #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1493 */
+.x-splitButton-alt.x-splitButton-confirm.x-arrow-align-bottom .x-splitArrow-el {
+    border-top: 1px solid #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1496 */
+.x-splitButton-alt.x-splitButton-confirm.x-arrow-align-bottom .x-splitArrow-el.x-hovered {
+    border-top: 1px solid #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1500 */
+.x-splitButton-alt.x-splitButton-confirm.x-arrow-align-bottom .x-splitArrow-el.x-focused {
+    border-top: 1px solid #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1504 */
+.x-splitButton-alt.x-splitButton-confirm.x-arrow-align-bottom .x-splitArrow-el.x-pressing,
+.x-splitButton-alt.x-splitButton-confirm.x-arrow-align-bottom .x-splitArrow-el.x-pressed {
+    border-top: 1px solid #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1509 */
+.x-splitButton-alt.x-splitButton-confirm.x-hovered {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1512 */
+.x-splitButton-alt.x-splitButton-confirm.x-hovered .x-icon-el {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1517 */
+.x-splitButton-alt.x-splitButton-confirm .x-hovered {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1520 */
+.x-splitButton-alt.x-splitButton-confirm .x-hovered.x-splitBody-el {
+    background-color: #7cb342;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1524 */
+.x-splitButton-alt.x-splitButton-confirm .x-hovered.x-splitInner-el {
+    background-color: #7cb342;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1528 */
+.x-splitButton-alt.x-splitButton-confirm .x-hovered.x-splitArrow-el {
+    background-color: #7cb342;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1533 */
+.x-splitButton-alt.x-splitButton-confirm.x-pressing,
+.x-splitButton-alt.x-splitButton-confirm.x-pressed {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1536 */
+.x-splitButton-alt.x-splitButton-confirm.x-pressing .x-icon-el,
+.x-splitButton-alt.x-splitButton-confirm.x-pressed .x-icon-el {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1541 */
+.x-splitButton-alt.x-splitButton-confirm .x-pressing,
+.x-splitButton-alt.x-splitButton-confirm .x-pressed {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1544 */
+.x-splitButton-alt.x-splitButton-confirm .x-pressing.x-splitBody-el,
+.x-splitButton-alt.x-splitButton-confirm .x-pressed.x-splitBody-el {
+    background-color: #7cb342;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1548 */
+.x-splitButton-alt.x-splitButton-confirm .x-pressing.x-splitInner-el,
+.x-splitButton-alt.x-splitButton-confirm .x-pressed.x-splitInner-el {
+    background-color: #7cb342;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1552 */
+.x-splitButton-alt.x-splitButton-confirm .x-pressing.x-splitArrow-el,
+.x-splitButton-alt.x-splitButton-confirm .x-pressed.x-splitArrow-el {
+    background-color: #7cb342;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1558 */
+.x-keyboard-mode .x-splitButton-alt.x-splitButton-confirm.x-focused {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1561 */
+.x-keyboard-mode .x-splitButton-alt.x-splitButton-confirm.x-focused .x-icon-el {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1568 */
+.x-keyboard-mode .x-splitButton-alt.x-splitButton-confirm .x-focused {
+    color: #fff;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1571 */
+.x-keyboard-mode .x-splitButton-alt.x-splitButton-confirm .x-focused.x-splitBody-el {
+    background-color: #7cb342;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1575 */
+.x-keyboard-mode .x-splitButton-alt.x-splitButton-confirm .x-focused.x-splitInner-el {
+    background-color: #7cb342;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/SplitButton.scss:1579 */
+.x-keyboard-mode .x-splitButton-alt.x-splitButton-confirm .x-focused.x-splitArrow-el {
+    background-color: #7cb342;
+}
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/calendar/sass/src/calendar/Event.scss:5 */
 .x-calendar-event {
     /**
@@ -499,7 +801,7 @@
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/Event.scss:131 */
 .x-calendar-event .x-calendar-event-inner {
-    font-family: 'Open Sans', 'Helvetica Neue', helvetica, arial, sans-serif;
+    font-family: Roboto, sans-serif;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/Event.scss:137 */
 .x-calendar-event .x-calendar-event-time {
@@ -602,21 +904,21 @@
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/header/Base.scss:161 */
 .x-calendar-header {
-    background-color: #fff;
+    background-color: #fafafa;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/header/Base.scss:164 */
 .x-calendar-header .x-calendar-header-cell {
     font-weight: normal;
     line-height: 1.25;
-    font-family: 'Open Sans', 'Helvetica Neue', helvetica, arial, sans-serif;
-    border: 1px solid #ddd;
+    font-family: Roboto, sans-serif;
+    border: 1px solid #e2e2e2;
     border-bottom-width: 0;
     text-align: center;
-    color: #404040;
+    color: #111;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/header/Base.scss:173 */
 .x-calendar-header .x-calendar-header-gutter {
-    background-color: #f7f9fd;
+    background-color: #fafafa;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/header/Base.scss:164 */
 .x-calendar-header-large .x-calendar-header-cell {
@@ -749,35 +1051,35 @@
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Days.scss:353 */
 .x-today-cell-highlight-day {
-    background-color: #c7def3;
+    background-color: #b1dafb;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Days.scss:357 */
 .x-calendar-days {
-    background-color: #fff;
+    background-color: #fafafa;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Days.scss:366 */
 .x-calendar-days .x-calendar-days-header-gutter {
-    background-color: #f7f9fd;
-    border: 1px solid #ddd;
+    background-color: #fafafa;
+    border: 1px solid #e2e2e2;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Days.scss:372 */
 .x-calendar-days .x-calendar-days-allday-background-cell {
-    border-right: 1px solid #ddd;
-    border-top: 1px solid #ddd;
+    border-right: 1px solid #e2e2e2;
+    border-top: 1px solid #e2e2e2;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Days.scss:379 */
 .x-calendar-days .x-calendar-days-time-ct {
-    background-color: #f7f9fd;
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
+    background-color: #fafafa;
+    border-left: 1px solid #e2e2e2;
+    border-right: 1px solid #e2e2e2;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Days.scss:388 */
 .x-calendar-days .x-calendar-days-time {
     height: 42px;
-    color: #666;
+    color: #111;
     text-align: right;
-    font-family: 'Open Sans', 'Helvetica Neue', helvetica, arial, sans-serif;
-    border-bottom: 1px solid #ddd;
+    font-family: Roboto, sans-serif;
+    border-bottom: 1px solid #e2e2e2;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Days.scss:400 */
 .x-calendar-days .x-calendar-days-time-ampm {
@@ -785,17 +1087,17 @@
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Days.scss:404 */
 .x-calendar-days .x-calendar-days-day-column {
-    border-right: 1px solid #ddd;
+    border-right: 1px solid #e2e2e2;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Days.scss:410 */
 .x-calendar-days .x-calendar-days-marker {
     height: 42px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #e2e2e2;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Days.scss:417 */
 .x-calendar-days .x-calendar-days-marker-alt {
     height: 21px;
-    border-bottom: 1px dotted #ddd;
+    border-bottom: 1px dotted #e2e2e2;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Days.scss:424 */
 .x-calendar-days .x-calendar-days-now-marker {
@@ -809,17 +1111,17 @@
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Days.scss:432 */
 .x-calendar-days .x-calendar-days-allday-empty-cell {
     line-height: 10px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #e2e2e2;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Days.scss:439 */
 .x-calendar-days .x-calendar-days-selection {
-    background-color: #cff;
+    background-color: #bbdefb;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
     opacity: 0.3;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Days.scss:353 */
 .x-today-cell-highlight-day {
-    background-color: #c7def3;
+    background-color: #b1dafb;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Days.scss:361 */
 .x-calendar-days-large .x-calendar-days-day-event-container {
@@ -845,7 +1147,7 @@
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Days.scss:353 */
 .x-today-cell-highlight-day {
-    background-color: #c7def3;
+    background-color: #b1dafb;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Days.scss:361 */
 .x-calendar-days-compact .x-calendar-days-day-event-container {
@@ -932,12 +1234,12 @@
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Weeks.scss:235 */
 .x-calendar-weeks {
-    background-color: #fff;
+    background-color: #fafafa;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Weeks.scss:239 */
 .x-calendar-weeks .x-calendar-weeks-cell {
     border-style: solid;
-    border-color: #ddd;
+    border-color: #e2e2e2;
     border-width: 1px;
     vertical-align: top;
 }
@@ -948,12 +1250,12 @@
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Weeks.scss:252 */
 .x-calendar-weeks .x-calendar-weeks-day-text {
-    font-family: 'Open Sans', 'Helvetica Neue', helvetica, arial, sans-serif;
-    color: #000;
+    font-family: Roboto, sans-serif;
+    color: #111;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Weeks.scss:259 */
 .x-calendar-weeks .x-today-cell-highlight-weeks-day .x-calendar-weeks-day-text {
-    background-color: #c7def3;
+    background-color: #b1dafb;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Weeks.scss:267 */
 .x-calendar-weeks .x-calendar-weeks-outside-cell .x-calendar-weeks-day-text {
@@ -961,14 +1263,14 @@
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Weeks.scss:280 */
 .x-calendar-weeks .x-calendar-weeks-selection {
-    background-color: #cff;
+    background-color: #bbdefb;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
     opacity: 0.3;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Weeks.scss:287 */
 .x-calendar-weeks .x-calendar-weeks-overflow {
     color: #15c;
-    font-family: 'Open Sans', 'Helvetica Neue', helvetica, arial, sans-serif;
+    font-family: Roboto, sans-serif;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Weeks.scss:252 */
 .x-calendar-weeks-large .x-calendar-weeks-day-text {
@@ -976,7 +1278,7 @@
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Weeks.scss:259 */
 .x-calendar-weeks-large .x-today-cell-highlight-weeks-day .x-calendar-weeks-day-text {
-    background-color: #c7def3;
+    background-color: #b1dafb;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Weeks.scss:287 */
 .x-calendar-weeks-large .x-calendar-weeks-overflow {
@@ -988,7 +1290,7 @@
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Weeks.scss:259 */
 .x-calendar-weeks-compact .x-today-cell-highlight-weeks-day .x-calendar-weeks-day-text {
-    background-color: #c7def3;
+    background-color: #b1dafb;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/packages/core/sass/var/calendar/view/Weeks.scss:287 */
 .x-calendar-weeks-compact .x-calendar-weeks-overflow {
@@ -1061,44 +1363,48 @@
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/calendar/form/CalendarPicker.scss:24 */
 .x-calendar-picker-list .x-calendar-picker-list-icon {
-    width: 24px;
-    height: 24px;
+    width: 19.2px;
+    height: 19.2px;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/calendar/form/CalendarPicker.scss:29 */
 .x-calendar-picker-list .x-calendar-picker-list-text {
-    padding-left: 32px;
+    padding-left: 27.2px;
+}
+/* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/calendar/form/CalendarPicker.scss:33 */
+.x-calendar-picker-list .x-picker-slot .x-calendar-picker-list-icon {
+    margin-left: 9px;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/calendar/form/CalendarPicker.scss:39 */
 .x-calendar-picker-field .x-calendar-picker-field-icon {
-    width: 24px;
-    height: 24px;
-    left: 10px;
+    width: 19.2px;
+    height: 19.2px;
+    left: 0;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/calendar/form/CalendarPicker.scss:44 */
 .x-big .x-calendar-picker-field .x-calendar-picker-field-icon {
-    left: 10px;
+    left: 0;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/calendar/form/CalendarPicker.scss:49 */
 .x-calendar-picker-field .x-input-el {
-    padding-left: 42px;
+    padding-left: 27.2px;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/calendar/form/CalendarPicker.scss:52 */
 .x-big .x-calendar-picker-field .x-input-el {
-    padding-left: 42px;
+    padding-left: 27.2px;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Panel.scss:922 */
 .x-panel-calendar-overflow > .x-anchor-el .x-pointer-el {
-    fill: #fff;
-    stroke: #5fa2dd;
+    fill: #fafafa;
+    stroke: #e1e1e1;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Panel.scss:966 */
 .x-panel-calendar-overflow-body-el {
-    background-color: #fff;
-    border-color: #5fa2dd;
+    background-color: #fafafa;
+    border-color: #e1e1e1;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Panel.scss:984 */
 .x-panel-calendar-overflow-boxscroller {
-    border-color: #5fa2dd;
+    border-color: #e1e1e1;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/Panel.scss:987 */
 .x-panel-calendar-overflow-boxscroller > .x-boxscroller-body > .x-body-el {
@@ -1106,95 +1412,95 @@
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/mixins/border-management.scss:2 */
 .x-panel-calendar-overflow-outer-border-l {
-    border-left-color: #5fa2dd !important;
+    border-left-color: #e1e1e1 !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/mixins/border-management.scss:7 */
 .x-panel-calendar-overflow-outer-border-b {
-    border-bottom-color: #5fa2dd !important;
+    border-bottom-color: #e1e1e1 !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/mixins/border-management.scss:12 */
 .x-panel-calendar-overflow-outer-border-bl {
-    border-bottom-color: #5fa2dd !important;
-    border-left-color: #5fa2dd !important;
+    border-bottom-color: #e1e1e1 !important;
+    border-left-color: #e1e1e1 !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/mixins/border-management.scss:27 */
 .x-panel-calendar-overflow-outer-border-r {
-    border-right-color: #5fa2dd !important;
+    border-right-color: #e1e1e1 !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/mixins/border-management.scss:32 */
 .x-panel-calendar-overflow-outer-border-rl {
-    border-right-color: #5fa2dd !important;
-    border-left-color: #5fa2dd !important;
+    border-right-color: #e1e1e1 !important;
+    border-left-color: #e1e1e1 !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/mixins/border-management.scss:39 */
 .x-panel-calendar-overflow-outer-border-rb {
-    border-right-color: #5fa2dd !important;
-    border-bottom-color: #5fa2dd !important;
+    border-right-color: #e1e1e1 !important;
+    border-bottom-color: #e1e1e1 !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/mixins/border-management.scss:54 */
 .x-panel-calendar-overflow-outer-border-rbl {
-    border-right-color: #5fa2dd !important;
-    border-bottom-color: #5fa2dd !important;
-    border-left-color: #5fa2dd !important;
+    border-right-color: #e1e1e1 !important;
+    border-bottom-color: #e1e1e1 !important;
+    border-left-color: #e1e1e1 !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/mixins/border-management.scss:71 */
 .x-panel-calendar-overflow-outer-border-t {
-    border-top-color: #5fa2dd !important;
+    border-top-color: #e1e1e1 !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/mixins/border-management.scss:76 */
 .x-panel-calendar-overflow-outer-border-tl {
-    border-top-color: #5fa2dd !important;
-    border-left-color: #5fa2dd !important;
+    border-top-color: #e1e1e1 !important;
+    border-left-color: #e1e1e1 !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/mixins/border-management.scss:91 */
 .x-panel-calendar-overflow-outer-border-tb {
-    border-top-color: #5fa2dd !important;
-    border-bottom-color: #5fa2dd !important;
+    border-top-color: #e1e1e1 !important;
+    border-bottom-color: #e1e1e1 !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/mixins/border-management.scss:98 */
 .x-panel-calendar-overflow-outer-border-tbl {
-    border-top-color: #5fa2dd !important;
-    border-bottom-color: #5fa2dd !important;
-    border-left-color: #5fa2dd !important;
+    border-top-color: #e1e1e1 !important;
+    border-bottom-color: #e1e1e1 !important;
+    border-left-color: #e1e1e1 !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/mixins/border-management.scss:115 */
 .x-panel-calendar-overflow-outer-border-tr {
-    border-top-color: #5fa2dd !important;
-    border-right-color: #5fa2dd !important;
+    border-top-color: #e1e1e1 !important;
+    border-right-color: #e1e1e1 !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/mixins/border-management.scss:130 */
 .x-panel-calendar-overflow-outer-border-trl {
-    border-top-color: #5fa2dd !important;
-    border-right-color: #5fa2dd !important;
-    border-left-color: #5fa2dd !important;
+    border-top-color: #e1e1e1 !important;
+    border-right-color: #e1e1e1 !important;
+    border-left-color: #e1e1e1 !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/mixins/border-management.scss:147 */
 .x-panel-calendar-overflow-outer-border-trb {
-    border-top-color: #5fa2dd !important;
-    border-right-color: #5fa2dd !important;
-    border-bottom-color: #5fa2dd !important;
+    border-top-color: #e1e1e1 !important;
+    border-right-color: #e1e1e1 !important;
+    border-bottom-color: #e1e1e1 !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/etc/mixins/border-management.scss:164 */
 .x-panel-calendar-overflow-outer-border-trbl {
-    border-color: #5fa2dd !important;
+    border-color: #e1e1e1 !important;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/panel/Header.scss:68 */
 .x-panelheader-calendar-overflow {
-    background-color: #fff;
+    background-color: #fafafa;
     background-image: none;
-    border-color: #5fa2dd;
+    border-color: #e1e1e1;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/panel/Header.scss:104 */
 .x-panelheader-calendar-overflow.x-docked-right {
-    border-color: #5fa2dd;
+    border-color: #e1e1e1;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/panel/Header.scss:118 */
 .x-panelheader-calendar-overflow.x-docked-left {
-    border-color: #5fa2dd;
+    border-color: #e1e1e1;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/panel/Header.scss:132 */
 .x-panelheader-calendar-overflow.x-docked-bottom {
-    border-color: #5fa2dd;
+    border-color: #e1e1e1;
 }
 /* /home/teamcity/buildAgent/work/afb26dfd5bd64d5/staging/modern/theme-neptune/sass/var/calendar/panel/Panel.scss:33 */
 .x-calendar-panel .x-calendar-panel-create-button {

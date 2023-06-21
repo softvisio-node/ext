@@ -3112,7 +3112,7 @@ Ext.define('Ext.calendar.dd.WeeksTarget', {extend:'Ext.drag.Target', requires:['
   return difference;
 }}});
 Ext.define('Ext.calendar.form.CalendarPicker', {extend:'Ext.field.Select', xtype:'calendar-calendar-picker', cls:Ext.baseCSSPrefix + 'calendar-picker-field', floatedPicker:{userCls:Ext.baseCSSPrefix + 'calendar-picker-list', itemTpl:'\x3cdiv class\x3d"' + Ext.baseCSSPrefix + 'calendar-picker-list-icon" style\x3d"background-color: {color};"\x3e\x3c/div\x3e' + '\x3cspan class\x3d"' + Ext.baseCSSPrefix + 'calendar-picker-list-text ' + Ext.baseCSSPrefix + 'list-label"\x3e{title:htmlEncode}\x3c/span\x3e'}, 
-edgePicker:{userCls:Ext.baseCSSPrefix + 'calendar-picker-list'}, applyPicker:function(picker, oldPicker) {
+itemTpl:'\x3cdiv\x3e\x3cdiv class\x3d"' + Ext.baseCSSPrefix + 'calendar-picker-list-icon" style\x3d"background-color: {color};"\x3e\x3c/div\x3e' + '\x3cdiv class\x3d"' + Ext.baseCSSPrefix + 'calendar-picker-list-text ' + Ext.baseCSSPrefix + 'list-label"\x3e{title:htmlEncode}\x3c/div\x3e\x3c/div\x3e', edgePicker:{userCls:Ext.baseCSSPrefix + 'calendar-picker-list'}, applyPicker:function(picker, oldPicker) {
   var me = this, dv;
   picker = me.callParent([picker, oldPicker]);
   if (picker) {
@@ -3123,10 +3123,6 @@ edgePicker:{userCls:Ext.baseCSSPrefix + 'calendar-picker-list'}, applyPicker:fun
     }
     dv.prepareData = me.prepareData;
   }
-  return picker;
-}, createEdgePicker:function() {
-  var picker = this.callParent();
-  picker.slots[0].itemTpl = '\x3cdiv class\x3d"' + Ext.baseCSSPrefix + 'picker-item {cls}"\x3e' + '\x3cdiv class\x3d"' + Ext.baseCSSPrefix + 'calendar-picker-list-icon" style\x3d"background-color: {color};"\x3e\x3c/div\x3e' + '\x3cspan class\x3d"' + Ext.baseCSSPrefix + 'list-label"\x3e{title:htmlEncode}\x3c/span\x3e' + '\x3c/div\x3e';
   return picker;
 }, prepareData:function(data, index, record) {
   return {id:record.id, title:record.getTitle(), color:record.getBaseColor()};
