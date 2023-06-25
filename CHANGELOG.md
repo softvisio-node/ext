@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.15.0 (2023-06-25)
+
+Features:
+
+-   feat: package localization'
+
 ### 5.14.2 (2023-06-21)
 
 Fixes:
