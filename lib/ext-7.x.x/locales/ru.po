@@ -13,335 +13,335 @@ msgstr ""
 "X-Search-Path: ../**:/build/patch/node_modules_patch/**\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/field/Field.js:387:27
-msgid "This field is invalid"
-msgstr "Это значение неверно"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js:29:22
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Presence.js:19:17
-msgid "Must be present"
-msgstr "Должно присутствовать"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js:37:24
-msgid "Value must be greater than {0}"
-msgstr "Значение должно быть больше {0}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js:45:24
-msgid "Value must be less than {0}"
-msgstr "Значение должно быть меньше {0}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js:53:21
-msgid "Value must be between {0} and {1}"
-msgstr "Щначение должно быть между {0} и {1}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv4.js:18:13
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv6.js:19:13
-msgid "Is not a valid CIDR block"
-msgstr "Неправильное значение CIDR"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Currency.js:39:13
-msgid "Is not a valid currency amount"
-msgstr "Неправильное значение валюты"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Date.js:17:13
-msgid "Is not a valid date"
-msgstr "Значение не является правильной датой"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/DateTime.js:17:13
-msgid "Is not a valid date and time"
-msgstr "Значение не является правильной датой и временем"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Email.js:15:13
-msgid "Is not a valid email address"
-msgstr "Неверный email адрес"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Exclusion.js:16:13
-msgid "Is a value that has been excluded"
-msgstr "Значение, которое было исключено"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Format.js:17:17
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/field/Field.js:228:27
-msgid "Is in the wrong format"
-msgstr "В неправильном формате"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/IPAddress.js:17:13
-msgid "Is not a valid IP address"
-msgstr "Не верный IP адрес"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Inclusion.js:16:13
-msgid "Is not in the list of acceptable values"
-msgstr "Не в списке разрешенных значений"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Length.js:26:20
-msgid "Length must be at least {0}"
-msgstr "Длина должна быть как минимум {0}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Length.js:34:20
-msgid "Length must be no more than {0}"
-msgstr "Длина не должна быть больше {0}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Length.js:42:17
-msgid "Length must be between {0} and {1}"
-msgstr "Длина должна быть между {0} и {1}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Number.js:24:17
-msgid "Is not a valid number"
-msgstr "Значение не является допустимым числом"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Phone.js:18:13
-msgid "Is not a valid phone number"
-msgstr "Значение не является правильным номером телефона"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Range.js:25:20
-msgid "Must be at least {0}"
-msgstr "Должно быть минимум {0}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Range.js:32:20
-msgid "Must be no more than than {0}"
-msgstr "Значение должно быть не больше {0}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Range.js:39:17
-msgid "Must be between {0} and {1}"
-msgstr "Должно быть между {0} и {1}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Time.js:17:13
-msgid "Is not a valid time"
-msgstr "Значение не является правильным временем"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Url.js:15:13
-msgid "Is not a valid URL"
-msgstr "Значение не является правильным URL"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/Panel.js:751:23
-msgid "Close panel"
-msgstr "Закрыть панель"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/field/Field.js:166:25
-msgid "This field is required"
-msgstr "Это поле обязательно к заполнению"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:194:18
-msgid "The minimum value for this field is {0}"
-msgstr "Минимальное значение для этого поля: {0}."
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:202:18
-msgid "The maximum value for this field is {0}"
-msgstr "Максимальное значение для этого поля: {0}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:211:18
-msgid "The maximum decimal places is {0}"
-msgstr "Максимальное количество знаков после запятой: {0}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:213:22
-msgid "Value is not a valid number"
-msgstr "Значение не является допустимым числом"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:61:26
-msgid "Locked"
-msgstr "Закреплена"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:164:26
-msgid "Locked (Left)"
-msgstr "Закреплена (слева)"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:171:26
-msgid "Unlocked"
-msgstr "Не закреплена"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:178:26
-msgid "Locked (Right)"
-msgstr "Закреплена (справа)"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/AddGroup.js:16:10
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/AddGroup.js:16:10
 msgid "Add to grouping"
 msgstr "Добавить в группировку"
 
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/Columns.js:17:10
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:230:23
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:263:30
-msgid "Columns"
-msgstr "Колонки"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/GroupByThis.js:17:10
-msgid "Group by this field"
-msgstr "Группировать по этому полю"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/Groups.js:20:14
-msgid "Expand all"
-msgstr "Развернуть все"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/Groups.js:24:14
-msgid "Collapse all"
-msgstr "Свернуть все"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/RemoveGroup.js:16:10
-msgid "Remove from grouping"
-msgstr "Удалить из группировки"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/ShowInGroups.js:17:10
-msgid "Show in groups"
-msgstr "Показать в группах"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/SortAsc.js:17:10
-msgid "Sort ascending"
-msgstr "Сортировать по возрастанию"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/SortDesc.js:17:10
-msgid "Sort descending"
-msgstr "Сортировать по убыванию"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:203:27
-msgid "Customize"
-msgstr "Настроить"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:206:30
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/picker/Picker.js:515:22
-msgid "Done"
-msgstr "Готово"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/picker/Date.js:163:19
-msgid "Month"
-msgstr "Месяц"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/picker/Date.js:170:17
-msgid "Day"
-msgstr "День"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/picker/Date.js:177:18
-msgid "Year"
-msgstr "Год"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/picker/Picker.js:552:22
-#: Ext.overrides.panel.TimeView.js:15:24
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/picker/Picker.js:552:22
+#: lib/ext-7.x.x/Ext.overrides.panel.TimeView.js:15:24
 msgid "Cancel"
 msgstr "Отменить"
 
-#: Ext.data.validator.PasswordStrength.js:9:19
-msgid "Password is weak"
-msgstr "Пароль слабый"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/Panel.js:751:23
+msgid "Close panel"
+msgstr "Закрыть панель"
 
-#: Ext.overrides.field.Date.js:10:22
-msgid "The date in this field must be equal to or after {0}"
-msgstr "Дата в этом поле должна быть равна или больше {0}."
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/Groups.js:24:14
+msgid "Collapse all"
+msgstr "Свернуть все"
 
-#: Ext.overrides.field.Date.js:11:22
-msgid "The date in this field must be equal to or before {0}"
-msgstr "Дата в этом поле должна быть равна или меньше {0}."
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/Columns.js:17:10
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:230:23
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:263:30
+msgid "Columns"
+msgstr "Колонки"
 
-#: Ext.overrides.panel.TimeView.js:11:24
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:203:27
+msgid "Customize"
+msgstr "Настроить"
+
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/picker/Date.js:170:17
+msgid "Day"
+msgstr "День"
+
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:206:30
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/picker/Picker.js:515:22
+msgid "Done"
+msgstr "Готово"
+
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/Groups.js:20:14
+msgid "Expand all"
+msgstr "Развернуть все"
+
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/GroupByThis.js:17:10
+msgid "Group by this field"
+msgstr "Группировать по этому полю"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Exclusion.js:16:13
+msgid "Is a value that has been excluded"
+msgstr "Значение, которое было исключено"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Format.js:17:17
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/field/Field.js:228:27
+msgid "Is in the wrong format"
+msgstr "В неправильном формате"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv4.js:18:13
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv6.js:19:13
+msgid "Is not a valid CIDR block"
+msgstr "Неправильное значение CIDR"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Currency.js:39:13
+msgid "Is not a valid currency amount"
+msgstr "Неправильное значение валюты"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Date.js:17:13
+msgid "Is not a valid date"
+msgstr "Значение не является правильной датой"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/DateTime.js:17:13
+msgid "Is not a valid date and time"
+msgstr "Значение не является правильной датой и временем"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Email.js:15:13
+msgid "Is not a valid email address"
+msgstr "Неверный email адрес"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/IPAddress.js:17:13
+msgid "Is not a valid IP address"
+msgstr "Не верный IP адрес"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Number.js:24:17
+msgid "Is not a valid number"
+msgstr "Значение не является допустимым числом"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Phone.js:18:13
+msgid "Is not a valid phone number"
+msgstr "Значение не является правильным номером телефона"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Time.js:17:13
+msgid "Is not a valid time"
+msgstr "Значение не является правильным временем"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Url.js:15:13
+msgid "Is not a valid URL"
+msgstr "Значение не является правильным URL"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Inclusion.js:16:13
+msgid "Is not in the list of acceptable values"
+msgstr "Не в списке разрешенных значений"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Length.js:26:20
+msgid "Length must be at least {0}"
+msgstr "Длина должна быть как минимум {0}"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Length.js:42:17
+msgid "Length must be between {0} and {1}"
+msgstr "Длина должна быть между {0} и {1}"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Length.js:34:20
+msgid "Length must be no more than {0}"
+msgstr "Длина не должна быть больше {0}"
+
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:61:26
+msgid "Locked"
+msgstr "Закреплена"
+
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:164:26
+msgid "Locked (Left)"
+msgstr "Закреплена (слева)"
+
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:178:26
+msgid "Locked (Right)"
+msgstr "Закреплена (справа)"
+
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/picker/Date.js:163:19
+msgid "Month"
+msgstr "Месяц"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Range.js:25:20
+msgid "Must be at least {0}"
+msgstr "Должно быть минимум {0}"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Range.js:39:17
+msgid "Must be between {0} and {1}"
+msgstr "Должно быть между {0} и {1}"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Range.js:32:20
+msgid "Must be no more than than {0}"
+msgstr "Значение должно быть не больше {0}"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js:29:22
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Presence.js:19:17
+msgid "Must be present"
+msgstr "Должно присутствовать"
+
+#: lib/ext-7.x.x/Ext.overrides.panel.TimeView.js:11:24
 msgid "Ok"
 msgstr "Ok"
 
-#~ msgid "Groups"
-#~ msgstr "Группы"
+#: lib/ext-7.x.x/Ext.data.validator.PasswordStrength.js:9:19
+msgid "Password is weak"
+msgstr "Пароль слабый"
 
-#~ msgid "Sunday"
-#~ msgstr "Воскресенье"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/RemoveGroup.js:16:10
+msgid "Remove from grouping"
+msgstr "Удалить из группировки"
 
-#~ msgid "Monday"
-#~ msgstr "Понедельник"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/ShowInGroups.js:17:10
+msgid "Show in groups"
+msgstr "Показать в группах"
 
-#~ msgid "Tuesday"
-#~ msgstr "Вторник"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/SortAsc.js:17:10
+msgid "Sort ascending"
+msgstr "Сортировать по возрастанию"
 
-#~ msgid "Wednesday"
-#~ msgstr "Среда"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/SortDesc.js:17:10
+msgid "Sort descending"
+msgstr "Сортировать по убыванию"
 
-#~ msgid "Thursday"
-#~ msgstr "Четверг"
+#: lib/ext-7.x.x/Ext.overrides.field.Date.js:10:22
+msgid "The date in this field must be equal to or after {0}"
+msgstr "Дата в этом поле должна быть равна или больше {0}."
 
-#~ msgid "Friday"
-#~ msgstr "Пятница"
+#: lib/ext-7.x.x/Ext.overrides.field.Date.js:11:22
+msgid "The date in this field must be equal to or before {0}"
+msgstr "Дата в этом поле должна быть равна или меньше {0}."
 
-#~ msgid "Saturday"
-#~ msgstr "Cуббота"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:211:18
+msgid "The maximum decimal places is {0}"
+msgstr "Максимальное количество знаков после запятой: {0}"
 
-#~ msgid "Sun"
-#~ msgstr "Вс"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:202:18
+msgid "The maximum value for this field is {0}"
+msgstr "Максимальное значение для этого поля: {0}"
 
-#~ msgid "Mon"
-#~ msgstr "Пн"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:194:18
+msgid "The minimum value for this field is {0}"
+msgstr "Минимальное значение для этого поля: {0}."
 
-#~ msgid "Tue"
-#~ msgstr "Вт"
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/field/Field.js:387:27
+msgid "This field is invalid"
+msgstr "Это значение неверно"
 
-#~ msgid "Wed"
-#~ msgstr "Ср"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/field/Field.js:166:25
+msgid "This field is required"
+msgstr "Это поле обязательно к заполнению"
 
-#~ msgid "Thu"
-#~ msgstr "Чт"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:171:26
+msgid "Unlocked"
+msgstr "Не закреплена"
 
-#~ msgid "Fri"
-#~ msgstr "Пт"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:213:22
+msgid "Value is not a valid number"
+msgstr "Значение не является допустимым числом"
 
-#~ msgid "Sat"
-#~ msgstr "Сб"
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js:53:21
+msgid "Value must be between {0} and {1}"
+msgstr "Щначение должно быть между {0} и {1}"
 
-#~ msgid "January"
-#~ msgstr "Январь"
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js:37:24
+msgid "Value must be greater than {0}"
+msgstr "Значение должно быть больше {0}"
 
-#~ msgid "February"
-#~ msgstr "Февраль"
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js:45:24
+msgid "Value must be less than {0}"
+msgstr "Значение должно быть меньше {0}"
 
-#~ msgid "March"
-#~ msgstr "Март"
-
-#~ msgid "April"
-#~ msgstr "Апрель"
-
-#~ msgid "May"
-#~ msgstr "Май"
-
-#~ msgid "June"
-#~ msgstr "Июнь"
-
-#~ msgid "July"
-#~ msgstr "Июль"
-
-#~ msgid "August"
-#~ msgstr "Август"
-
-#~ msgid "September"
-#~ msgstr "Сентябрь"
-
-#~ msgid "October"
-#~ msgstr "Октябрь"
-
-#~ msgid "November"
-#~ msgstr "Ноябрь"
-
-#~ msgid "December"
-#~ msgstr "Декабрь"
-
-#~ msgid "Jan"
-#~ msgstr "Янв"
-
-#~ msgid "Feb"
-#~ msgstr "Фев"
-
-#~ msgid "Mar"
-#~ msgstr "Мар"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/picker/Date.js:177:18
+msgid "Year"
+msgstr "Год"
 
 #~ msgid "Apr"
 #~ msgstr "Апр"
 
-#~ msgid "Jun"
-#~ msgstr "Июн"
-
-#~ msgid "Jul"
-#~ msgstr "Июл"
+#~ msgid "April"
+#~ msgstr "Апрель"
 
 #~ msgid "Aug"
 #~ msgstr "Авг"
 
-#~ msgid "Sep"
-#~ msgstr "Сен"
+#~ msgid "August"
+#~ msgstr "Август"
 
-#~ msgid "Oct"
-#~ msgstr "Окт"
+#~ msgid "Dec"
+#~ msgstr "Дек"
+
+#~ msgid "December"
+#~ msgstr "Декабрь"
+
+#~ msgid "Feb"
+#~ msgstr "Фев"
+
+#~ msgid "February"
+#~ msgstr "Февраль"
+
+#~ msgid "Fri"
+#~ msgstr "Пт"
+
+#~ msgid "Friday"
+#~ msgstr "Пятница"
+
+#~ msgid "Groups"
+#~ msgstr "Группы"
+
+#~ msgid "Jan"
+#~ msgstr "Янв"
+
+#~ msgid "January"
+#~ msgstr "Январь"
+
+#~ msgid "Jul"
+#~ msgstr "Июл"
+
+#~ msgid "July"
+#~ msgstr "Июль"
+
+#~ msgid "Jun"
+#~ msgstr "Июн"
+
+#~ msgid "June"
+#~ msgstr "Июнь"
+
+#~ msgid "Mar"
+#~ msgstr "Мар"
+
+#~ msgid "March"
+#~ msgstr "Март"
+
+#~ msgid "May"
+#~ msgstr "Май"
+
+#~ msgid "Mon"
+#~ msgstr "Пн"
+
+#~ msgid "Monday"
+#~ msgstr "Понедельник"
 
 #~ msgid "Nov"
 #~ msgstr "Ноя"
 
-#~ msgid "Dec"
-#~ msgstr "Дек"
+#~ msgid "November"
+#~ msgstr "Ноябрь"
+
+#~ msgid "Oct"
+#~ msgstr "Окт"
+
+#~ msgid "October"
+#~ msgstr "Октябрь"
+
+#~ msgid "Sat"
+#~ msgstr "Сб"
+
+#~ msgid "Saturday"
+#~ msgstr "Cуббота"
+
+#~ msgid "Sep"
+#~ msgstr "Сен"
+
+#~ msgid "September"
+#~ msgstr "Сентябрь"
+
+#~ msgid "Sun"
+#~ msgstr "Вс"
+
+#~ msgid "Sunday"
+#~ msgstr "Воскресенье"
+
+#~ msgid "Thu"
+#~ msgstr "Чт"
+
+#~ msgid "Thursday"
+#~ msgstr "Четверг"
+
+#~ msgid "Tue"
+#~ msgstr "Вт"
+
+#~ msgid "Tuesday"
+#~ msgstr "Вторник"
+
+#~ msgid "Wed"
+#~ msgstr "Ср"
+
+#~ msgid "Wednesday"
+#~ msgstr "Среда"

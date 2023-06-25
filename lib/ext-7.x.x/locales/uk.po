@@ -13,335 +13,335 @@ msgstr ""
 "X-Search-Path: ../**:/build/patch/node_modules_patch/**\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/field/Field.js:387:27
-msgid "This field is invalid"
-msgstr "Це поле недійсне"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js:29:22
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Presence.js:19:17
-msgid "Must be present"
-msgstr "Повинен бути присутнім"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js:37:24
-msgid "Value must be greater than {0}"
-msgstr "Значення має бути більше за {0}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js:45:24
-msgid "Value must be less than {0}"
-msgstr "Значення має бути менше ніж {0}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js:53:21
-msgid "Value must be between {0} and {1}"
-msgstr "Значення має бути від {0} до {1}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv4.js:18:13
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv6.js:19:13
-msgid "Is not a valid CIDR block"
-msgstr "Не є дійсним блоком CIDR"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Currency.js:39:13
-msgid "Is not a valid currency amount"
-msgstr "Недійсна сума в валюті"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Date.js:17:13
-msgid "Is not a valid date"
-msgstr "Недійсна дата"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/DateTime.js:17:13
-msgid "Is not a valid date and time"
-msgstr "Недійсні дата та час"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Email.js:15:13
-msgid "Is not a valid email address"
-msgstr "Недійсна адреса електронної пошти"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Exclusion.js:16:13
-msgid "Is a value that has been excluded"
-msgstr "Це значення, яке було виключено"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Format.js:17:17
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/field/Field.js:228:27
-msgid "Is in the wrong format"
-msgstr "У неправильному форматі"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/IPAddress.js:17:13
-msgid "Is not a valid IP address"
-msgstr "Недійсна IP-адреса"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Inclusion.js:16:13
-msgid "Is not in the list of acceptable values"
-msgstr "Не входить у список допустимих значень"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Length.js:26:20
-msgid "Length must be at least {0}"
-msgstr "Довжина має бути принаймні {0}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Length.js:34:20
-msgid "Length must be no more than {0}"
-msgstr "Довжина не повинна перевищувати {0}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Length.js:42:17
-msgid "Length must be between {0} and {1}"
-msgstr "Довжина має бути від {0} до {1}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Number.js:24:17
-msgid "Is not a valid number"
-msgstr "Недійсне число"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Phone.js:18:13
-msgid "Is not a valid phone number"
-msgstr "Недійсний номер телефону"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Range.js:25:20
-msgid "Must be at least {0}"
-msgstr "Must be at least {0}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Range.js:32:20
-msgid "Must be no more than than {0}"
-msgstr "Має бути не більше ніж {0}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Range.js:39:17
-msgid "Must be between {0} and {1}"
-msgstr "Має бути від {0} до {1}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Time.js:17:13
-msgid "Is not a valid time"
-msgstr "Недійсний час"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Url.js:15:13
-msgid "Is not a valid URL"
-msgstr "Недійсна URL-адреса"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/Panel.js:751:23
-msgid "Close panel"
-msgstr "Закрити панель"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/field/Field.js:166:25
-msgid "This field is required"
-msgstr "Це поле є обов'язковим"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:194:18
-msgid "The minimum value for this field is {0}"
-msgstr "Мінімальне значення для цього поля – {0}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:202:18
-msgid "The maximum value for this field is {0}"
-msgstr "Максимальне значення для цього поля становить {0}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:211:18
-msgid "The maximum decimal places is {0}"
-msgstr "Максимальна кількість десяткових знаків – {0}"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:213:22
-msgid "Value is not a valid number"
-msgstr "Значення не є дійсним числом"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:61:26
-msgid "Locked"
-msgstr "Закріплена"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:164:26
-msgid "Locked (Left)"
-msgstr "Закріплена (ліворуч)"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:171:26
-msgid "Unlocked"
-msgstr "Не закріплена"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:178:26
-msgid "Locked (Right)"
-msgstr "Закріплена (праворуч)"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/AddGroup.js:16:10
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/AddGroup.js:16:10
 msgid "Add to grouping"
 msgstr "Додати до групування"
 
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/Columns.js:17:10
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:230:23
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:263:30
-msgid "Columns"
-msgstr "Колонки"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/GroupByThis.js:17:10
-msgid "Group by this field"
-msgstr "Групувати за цим полем"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/Groups.js:20:14
-msgid "Expand all"
-msgstr "Розгорнути все"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/Groups.js:24:14
-msgid "Collapse all"
-msgstr "Згорнути все"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/RemoveGroup.js:16:10
-msgid "Remove from grouping"
-msgstr "Видалити з групування"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/ShowInGroups.js:17:10
-msgid "Show in groups"
-msgstr "Показати в групах"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/SortAsc.js:17:10
-msgid "Sort ascending"
-msgstr "Сортувати за зростанням"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/SortDesc.js:17:10
-msgid "Sort descending"
-msgstr "Сортувати за спаданням"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:203:27
-msgid "Customize"
-msgstr "Налаштувати"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:206:30
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/picker/Picker.js:515:22
-msgid "Done"
-msgstr "Готово"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/picker/Date.js:163:19
-msgid "Month"
-msgstr "Місяць"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/picker/Date.js:170:17
-msgid "Day"
-msgstr "День"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/picker/Date.js:177:18
-msgid "Year"
-msgstr "Рік"
-
-#: ../../build/patch/node_modules_patch/@sencha/ext-modern/src/picker/Picker.js:552:22
-#: Ext.overrides.panel.TimeView.js:15:24
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/picker/Picker.js:552:22
+#: lib/ext-7.x.x/Ext.overrides.panel.TimeView.js:15:24
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: Ext.data.validator.PasswordStrength.js:9:19
-msgid "Password is weak"
-msgstr "Пароль слабкий"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/Panel.js:751:23
+msgid "Close panel"
+msgstr "Закрити панель"
 
-#: Ext.overrides.field.Date.js:10:22
-msgid "The date in this field must be equal to or after {0}"
-msgstr "Дата в цьому полі має дорівнювати або пізніше {0}"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/Groups.js:24:14
+msgid "Collapse all"
+msgstr "Згорнути все"
 
-#: Ext.overrides.field.Date.js:11:22
-msgid "The date in this field must be equal to or before {0}"
-msgstr "Дата в цьому полі має бути рівною або перед {0}"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/Columns.js:17:10
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:230:23
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:263:30
+msgid "Columns"
+msgstr "Колонки"
 
-#: Ext.overrides.panel.TimeView.js:11:24
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:203:27
+msgid "Customize"
+msgstr "Налаштувати"
+
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/picker/Date.js:170:17
+msgid "Day"
+msgstr "День"
+
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js:206:30
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/picker/Picker.js:515:22
+msgid "Done"
+msgstr "Готово"
+
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/Groups.js:20:14
+msgid "Expand all"
+msgstr "Розгорнути все"
+
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/GroupByThis.js:17:10
+msgid "Group by this field"
+msgstr "Групувати за цим полем"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Exclusion.js:16:13
+msgid "Is a value that has been excluded"
+msgstr "Це значення, яке було виключено"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Format.js:17:17
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/field/Field.js:228:27
+msgid "Is in the wrong format"
+msgstr "У неправильному форматі"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv4.js:18:13
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv6.js:19:13
+msgid "Is not a valid CIDR block"
+msgstr "Не є дійсним блоком CIDR"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Currency.js:39:13
+msgid "Is not a valid currency amount"
+msgstr "Недійсна сума в валюті"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Date.js:17:13
+msgid "Is not a valid date"
+msgstr "Недійсна дата"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/DateTime.js:17:13
+msgid "Is not a valid date and time"
+msgstr "Недійсні дата та час"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Email.js:15:13
+msgid "Is not a valid email address"
+msgstr "Недійсна адреса електронної пошти"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/IPAddress.js:17:13
+msgid "Is not a valid IP address"
+msgstr "Недійсна IP-адреса"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Number.js:24:17
+msgid "Is not a valid number"
+msgstr "Недійсне число"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Phone.js:18:13
+msgid "Is not a valid phone number"
+msgstr "Недійсний номер телефону"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Time.js:17:13
+msgid "Is not a valid time"
+msgstr "Недійсний час"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Url.js:15:13
+msgid "Is not a valid URL"
+msgstr "Недійсна URL-адреса"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Inclusion.js:16:13
+msgid "Is not in the list of acceptable values"
+msgstr "Не входить у список допустимих значень"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Length.js:26:20
+msgid "Length must be at least {0}"
+msgstr "Довжина має бути принаймні {0}"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Length.js:42:17
+msgid "Length must be between {0} and {1}"
+msgstr "Довжина має бути від {0} до {1}"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Length.js:34:20
+msgid "Length must be no more than {0}"
+msgstr "Довжина не повинна перевищувати {0}"
+
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:61:26
+msgid "Locked"
+msgstr "Закріплена"
+
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:164:26
+msgid "Locked (Left)"
+msgstr "Закріплена (ліворуч)"
+
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:178:26
+msgid "Locked (Right)"
+msgstr "Закріплена (праворуч)"
+
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/picker/Date.js:163:19
+msgid "Month"
+msgstr "Місяць"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Range.js:25:20
+msgid "Must be at least {0}"
+msgstr "Must be at least {0}"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Range.js:39:17
+msgid "Must be between {0} and {1}"
+msgstr "Має бути від {0} до {1}"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Range.js:32:20
+msgid "Must be no more than than {0}"
+msgstr "Має бути не більше ніж {0}"
+
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js:29:22
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Presence.js:19:17
+msgid "Must be present"
+msgstr "Повинен бути присутнім"
+
+#: lib/ext-7.x.x/Ext.overrides.panel.TimeView.js:11:24
 msgid "Ok"
 msgstr "Ok"
 
-#~ msgid "Groups"
-#~ msgstr "Групи"
+#: lib/ext-7.x.x/Ext.data.validator.PasswordStrength.js:9:19
+msgid "Password is weak"
+msgstr "Пароль слабкий"
 
-#~ msgid "Sunday"
-#~ msgstr "Неділя"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/RemoveGroup.js:16:10
+msgid "Remove from grouping"
+msgstr "Видалити з групування"
 
-#~ msgid "Monday"
-#~ msgstr "Понеділок"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/ShowInGroups.js:17:10
+msgid "Show in groups"
+msgstr "Показати в групах"
 
-#~ msgid "Tuesday"
-#~ msgstr "Вівторок"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/SortAsc.js:17:10
+msgid "Sort ascending"
+msgstr "Сортувати за зростанням"
 
-#~ msgid "Wednesday"
-#~ msgstr "Середа"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/menu/SortDesc.js:17:10
+msgid "Sort descending"
+msgstr "Сортувати за спаданням"
 
-#~ msgid "Thursday"
-#~ msgstr "Четвер"
+#: lib/ext-7.x.x/Ext.overrides.field.Date.js:10:22
+msgid "The date in this field must be equal to or after {0}"
+msgstr "Дата в цьому полі має дорівнювати або пізніше {0}"
 
-#~ msgid "Friday"
-#~ msgstr "П'ятниця"
+#: lib/ext-7.x.x/Ext.overrides.field.Date.js:11:22
+msgid "The date in this field must be equal to or before {0}"
+msgstr "Дата в цьому полі має бути рівною або перед {0}"
 
-#~ msgid "Saturday"
-#~ msgstr "Субота"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:211:18
+msgid "The maximum decimal places is {0}"
+msgstr "Максимальна кількість десяткових знаків – {0}"
 
-#~ msgid "Sun"
-#~ msgstr "Нд"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:202:18
+msgid "The maximum value for this field is {0}"
+msgstr "Максимальне значення для цього поля становить {0}"
 
-#~ msgid "Mon"
-#~ msgstr "Пн"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:194:18
+msgid "The minimum value for this field is {0}"
+msgstr "Мінімальне значення для цього поля – {0}"
 
-#~ msgid "Tue"
-#~ msgstr "Вт"
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/field/Field.js:387:27
+msgid "This field is invalid"
+msgstr "Це поле недійсне"
 
-#~ msgid "Wed"
-#~ msgstr "Ср"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/field/Field.js:166:25
+msgid "This field is required"
+msgstr "Це поле є обов'язковим"
 
-#~ msgid "Thu"
-#~ msgstr "Чт"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js:171:26
+msgid "Unlocked"
+msgstr "Не закріплена"
 
-#~ msgid "Fri"
-#~ msgstr "Пт"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/field/Number.js:213:22
+msgid "Value is not a valid number"
+msgstr "Значення не є дійсним числом"
 
-#~ msgid "Sat"
-#~ msgstr "Сб"
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js:53:21
+msgid "Value must be between {0} and {1}"
+msgstr "Значення має бути від {0} до {1}"
 
-#~ msgid "January"
-#~ msgstr "Січень"
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js:37:24
+msgid "Value must be greater than {0}"
+msgstr "Значення має бути більше за {0}"
 
-#~ msgid "February"
-#~ msgstr "Лютий"
+#: build/patch/node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js:45:24
+msgid "Value must be less than {0}"
+msgstr "Значення має бути менше ніж {0}"
 
-#~ msgid "March"
-#~ msgstr "Березень"
-
-#~ msgid "April"
-#~ msgstr "Квітень"
-
-#~ msgid "May"
-#~ msgstr "Травень"
-
-#~ msgid "June"
-#~ msgstr "Червень"
-
-#~ msgid "July"
-#~ msgstr "Липень"
-
-#~ msgid "August"
-#~ msgstr "Серпень"
-
-#~ msgid "September"
-#~ msgstr "Вересень"
-
-#~ msgid "October"
-#~ msgstr "Жовтень"
-
-#~ msgid "November"
-#~ msgstr "Листопад"
-
-#~ msgid "December"
-#~ msgstr "Грудень"
-
-#~ msgid "Jan"
-#~ msgstr "Січ"
-
-#~ msgid "Feb"
-#~ msgstr "Лют"
-
-#~ msgid "Mar"
-#~ msgstr "Бер"
+#: build/patch/node_modules_patch/@sencha/ext-modern/src/picker/Date.js:177:18
+msgid "Year"
+msgstr "Рік"
 
 #~ msgid "Apr"
 #~ msgstr "Кві"
 
-#~ msgid "Jun"
-#~ msgstr "Чер"
-
-#~ msgid "Jul"
-#~ msgstr "Лип"
+#~ msgid "April"
+#~ msgstr "Квітень"
 
 #~ msgid "Aug"
 #~ msgstr "Сер"
 
-#~ msgid "Sep"
-#~ msgstr "Вер"
+#~ msgid "August"
+#~ msgstr "Серпень"
 
-#~ msgid "Oct"
-#~ msgstr "Жов"
+#~ msgid "Dec"
+#~ msgstr "Гру"
+
+#~ msgid "December"
+#~ msgstr "Грудень"
+
+#~ msgid "Feb"
+#~ msgstr "Лют"
+
+#~ msgid "February"
+#~ msgstr "Лютий"
+
+#~ msgid "Fri"
+#~ msgstr "Пт"
+
+#~ msgid "Friday"
+#~ msgstr "П'ятниця"
+
+#~ msgid "Groups"
+#~ msgstr "Групи"
+
+#~ msgid "Jan"
+#~ msgstr "Січ"
+
+#~ msgid "January"
+#~ msgstr "Січень"
+
+#~ msgid "Jul"
+#~ msgstr "Лип"
+
+#~ msgid "July"
+#~ msgstr "Липень"
+
+#~ msgid "Jun"
+#~ msgstr "Чер"
+
+#~ msgid "June"
+#~ msgstr "Червень"
+
+#~ msgid "Mar"
+#~ msgstr "Бер"
+
+#~ msgid "March"
+#~ msgstr "Березень"
+
+#~ msgid "May"
+#~ msgstr "Травень"
+
+#~ msgid "Mon"
+#~ msgstr "Пн"
+
+#~ msgid "Monday"
+#~ msgstr "Понеділок"
 
 #~ msgid "Nov"
 #~ msgstr "Лис"
 
-#~ msgid "Dec"
-#~ msgstr "Гру"
+#~ msgid "November"
+#~ msgstr "Листопад"
+
+#~ msgid "Oct"
+#~ msgstr "Жов"
+
+#~ msgid "October"
+#~ msgstr "Жовтень"
+
+#~ msgid "Sat"
+#~ msgstr "Сб"
+
+#~ msgid "Saturday"
+#~ msgstr "Субота"
+
+#~ msgid "Sep"
+#~ msgstr "Вер"
+
+#~ msgid "September"
+#~ msgstr "Вересень"
+
+#~ msgid "Sun"
+#~ msgstr "Нд"
+
+#~ msgid "Sunday"
+#~ msgstr "Неділя"
+
+#~ msgid "Thu"
+#~ msgstr "Чт"
+
+#~ msgid "Thursday"
+#~ msgstr "Четвер"
+
+#~ msgid "Tue"
+#~ msgstr "Вт"
+
+#~ msgid "Tuesday"
+#~ msgstr "Вівторок"
+
+#~ msgid "Wed"
+#~ msgstr "Ср"
+
+#~ msgid "Wednesday"
+#~ msgstr "Середа"
