@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.15.1 (2023-06-26)
+
+Fixes:
+
+-   fix: .pot remplates
+
 ### 5.15.0 (2023-06-25)
 
 Features:
