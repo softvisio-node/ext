@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.15.2 (2023-07-05)
+
+Fixes:
+
+-   fix: api do not send zero offset
+
 ### 5.15.1 (2023-06-26)
 
 Fixes:
