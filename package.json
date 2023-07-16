@@ -27,5 +27,11 @@
     "exports": {
         "./*": "./lib/*.js",
         "./resources/*": "./resources/*"
-    }
+    },
+    "files": [
+        "/bin",
+        "/lib",
+        "/resources",
+        "/src"
+    ]
 }
