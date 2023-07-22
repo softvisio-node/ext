@@ -2426,37 +2426,55 @@
     font-family: Roboto;
     font-style: normal;
     font-weight: 400;
-    src: local("Roboto Regular"), local("Roboto-Regular"), url(resources/fonts/roboto/Roboto-Regular.ttf) format("truetype");
+    src:
+        local("Roboto Regular"),
+        local("Roboto-Regular"),
+        url(resources/fonts/roboto/Roboto-Regular.ttf) format("truetype");
 }
 @font-face {
     font-family: Roboto;
     font-style: normal;
     font-weight: 100;
-    src: local("Roboto Light"), local("Roboto-Light"), url(resources/fonts/roboto/Roboto-Light.ttf) format("truetype");
+    src:
+        local("Roboto Light"),
+        local("Roboto-Light"),
+        url(resources/fonts/roboto/Roboto-Light.ttf) format("truetype");
 }
 @font-face {
     font-family: Roboto;
     font-style: normal;
     font-weight: 600;
-    src: local("Roboto Medium"), local("Roboto-Medium"), url(resources/fonts/roboto/Roboto-Medium.ttf) format("truetype");
+    src:
+        local("Roboto Medium"),
+        local("Roboto-Medium"),
+        url(resources/fonts/roboto/Roboto-Medium.ttf) format("truetype");
 }
 @font-face {
     font-family: Roboto;
     font-style: normal;
     font-weight: 900;
-    src: local("Roboto Bold"), local("Roboto-Bold"), url(resources/fonts/roboto/Roboto-Bold.ttf) format("truetype");
+    src:
+        local("Roboto Bold"),
+        local("Roboto-Bold"),
+        url(resources/fonts/roboto/Roboto-Bold.ttf) format("truetype");
 }
 @font-face {
     font-family: Roboto;
     font-style: italic;
     font-weight: 400;
-    src: local("Roboto Italic"), local("Roboto-Italic"), url(resources/fonts/roboto/Roboto-Italic.ttf) format("truetype");
+    src:
+        local("Roboto Italic"),
+        local("Roboto-Italic"),
+        url(resources/fonts/roboto/Roboto-Italic.ttf) format("truetype");
 }
 @font-face {
     font-family: Material Icons;
     font-style: normal;
     font-weight: 400;
-    src: local("Material Icons"), local("MaterialIcons-Regular"), url(resources/fonts/MaterialIcons-Regular.ttf) format("truetype");
+    src:
+        local("Material Icons"),
+        local("MaterialIcons-Regular"),
+        url(resources/fonts/MaterialIcons-Regular.ttf) format("truetype");
 }
 body,
 html {
@@ -2465,7 +2483,10 @@ html {
     font-family: Roboto, sans-serif;
 }
 .x-indicator span {
-    transition: background-color 0.25s ease-out, width 0.1s ease-out, height 0.1s ease-out;
+    transition:
+        background-color 0.25s ease-out,
+        width 0.1s ease-out,
+        height 0.1s ease-out;
 }
 .x-gridcell.x-treelist-item {
     border: none;
@@ -2475,7 +2496,9 @@ html {
     background-color: #ff9800;
     background-color: var(--accent-color);
     border-radius: 50%;
-    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.18), 2px 2px 5px 0 rgba(0, 0, 0, 0.12);
+    box-shadow:
+        2px 2px 5px 0 rgba(0, 0, 0, 0.18),
+        2px 2px 5px 0 rgba(0, 0, 0, 0.12);
     color: #222;
     color: var(--accent-foreground-color);
     display: flex;
@@ -2504,7 +2527,9 @@ html {
 .x-button-fab.x-pressing .x-inner-el {
     background-color: #ffb74d;
     background-color: var(--accent-pressed-color);
-    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.21), 2px 2px 6px 0 rgba(0, 0, 0, 0.18);
+    box-shadow:
+        2px 2px 5px 0 rgba(0, 0, 0, 0.21),
+        2px 2px 6px 0 rgba(0, 0, 0, 0.18);
     z-index: 3;
 }
 .x-button-fab.x-pressing .x-inner-el .x-icon-el {
@@ -2515,7 +2540,9 @@ html {
     top: -8px;
 }
 .x-has-badge .x-badge-el {
-    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.12), 2px 2px 5px 0 rgba(0, 0, 0, 0.08);
+    box-shadow:
+        2px 2px 5px 0 rgba(0, 0, 0, 0.12),
+        2px 2px 5px 0 rgba(0, 0, 0, 0.08);
     display: block;
     overflow: hidden;
     text-align: center;
@@ -2562,7 +2589,9 @@ html {
     transition: background-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .x-indexbar-indicator {
-    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.18), 2px 2px 5px 0 rgba(0, 0, 0, 0.12);
+    box-shadow:
+        2px 2px 5px 0 rgba(0, 0, 0, 0.18),
+        2px 2px 5px 0 rgba(0, 0, 0, 0.12);
     z-index: 2;
 }
 .x-slider .x-thumb {
@@ -2577,7 +2606,9 @@ html {
     transform: scale(1);
 }
 .x-toggleslider .x-thumb {
-    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.12), 2px 2px 5px 0 rgba(0, 0, 0, 0.08);
+    box-shadow:
+        2px 2px 5px 0 rgba(0, 0, 0, 0.12),
+        2px 2px 5px 0 rgba(0, 0, 0, 0.08);
     z-index: 1;
 }
 .x-toggleslider .x-thumb:active {
@@ -2860,9 +2891,15 @@ html {
     -ms-border-radius: 0.4em;
     -o-border-radius: 0.4em;
     border-radius: 0.4em;
-    -webkit-box-shadow: 0 1px 0 hsla(0, 0%, 100%, 0.3), inset 0 1px 0 rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 0 1px 0 hsla(0, 0%, 100%, 0.3), inset 0 1px 0 rgba(0, 0, 0, 0.4);
-    box-shadow: 0 1px 0 hsla(0, 0%, 100%, 0.3), inset 0 1px 0 rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow:
+        0 1px 0 hsla(0, 0%, 100%, 0.3),
+        inset 0 1px 0 rgba(0, 0, 0, 0.4);
+    -moz-box-shadow:
+        0 1px 0 hsla(0, 0%, 100%, 0.3),
+        inset 0 1px 0 rgba(0, 0, 0, 0.4);
+    box-shadow:
+        0 1px 0 hsla(0, 0%, 100%, 0.3),
+        inset 0 1px 0 rgba(0, 0, 0, 0.4);
     height: 0.8em;
     left: 0.7em;
     position: absolute;

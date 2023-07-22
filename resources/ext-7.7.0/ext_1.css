@@ -623,7 +623,9 @@
 .x-pressing .x-ripple-transition,
 .x-pressing .x-ripple-transition .x-arrow-el,
 .x-pressing .x-ripple-transition .x-icon-el {
-    transition: background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0.2s, color 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+    transition:
+        background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0.2s,
+        color 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
 }
 .x-rippling {
     position: relative;
@@ -1216,7 +1218,11 @@
     font-style: normal;
     font-weight: 400;
     src: url(resources/font-ext/fonts/ExtJS.eot?-tqegh9);
-    src: url(resources/font-ext/fonts/ExtJS.eot?#iefix-tqegh9) format("embedded-opentype"), url(resources/font-ext/fonts/ExtJS.ttf?-tqegh9) format("truetype"), url(resources/font-ext/fonts/ExtJS.woff?-tqegh9) format("woff"), url(resources/font-ext/fonts/ExtJS.svg?-tqegh9#ExtJS) format("svg");
+    src:
+        url(resources/font-ext/fonts/ExtJS.eot?#iefix-tqegh9) format("embedded-opentype"),
+        url(resources/font-ext/fonts/ExtJS.ttf?-tqegh9) format("truetype"),
+        url(resources/font-ext/fonts/ExtJS.woff?-tqegh9) format("woff"),
+        url(resources/font-ext/fonts/ExtJS.svg?-tqegh9#ExtJS) format("svg");
 }
 .ext {
     font-family: ExtJS;
@@ -3011,7 +3017,13 @@ div.x-trigger.x-grouped {
 .x-listswiperaccordion-multiple .x-listswiperaction,
 .x-listswiperaccordion-multiple.x-listswiperaccordion-wrapper:after,
 .x-listswiperaccordion-multiple.x-listswiperaccordion-wrapper:before {
-    transition: flex 0.4s ease-in, padding 0.15s ease-in 0.25s, min-width 0.4s ease-in, border-color 0.4s ease-in, border-width 0.4s ease-in, opacity 0.4s ease-in;
+    transition:
+        flex 0.4s ease-in,
+        padding 0.15s ease-in 0.25s,
+        min-width 0.4s ease-in,
+        border-color 0.4s ease-in,
+        border-width 0.4s ease-in,
+        opacity 0.4s ease-in;
 }
 .x-listswiperaccordion-wrapper.x-listswiperaccordion-single .x-listswiperaction {
     flex: 0 0 auto;
@@ -3059,7 +3071,13 @@ div.x-trigger.x-grouped {
 .x-listswiperaccordion-was-collapsed .x-listswiperaccordion-multiple.x-listswiperaccordion-wrapper:after,
 .x-listswiperaccordion-was-collapsed .x-listswiperaccordion-multiple.x-listswiperaccordion-wrapper:before,
 .x-listswiperaccordion-was-collapsed .x-listswiperaccordion-multiple.x-listswiperaccordion-wrapper > .x-listswiperaction {
-    transition: flex 0.4s ease-in, padding 0.15s ease-in 0.25s, border-color 0.4s ease-in, border-width 0.4s ease-in, min-width 0.4s ease-in, opacity 0.4s ease-in;
+    transition:
+        flex 0.4s ease-in,
+        padding 0.15s ease-in 0.25s,
+        border-color 0.4s ease-in,
+        border-width 0.4s ease-in,
+        min-width 0.4s ease-in,
+        opacity 0.4s ease-in;
 }
 .x-listswiperundoable {
     opacity: 0;
@@ -3072,7 +3090,9 @@ div.x-trigger.x-grouped {
     background-color: transparent !important;
     opacity: 0 !important;
     pointer-events: none;
-    transition: background-color 0.3s ease-out, opacity 0.3s ease-out;
+    transition:
+        background-color 0.3s ease-out,
+        opacity 0.3s ease-out;
 }
 .x-listswiperaccordion.x-undo .x-listswiperaccordion-wrapper .x-listswiperaction {
     opacity: 0 !important;
@@ -3101,7 +3121,9 @@ div.x-trigger.x-grouped {
     position: absolute;
     right: 0;
     top: 0;
-    transition: color 0.25s ease-out, background-color 25ms ease-out;
+    transition:
+        color 0.25s ease-out,
+        background-color 25ms ease-out;
 }
 .x-listswiperstepper-body-el {
     display: flex;
@@ -4114,7 +4136,9 @@ div.x-trigger.x-grouped {
     color: #111;
     color: var(--color);
     cursor: pointer;
-    font: 400 13px/16px Roboto, sans-serif;
+    font:
+        400 13px/16px Roboto,
+        sans-serif;
     padding: 12px;
 }
 .x-grid-group-column .x-body-el {
@@ -4134,7 +4158,9 @@ div.x-trigger.x-grouped {
 }
 .x-grid-group-column-inner {
     border: 0 solid #e2e2e2;
-    font: 400 13px/16px Roboto, sans-serif;
+    font:
+        400 13px/16px Roboto,
+        sans-serif;
     margin: 1px;
     padding: 12px;
 }
@@ -4723,7 +4749,9 @@ div.x-trigger.x-grouped {
 .x-root {
     color: #111;
     color: var(--color);
-    font: 400 14px/1.25 Roboto, sans-serif;
+    font:
+        400 14px/1.25 Roboto,
+        sans-serif;
 }
 .x-big .x-root,
 .x-root.x-big {
@@ -4959,7 +4987,9 @@ div.x-trigger.x-grouped {
     border-radius: 2px;
     color: #2196f3;
     color: var(--base-color);
-    font: 600 14px/16px Roboto, sans-serif;
+    font:
+        600 14px/16px Roboto,
+        sans-serif;
 }
 .x-big .x-button {
     border-radius: 2px;
@@ -5482,10 +5512,14 @@ div.x-trigger.x-grouped {
     background-color: var(--alt-background-color);
     background-image: none;
     border-color: #767676;
-    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.12), 2px 2px 5px 0 rgba(0, 0, 0, 0.08);
+    box-shadow:
+        2px 2px 5px 0 rgba(0, 0, 0, 0.12),
+        2px 2px 5px 0 rgba(0, 0, 0, 0.08);
     color: #111;
     color: var(--color);
-    font: 600 16px/16px Roboto, sans-serif;
+    font:
+        600 16px/16px Roboto,
+        sans-serif;
 }
 .x-big .x-toolbar {
     font-size: 18px;
@@ -5862,7 +5896,9 @@ div.x-trigger.x-grouped {
     border: 1px solid var(--faded-color);
     color: #111;
     color: var(--color);
-    font: 400 12px/18px Roboto, sans-serif;
+    font:
+        400 12px/18px Roboto,
+        sans-serif;
 }
 .x-big .x-panel-body-el {
     font-size: 14px;
@@ -6019,7 +6055,9 @@ div.x-trigger.x-grouped {
 .x-paneltitle {
     color: #fff;
     color: var(--base-foreground-color);
-    font: 600 18px/24px Roboto, sans-serif;
+    font:
+        600 18px/24px Roboto,
+        sans-serif;
     padding: 8px 0;
 }
 .x-big .x-paneltitle {
@@ -6529,7 +6567,9 @@ div.x-trigger.x-grouped {
     border-radius: 2px;
     color: #2196f3;
     color: var(--base-color);
-    font: 600 14px/16px Roboto, sans-serif;
+    font:
+        600 14px/16px Roboto,
+        sans-serif;
 }
 .x-big .x-splitButton {
     border-radius: 2px;
@@ -7903,7 +7943,9 @@ div.x-trigger.x-grouped {
 .x-field > .x-label-el {
     color: hsla(0, 0%, 7%, 0.54);
     color: var(--highlight-color);
-    font: 400 12px/16px Roboto, sans-serif;
+    font:
+        400 12px/16px Roboto,
+        sans-serif;
     padding: 7px 10px 7px 0;
     width: 100px;
 }
@@ -7979,7 +8021,9 @@ div.x-trigger.x-grouped {
 .x-field > * > * > .x-error-message-el {
     color: #c62828;
     color: var(--alert-color);
-    font: normal 1rem/16px Roboto, sans-serif;
+    font:
+        normal 1rem/16px Roboto,
+        sans-serif;
 }
 .x-big .x-field > * > * > .x-error-message-el {
     line-height: 24px;
@@ -8096,7 +8140,9 @@ div.x-trigger.x-grouped {
     color: var(--color);
 }
 .x-textfield .x-input-el {
-    font: 400 13px/16px Roboto, sans-serif;
+    font:
+        400 13px/16px Roboto,
+        sans-serif;
     min-height: 16px;
     padding: 4px 0;
 }
@@ -8371,10 +8417,14 @@ div.x-trigger.x-grouped {
     background-color: var(--base-color);
     background-image: none;
     border-color: #010c14;
-    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.12), 2px 2px 5px 0 rgba(0, 0, 0, 0.08);
+    box-shadow:
+        2px 2px 5px 0 rgba(0, 0, 0, 0.12),
+        2px 2px 5px 0 rgba(0, 0, 0, 0.08);
     color: #fff;
     color: var(--base-foreground-color);
-    font: 600 18px/16px Roboto, sans-serif;
+    font:
+        600 18px/16px Roboto,
+        sans-serif;
 }
 .x-big .x-titlebar {
     font-size: 20px;
@@ -8413,9 +8463,15 @@ div.x-trigger.x-grouped {
     margin-bottom: 0;
 }
 .x-toast {
-    -webkit-box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.12), 2px 2px 5px 0 rgba(0, 0, 0, 0.08);
-    -moz-box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.12), 2px 2px 5px 0 rgba(0, 0, 0, 0.08);
-    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.12), 2px 2px 5px 0 rgba(0, 0, 0, 0.08);
+    -webkit-box-shadow:
+        2px 2px 5px 0 rgba(0, 0, 0, 0.12),
+        2px 2px 5px 0 rgba(0, 0, 0, 0.08);
+    -moz-box-shadow:
+        2px 2px 5px 0 rgba(0, 0, 0, 0.12),
+        2px 2px 5px 0 rgba(0, 0, 0, 0.08);
+    box-shadow:
+        2px 2px 5px 0 rgba(0, 0, 0, 0.12),
+        2px 2px 5px 0 rgba(0, 0, 0, 0.08);
     margin: 0;
 }
 .x-toast .x-toast-body-el {
@@ -8423,17 +8479,24 @@ div.x-trigger.x-grouped {
     background-color: var(--reverse-background-color);
     color: #fff;
     color: var(--reverse-color);
-    font: 400 14px/18px Roboto, sans-serif;
+    font:
+        400 14px/18px Roboto,
+        sans-serif;
     padding: 8px;
 }
 .x-big .x-toast .x-toast-body-el {
-    font: 400 16px/25px, 16px Roboto, sans-serif;
+    font:
+        400 16px/25px,
+        16px Roboto,
+        sans-serif;
     padding: 8px;
 }
 .x-emptytext {
     color: hsla(0, 0%, 7%, 0.54);
     color: var(--highlight-color);
-    font: 400 14px/1.25 Roboto, sans-serif;
+    font:
+        400 14px/1.25 Roboto,
+        sans-serif;
     padding: 10px;
 }
 .x-big .x-emptytext {
@@ -8448,7 +8511,9 @@ div.x-trigger.x-grouped {
 .x-dataview-default-body-el > .x-dataview-item {
     color: #111;
     color: var(--color);
-    font: 400 13px/16px Roboto, sans-serif;
+    font:
+        400 13px/16px Roboto,
+        sans-serif;
 }
 .x-big .x-dataview-default-body-el > .x-dataview-item {
     font-size: 14px;
@@ -8489,7 +8554,9 @@ div.x-trigger.x-grouped {
     background-color: var(--background-color);
     color: #111;
     color: var(--color);
-    font: 400 13px/16px Roboto, sans-serif;
+    font:
+        400 13px/16px Roboto,
+        sans-serif;
 }
 .x-big .x-dataitem-default {
     font-size: 14px;
@@ -8525,7 +8592,9 @@ div.x-trigger.x-grouped {
     background-color: var(--header-background-color);
     color: #111;
     color: var(--color);
-    font: 600 13px/16px Roboto, sans-serif;
+    font:
+        600 13px/16px Roboto,
+        sans-serif;
 }
 .x-big .x-itemheader {
     font-size: 14px;
@@ -8573,7 +8642,9 @@ div.x-trigger.x-grouped {
     border-width: 1px 0;
     color: #111;
     color: var(--color);
-    font: 400 13px/16px Roboto, sans-serif;
+    font:
+        400 13px/16px Roboto,
+        sans-serif;
     margin-bottom: -1px;
 }
 .x-listitem + .x-scrolldock-end {
@@ -8728,7 +8799,9 @@ div.x-trigger.x-grouped {
 .x-listswiperstepper {
     background-color: #f5f5f5;
     color: #c2c2c2;
-    font: 600 13px/16px Roboto, sans-serif;
+    font:
+        600 13px/16px Roboto,
+        sans-serif;
 }
 .x-big .x-listswiperstepper {
     font-size: 14px;
@@ -9192,7 +9265,9 @@ div.x-trigger.x-grouped {
 .x-checkboxfield .x-box-label-el {
     color: hsla(0, 0%, 7%, 0.54);
     color: var(--highlight-color);
-    font: 400 12px/16px Roboto, sans-serif;
+    font:
+        400 12px/16px Roboto,
+        sans-serif;
     padding: 7px 0 7px 5px;
 }
 .x-big .x-checkboxfield .x-box-label-el {
@@ -9231,12 +9306,16 @@ div.x-trigger.x-grouped {
     border-bottom-color: var(--divider-color);
     color: #111;
     color: var(--color);
-    font: 400 16px/32px Roboto, sans-serif;
+    font:
+        400 16px/32px Roboto,
+        sans-serif;
     height: 55px;
     padding: 3px 13px;
 }
 .x-big .x-picker-slot-title {
-    font: 400 20px/44px Roboto, sans-serif;
+    font:
+        400 20px/44px Roboto,
+        sans-serif;
 }
 .x-picker-slot-title > div {
     color: #111;
@@ -9323,7 +9402,9 @@ div.x-trigger.x-grouped {
 .x-datepanel .x-text-el.x-inactive,
 .x-datepanel .x-year-el.x-inactive {
     opacity: 0.6;
-    transition: font-size 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transition:
+        font-size 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .x-datepanel .x-dateview table {
     margin: 15px;
@@ -9427,7 +9508,9 @@ div.x-trigger.x-grouped {
 .x-displayfield .x-input-el {
     color: #111;
     color: var(--color);
-    font: 400 13px/16px Roboto, sans-serif;
+    font:
+        400 13px/16px Roboto,
+        sans-serif;
     padding: 4px 0;
 }
 .x-big .x-displayfield .x-input-el {
@@ -9590,7 +9673,9 @@ div.x-trigger.x-grouped {
 .x-sliderfield .x-box-label-el {
     color: hsla(0, 0%, 7%, 0.54);
     color: var(--highlight-color);
-    font: 400 12px/16px Roboto, sans-serif;
+    font:
+        400 12px/16px Roboto,
+        sans-serif;
     padding: 7px 0 7px 6px;
 }
 .x-big .x-sliderfield .x-box-label-el {
@@ -9907,11 +9992,15 @@ div.x-trigger.x-grouped {
 .x-form-fieldset-title {
     color: #111;
     color: var(--color);
-    font: 400 14px/18px Roboto, sans-serif;
+    font:
+        400 14px/18px Roboto,
+        sans-serif;
     margin: 0;
 }
 .x-big .x-form-fieldset-title {
-    font: 400 16px/24px Roboto, sans-serif;
+    font:
+        400 16px/24px Roboto,
+        sans-serif;
 }
 .x-form-fieldset-instructions {
     color: hsla(0, 0%, 7%, 0.54);
@@ -9972,7 +10061,9 @@ div.x-trigger.x-grouped {
     padding: 8px 16px;
 }
 .x-gridcell {
-    font: 400 13px/16px Roboto, sans-serif;
+    font:
+        400 13px/16px Roboto,
+        sans-serif;
 }
 .x-big .x-gridcell {
     font-size: 14px;
@@ -10160,7 +10251,9 @@ div.x-trigger.x-grouped {
     border-width: 0 1px 1px 0;
     color: #111;
     color: var(--color);
-    font: 400 13px/16px Roboto, sans-serif;
+    font:
+        400 13px/16px Roboto,
+        sans-serif;
 }
 .x-big .x-gridcolumn > .x-header-el {
     font-size: 14px;
@@ -11138,7 +11231,9 @@ div.x-trigger.x-grouped {
 .x-tab {
     border-radius: 0;
     color: hsla(0, 0%, 100%, 0.7);
-    font: 600 14px/16px Roboto, sans-serif;
+    font:
+        600 14px/16px Roboto,
+        sans-serif;
 }
 .x-big .x-tab {
     border-radius: 0;
@@ -11233,7 +11328,9 @@ div.x-trigger.x-grouped {
     border-radius: 32px;
     color: #222;
     color: var(--accent-foreground-color);
-    font: 400 12px/16px Roboto, sans-serif;
+    font:
+        400 12px/16px Roboto,
+        sans-serif;
     max-width: 75%;
     min-width: 24px;
     padding: 4px;
