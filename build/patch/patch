@@ -1,14 +1,14 @@
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/field/Field.js node_modules_patch/@sencha/ext-core/src/data/field/Field.js
 --- ../node_modules/@sencha/ext-core/src/data/field/Field.js	2023-06-21 13:25:29.545579700 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/field/Field.js	2022-07-02 15:18:21.333318400 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/field/Field.js	2023-07-22 10:53:37.930440500 +0300
 @@ -133,9 +133,9 @@
   *
   * ### Updating
   *
-- * Fields modified with the {@link Ext.data.Model#set set} method will have their stored
+- * Fields modified with the {@link Ext.data.Model#set set} method will have their stored 
 + * Fields modified with the {@link Ext.data.Model#set set} method will have their stored
   * value set using the convert / calculate method when present.
-- *
+- * 
 + *
   * For example:
   *
@@ -17,26 +17,26 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
   *         }],
   *         convertOnSet: false
   *     });
-- *
+- *     
 + *
   *     var tina = Ext.create('MyApp.model.Employee', {
   *         salary: 50000
   *     });
-- *
+- *     
 + *
   *     console.log(tina.get('salary')); // logs 55000
-- *
+- *     
 + *
   *     tina.set('salary', 60000);
   *     console.log(tina.get('salary')); // logs 60000
-- *
-- * This default behavior can be disabled by setting the Model's
+- * 
+- * This default behavior can be disabled by setting the Model's 
 + *
 + * This default behavior can be disabled by setting the Model's
   * `{@link Ext.data.Model#cfg-convertOnSet}` config to `false`.
-- *
-- * **Note:** convertOnSet `false` only prevents the convert / calculate call when the
-- * set `fieldName` param matches the field's `{@link #name}`.  See
+- * 
+- * **Note:** convertOnSet `false` only prevents the convert / calculate call when the 
+- * set `fieldName` param matches the field's `{@link #name}`.  See 
 + *
 + * **Note:** convertOnSet `false` only prevents the convert / calculate call when the
 + * set `fieldName` param matches the field's `{@link #name}`.  See
@@ -47,17 +47,17 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       *
       * The only advantage of a `calculate` method over a `convert` method is automatic
       * determination of `depends`.
--     *
--     * **Note:** The use of calculate and {@link #method-convert} are exclusive.  The
+-     * 
+-     * **Note:** The use of calculate and {@link #method-convert} are exclusive.  The 
 +     *
 +     * **Note:** The use of calculate and {@link #method-convert} are exclusive.  The
       * calculate method will override the convert method if both are configured.
--     *
+-     * 
 +     *
       * **Note:** Fields used by the calculate method must be explicitly defined in the
       * {@link Ext.data.Model#cfg-fields #fields} of the model.
       *
--     * @param {Object} data An object with all values for each field in the parent
+-     * @param {Object} data An object with all values for each field in the parent 
 +     * @param {Object} data An object with all values for each field in the parent
       * model.  See {@link Ext.data.Model#getData getData}.
       * @return {Mixed} value The value of the calculated field
@@ -66,18 +66,18 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       * @cfg {Function} convert
       * If specified this config overrides the `{@link #method-convert convert}` method.
       * See also `{@link #cfg-calculate calculate}` for simple field calculations.
--     *
--     * **Note:** The use of {@link #calculate} and convert are exclusive.  The calculate
+-     * 
+-     * **Note:** The use of {@link #calculate} and convert are exclusive.  The calculate 
 +     *
 +     * **Note:** The use of {@link #calculate} and convert are exclusive.  The calculate
       * method will override the convert method if both are configured.
       */
-
+ 
 @@ -374,7 +374,7 @@
       * @cfg {Boolean} critical
       * A critical field is a field that must always be sent to the server even if it has
       * not changed. The most common example of such a field is the "id" of a record (see
--     * `{@link Ext.data.Model#idProperty}` but the
+-     * `{@link Ext.data.Model#idProperty}` but the 
 +     * `{@link Ext.data.Model#idProperty}` but the
       * `{@link Ext.data.Model#versionProperty}` is similarly a `critical` field.
       */
@@ -88,23 +88,23 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       */
 -    defaultInvalidMessage: 'This field is invalid',
 +    defaultInvalidMessage: window.l10nd( "ext", "This field is invalid" ),
-
+ 
      /**
       * @cfg {Object} defaultValue
 @@ -461,14 +461,14 @@
       *
       *     {
       *         name: 'name',
--     *
+-     *     
 +     *
       *         // Will be called whenever forename or surname fields are set
       *         convert: function (v, rec) {
       *             return rec.get('firstName') + ' ' + rec.get('lastName');
       *         },
--     *
+-     *     
 +     *
       *         depends: [ 'firstName', 'lastName' ],
--     *
+-     *     
 +     *
       *         // It should not be returned to the server - it's not a database field
       *         persist: false
@@ -113,7 +113,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       * - {@link Ext.data.reader.Json}
       *
       *   The mapping is a string containing the javascript expression to reference the
--     *   data from an element of the data item's
+-     *   data from an element of the data item's 
 +     *   data from an element of the data item's
       *   {@link Ext.data.reader.Json#cfg-rootProperty rootProperty} Array. Defaults to
       *   the field name. If a function is passed, a single argument is received which
@@ -122,7 +122,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       * @cfg {String/Object} reference
       * The {@link Ext.data.Model#entityName name} of the entity referenced by this field.
       * In most databases, this relationship is represented by a "foreign key". That is, a
--     * value for such a field matches the value of the
+-     * value for such a field matches the value of the 
 +     * value for such a field matches the value of the
       * {@link Ext.data.Model#idProperty id} for an entity of this type.
       *
@@ -131,7 +131,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       * - If an object, a config for one of the Ext.data.summary types.
       * - If a function, it should match the signature for
       * {@link Ext.data.summary.Base#method-calculate calculate}.
--     *
+-     * 
 +     *
       * @since 6.5.0
       */
@@ -140,8 +140,8 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       *          return ...
       *      }
       *
--     * **NOTE:** It is recommended for such fields to use
--     * `{@link #cfg-calculate calculate}` or explicitly specify the fields used by
+-     * **NOTE:** It is recommended for such fields to use 
+-     * `{@link #cfg-calculate calculate}` or explicitly specify the fields used by 
 +     * **NOTE:** It is recommended for such fields to use
 +     * `{@link #cfg-calculate calculate}` or explicitly specify the fields used by
       * `{@link #method-convert convert}` using `{@link #cfg-depends depends}`.
@@ -149,12 +149,12 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       * @readonly
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/Model.js node_modules_patch/@sencha/ext-core/src/data/Model.js
 --- ../node_modules/@sencha/ext-core/src/data/Model.js	2023-06-21 13:25:29.593564000 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/Model.js	2022-07-02 15:18:21.332321100 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/Model.js	2023-07-06 14:38:08.866425300 +0300
 @@ -111,7 +111,7 @@
   * values.
   *
   * # Associations
-- *
+- * 
 + *
   * Models often have associations with other Models. These associations can be defined by
   * fields (often called "foreign keys") or by other data such as a many-to-many (or "matrix").
@@ -163,7 +163,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
   *             console.log('The User was destroyed!');
   *         }
   *     });
-- *
+- * 
 + *
   * # HTTP Parameter names when using a {@link Ext.data.proxy.Ajax Ajax proxy}
   *
@@ -172,26 +172,26 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       * shortened name.
       *
       * All entities in a given `schema` must have a unique `entityName`.
--     *
+-     * 
 +     *
       * For more details see "Relative Naming" in {@link Ext.data.schema.Schema}.
       */
-
+ 
 @@ -611,13 +611,13 @@
      // @cmd-auto-dependency {aliasPrefix: "data.field."}
      /**
       * @cfg {Object[]/String[]} fields
--     * An Array of `Ext.data.field.Field` config objects, simply the field
--     * {@link Ext.data.field.Field#name name}, or a mix of config objects and strings.
+-     * An Array of `Ext.data.field.Field` config objects, simply the field 
+-     * {@link Ext.data.field.Field#name name}, or a mix of config objects and strings. 
 +     * An Array of `Ext.data.field.Field` config objects, simply the field
 +     * {@link Ext.data.field.Field#name name}, or a mix of config objects and strings.
       * If just a name is given, the field type defaults to `auto`.
--     *
--     * In a {@link Ext.data.field.Field Field} config object you may pass the alias of
+-     * 
+-     * In a {@link Ext.data.field.Field Field} config object you may pass the alias of 
 +     *
 +     * In a {@link Ext.data.field.Field Field} config object you may pass the alias of
       * the `Ext.data.field.*` type using the `type` config option.
--     *
+-     * 
 +     *
       *     // two fields are set:
       *     // - an 'auto' field with a name of 'firstName'
@@ -200,17 +200,17 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       *         type: 'int',
       *         name: 'age'
       *     }]
--     *
--     * Fields will automatically be created at read time for any for any keys in the
--     * data passed to the Model's {@link #proxy proxy's}
--     * {@link Ext.data.reader.Reader reader} whose name is not explicitly configured in
+-     * 
+-     * Fields will automatically be created at read time for any for any keys in the 
+-     * data passed to the Model's {@link #proxy proxy's} 
+-     * {@link Ext.data.reader.Reader reader} whose name is not explicitly configured in 
 +     *
 +     * Fields will automatically be created at read time for any for any keys in the
 +     * data passed to the Model's {@link #proxy proxy's}
 +     * {@link Ext.data.reader.Reader reader} whose name is not explicitly configured in
       * the `fields` config.
--     *
--     * Extending a Model class will inherit all the `fields` from the superclass /
+-     * 
+-     * Extending a Model class will inherit all the `fields` from the superclass / 
 +     *
 +     * Extending a Model class will inherit all the `fields` from the superclass /
       * ancestor classes.
@@ -220,10 +220,10 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       * This property is indexed by field name and contains the ordinal of that field. The
       * ordinal often has meaning to servers and is derived based on the position in the
       * `fields` array.
--     *
+-     * 
 +     *
       * This can be used like so:
--     *
+-     * 
 +     *
       *      Ext.define('MyApp.models.User', {
       *          extend: 'Ext.data.Model',
@@ -232,10 +232,10 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       *              { name: 'name' }
       *          ]
       *      });
--     *
+-     * 
 +     *
       *      var nameOrdinal = MyApp.models.User.fieldOrdinals.name;
--     *
+-     *      
 +     *
       *      // or, if you have an instance:
       *
@@ -244,40 +244,40 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       * If specified, this is the name of the property that contains the entity "version".
       * The version property is used to manage a long-running transaction and allows the
       * detection of simultaneous modification.
--     *
+-     * 
 +     *
       * The way a version property is used is that the client receives the version as it
       * would any other entity property. When saving an entity, this property is always
       * included in the request and the server uses the value in a "conditional update".
       * If the current version of the entity on the server matches the version property
       * sent by the client, the update is allowed. Otherwise, the update fails.
--     *
+-     * 
 +     *
       * On successful update, both the client and server increment the version. This is
       * done on the server in the conditional update and on the client when it receives a
       * success on its update request.
 @@ -798,17 +798,17 @@
-
+ 
      /**
       * @cfg {Boolean} convertOnSet
--     * Set to `false` to prevent any converters from being called on fields specified in
+-     * Set to `false` to prevent any converters from being called on fields specified in 
 +     * Set to `false` to prevent any converters from being called on fields specified in
       * a {@link Ext.data.Model#set set} operation.
--     *
--     * **Note:** Setting the config to `false` will only prevent the convert / calculate
--     * call when the set `fieldName` param matches the field's `{@link #name}`.  In the
--     * following example the calls to set `salary` will not execute the convert method
--     * on `set` while the calls to set `vested` will execute the convert method on the
+-     * 
+-     * **Note:** Setting the config to `false` will only prevent the convert / calculate 
+-     * call when the set `fieldName` param matches the field's `{@link #name}`.  In the 
+-     * following example the calls to set `salary` will not execute the convert method 
+-     * on `set` while the calls to set `vested` will execute the convert method on the 
 +     *
 +     * **Note:** Setting the config to `false` will only prevent the convert / calculate
 +     * call when the set `fieldName` param matches the field's `{@link #name}`.  In the
 +     * following example the calls to set `salary` will not execute the convert method
 +     * on `set` while the calls to set `vested` will execute the convert method on the
       * initial read as well as on `set`.
--     *
+-     * 
 +     *
       * Example model definition:
--     *
+-     * 
 +     *
       *     Ext.define('MyApp.model.Employee', {
       *         extend: 'Ext.data.Model',
@@ -286,62 +286,62 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       *         }],
       *         convertOnSet: false
       *     });
--     *
+-     *     
 +     *
       *     var tina = Ext.create('MyApp.model.Employee', {
       *         salary: 50000,
       *         yearsOfService: 3
       *     });
--     *
+-     *     
 +     *
       *     console.log(tina.get('salary')); // logs 55000
       *     console.log(tina.get('vested')); // logs false
--     *
+-     *     
 +     *
       *     tina.set({
       *         salary: 60000,
       *         yearsOfService: 4
 @@ -1087,35 +1087,35 @@
-
+ 
      /**
       * Sets the given field to the given value. For example:
--     *
+-     * 
 +     *
       *      record.set('name', 'value');
--     *
+-     * 
 +     *
       * This method can also be passed an object containing multiple values to set at once.
       * For example:
--     *
+-     * 
 +     *
       *      record.set({
       *          name: 'value',
       *          age: 42
       *      });
--     *
+-     * 
 +     *
       * The following store events are fired when the modified record belongs to a store:
       *
       *  - {@link Ext.data.Store#event-beginupdate beginupdate}
       *  - {@link Ext.data.Store#event-update update}
       *  - {@link Ext.data.Store#event-endupdate endupdate}
--     *
--     * @param {String/Object} fieldName The field to set, or an object containing key/value
+-     * 
+-     * @param {String/Object} fieldName The field to set, or an object containing key/value 
 +     *
 +     * @param {String/Object} fieldName The field to set, or an object containing key/value
       * pairs.
       * @param {Object} newValue The value for the field (if `fieldName` is a string).
       * @param {Object} [options] Options for governing this update.
--     * @param {Boolean} [options.convert=true] Set to `false` to  prevent any converters from
--     * being called during the set operation. This may be useful when setting a large bunch of
+-     * @param {Boolean} [options.convert=true] Set to `false` to  prevent any converters from 
+-     * being called during the set operation. This may be useful when setting a large bunch of 
 +     * @param {Boolean} [options.convert=true] Set to `false` to  prevent any converters from
 +     * being called during the set operation. This may be useful when setting a large bunch of
       * raw values.
       * @param {Boolean} [options.dirty=true] Pass `false` if the field values are to be
       * understood as non-dirty (fresh from the server). When `true`, this change will be
       * reflected in the `modified` collection.
--     * @param {Boolean} [options.commit=false] Pass `true` to call the {@link #commit} method
--     * after setting fields. If this option is passed, the usual after change processing will
+-     * @param {Boolean} [options.commit=false] Pass `true` to call the {@link #commit} method 
+-     * after setting fields. If this option is passed, the usual after change processing will 
 +     * @param {Boolean} [options.commit=false] Pass `true` to call the {@link #commit} method
 +     * after setting fields. If this option is passed, the usual after change processing will
       * be bypassed. {@link #commit Commit} will be called even if there are no field changes.
@@ -351,7 +351,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
      /**
       * This method is called by the {@link Ext.data.reader.Reader} after loading a model from
       * the server. This is after processing any inline associations that are available.
--     *
+-     * 
 +     *
       * @method onLoad
       *
@@ -360,14 +360,14 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       * The callback is passed the following parameters:
       * @param {Ext.data.Model} options.success.record The record.
       * @param {Ext.data.operation.Operation} options.success.operation The operation.
--     *
+-     * 
 +     *
       * @param {Function} options.failure A function to be called when the
       * model is unable to be processed by the server.
       * The callback is passed the following parameters:
       * @param {Ext.data.Model} options.failure.record The record.
       * @param {Ext.data.operation.Operation} options.failure.operation The operation.
--     *
+-     * 
 +     *
       * @param {Function} options.callback A function to be called whether the proxy
       * transaction was successful or not.
@@ -375,7 +375,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       * @param {Ext.data.Model} options.callback.record The record.
       * @param {Ext.data.operation.Operation} options.callback.operation The operation.
       * @param {Boolean} options.callback.success `true` if the operation was successful.
--     *
+-     * 
 +     *
       * @param {Object} options.scope The scope in which to execute the callback
       * functions.  Defaults to the model instance.
@@ -387,21 +387,21 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
 +                    else if ( proxy ) {
 +                        proxy.type = "softvisio";
 +                    }
-
+ 
                      // We have nothing or a config for the proxy. Get some defaults from
                      // the Schema and smash anything we've provided over the top.
 @@ -2895,13 +2898,13 @@
           * The callback is passed the following parameters:
           * @param {Ext.data.Model} options.success.record The record.
           * @param {Ext.data.operation.Operation} options.success.operation The operation.
--         *
+-         * 
 +         *
           * @param {Function} options.failure A function to be called when the
           * model is unable to be processed by the server.
           * The callback is passed the following parameters:
           * @param {Ext.data.Model} options.failure.record The record.
           * @param {Ext.data.operation.Operation} options.failure.operation The operation.
--         *
+-         * 
 +         *
           * @param {Function} options.callback A function to be called whether the proxy
           * transaction was successful or not.
@@ -410,7 +410,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
           * operation.
           * @param {Boolean} options.callback.success `true` if the operation was
           * successful.
--         *
+-         * 
 +         *
           * @param {Object} options.scope The scope in which to execute the callback
           * functions.  Defaults to the model instance.
@@ -419,21 +419,21 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
           * (probably) still be loading once it is returned from this method. To do any
           * post-processing on the data, the appropriate place to do see is in the
           * callback.
--         *
+-         * 
 +         *
           * @static
           * @inheritable
           */
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Bound.js node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Bound.js	2023-06-21 13:25:29.757639100 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js	2022-07-02 15:18:21.333318400 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js	2023-07-22 10:53:42.225884700 +0300
 @@ -26,7 +26,7 @@
           * The error message to return when the value is empty.
           * @locale
           */
 -        emptyMessage: 'Must be present',
 +        emptyMessage: window.l10nd( "ext", "Must be present" ),
-
+ 
          /**
           * @cfg {String} minOnlyMessage
 @@ -34,7 +34,7 @@
@@ -442,7 +442,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
           */
 -        minOnlyMessage: 'Value must be greater than {0}',
 +        minOnlyMessage: window.l10nd( "ext", "Value must be greater than {0}" ),
-
+ 
          /**
           * @cfg {String} maxOnlyMessage
 @@ -42,7 +42,7 @@
@@ -451,7 +451,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
           */
 -        maxOnlyMessage: 'Value must be less than {0}',
 +        maxOnlyMessage: window.l10nd( "ext", "Value must be less than {0}" ),
-
+ 
          /**
           * @cfg {String} bothMessage
 @@ -50,7 +50,7 @@
@@ -461,138 +461,138 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
 -        bothMessage: 'Value must be between {0} and {1}'
 +        bothMessage: window.l10nd( "ext", "Value must be between {0} and {1}" )
      },
-
+ 
      resetMessages: function() {
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/CIDRv4.js node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv4.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/CIDRv4.js	2023-06-21 13:25:29.759636400 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv4.js	2022-07-02 15:18:21.333318400 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv4.js	2023-07-22 10:53:46.344956900 +0300
 @@ -15,7 +15,7 @@
       * The error message to return when the value is not a valid CIDR block.
       * @locale
       */
 -    message: 'Is not a valid CIDR block',
 +    message: window.l10nd( "ext", "Is not a valid CIDR block" ),
-
+ 
      // http://www.regexpal.com/93987
-
+ 
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/CIDRv6.js node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv6.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/CIDRv6.js	2023-06-21 13:25:29.760633600 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv6.js	2022-07-02 15:18:21.333318400 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv6.js	2023-07-22 10:53:50.627329100 +0300
 @@ -16,7 +16,7 @@
       * The error message to return when the value is not a valid CIDR block.
       * @locale
       */
 -    message: 'Is not a valid CIDR block',
 +    message: window.l10nd( "ext", "Is not a valid CIDR block" ),
-
+ 
      // http://www.regexpal.com/93987
-
+ 
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Currency.js node_modules_patch/@sencha/ext-core/src/data/validator/Currency.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Currency.js	2023-06-21 13:25:29.762629800 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Currency.js	2022-07-02 15:18:21.333318400 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Currency.js	2023-07-22 10:53:54.767155600 +0300
 @@ -36,7 +36,7 @@
       * The error message to return when the value is not a valid currency amount.
       * @locale
       */
 -    message: 'Is not a valid currency amount',
 +    message: window.l10nd( "ext", "Is not a valid currency amount" ),
-
+ 
      applySymbolAtEnd: function(value) {
          return value === undefined ? Ext.util.Format.currencyAtEnd : value;
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Date.js node_modules_patch/@sencha/ext-core/src/data/validator/Date.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Date.js	2023-06-21 13:25:29.763625900 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Date.js	2022-07-02 15:18:21.334315800 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Date.js	2023-07-22 10:53:59.054474000 +0300
 @@ -14,7 +14,7 @@
       * The error message to return when the value is not a valid date.
       * @locale
       */
 -    message: 'Is not a valid date',
 +    message: window.l10nd( "ext", "Is not a valid date" ),
-
+ 
      /**
       * @cfg {String/String[]} format
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/DateTime.js node_modules_patch/@sencha/ext-core/src/data/validator/DateTime.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/DateTime.js	2023-06-21 13:25:29.764623600 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/DateTime.js	2022-07-02 15:18:21.334315800 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/DateTime.js	2023-07-22 10:54:02.884889900 +0300
 @@ -14,7 +14,7 @@
       * The error message to return when the value is not a valid time.
       * @locale
       */
 -    message: 'Is not a valid date and time',
 +    message: window.l10nd( "ext", "Is not a valid date and time" ),
-
+ 
      /**
       * @cfg {String/String[]} format
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Email.js node_modules_patch/@sencha/ext-core/src/data/validator/Email.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Email.js	2023-06-21 13:25:29.765621800 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Email.js	2022-07-02 15:18:21.334315800 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Email.js	2023-07-22 10:54:06.562071800 +0300
 @@ -12,7 +12,7 @@
       * The error message to return when the value is not a valid email
       * @locale
       */
 -    message: 'Is not a valid email address',
 +    message: window.l10nd( "ext", "Is not a valid email address" ),
-
+ 
      // http://en.wikipedia.org/wiki/Email_address#Local_part
      // http://stackoverflow.com/a/2049510
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Exclusion.js node_modules_patch/@sencha/ext-core/src/data/validator/Exclusion.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Exclusion.js	2023-06-21 13:25:29.766635400 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Exclusion.js	2022-07-02 15:18:21.334315800 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Exclusion.js	2023-07-22 10:54:10.428810000 +0300
 @@ -13,7 +13,7 @@
       * specified {@link #list}.
       * @locale
       */
 -    message: 'Is a value that has been excluded',
 +    message: window.l10nd( "ext", "Is a value that has been excluded" ),
-
+ 
      //<debug>
      constructor: function() {
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Format.js node_modules_patch/@sencha/ext-core/src/data/validator/Format.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Format.js	2023-06-21 13:25:29.767886800 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Format.js	2022-07-02 15:18:21.335313100 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Format.js	2023-07-22 10:54:15.339415700 +0300
 @@ -14,7 +14,7 @@
           * The error message to return when the value does not match the format.
           * @locale
           */
 -        message: 'Is in the wrong format',
 +        message: window.l10nd( "ext", "Is in the wrong format" ),
-
+ 
          /**
           * @cfg {RegExp} matcher (required) The matcher regex to test against the value.
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Inclusion.js node_modules_patch/@sencha/ext-core/src/data/validator/Inclusion.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Inclusion.js	2023-06-21 13:25:29.768887000 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Inclusion.js	2022-07-02 15:18:21.335313100 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Inclusion.js	2023-07-22 10:54:19.255469700 +0300
 @@ -13,7 +13,7 @@
       * in the specified {@link #list}.
       * @locale
       */
 -    message: 'Is not in the list of acceptable values',
 +    message: window.l10nd( "ext", "Is not in the list of acceptable values" ),
-
+ 
      //<debug>
      constructor: function() {
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/IPAddress.js node_modules_patch/@sencha/ext-core/src/data/validator/IPAddress.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/IPAddress.js	2023-06-21 13:25:29.769885600 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/IPAddress.js	2022-07-02 15:18:21.335313100 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/IPAddress.js	2023-07-22 10:54:23.419544800 +0300
 @@ -14,7 +14,7 @@
       * The error message to return when the value is not a valid IP address
       * @locale
       */
 -    message: 'Is not a valid IP address',
 +    message: window.l10nd( "ext", "Is not a valid IP address" ),
-
+ 
      // http://stackoverflow.com/questions/23483855/javascript-regex-to-validate-ipv4-and-ipv6-address-no-hostnames
      /**
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Length.js node_modules_patch/@sencha/ext-core/src/data/validator/Length.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Length.js	2023-06-21 13:25:29.770882900 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Length.js	2022-07-02 15:18:21.335313100 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Length.js	2023-07-22 10:54:27.812677500 +0300
 @@ -23,7 +23,7 @@
       * length and only a minimum is specified.
       * @locale
       */
 -    minOnlyMessage: 'Length must be at least {0}',
 +    minOnlyMessage: window.l10nd( "ext", "Length must be at least {0}" ),
-
+ 
      /**
       * @cfg {String} maxOnlyMessage
 @@ -31,7 +31,7 @@
@@ -601,7 +601,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       */
 -    maxOnlyMessage: 'Length must be no more than {0}',
 +    maxOnlyMessage: window.l10nd( "ext", "Length must be no more than {0}" ),
-
+ 
      /**
       * @cfg {String} bothMessage
 @@ -39,7 +39,7 @@
@@ -610,55 +610,55 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       */
 -    bothMessage: 'Length must be between {0} and {1}',
 +    bothMessage: window.l10nd( "ext", "Length must be between {0} and {1}" ),
-
+ 
      getValue: function(v) {
          return String(v).length;
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Number.js node_modules_patch/@sencha/ext-core/src/data/validator/Number.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Number.js	2023-06-21 13:25:29.775871700 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Number.js	2022-07-02 15:18:21.335313100 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Number.js	2023-07-22 10:54:33.309403100 +0300
 @@ -21,7 +21,7 @@
           * The error message to return when the value is not a valid number.
           * @locale
           */
 -        message: 'Is not a valid number',
 +        message: window.l10nd( "ext", "Is not a valid number" ),
-
+ 
          /**
           * @cfg {String} thousandSeparator
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Phone.js node_modules_patch/@sencha/ext-core/src/data/validator/Phone.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Phone.js	2023-06-21 13:25:29.778080300 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Phone.js	2022-07-02 15:18:21.335313100 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Phone.js	2023-07-22 10:54:37.886607500 +0300
 @@ -15,7 +15,7 @@
       * The error message to return when the value is not a valid phone.
       * @locale
       */
 -    message: 'Is not a valid phone number',
 +    message: window.l10nd( "ext", "Is not a valid phone number" ),
-
+ 
      /**
       * @cfg {RegExp} matcher
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Presence.js node_modules_patch/@sencha/ext-core/src/data/validator/Presence.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Presence.js	2023-06-21 13:25:29.779078900 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Presence.js	2022-07-02 15:18:21.336310400 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Presence.js	2023-07-22 10:54:41.911860600 +0300
 @@ -16,7 +16,7 @@
           * The error message to return when the value is not specified.
           * @locale
           */
 -        message: 'Must be present',
 +        message: window.l10nd( "ext", "Must be present" ),
-
+ 
          /**
           * @cfg {Boolean} allowEmpty
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Range.js node_modules_patch/@sencha/ext-core/src/data/validator/Range.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Range.js	2023-06-21 13:25:29.780074900 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Range.js	2022-07-02 15:18:21.336310400 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Range.js	2023-07-22 10:54:46.686338500 +0300
 @@ -22,21 +22,21 @@
       * @inheritdoc
       * @locale
       */
 -    minOnlyMessage: 'Must be at least {0}',
 +    minOnlyMessage: window.l10nd( "ext", "Must be at least {0}" ),
-
+ 
      /**
       * @cfg maxOnlyMessage
       * @inheritdoc
@@ -666,7 +666,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       */
 -    maxOnlyMessage: 'Must be no more than than {0}',
 +    maxOnlyMessage: window.l10nd( "ext", "Must be no more than than {0}" ),
-
+ 
      /**
       * @cfg bothMessage
       * @inheritdoc
@@ -674,31 +674,31 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       */
 -    bothMessage: 'Must be between {0} and {1}',
 +    bothMessage: window.l10nd( "ext", "Must be between {0} and {1}" ),
-
+ 
      config: {
          /**
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Time.js node_modules_patch/@sencha/ext-core/src/data/validator/Time.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Time.js	2023-06-21 13:25:29.780074900 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Time.js	2022-07-02 15:18:21.336310400 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Time.js	2023-07-22 10:54:50.802983000 +0300
 @@ -14,7 +14,7 @@
       * The error message to return when the value is not a valid time.
       * @locale
       */
 -    message: 'Is not a valid time',
 +    message: window.l10nd( "ext", "Is not a valid time" ),
-
+ 
      /**
       * @cfg {String/String[]} format
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Url.js node_modules_patch/@sencha/ext-core/src/data/validator/Url.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Url.js	2023-06-21 13:25:29.781072400 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Url.js	2022-07-02 15:18:21.336310400 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Url.js	2023-07-22 10:54:55.607573500 +0300
 @@ -12,7 +12,7 @@
       * The error message to return when the value is not a valid URL.
       * @locale
       */
 -    message: 'Is not a valid URL',
 +    message: window.l10nd( "ext", "Is not a valid URL" ),
-
+ 
      // URL validator that works is non-trivial
      // There are numerous examples online but not all pass rigoruous test:
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-font-awesome/sass/src/all.scss node_modules_patch/@sencha/ext-font-awesome/sass/src/all.scss
@@ -722,7 +722,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-font-
 -@import "../etc/_stacked.scss";
 -@import "../etc/fa-brands.scss";
 -@import "../etc/fa-regular.scss";
--@import "../etc/fa-solid.scss";
+-@import "../etc/fa-solid.scss";  
 -
 -// The "x-fa" class should be used in Ext JS applications instead
 -// of "fa".  The "fa" class sets some properties that may collide
@@ -744,27 +744,27 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-font-
 +// FontAwesome removed from ExtJS
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/Dialog.js node_modules_patch/@sencha/ext-modern/src/Dialog.js
 --- ../node_modules/@sencha/ext-modern/src/Dialog.js	2023-06-21 13:25:29.544583600 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/Dialog.js	2022-07-24 05:06:49.042399300 +0300
++++ node_modules_patch/@sencha/ext-modern/src/Dialog.js	2023-07-06 14:38:08.875963300 +0300
 @@ -848,6 +848,9 @@
          var me = this,
              sibling = me.getModalSibling && me.getModalSibling();
-
+ 
 +        // patch, prevent default event action
 +        event.preventDefault();
 +
          me.close(event);
-
+ 
          if (sibling) {
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/field/Field.js node_modules_patch/@sencha/ext-modern/src/field/Field.js
 --- ../node_modules/@sencha/ext-modern/src/field/Field.js	2023-06-21 13:25:29.583056700 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/field/Field.js	2022-08-12 21:18:48.357738300 +0300
++++ node_modules_patch/@sencha/ext-modern/src/field/Field.js	2023-07-22 10:55:00.435408400 +0300
 @@ -163,7 +163,7 @@
           * The error message to display when {@link #required} is `true` and the field's
           * value is "empty" (`null`, `undefined`, or empty string).
           */
 -        requiredMessage: 'This field is required',
 +        requiredMessage: window.l10nd( "ext", "This field is required" ),
-
+ 
          /**
           * @cfg {Mixed}
 @@ -225,7 +225,7 @@
@@ -773,19 +773,19 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
           */
 -        validationMessage: 'Is in the wrong format',
 +        validationMessage: window.l10nd( "ext", "Is in the wrong format" ),
-
+ 
          /**
           * @cfg {Boolean} [validateDisabled=false]
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/field/Number.js node_modules_patch/@sencha/ext-modern/src/field/Number.js
 --- ../node_modules/@sencha/ext-modern/src/field/Number.js	2023-06-21 13:25:29.597678900 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/field/Number.js	2022-08-12 21:22:13.138073600 +0300
++++ node_modules_patch/@sencha/ext-modern/src/field/Number.js	2023-07-22 10:55:08.024504700 +0300
 @@ -191,7 +191,7 @@
       * @Locale
       * @since 6.5.1
       */
 -    minValueText: 'The minimum value for this field is {0}',
 +    minValueText: window.l10nd( "ext", "The minimum value for this field is {0}" ),
-
+ 
      /**
       * @cfg {String} maxValueText
 @@ -199,7 +199,7 @@
@@ -794,7 +794,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
       */
 -    maxValueText: 'The maximum value for this field is {0}',
 +    maxValueText: window.l10nd( "ext", "The maximum value for this field is {0}" ),
-
+ 
      /**
       * @cfg {String} decimalsText
 @@ -208,9 +208,9 @@
@@ -803,15 +803,15 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
       */
 -    decimalsText: 'The maximum decimal places is {0}',
 +    decimalsText: window.l10nd( "ext", "The maximum decimal places is {0}" ),
-
+ 
 -    badFormatMessage: 'Value is not a valid number',
 +    badFormatMessage: window.l10nd( "ext", "Value is not a valid number" ),
-
+ 
      classCls: Ext.baseCSSPrefix + 'numberfield',
-
+ 
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/locked/Grid.js node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js
 --- ../node_modules/@sencha/ext-modern/src/grid/locked/Grid.js	2023-06-21 13:25:29.761632500 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js	2023-04-30 13:36:52.949693400 +0300
++++ node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js	2023-07-22 10:55:12.305326800 +0300
 @@ -58,7 +58,7 @@
          columnMenu: {
              items: {
@@ -825,7 +825,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
          /**
           * @cfg {Object} leftGridDefaults
           *  This config is applied to all left-side regions (those of negative 'weight').
--         *  To set defaults for all grids within left-side regions configure the `grid`
+-         *  To set defaults for all grids within left-side regions configure the `grid` 
 +         *  To set defaults for all grids within left-side regions configure the `grid`
           *  property within this config.
           */
@@ -859,25 +859,25 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
          /**
           * @cfg {Object} rightGridDefaults
           *  This config is applied to all right-side regions (those of positive 'weight').
--         *  To set defaults for all grids within right-side regions configure the `grid`
+-         *  To set defaults for all grids within right-side regions configure the `grid` 
 +         *  To set defaults for all grids within right-side regions configure the `grid`
           *  property within this config.
           */
          rightRegionDefaults: {
 @@ -235,7 +235,7 @@
-
+ 
      /**
       * @event beforestaterestore
--     * Fires before the state of the object is restored.
+-     * Fires before the state of the object is restored. 
 +     * Fires before the state of the object is restored.
       * Return false from an event handler to stop the restore.
       * @param {Ext.grid.locked.Grid} grid this Grid
       * @param {Object} state The hash of state values returned from the StateProvider. If this
 @@ -453,7 +453,7 @@
-
+ 
          gridItems = me.gridItems;
-
--        // update grid header reorder
+ 
+-        // update grid header reorder 
 +        // update grid header reorder
          for (b = 0; b < gridItems.length; b++) {
              gridItems[b].setEnableColumnMove(enabled);
@@ -885,23 +885,23 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
 @@ -878,7 +878,7 @@
              me.doHorizontalScrollCheck();
              me.doVerticalScrollCheck();
-
--            // Update columns state
+ 
+-            // Update columns state 
 +            // Update columns state
              if (column.region) {
                  me.onAfterRegionChange(column);
              }
 @@ -1224,11 +1224,11 @@
-
+ 
          /**
           * @private
--         * Prepare state data from all the region grid and assign moved column
+-         * Prepare state data from all the region grid and assign moved column 
 +         * Prepare state data from all the region grid and assign moved column
           * to its original region state.
--         *
+-         * 
 +         *
           * `Ex-` Moving column1 from left region to right Region, grid state returns
--         * state data as
+-         * state data as 
 +         * state data as
           *      {
           *           left:{h1: {}},
@@ -910,8 +910,8 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
           *                        } // `left-h0` property indicates it belongs to left region
           *                          // Grid and 0 column state data
           *           }
--         *       }
--         *
+-         *       } 
+-         *  
 +         *       }
 +         *
           *   After re-arranging the position
@@ -921,37 +921,37 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
           *           },
           *           center:{h1:{}},
           *           right:{}
--         *       }
--         *
+-         *       }     
+-         *      
 +         *       }
 +         *
           * @returns {Object} Grid column object
           */
          reCalculateColumnState: function(stateData) {
 @@ -1404,10 +1404,10 @@
-
+ 
          /**
           * Assign column region key to calculate the moved state
--         * @param {Ext.grid.locked.Grid} grid
+-         * @param {Ext.grid.locked.Grid} grid 
 +         * @param {Ext.grid.locked.Grid} grid
           * @param {Object[]} column Region grid column
--         * @param {String} regionKey
--         * @private
+-         * @param {String} regionKey 
+-         * @private 
 +         * @param {String} regionKey
 +         * @private
           */
          updateColumnRegion: function(columns, regionKey) {
              var column, i;
 @@ -1426,10 +1426,10 @@
-
+ 
          /**
           * Set column config from the saved state
--         * @param {Ext.grid.locked.Grid} grid
--         * @param {Ext.grid.column.Column} column
+-         * @param {Ext.grid.locked.Grid} grid 
+-         * @param {Ext.grid.column.Column} column 
 +         * @param {Ext.grid.locked.Grid} grid
 +         * @param {Ext.grid.column.Column} column
           * @param {Object} data Column state data
--         * @private
+-         * @private 
 +         * @private
           */
          updateColumnFromState: function(grid, column, stateData) {
@@ -960,17 +960,17 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
          /**
           * Apply saved state to the grid
           * @param {Object} stateData Grid column state data
--         * @private
+-         * @private 
 +         * @private
           */
          applyColumnState: function(stateData) {
              var me = this,
 @@ -1580,8 +1580,8 @@
          },
-
+ 
          /**
--         * Update header group hidden state
--         * @param {Ext.grid.column.Column} column
+-         * Update header group hidden state 
+-         * @param {Ext.grid.column.Column} column 
 +         * Update header group hidden state
 +         * @param {Ext.grid.column.Column} column
           * @param {String} id Column State ID
@@ -978,7 +978,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
          onRegionColumnGroupRemove: function(column, id) {
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js node_modules_patch/@sencha/ext-modern/src/grid/menu/AddGroup.js
 --- ../node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js	2023-06-21 13:25:29.763625900 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/grid/menu/AddGroup.js	2022-07-02 15:18:21.338305100 +0300
++++ node_modules_patch/@sencha/ext-modern/src/grid/menu/AddGroup.js	2023-07-22 10:55:16.264627200 +0300
 @@ -13,5 +13,5 @@
       * The menu item text for the "Add to grouping" menu item.
       * @locale
@@ -988,16 +988,16 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/Columns.js node_modules_patch/@sencha/ext-modern/src/grid/menu/Columns.js
 --- ../node_modules/@sencha/ext-modern/src/grid/menu/Columns.js	2023-06-21 13:25:29.764623600 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/grid/menu/Columns.js	2022-07-02 15:18:21.338305100 +0300
++++ node_modules_patch/@sencha/ext-modern/src/grid/menu/Columns.js	2023-07-22 10:55:20.070930200 +0300
 @@ -14,7 +14,7 @@
       * The menu item text for the column visibility sub-menu.
       * @locale
       */
 -    text: 'Columns',
 +    text: window.l10nd( "ext", "Columns" ),
-
+ 
      menu: {},
-
+ 
 @@ -55,14 +55,6 @@
              // See HeaderContainer#updateMenuDisabledState for keeping this
              // synched while hiding and showing columns.
@@ -1015,7 +1015,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
          }
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js node_modules_patch/@sencha/ext-modern/src/grid/menu/GroupByThis.js
 --- ../node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js	2023-06-21 13:25:29.765621800 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/grid/menu/GroupByThis.js	2022-07-02 15:18:21.338305100 +0300
++++ node_modules_patch/@sencha/ext-modern/src/grid/menu/GroupByThis.js	2023-07-22 10:55:23.793944800 +0300
 @@ -14,5 +14,5 @@
       * The menu item text for the "Group by this field" menu item.
       * @locale
@@ -1025,9 +1025,9 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/Groups.js node_modules_patch/@sencha/ext-modern/src/grid/menu/Groups.js
 --- ../node_modules/@sencha/ext-modern/src/grid/menu/Groups.js	2023-06-21 13:25:29.766635400 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/grid/menu/Groups.js	2022-07-02 15:18:21.338305100 +0300
++++ node_modules_patch/@sencha/ext-modern/src/grid/menu/Groups.js	2023-07-22 10:55:27.647810800 +0300
 @@ -17,11 +17,11 @@
-
+ 
      menu: [{
          iconCls: Ext.baseCSSPrefix + 'headermenu-expand-groups',
 -        text: 'Expand all',
@@ -1042,7 +1042,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js node_modules_patch/@sencha/ext-modern/src/grid/menu/RemoveGroup.js
 --- ../node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js	2023-06-21 13:25:29.767886800 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/grid/menu/RemoveGroup.js	2022-07-02 15:18:21.338305100 +0300
++++ node_modules_patch/@sencha/ext-modern/src/grid/menu/RemoveGroup.js	2023-07-22 10:55:31.579355900 +0300
 @@ -13,5 +13,5 @@
       * The menu item text for the "Remove from grouping" menu item.
       * @locale
@@ -1052,7 +1052,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js node_modules_patch/@sencha/ext-modern/src/grid/menu/ShowInGroups.js
 --- ../node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js	2023-06-21 13:25:29.769885600 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/grid/menu/ShowInGroups.js	2022-07-02 15:18:21.338305100 +0300
++++ node_modules_patch/@sencha/ext-modern/src/grid/menu/ShowInGroups.js	2023-07-22 10:55:35.406449100 +0300
 @@ -14,5 +14,5 @@
       * Text displayed in the grid header for enabling/disabling grouping.
       * @locale
@@ -1062,39 +1062,39 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js node_modules_patch/@sencha/ext-modern/src/grid/menu/SortAsc.js
 --- ../node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js	2023-06-21 13:25:29.770882900 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/grid/menu/SortAsc.js	2022-07-02 15:18:21.339292700 +0300
++++ node_modules_patch/@sencha/ext-modern/src/grid/menu/SortAsc.js	2023-07-22 10:55:39.250622800 +0300
 @@ -14,7 +14,7 @@
       * The menu item text for the Sort Ascending menu item.
       * @locale
       */
 -    text: 'Sort Ascending',
 +    text: window.l10nd( "ext", "Sort ascending" ),
-
+ 
      value: 'ASC',
-
+ 
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js node_modules_patch/@sencha/ext-modern/src/grid/menu/SortDesc.js
 --- ../node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js	2023-06-21 13:25:29.772876100 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/grid/menu/SortDesc.js	2022-07-02 15:18:21.339292700 +0300
++++ node_modules_patch/@sencha/ext-modern/src/grid/menu/SortDesc.js	2023-07-22 10:55:42.964264300 +0300
 @@ -14,7 +14,7 @@
       * The menu item text for the Sort Ascending menu item.
       * @locale
       */
 -    text: 'Sort Descending',
 +    text: window.l10nd( "ext", "Sort descending" ),
-
+ 
      value: 'DESC',
-
+ 
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js
 --- ../node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2023-06-21 13:25:29.825638200 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2022-07-02 15:18:21.339292700 +0300
++++ node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2023-07-22 10:55:47.465137900 +0300
 @@ -72,9 +72,9 @@
   * import '@sencha/ext-web-components/dist/ext-container.component';
   * import '@sencha/ext-web-components/dist/ext-grid.component';
   * import '@sencha/ext-web-components/dist/ext-column.component';
-- *
+- * 
 + *
   * Ext.require('Ext.grid.plugin.ViewOptions');
-- *
+- * 
 + *
   * export default class BasicGridComponent {
   *     constructor() {
@@ -1103,14 +1103,14 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
   *           ]
   *        });
   *     }
-- *
+- * 
 + *
   *     onGridReady(event) {
   *         this.basicGridCmp = event.detail.cmp;
   *         this.basicGridCmp.setStore(this.store);
   *     }
   * }
-- *
+- * 
 + *
   *   window.basicgrid = new BasicGridComponent();
   * ```
@@ -1118,7 +1118,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
   * @example({framework: 'ext-react', packages:['ext-react']})
   * import React, { Component } from 'react'
   * import { ExtGrid, ExtColumn } from '@sencha/ext-react';
-- *
+- * 
 + *
   * Ext.require('Ext.grid.plugin.ViewOptions');
   *
@@ -1161,7 +1161,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
 -            len = this.getGrid().getVisibleColumns().length,
 -            hideShowMenuItem = column.getHideShowMenuItem();
 +            len = this.getGrid().getVisibleColumns().length;
-
+ 
          if (len > 1 || (len && column.isHidden())) {
              column.setHidden(hidden);
 -
@@ -1175,7 +1175,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
      },
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/panel/Date.js node_modules_patch/@sencha/ext-modern/src/panel/Date.js
 --- ../node_modules/@sencha/ext-modern/src/panel/Date.js	2023-06-21 13:25:29.948147700 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/panel/Date.js	2022-07-02 15:18:21.340291600 +0300
++++ node_modules_patch/@sencha/ext-modern/src/panel/Date.js	2023-07-06 14:38:08.875963300 +0300
 @@ -350,7 +350,7 @@
      tools: {
          previousMonth: {
@@ -1214,7 +1214,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
              increment: 1,
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/Panel.js node_modules_patch/@sencha/ext-modern/src/Panel.js
 --- ../node_modules/@sencha/ext-modern/src/Panel.js	2023-06-21 13:25:29.936504700 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/Panel.js	2022-07-02 15:18:21.337307900 +0300
++++ node_modules_patch/@sencha/ext-modern/src/Panel.js	2023-07-22 10:55:54.998364500 +0300
 @@ -748,7 +748,7 @@
           * **Note:** Applicable when the panel is {@link #closable}: true
           * @locale
@@ -1222,18 +1222,18 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
 -        closeToolText: 'Close panel'
 +        closeToolText: window.l10nd( "ext", "Close panel" )
      },
-
+ 
      /**
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/picker/Date.js node_modules_patch/@sencha/ext-modern/src/picker/Date.js
 --- ../node_modules/@sencha/ext-modern/src/picker/Date.js	2023-06-21 13:25:29.959683300 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/picker/Date.js	2022-07-02 15:18:21.340291600 +0300
++++ node_modules_patch/@sencha/ext-modern/src/picker/Date.js	2023-07-22 10:55:58.676559100 +0300
 @@ -160,21 +160,21 @@
           * The label to show for the month column.
           * @accessor
           */
 -        monthText: 'Month',
 +        monthText: window.l10nd( "ext", "Month" ),
-
+ 
          /**
           * @cfg {String} dayText
           * The label to show for the day column.
@@ -1241,7 +1241,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
           */
 -        dayText: 'Day',
 +        dayText: window.l10nd( "ext", "Day" ),
-
+ 
          /**
           * @cfg {String} yearText
           * The label to show for the year column.
@@ -1249,12 +1249,12 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
           */
 -        yearText: 'Year',
 +        yearText: window.l10nd( "ext", "Year" ),
-
+ 
          /**
           * @cfg {Array} slotOrder
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/picker/Picker.js node_modules_patch/@sencha/ext-modern/src/picker/Picker.js
 --- ../node_modules/@sencha/ext-modern/src/picker/Picker.js	2023-06-21 13:25:29.960681900 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/picker/Picker.js	2022-07-02 15:18:21.340291600 +0300
++++ node_modules_patch/@sencha/ext-modern/src/picker/Picker.js	2023-07-22 10:56:02.525971200 +0300
 @@ -1,4 +1,4 @@
 -/**
 +    /**
@@ -1262,53 +1262,53 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
   * slots into a single picker. {@link #slots} is the only necessary configuration.
   *
 @@ -512,7 +512,7 @@
-
+ 
              Ext.applyIf(config, {
                  align: 'right',
 -                text: 'Done'
 +                text: window.l10nd( "ext", "Done" )
              });
          }
-
+ 
 @@ -549,7 +549,7 @@
-
+ 
              Ext.applyIf(config, {
                  align: 'left',
 -                text: 'Cancel'
 +                text: window.l10nd( "ext", "Cancel" )
              });
          }
-
+ 
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss node_modules_patch/@sencha/ext-modern-theme-base/sass/etc/all.scss
 --- ../node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss	2023-06-21 13:25:28.721059300 +0300
-+++ node_modules_patch/@sencha/ext-modern-theme-base/sass/etc/all.scss	2023-06-21 13:55:25.483122000 +0300
++++ node_modules_patch/@sencha/ext-modern-theme-base/sass/etc/all.scss	2023-07-06 14:38:08.875963300 +0300
 @@ -1,5 +1,5 @@
  $ext-version: '7.7.0'!default;  // Updated automatically by the build script.
 -$ext-trial: true!default; // Updated automatically by the build script.
 +$ext-trial: false!default; // Updated automatically by the build script.
  $ext-beta: false !default; // Updated automatically by the build script.
  @import 'compass/css3';
-
+ 
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-web-components-modern/src/common/util.js node_modules_patch/@sencha/ext-web-components-modern/src/common/util.js
 --- ../node_modules/@sencha/ext-web-components-modern/src/common/util.js	2023-06-21 13:25:31.201154700 +0300
-+++ node_modules_patch/@sencha/ext-web-components-modern/src/common/util.js	2022-12-19 09:26:09.392515700 +0200
++++ node_modules_patch/@sencha/ext-web-components-modern/src/common/util.js	2023-07-06 14:38:08.875963300 +0300
 @@ -51,7 +51,7 @@
      `
      window.stop();
    };
--  if (scriptIt() != 0)
+-  if (scriptIt() != 0) 
 +  if (scriptIt() != 0)
-
+ 
    console.warn('[Deprecation] error below is expected');
-
+ 
 @@ -109,9 +109,14 @@
    }
  }
-
+ 
 +// NOTE patch
  function doSet(me,prop,val) {
    //console.log('doSet: ' + prop)
-
+ 
 +  // NOTE patch
 +  // VueJS set properties as is, without any coercion, for boolean props we need stringify boolean values
 +  if ( typeof val === "boolean" ) val = val.toString();
@@ -1319,7 +1319,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-web-c
 @@ -165,7 +170,13 @@
    }
  }
-
+ 
 +// NOTE patch
  export function filterProp(propertyValue, property, me) {
 +
@@ -1332,7 +1332,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-web-c
        return me.attributeObjects[property]
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js node_modules_patch/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js
 --- ../node_modules/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js	2023-06-21 13:25:31.147942800 +0300
-+++ node_modules_patch/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js	2022-07-02 15:18:21.341288800 +0300
++++ node_modules_patch/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js	2023-07-06 14:38:08.875963300 +0300
 @@ -133,6 +133,7 @@
      'viewModel',
      'weight',
