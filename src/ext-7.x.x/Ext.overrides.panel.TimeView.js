@@ -8,11 +8,11 @@ Ext.define( "Ext.overrides.panel.TimeView", {
         "meridiem": locale.hour12,
         "defaultButtons": [
             {
-                "text": window.i18nd( "ext", "Ok" ),
+                "text": window.l10nd( "ext", "Ok" ),
                 "handler": "up.onConfirm",
             },
             {
-                "text": window.i18nd( "ext", "Cancel" ),
+                "text": window.l10nd( "ext", "Cancel" ),
                 "handler": "up.onDecline",
             },
         ],

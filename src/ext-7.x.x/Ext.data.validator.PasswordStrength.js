@@ -6,7 +6,7 @@ Ext.define( "Ext.data.validator.PasswordStrength", {
     "alias": "data.validator.password-strength",
     "type": "password-strength",
 
-    "weakMessage": locale.i18nd( `ext`, `Password is weak` ),
+    "weakMessage": locale.l10nd( `ext`, `Password is weak` ),
 
     "config": {
         "strength": "strong",
