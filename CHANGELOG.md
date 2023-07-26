@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.16.1 (2023-07-26)
+
+Fixes:
+
+-   fix: linted
+
 ### 5.16.0 (2023-07-22)
 
 Features:
