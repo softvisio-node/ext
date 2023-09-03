@@ -1,5 +1,5 @@
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/field/Field.js node_modules_patch/@sencha/ext-core/src/data/field/Field.js
---- ../node_modules/@sencha/ext-core/src/data/field/Field.js	2023-06-21 13:25:29.545579700 +0300
+--- ../node_modules/@sencha/ext-core/src/data/field/Field.js	2023-09-03 09:59:38.438216100 +0300
 +++ node_modules_patch/@sencha/ext-core/src/data/field/Field.js	2023-07-22 10:53:37.930440500 +0300
 @@ -133,9 +133,9 @@
   *
@@ -148,7 +148,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       *
       * @readonly
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/Model.js node_modules_patch/@sencha/ext-core/src/data/Model.js
---- ../node_modules/@sencha/ext-core/src/data/Model.js	2023-06-21 13:25:29.593564000 +0300
+--- ../node_modules/@sencha/ext-core/src/data/Model.js	2023-09-03 09:59:38.489606000 +0300
 +++ node_modules_patch/@sencha/ext-core/src/data/Model.js	2023-07-06 14:38:08.866425300 +0300
 @@ -111,7 +111,7 @@
   * values.
@@ -425,7 +425,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
           * @inheritable
           */
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Bound.js node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js
---- ../node_modules/@sencha/ext-core/src/data/validator/Bound.js	2023-06-21 13:25:29.757639100 +0300
+--- ../node_modules/@sencha/ext-core/src/data/validator/Bound.js	2023-09-03 09:59:38.636727700 +0300
 +++ node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js	2023-07-22 10:53:42.225884700 +0300
 @@ -26,7 +26,7 @@
           * The error message to return when the value is empty.
@@ -464,7 +464,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
  
      resetMessages: function() {
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/CIDRv4.js node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv4.js
---- ../node_modules/@sencha/ext-core/src/data/validator/CIDRv4.js	2023-06-21 13:25:29.759636400 +0300
+--- ../node_modules/@sencha/ext-core/src/data/validator/CIDRv4.js	2023-09-03 09:59:38.637726000 +0300
 +++ node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv4.js	2023-07-22 10:53:46.344956900 +0300
 @@ -15,7 +15,7 @@
       * The error message to return when the value is not a valid CIDR block.
@@ -476,7 +476,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
      // http://www.regexpal.com/93987
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/CIDRv6.js node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv6.js
---- ../node_modules/@sencha/ext-core/src/data/validator/CIDRv6.js	2023-06-21 13:25:29.760633600 +0300
+--- ../node_modules/@sencha/ext-core/src/data/validator/CIDRv6.js	2023-09-03 09:59:38.637726000 +0300
 +++ node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv6.js	2023-07-22 10:53:50.627329100 +0300
 @@ -16,7 +16,7 @@
       * The error message to return when the value is not a valid CIDR block.
@@ -488,7 +488,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
      // http://www.regexpal.com/93987
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Currency.js node_modules_patch/@sencha/ext-core/src/data/validator/Currency.js
---- ../node_modules/@sencha/ext-core/src/data/validator/Currency.js	2023-06-21 13:25:29.762629800 +0300
+--- ../node_modules/@sencha/ext-core/src/data/validator/Currency.js	2023-09-03 09:59:38.639721400 +0300
 +++ node_modules_patch/@sencha/ext-core/src/data/validator/Currency.js	2023-07-22 10:53:54.767155600 +0300
 @@ -36,7 +36,7 @@
       * The error message to return when the value is not a valid currency amount.
@@ -500,7 +500,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
      applySymbolAtEnd: function(value) {
          return value === undefined ? Ext.util.Format.currencyAtEnd : value;
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Date.js node_modules_patch/@sencha/ext-core/src/data/validator/Date.js
---- ../node_modules/@sencha/ext-core/src/data/validator/Date.js	2023-06-21 13:25:29.763625900 +0300
+--- ../node_modules/@sencha/ext-core/src/data/validator/Date.js	2023-09-03 09:59:38.640717800 +0300
 +++ node_modules_patch/@sencha/ext-core/src/data/validator/Date.js	2023-07-22 10:53:59.054474000 +0300
 @@ -14,7 +14,7 @@
       * The error message to return when the value is not a valid date.
@@ -512,7 +512,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
      /**
       * @cfg {String/String[]} format
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/DateTime.js node_modules_patch/@sencha/ext-core/src/data/validator/DateTime.js
---- ../node_modules/@sencha/ext-core/src/data/validator/DateTime.js	2023-06-21 13:25:29.764623600 +0300
+--- ../node_modules/@sencha/ext-core/src/data/validator/DateTime.js	2023-09-03 09:59:38.641714700 +0300
 +++ node_modules_patch/@sencha/ext-core/src/data/validator/DateTime.js	2023-07-22 10:54:02.884889900 +0300
 @@ -14,7 +14,7 @@
       * The error message to return when the value is not a valid time.
@@ -524,7 +524,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
      /**
       * @cfg {String/String[]} format
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Email.js node_modules_patch/@sencha/ext-core/src/data/validator/Email.js
---- ../node_modules/@sencha/ext-core/src/data/validator/Email.js	2023-06-21 13:25:29.765621800 +0300
+--- ../node_modules/@sencha/ext-core/src/data/validator/Email.js	2023-09-03 09:59:38.642712000 +0300
 +++ node_modules_patch/@sencha/ext-core/src/data/validator/Email.js	2023-07-22 10:54:06.562071800 +0300
 @@ -12,7 +12,7 @@
       * The error message to return when the value is not a valid email
@@ -536,7 +536,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
      // http://en.wikipedia.org/wiki/Email_address#Local_part
      // http://stackoverflow.com/a/2049510
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Exclusion.js node_modules_patch/@sencha/ext-core/src/data/validator/Exclusion.js
---- ../node_modules/@sencha/ext-core/src/data/validator/Exclusion.js	2023-06-21 13:25:29.766635400 +0300
+--- ../node_modules/@sencha/ext-core/src/data/validator/Exclusion.js	2023-09-03 09:59:38.643709700 +0300
 +++ node_modules_patch/@sencha/ext-core/src/data/validator/Exclusion.js	2023-07-22 10:54:10.428810000 +0300
 @@ -13,7 +13,7 @@
       * specified {@link #list}.
@@ -548,7 +548,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
      //<debug>
      constructor: function() {
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Format.js node_modules_patch/@sencha/ext-core/src/data/validator/Format.js
---- ../node_modules/@sencha/ext-core/src/data/validator/Format.js	2023-06-21 13:25:29.767886800 +0300
+--- ../node_modules/@sencha/ext-core/src/data/validator/Format.js	2023-09-03 09:59:38.644707900 +0300
 +++ node_modules_patch/@sencha/ext-core/src/data/validator/Format.js	2023-07-22 10:54:15.339415700 +0300
 @@ -14,7 +14,7 @@
           * The error message to return when the value does not match the format.
@@ -560,7 +560,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
          /**
           * @cfg {RegExp} matcher (required) The matcher regex to test against the value.
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Inclusion.js node_modules_patch/@sencha/ext-core/src/data/validator/Inclusion.js
---- ../node_modules/@sencha/ext-core/src/data/validator/Inclusion.js	2023-06-21 13:25:29.768887000 +0300
+--- ../node_modules/@sencha/ext-core/src/data/validator/Inclusion.js	2023-09-03 09:59:38.644707900 +0300
 +++ node_modules_patch/@sencha/ext-core/src/data/validator/Inclusion.js	2023-07-22 10:54:19.255469700 +0300
 @@ -13,7 +13,7 @@
       * in the specified {@link #list}.
@@ -572,7 +572,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
      //<debug>
      constructor: function() {
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/IPAddress.js node_modules_patch/@sencha/ext-core/src/data/validator/IPAddress.js
---- ../node_modules/@sencha/ext-core/src/data/validator/IPAddress.js	2023-06-21 13:25:29.769885600 +0300
+--- ../node_modules/@sencha/ext-core/src/data/validator/IPAddress.js	2023-09-03 09:59:38.645705000 +0300
 +++ node_modules_patch/@sencha/ext-core/src/data/validator/IPAddress.js	2023-07-22 10:54:23.419544800 +0300
 @@ -14,7 +14,7 @@
       * The error message to return when the value is not a valid IP address
@@ -584,7 +584,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
      // http://stackoverflow.com/questions/23483855/javascript-regex-to-validate-ipv4-and-ipv6-address-no-hostnames
      /**
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Length.js node_modules_patch/@sencha/ext-core/src/data/validator/Length.js
---- ../node_modules/@sencha/ext-core/src/data/validator/Length.js	2023-06-21 13:25:29.770882900 +0300
+--- ../node_modules/@sencha/ext-core/src/data/validator/Length.js	2023-09-03 09:59:38.646702800 +0300
 +++ node_modules_patch/@sencha/ext-core/src/data/validator/Length.js	2023-07-22 10:54:27.812677500 +0300
 @@ -23,7 +23,7 @@
       * length and only a minimum is specified.
@@ -614,7 +614,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
      getValue: function(v) {
          return String(v).length;
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Number.js node_modules_patch/@sencha/ext-core/src/data/validator/Number.js
---- ../node_modules/@sencha/ext-core/src/data/validator/Number.js	2023-06-21 13:25:29.775871700 +0300
+--- ../node_modules/@sencha/ext-core/src/data/validator/Number.js	2023-09-03 09:59:38.649694800 +0300
 +++ node_modules_patch/@sencha/ext-core/src/data/validator/Number.js	2023-07-22 10:54:33.309403100 +0300
 @@ -21,7 +21,7 @@
           * The error message to return when the value is not a valid number.
@@ -626,7 +626,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
          /**
           * @cfg {String} thousandSeparator
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Phone.js node_modules_patch/@sencha/ext-core/src/data/validator/Phone.js
---- ../node_modules/@sencha/ext-core/src/data/validator/Phone.js	2023-06-21 13:25:29.778080300 +0300
+--- ../node_modules/@sencha/ext-core/src/data/validator/Phone.js	2023-09-03 09:59:38.649694800 +0300
 +++ node_modules_patch/@sencha/ext-core/src/data/validator/Phone.js	2023-07-22 10:54:37.886607500 +0300
 @@ -15,7 +15,7 @@
       * The error message to return when the value is not a valid phone.
@@ -638,7 +638,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
      /**
       * @cfg {RegExp} matcher
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Presence.js node_modules_patch/@sencha/ext-core/src/data/validator/Presence.js
---- ../node_modules/@sencha/ext-core/src/data/validator/Presence.js	2023-06-21 13:25:29.779078900 +0300
+--- ../node_modules/@sencha/ext-core/src/data/validator/Presence.js	2023-09-03 09:59:38.650690800 +0300
 +++ node_modules_patch/@sencha/ext-core/src/data/validator/Presence.js	2023-07-22 10:54:41.911860600 +0300
 @@ -16,7 +16,7 @@
           * The error message to return when the value is not specified.
@@ -650,7 +650,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
          /**
           * @cfg {Boolean} allowEmpty
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Range.js node_modules_patch/@sencha/ext-core/src/data/validator/Range.js
---- ../node_modules/@sencha/ext-core/src/data/validator/Range.js	2023-06-21 13:25:29.780074900 +0300
+--- ../node_modules/@sencha/ext-core/src/data/validator/Range.js	2023-09-03 09:59:38.651689100 +0300
 +++ node_modules_patch/@sencha/ext-core/src/data/validator/Range.js	2023-07-22 10:54:46.686338500 +0300
 @@ -22,21 +22,21 @@
       * @inheritdoc
@@ -678,7 +678,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
      config: {
          /**
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Time.js node_modules_patch/@sencha/ext-core/src/data/validator/Time.js
---- ../node_modules/@sencha/ext-core/src/data/validator/Time.js	2023-06-21 13:25:29.780074900 +0300
+--- ../node_modules/@sencha/ext-core/src/data/validator/Time.js	2023-09-03 09:59:38.652686100 +0300
 +++ node_modules_patch/@sencha/ext-core/src/data/validator/Time.js	2023-07-22 10:54:50.802983000 +0300
 @@ -14,7 +14,7 @@
       * The error message to return when the value is not a valid time.
@@ -690,7 +690,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
      /**
       * @cfg {String/String[]} format
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Url.js node_modules_patch/@sencha/ext-core/src/data/validator/Url.js
---- ../node_modules/@sencha/ext-core/src/data/validator/Url.js	2023-06-21 13:25:29.781072400 +0300
+--- ../node_modules/@sencha/ext-core/src/data/validator/Url.js	2023-09-03 09:59:38.653683200 +0300
 +++ node_modules_patch/@sencha/ext-core/src/data/validator/Url.js	2023-07-22 10:54:55.607573500 +0300
 @@ -12,7 +12,7 @@
       * The error message to return when the value is not a valid URL.
@@ -702,7 +702,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
      // URL validator that works is non-trivial
      // There are numerous examples online but not all pass rigoruous test:
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-font-awesome/sass/src/all.scss node_modules_patch/@sencha/ext-font-awesome/sass/src/all.scss
---- ../node_modules/@sencha/ext-font-awesome/sass/src/all.scss	2023-06-21 13:25:29.496045000 +0300
+--- ../node_modules/@sencha/ext-font-awesome/sass/src/all.scss	2023-09-03 09:59:38.355915200 +0300
 +++ node_modules_patch/@sencha/ext-font-awesome/sass/src/all.scss	2022-07-02 15:18:21.337307900 +0300
 @@ -1,36 +1 @@
 -// All rule-generating imports go here vs in etc/all.scss so that they will
@@ -743,7 +743,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-font-
 -// NOTE: _variables.scss is imported much earlier by ext/sass/etc/font-awesome-variables.scss
 +// FontAwesome removed from ExtJS
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/Dialog.js node_modules_patch/@sencha/ext-modern/src/Dialog.js
---- ../node_modules/@sencha/ext-modern/src/Dialog.js	2023-06-21 13:25:29.544583600 +0300
+--- ../node_modules/@sencha/ext-modern/src/Dialog.js	2023-09-03 09:59:38.366890100 +0300
 +++ node_modules_patch/@sencha/ext-modern/src/Dialog.js	2023-07-06 14:38:08.875963300 +0300
 @@ -848,6 +848,9 @@
          var me = this,
@@ -756,7 +756,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
  
          if (sibling) {
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/field/Field.js node_modules_patch/@sencha/ext-modern/src/field/Field.js
---- ../node_modules/@sencha/ext-modern/src/field/Field.js	2023-06-21 13:25:29.583056700 +0300
+--- ../node_modules/@sencha/ext-modern/src/field/Field.js	2023-09-03 09:59:38.437219900 +0300
 +++ node_modules_patch/@sencha/ext-modern/src/field/Field.js	2023-07-22 10:55:00.435408400 +0300
 @@ -163,7 +163,7 @@
           * The error message to display when {@link #required} is `true` and the field's
@@ -777,7 +777,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
          /**
           * @cfg {Boolean} [validateDisabled=false]
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/field/Number.js node_modules_patch/@sencha/ext-modern/src/field/Number.js
---- ../node_modules/@sencha/ext-modern/src/field/Number.js	2023-06-21 13:25:29.597678900 +0300
+--- ../node_modules/@sencha/ext-modern/src/field/Number.js	2023-09-03 09:59:38.457166800 +0300
 +++ node_modules_patch/@sencha/ext-modern/src/field/Number.js	2023-07-22 10:55:08.024504700 +0300
 @@ -191,7 +191,7 @@
       * @Locale
@@ -810,7 +810,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
      classCls: Ext.baseCSSPrefix + 'numberfield',
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/locked/Grid.js node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js
---- ../node_modules/@sencha/ext-modern/src/grid/locked/Grid.js	2023-06-21 13:25:29.761632500 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/locked/Grid.js	2023-09-03 09:59:38.614789500 +0300
 +++ node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js	2023-07-22 10:55:12.305326800 +0300
 @@ -58,7 +58,7 @@
          columnMenu: {
@@ -977,7 +977,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
           */
          onRegionColumnGroupRemove: function(column, id) {
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js node_modules_patch/@sencha/ext-modern/src/grid/menu/AddGroup.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js	2023-06-21 13:25:29.763625900 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js	2023-09-03 09:59:38.617780200 +0300
 +++ node_modules_patch/@sencha/ext-modern/src/grid/menu/AddGroup.js	2023-07-22 10:55:16.264627200 +0300
 @@ -13,5 +13,5 @@
       * The menu item text for the "Add to grouping" menu item.
@@ -987,7 +987,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
 +    text: window.l10nd( "ext", "Add to grouping" )
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/Columns.js node_modules_patch/@sencha/ext-modern/src/grid/menu/Columns.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/Columns.js	2023-06-21 13:25:29.764623600 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/Columns.js	2023-09-03 09:59:38.622768000 +0300
 +++ node_modules_patch/@sencha/ext-modern/src/grid/menu/Columns.js	2023-07-22 10:55:20.070930200 +0300
 @@ -14,7 +14,7 @@
       * The menu item text for the column visibility sub-menu.
@@ -1014,7 +1014,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
              }
          }
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js node_modules_patch/@sencha/ext-modern/src/grid/menu/GroupByThis.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js	2023-06-21 13:25:29.765621800 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js	2023-09-03 09:59:38.624761800 +0300
 +++ node_modules_patch/@sencha/ext-modern/src/grid/menu/GroupByThis.js	2023-07-22 10:55:23.793944800 +0300
 @@ -14,5 +14,5 @@
       * The menu item text for the "Group by this field" menu item.
@@ -1024,7 +1024,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
 +    text: window.l10nd( "ext", "Group by this field" )
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/Groups.js node_modules_patch/@sencha/ext-modern/src/grid/menu/Groups.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/Groups.js	2023-06-21 13:25:29.766635400 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/Groups.js	2023-09-03 09:59:38.625758600 +0300
 +++ node_modules_patch/@sencha/ext-modern/src/grid/menu/Groups.js	2023-07-22 10:55:27.647810800 +0300
 @@ -17,11 +17,11 @@
  
@@ -1041,7 +1041,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
      }]
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js node_modules_patch/@sencha/ext-modern/src/grid/menu/RemoveGroup.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js	2023-06-21 13:25:29.767886800 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js	2023-09-03 09:59:38.626754600 +0300
 +++ node_modules_patch/@sencha/ext-modern/src/grid/menu/RemoveGroup.js	2023-07-22 10:55:31.579355900 +0300
 @@ -13,5 +13,5 @@
       * The menu item text for the "Remove from grouping" menu item.
@@ -1051,7 +1051,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
 +    text: window.l10nd( "ext", "Remove from grouping" )
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js node_modules_patch/@sencha/ext-modern/src/grid/menu/ShowInGroups.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js	2023-06-21 13:25:29.769885600 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js	2023-09-03 09:59:38.628749800 +0300
 +++ node_modules_patch/@sencha/ext-modern/src/grid/menu/ShowInGroups.js	2023-07-22 10:55:35.406449100 +0300
 @@ -14,5 +14,5 @@
       * Text displayed in the grid header for enabling/disabling grouping.
@@ -1061,7 +1061,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
 +    text: window.l10nd( "ext", "Show in groups" )
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js node_modules_patch/@sencha/ext-modern/src/grid/menu/SortAsc.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js	2023-06-21 13:25:29.770882900 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js	2023-09-03 09:59:38.629747000 +0300
 +++ node_modules_patch/@sencha/ext-modern/src/grid/menu/SortAsc.js	2023-07-22 10:55:39.250622800 +0300
 @@ -14,7 +14,7 @@
       * The menu item text for the Sort Ascending menu item.
@@ -1073,7 +1073,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
      value: 'ASC',
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js node_modules_patch/@sencha/ext-modern/src/grid/menu/SortDesc.js
---- ../node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js	2023-06-21 13:25:29.772876100 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js	2023-09-03 09:59:38.629747000 +0300
 +++ node_modules_patch/@sencha/ext-modern/src/grid/menu/SortDesc.js	2023-07-22 10:55:42.964264300 +0300
 @@ -14,7 +14,7 @@
       * The menu item text for the Sort Ascending menu item.
@@ -1085,7 +1085,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
      value: 'DESC',
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js
---- ../node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2023-06-21 13:25:29.825638200 +0300
+--- ../node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2023-09-03 09:59:38.666647600 +0300
 +++ node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2023-07-22 10:55:47.465137900 +0300
 @@ -72,9 +72,9 @@
   * import '@sencha/ext-web-components/dist/ext-container.component';
@@ -1173,8 +1173,68 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
              record.set('hidden', hidden);
          }
      },
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/panel/Collapser.js node_modules_patch/@sencha/ext-modern/src/panel/Collapser.js
+--- ../node_modules/@sencha/ext-modern/src/panel/Collapser.js	2023-09-03 09:59:38.784377000 +0300
++++ node_modules_patch/@sencha/ext-modern/src/panel/Collapser.js	2023-09-03 09:57:30.591634000 +0300
+@@ -192,8 +192,8 @@
+     },
+ 
+     /**
+-     * Collapses the panel body so that the body becomes hidden. Fires the 
+-     * {@link Ext.Panel#beforecollapse} event which will cancel the collapse action 
++     * Collapses the panel body so that the body becomes hidden. Fires the
++     * {@link Ext.Panel#beforecollapse} event which will cancel the collapse action
+      * if it returns false.
+      *
+      * It also fires the {@link Ext.Panel#collapse} event after the panel body is collapsed.
+@@ -209,7 +209,7 @@
+     },
+ 
+     /**
+-     * Expands the panel body so that it becomes visible. Fires the {@link Ext.Panel#beforeexpand} 
++     * Expands the panel body so that it becomes visible. Fires the {@link Ext.Panel#beforeexpand}
+      * event which will cancel the expand action if it returns false.
+      *
+      * It also fires the {@link Ext.Panel#expand} event after the panel is expanded.
+@@ -1269,6 +1269,7 @@
+             }
+         },
+ 
++       // XXX patched
+         setupHeaderListeners: function() {
+             var me = this,
+                 header = me.getTarget().getHeader();
+@@ -1279,7 +1280,8 @@
+                 me.headerListeners = header.element.on({
+                     destroyable: true,
+                     scope: me,
+-                    tap: 'onHeaderTap'
++                    tap: 'onHeaderTap',
++                    "doubleTap": "onHeaderDoubleTap", // XXX patch
+                 });
+             }
+         },
+@@ -1293,6 +1295,17 @@
+             }
+ 
+             return this;
+-        }
++        },
++
++       // XXX patch - new function
++        onHeaderDoubleTap ( e ) {
++            const collapsed = this.getCollapsed(),
++                cmp = Ext.Component.from( e );
++
++            // Return on click of tools on header
++            if ( !( cmp.isPanelTitle || cmp.isPanelHeader ) ) return;
++
++            this.toggleCollapsed( !collapsed );
++        },
+     }
+ });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/panel/Date.js node_modules_patch/@sencha/ext-modern/src/panel/Date.js
---- ../node_modules/@sencha/ext-modern/src/panel/Date.js	2023-06-21 13:25:29.948147700 +0300
+--- ../node_modules/@sencha/ext-modern/src/panel/Date.js	2023-09-03 09:59:38.788366400 +0300
 +++ node_modules_patch/@sencha/ext-modern/src/panel/Date.js	2023-07-06 14:38:08.875963300 +0300
 @@ -350,7 +350,7 @@
      tools: {
@@ -1213,7 +1273,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
              weight: 100,
              increment: 1,
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/Panel.js node_modules_patch/@sencha/ext-modern/src/Panel.js
---- ../node_modules/@sencha/ext-modern/src/Panel.js	2023-06-21 13:25:29.936504700 +0300
+--- ../node_modules/@sencha/ext-modern/src/Panel.js	2023-09-03 09:59:38.777874400 +0300
 +++ node_modules_patch/@sencha/ext-modern/src/Panel.js	2023-07-22 10:55:54.998364500 +0300
 @@ -748,7 +748,7 @@
           * **Note:** Applicable when the panel is {@link #closable}: true
@@ -1225,7 +1285,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
  
      /**
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/picker/Date.js node_modules_patch/@sencha/ext-modern/src/picker/Date.js
---- ../node_modules/@sencha/ext-modern/src/picker/Date.js	2023-06-21 13:25:29.959683300 +0300
+--- ../node_modules/@sencha/ext-modern/src/picker/Date.js	2023-09-03 09:59:38.809311600 +0300
 +++ node_modules_patch/@sencha/ext-modern/src/picker/Date.js	2023-07-22 10:55:58.676559100 +0300
 @@ -160,21 +160,21 @@
           * The label to show for the month column.
@@ -1253,7 +1313,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
          /**
           * @cfg {Array} slotOrder
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/picker/Picker.js node_modules_patch/@sencha/ext-modern/src/picker/Picker.js
---- ../node_modules/@sencha/ext-modern/src/picker/Picker.js	2023-06-21 13:25:29.960681900 +0300
+--- ../node_modules/@sencha/ext-modern/src/picker/Picker.js	2023-09-03 09:59:38.811303800 +0300
 +++ node_modules_patch/@sencha/ext-modern/src/picker/Picker.js	2023-07-22 10:56:02.525971200 +0300
 @@ -1,4 +1,4 @@
 -/**
@@ -1280,7 +1340,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
          }
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss node_modules_patch/@sencha/ext-modern-theme-base/sass/etc/all.scss
---- ../node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss	2023-06-21 13:25:28.721059300 +0300
+--- ../node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss	2023-09-03 09:59:38.002754300 +0300
 +++ node_modules_patch/@sencha/ext-modern-theme-base/sass/etc/all.scss	2023-07-06 14:38:08.875963300 +0300
 @@ -1,5 +1,5 @@
  $ext-version: '7.7.0'!default;  // Updated automatically by the build script.
@@ -1290,7 +1350,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
  @import 'compass/css3';
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-web-components-modern/src/common/util.js node_modules_patch/@sencha/ext-web-components-modern/src/common/util.js
---- ../node_modules/@sencha/ext-web-components-modern/src/common/util.js	2023-06-21 13:25:31.201154700 +0300
+--- ../node_modules/@sencha/ext-web-components-modern/src/common/util.js	2023-09-03 09:59:39.837790800 +0300
 +++ node_modules_patch/@sencha/ext-web-components-modern/src/common/util.js	2023-07-06 14:38:08.875963300 +0300
 @@ -51,7 +51,7 @@
      `
@@ -1331,7 +1391,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-web-c
      if (propertyValue == 'error') {
        return me.attributeObjects[property]
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js node_modules_patch/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js
---- ../node_modules/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js	2023-06-21 13:25:31.147942800 +0300
+--- ../node_modules/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js	2023-09-03 09:59:39.786932200 +0300
 +++ node_modules_patch/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js	2023-07-06 14:38:08.875963300 +0300
 @@ -133,6 +133,7 @@
      'viewModel',
