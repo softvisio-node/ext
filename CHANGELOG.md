@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.17.0 (2023-09-03)
+
+Features:
+
+-   feat: panel dbl tap collapse
+
 ### 5.16.2 (2023-07-30)
 
 Fixes:
