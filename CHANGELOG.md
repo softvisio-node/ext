@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.17.1 (2023-09-09)
+
+Fixes:
+
+-   fix: pofile extracted comments
+
 ### 5.17.0 (2023-09-03)
 
 Features:
