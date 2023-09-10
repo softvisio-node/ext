@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.17.3 (2023-09-10)
+
+Fixes:
+
+-   fix: po-message domains removed
+
 ### 5.17.2 (2023-09-10)
 
 Fixes:
