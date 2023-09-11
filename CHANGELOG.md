@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.17.5 (2023-09-11)
+
+Fixes:
+
+-   fix: locale domains
+
 ### 5.17.4 (2023-09-10)
 
 Fixes:
