@@ -1,6 +1,6 @@
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/field/Field.js node_modules_patch/@sencha/ext-core/src/data/field/Field.js
 --- ../node_modules/@sencha/ext-core/src/data/field/Field.js	2023-09-06 19:37:06.850225000 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/field/Field.js	2023-09-10 10:07:01.236243400 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/field/Field.js	2023-09-11 18:59:42.696115100 +0300
 @@ -133,9 +133,9 @@
   *
   * ### Updating
@@ -87,7 +87,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       * @since 5.0.0
       */
 -    defaultInvalidMessage: 'This field is invalid',
-+    defaultInvalidMessage: window.l10n( "This field is invalid", { domain: "ext" } ),
++    defaultInvalidMessage: window.l10n( "This field is invalid" ),
  
      /**
       * @cfg {Object} defaultValue
@@ -149,7 +149,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       * @readonly
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/Model.js node_modules_patch/@sencha/ext-core/src/data/Model.js
 --- ../node_modules/@sencha/ext-core/src/data/Model.js	2023-09-06 19:37:06.956627500 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/Model.js	2023-09-10 10:07:01.228690500 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/Model.js	2023-09-11 18:59:42.696115100 +0300
 @@ -111,7 +111,7 @@
   * values.
   *
@@ -426,13 +426,13 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
           */
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Bound.js node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Bound.js	2023-09-06 19:37:07.377386400 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js	2023-09-10 10:07:01.237243400 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Bound.js	2023-09-11 18:59:42.696115100 +0300
 @@ -26,7 +26,7 @@
           * The error message to return when the value is empty.
           * @locale
           */
 -        emptyMessage: 'Must be present',
-+        emptyMessage: window.l10n( "Must be present", { domain: "ext" } ),
++        emptyMessage: window.l10n( "Must be present" ),
  
          /**
           * @cfg {String} minOnlyMessage
@@ -441,7 +441,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
           * @locale
           */
 -        minOnlyMessage: 'Value must be greater than {0}',
-+        minOnlyMessage: window.l10n( "Value must be greater than {0}", { domain: "ext" } ),
++        minOnlyMessage: window.l10n( "Value must be greater than {0}" ),
  
          /**
           * @cfg {String} maxOnlyMessage
@@ -450,7 +450,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
           * @locale
           */
 -        maxOnlyMessage: 'Value must be less than {0}',
-+        maxOnlyMessage: window.l10n( "Value must be less than {0}", { domain: "ext" } ),
++        maxOnlyMessage: window.l10n( "Value must be less than {0}" ),
  
          /**
           * @cfg {String} bothMessage
@@ -459,139 +459,139 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
           * @locale
           */
 -        bothMessage: 'Value must be between {0} and {1}'
-+        bothMessage: window.l10n( "Value must be between {0} and {1}", { domain: "ext" } )
++        bothMessage: window.l10n( "Value must be between {0} and {1}" )
      },
  
      resetMessages: function() {
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/CIDRv4.js node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv4.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/CIDRv4.js	2023-09-06 19:37:07.383431100 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv4.js	2023-09-10 10:07:01.237243400 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv4.js	2023-09-11 18:59:42.697114600 +0300
 @@ -15,7 +15,7 @@
       * The error message to return when the value is not a valid CIDR block.
       * @locale
       */
 -    message: 'Is not a valid CIDR block',
-+    message: window.l10n( "Is not a valid CIDR block", { domain: "ext" } ),
++    message: window.l10n( "Is not a valid CIDR block" ),
  
      // http://www.regexpal.com/93987
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/CIDRv6.js node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv6.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/CIDRv6.js	2023-09-06 19:37:07.388933200 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv6.js	2023-09-10 10:07:01.237243400 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/CIDRv6.js	2023-09-11 18:59:42.697114600 +0300
 @@ -16,7 +16,7 @@
       * The error message to return when the value is not a valid CIDR block.
       * @locale
       */
 -    message: 'Is not a valid CIDR block',
-+    message: window.l10n( "Is not a valid CIDR block", { domain: "ext" } ),
++    message: window.l10n( "Is not a valid CIDR block" ),
  
      // http://www.regexpal.com/93987
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Currency.js node_modules_patch/@sencha/ext-core/src/data/validator/Currency.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Currency.js	2023-09-06 19:37:07.392497600 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Currency.js	2023-09-10 10:07:01.238249000 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Currency.js	2023-09-11 18:59:42.697114600 +0300
 @@ -36,7 +36,7 @@
       * The error message to return when the value is not a valid currency amount.
       * @locale
       */
 -    message: 'Is not a valid currency amount',
-+    message: window.l10n( "Is not a valid currency amount", { domain: "ext" } ),
++    message: window.l10n( "Is not a valid currency amount" ),
  
      applySymbolAtEnd: function(value) {
          return value === undefined ? Ext.util.Format.currencyAtEnd : value;
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Date.js node_modules_patch/@sencha/ext-core/src/data/validator/Date.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Date.js	2023-09-06 19:37:07.402997900 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Date.js	2023-09-10 10:07:01.238249000 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Date.js	2023-09-11 18:59:42.697114600 +0300
 @@ -14,7 +14,7 @@
       * The error message to return when the value is not a valid date.
       * @locale
       */
 -    message: 'Is not a valid date',
-+    message: window.l10n( "Is not a valid date", { domain: "ext" } ),
++    message: window.l10n( "Is not a valid date" ),
  
      /**
       * @cfg {String/String[]} format
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/DateTime.js node_modules_patch/@sencha/ext-core/src/data/validator/DateTime.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/DateTime.js	2023-09-06 19:37:07.408568800 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/DateTime.js	2023-09-10 10:07:01.239210000 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/DateTime.js	2023-09-11 18:59:42.697114600 +0300
 @@ -14,7 +14,7 @@
       * The error message to return when the value is not a valid time.
       * @locale
       */
 -    message: 'Is not a valid date and time',
-+    message: window.l10n( "Is not a valid date and time", { domain: "ext" } ),
++    message: window.l10n( "Is not a valid date and time" ),
  
      /**
       * @cfg {String/String[]} format
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Email.js node_modules_patch/@sencha/ext-core/src/data/validator/Email.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Email.js	2023-09-06 19:37:07.411579300 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Email.js	2023-09-10 10:07:01.239210000 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Email.js	2023-09-11 18:59:42.697114600 +0300
 @@ -12,7 +12,7 @@
       * The error message to return when the value is not a valid email
       * @locale
       */
 -    message: 'Is not a valid email address',
-+    message: window.l10n( "Is not a valid email address", { domain: "ext" } ),
++    message: window.l10n( "Is not a valid email address" ),
  
      // http://en.wikipedia.org/wiki/Email_address#Local_part
      // http://stackoverflow.com/a/2049510
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Exclusion.js node_modules_patch/@sencha/ext-core/src/data/validator/Exclusion.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Exclusion.js	2023-09-06 19:37:07.414566200 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Exclusion.js	2023-09-10 10:07:01.240206600 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Exclusion.js	2023-09-11 18:59:42.697114600 +0300
 @@ -13,7 +13,7 @@
       * specified {@link #list}.
       * @locale
       */
 -    message: 'Is a value that has been excluded',
-+    message: window.l10n( "Is a value that has been excluded", { domain: "ext" } ),
++    message: window.l10n( "Is a value that has been excluded" ),
  
      //<debug>
      constructor: function() {
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Format.js node_modules_patch/@sencha/ext-core/src/data/validator/Format.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Format.js	2023-09-06 19:37:07.417557100 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Format.js	2023-09-10 10:07:01.240206600 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Format.js	2023-09-11 18:59:42.697114600 +0300
 @@ -14,7 +14,7 @@
           * The error message to return when the value does not match the format.
           * @locale
           */
 -        message: 'Is in the wrong format',
-+        message: window.l10n( "Is in the wrong format", { domain: "ext" } ),
++        message: window.l10n( "Is in the wrong format" ),
  
          /**
           * @cfg {RegExp} matcher (required) The matcher regex to test against the value.
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Inclusion.js node_modules_patch/@sencha/ext-core/src/data/validator/Inclusion.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Inclusion.js	2023-09-06 19:37:07.420654200 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Inclusion.js	2023-09-10 10:07:01.240709400 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Inclusion.js	2023-09-11 18:59:42.697114600 +0300
 @@ -13,7 +13,7 @@
       * in the specified {@link #list}.
       * @locale
       */
 -    message: 'Is not in the list of acceptable values',
-+    message: window.l10n( "Is not in the list of acceptable values", { domain: "ext" } ),
++    message: window.l10n( "Is not in the list of acceptable values" ),
  
      //<debug>
      constructor: function() {
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/IPAddress.js node_modules_patch/@sencha/ext-core/src/data/validator/IPAddress.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/IPAddress.js	2023-09-06 19:37:07.425202300 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/IPAddress.js	2023-09-10 10:07:01.240709400 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/IPAddress.js	2023-09-11 18:59:42.698652200 +0300
 @@ -14,7 +14,7 @@
       * The error message to return when the value is not a valid IP address
       * @locale
       */
 -    message: 'Is not a valid IP address',
-+    message: window.l10n( "Is not a valid IP address", { domain: "ext" } ),
++    message: window.l10n( "Is not a valid IP address" ),
  
      // http://stackoverflow.com/questions/23483855/javascript-regex-to-validate-ipv4-and-ipv6-address-no-hostnames
      /**
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Length.js node_modules_patch/@sencha/ext-core/src/data/validator/Length.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Length.js	2023-09-06 19:37:07.427712000 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Length.js	2023-09-10 10:07:01.241708100 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Length.js	2023-09-11 18:59:42.698652200 +0300
 @@ -23,7 +23,7 @@
       * length and only a minimum is specified.
       * @locale
       */
 -    minOnlyMessage: 'Length must be at least {0}',
-+    minOnlyMessage: window.l10n( "Length must be at least {0}", { domain: "ext" } ),
++    minOnlyMessage: window.l10n( "Length must be at least {0}" ),
  
      /**
       * @cfg {String} maxOnlyMessage
@@ -600,7 +600,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       * @locale
       */
 -    maxOnlyMessage: 'Length must be no more than {0}',
-+    maxOnlyMessage: window.l10n( "Length must be no more than {0}", { domain: "ext" } ),
++    maxOnlyMessage: window.l10n( "Length must be no more than {0}" ),
  
      /**
       * @cfg {String} bothMessage
@@ -609,55 +609,55 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       * @locale
       */
 -    bothMessage: 'Length must be between {0} and {1}',
-+    bothMessage: window.l10n( "Length must be between {0} and {1}", { domain: "ext" } ),
++    bothMessage: window.l10n( "Length must be between {0} and {1}" ),
  
      getValue: function(v) {
          return String(v).length;
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Number.js node_modules_patch/@sencha/ext-core/src/data/validator/Number.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Number.js	2023-09-06 19:37:07.435813400 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Number.js	2023-09-10 10:07:01.241708100 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Number.js	2023-09-11 18:59:42.698652200 +0300
 @@ -21,7 +21,7 @@
           * The error message to return when the value is not a valid number.
           * @locale
           */
 -        message: 'Is not a valid number',
-+        message: window.l10n( "Is not a valid number", { domain: "ext" } ),
++        message: window.l10n( "Is not a valid number" ),
  
          /**
           * @cfg {String} thousandSeparator
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Phone.js node_modules_patch/@sencha/ext-core/src/data/validator/Phone.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Phone.js	2023-09-06 19:37:07.438363700 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Phone.js	2023-09-10 10:07:01.242706600 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Phone.js	2023-09-11 18:59:42.698652200 +0300
 @@ -15,7 +15,7 @@
       * The error message to return when the value is not a valid phone.
       * @locale
       */
 -    message: 'Is not a valid phone number',
-+    message: window.l10n( "Is not a valid phone number", { domain: "ext" } ),
++    message: window.l10n( "Is not a valid phone number" ),
  
      /**
       * @cfg {RegExp} matcher
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Presence.js node_modules_patch/@sencha/ext-core/src/data/validator/Presence.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Presence.js	2023-09-06 19:37:07.440824300 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Presence.js	2023-09-10 10:07:01.248726800 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Presence.js	2023-09-11 18:59:42.698652200 +0300
 @@ -16,7 +16,7 @@
           * The error message to return when the value is not specified.
           * @locale
           */
 -        message: 'Must be present',
-+        message: window.l10n( "Must be present", { domain: "ext" } ),
++        message: window.l10n( "Must be present" ),
  
          /**
           * @cfg {Boolean} allowEmpty
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Range.js node_modules_patch/@sencha/ext-core/src/data/validator/Range.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Range.js	2023-09-06 19:37:07.443815400 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Range.js	2023-09-10 10:07:01.250234500 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Range.js	2023-09-11 18:59:42.698652200 +0300
 @@ -22,21 +22,21 @@
       * @inheritdoc
       * @locale
       */
 -    minOnlyMessage: 'Must be at least {0}',
-+    minOnlyMessage: window.l10n( "Must be at least {0}", { domain: "ext" } ),
++    minOnlyMessage: window.l10n( "Must be at least {0}" ),
  
      /**
       * @cfg maxOnlyMessage
@@ -665,7 +665,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       * @locale
       */
 -    maxOnlyMessage: 'Must be no more than than {0}',
-+    maxOnlyMessage: window.l10n( "Must be no more than than {0}", { domain: "ext" } ),
++    maxOnlyMessage: window.l10n( "Must be no more than than {0}" ),
  
      /**
       * @cfg bothMessage
@@ -673,31 +673,31 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/
       * @locale
       */
 -    bothMessage: 'Must be between {0} and {1}',
-+    bothMessage: window.l10n( "Must be between {0} and {1}", { domain: "ext" } ),
++    bothMessage: window.l10n( "Must be between {0} and {1}" ),
  
      config: {
          /**
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Time.js node_modules_patch/@sencha/ext-core/src/data/validator/Time.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Time.js	2023-09-06 19:37:07.445811500 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Time.js	2023-09-10 10:07:01.250234500 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Time.js	2023-09-11 18:59:42.699683300 +0300
 @@ -14,7 +14,7 @@
       * The error message to return when the value is not a valid time.
       * @locale
       */
 -    message: 'Is not a valid time',
-+    message: window.l10n( "Is not a valid time", { domain: "ext" } ),
++    message: window.l10n( "Is not a valid time" ),
  
      /**
       * @cfg {String/String[]} format
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-core/src/data/validator/Url.js node_modules_patch/@sencha/ext-core/src/data/validator/Url.js
 --- ../node_modules/@sencha/ext-core/src/data/validator/Url.js	2023-09-06 19:37:07.450378300 +0300
-+++ node_modules_patch/@sencha/ext-core/src/data/validator/Url.js	2023-09-10 10:07:01.250234500 +0300
++++ node_modules_patch/@sencha/ext-core/src/data/validator/Url.js	2023-09-11 18:59:42.699683300 +0300
 @@ -12,7 +12,7 @@
       * The error message to return when the value is not a valid URL.
       * @locale
       */
 -    message: 'Is not a valid URL',
-+    message: window.l10n( "Is not a valid URL", { domain: "ext" } ),
++    message: window.l10n( "Is not a valid URL" ),
  
      // URL validator that works is non-trivial
      // There are numerous examples online but not all pass rigoruous test:
@@ -744,7 +744,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-font-
 +// FontAwesome removed from ExtJS
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/Dialog.js node_modules_patch/@sencha/ext-modern/src/Dialog.js
 --- ../node_modules/@sencha/ext-modern/src/Dialog.js	2023-09-06 19:37:05.896204800 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/Dialog.js	2023-09-10 10:07:01.251268400 +0300
++++ node_modules_patch/@sencha/ext-modern/src/Dialog.js	2023-09-11 18:59:42.699683300 +0300
 @@ -848,6 +848,9 @@
          var me = this,
              sibling = me.getModalSibling && me.getModalSibling();
@@ -757,13 +757,13 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
          if (sibling) {
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/field/Field.js node_modules_patch/@sencha/ext-modern/src/field/Field.js
 --- ../node_modules/@sencha/ext-modern/src/field/Field.js	2023-09-06 19:37:05.989348500 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/field/Field.js	2023-09-10 10:07:01.252265900 +0300
++++ node_modules_patch/@sencha/ext-modern/src/field/Field.js	2023-09-11 18:59:42.701701500 +0300
 @@ -163,7 +163,7 @@
           * The error message to display when {@link #required} is `true` and the field's
           * value is "empty" (`null`, `undefined`, or empty string).
           */
 -        requiredMessage: 'This field is required',
-+        requiredMessage: window.l10n( "This field is required", { domain: "ext" } ),
++        requiredMessage: window.l10n( "This field is required" ),
  
          /**
           * @cfg {Mixed}
@@ -772,19 +772,19 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
           * For validation, regex, etc., this is the error message returned if field is invalid.
           */
 -        validationMessage: 'Is in the wrong format',
-+        validationMessage: window.l10n( "Is in the wrong format", { domain: "ext" } ),
++        validationMessage: window.l10n( "Is in the wrong format" ),
  
          /**
           * @cfg {Boolean} [validateDisabled=false]
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/field/Number.js node_modules_patch/@sencha/ext-modern/src/field/Number.js
 --- ../node_modules/@sencha/ext-modern/src/field/Number.js	2023-09-06 19:37:06.035026000 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/field/Number.js	2023-09-10 10:07:01.253297000 +0300
++++ node_modules_patch/@sencha/ext-modern/src/field/Number.js	2023-09-11 18:59:42.701701500 +0300
 @@ -191,7 +191,7 @@
       * @Locale
       * @since 6.5.1
       */
 -    minValueText: 'The minimum value for this field is {0}',
-+    minValueText: window.l10n( "The minimum value for this field is {0}", { domain: "ext" } ),
++    minValueText: window.l10n( "The minimum value for this field is {0}" ),
  
      /**
       * @cfg {String} maxValueText
@@ -793,7 +793,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
       * @since 6.5.1
       */
 -    maxValueText: 'The maximum value for this field is {0}',
-+    maxValueText: window.l10n( "The maximum value for this field is {0}", { domain: "ext" } ),
++    maxValueText: window.l10n( "The maximum value for this field is {0}" ),
  
      /**
       * @cfg {String} decimalsText
@@ -802,22 +802,22 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
       * @since 6.5.1
       */
 -    decimalsText: 'The maximum decimal places is {0}',
-+    decimalsText: window.l10n( "The maximum decimal places is {0}", { domain: "ext" } ),
++    decimalsText: window.l10n( "The maximum decimal places is {0}" ),
  
 -    badFormatMessage: 'Value is not a valid number',
-+    badFormatMessage: window.l10n( "Value is not a valid number", { domain: "ext" } ),
++    badFormatMessage: window.l10n( "Value is not a valid number" ),
  
      classCls: Ext.baseCSSPrefix + 'numberfield',
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/locked/Grid.js node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js
 --- ../node_modules/@sencha/ext-modern/src/grid/locked/Grid.js	2023-09-06 19:37:06.750129600 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js	2023-09-10 10:07:01.254263200 +0300
++++ node_modules_patch/@sencha/ext-modern/src/grid/locked/Grid.js	2023-09-11 18:59:42.701701500 +0300
 @@ -58,7 +58,7 @@
          columnMenu: {
              items: {
                  region: {
 -                    text: 'Locked',
-+                    text: window.l10n( "Locked", { domain: "ext" } ),
++                    text: window.l10n( "Locked" ),
                      iconCls: 'fi-lock',
                      menu: {}
                  }
@@ -835,7 +835,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
              left: {
                  menuItem: {
 -                    text: 'Locked (Left)'
-+                    text: window.l10n( "Locked (Left)", { domain: "ext" } ),
++                    text: window.l10n( "Locked (Left)" ),
                  },
                  weight: -10
              },
@@ -843,7 +843,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
                  flex: 1,
                  menuItem: {
 -                    text: 'Unlocked',
-+                    text: window.l10n( "Unlocked", { domain: "ext" } ),
++                    text: window.l10n( "Unlocked" ),
                      iconCls: 'fi-unlock'
                  },
                  weight: 0
@@ -851,7 +851,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
              right: {
                  menuItem: {
 -                    text: 'Locked (Right)'
-+                    text: window.l10n( "Locked (Right)", { domain: "ext" } ),
++                    text: window.l10n( "Locked (Right)" ),
                  },
                  weight: 10
              }
@@ -978,23 +978,23 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
          onRegionColumnGroupRemove: function(column, id) {
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js node_modules_patch/@sencha/ext-modern/src/grid/menu/AddGroup.js
 --- ../node_modules/@sencha/ext-modern/src/grid/menu/AddGroup.js	2023-09-06 19:37:06.761717100 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/grid/menu/AddGroup.js	2023-09-10 10:07:01.254263200 +0300
++++ node_modules_patch/@sencha/ext-modern/src/grid/menu/AddGroup.js	2023-09-11 18:59:42.701701500 +0300
 @@ -13,5 +13,5 @@
       * The menu item text for the "Add to grouping" menu item.
       * @locale
       */
 -    text: 'Add to grouping'
-+    text: window.l10n( "Add to grouping", { domain: "ext" } )
++    text: window.l10n( "Add to grouping" )
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/Columns.js node_modules_patch/@sencha/ext-modern/src/grid/menu/Columns.js
 --- ../node_modules/@sencha/ext-modern/src/grid/menu/Columns.js	2023-09-06 19:37:06.764707700 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/grid/menu/Columns.js	2023-09-10 10:07:01.255260700 +0300
++++ node_modules_patch/@sencha/ext-modern/src/grid/menu/Columns.js	2023-09-11 18:59:42.701701500 +0300
 @@ -14,7 +14,7 @@
       * The menu item text for the column visibility sub-menu.
       * @locale
       */
 -    text: 'Columns',
-+    text: window.l10n( "Columns", { domain: "ext" } ),
++    text: window.l10n( "Columns" ),
  
      menu: {},
  
@@ -1015,78 +1015,78 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
          }
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js node_modules_patch/@sencha/ext-modern/src/grid/menu/GroupByThis.js
 --- ../node_modules/@sencha/ext-modern/src/grid/menu/GroupByThis.js	2023-09-06 19:37:06.771217000 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/grid/menu/GroupByThis.js	2023-09-10 10:07:01.255260700 +0300
++++ node_modules_patch/@sencha/ext-modern/src/grid/menu/GroupByThis.js	2023-09-11 18:59:42.702703700 +0300
 @@ -14,5 +14,5 @@
       * The menu item text for the "Group by this field" menu item.
       * @locale
       */
 -    text: 'Group by this field'
-+    text: window.l10n( "Group by this field", { domain: "ext" } )
++    text: window.l10n( "Group by this field" )
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/Groups.js node_modules_patch/@sencha/ext-modern/src/grid/menu/Groups.js
 --- ../node_modules/@sencha/ext-modern/src/grid/menu/Groups.js	2023-09-06 19:37:06.776203500 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/grid/menu/Groups.js	2023-09-10 10:07:01.255260700 +0300
++++ node_modules_patch/@sencha/ext-modern/src/grid/menu/Groups.js	2023-09-11 18:59:42.702703700 +0300
 @@ -17,11 +17,11 @@
  
      menu: [{
          iconCls: Ext.baseCSSPrefix + 'headermenu-expand-groups',
 -        text: 'Expand all',
-+        text: window.l10n( "Expand all", { domain: "ext" } ),
++        text: window.l10n( "Expand all" ),
          handler: 'up.expandAll'
      }, {
          iconCls: Ext.baseCSSPrefix + 'headermenu-collapse-groups',
 -        text: 'Collapse all',
-+        text: window.l10n( "Collapse all", { domain: "ext" } ),
++        text: window.l10n( "Collapse all" ),
          handler: 'up.collapseAll'
      }]
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js node_modules_patch/@sencha/ext-modern/src/grid/menu/RemoveGroup.js
 --- ../node_modules/@sencha/ext-modern/src/grid/menu/RemoveGroup.js	2023-09-06 19:37:06.781245800 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/grid/menu/RemoveGroup.js	2023-09-10 10:07:01.256286600 +0300
++++ node_modules_patch/@sencha/ext-modern/src/grid/menu/RemoveGroup.js	2023-09-11 18:59:42.702703700 +0300
 @@ -13,5 +13,5 @@
       * The menu item text for the "Remove from grouping" menu item.
       * @locale
       */
 -    text: 'Remove from grouping'
-+    text: window.l10n( "Remove from grouping", { domain: "ext" } )
++    text: window.l10n( "Remove from grouping" )
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js node_modules_patch/@sencha/ext-modern/src/grid/menu/ShowInGroups.js
 --- ../node_modules/@sencha/ext-modern/src/grid/menu/ShowInGroups.js	2023-09-06 19:37:06.787806100 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/grid/menu/ShowInGroups.js	2023-09-10 10:07:01.256286600 +0300
++++ node_modules_patch/@sencha/ext-modern/src/grid/menu/ShowInGroups.js	2023-09-11 18:59:42.702703700 +0300
 @@ -14,5 +14,5 @@
       * Text displayed in the grid header for enabling/disabling grouping.
       * @locale
       */
 -    text: 'Show in groups'
-+    text: window.l10n( "Show in groups", { domain: "ext" } )
++    text: window.l10n( "Show in groups" )
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js node_modules_patch/@sencha/ext-modern/src/grid/menu/SortAsc.js
 --- ../node_modules/@sencha/ext-modern/src/grid/menu/SortAsc.js	2023-09-06 19:37:06.791813400 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/grid/menu/SortAsc.js	2023-09-10 10:07:01.256286600 +0300
++++ node_modules_patch/@sencha/ext-modern/src/grid/menu/SortAsc.js	2023-09-11 18:59:42.702703700 +0300
 @@ -14,7 +14,7 @@
       * The menu item text for the Sort Ascending menu item.
       * @locale
       */
 -    text: 'Sort Ascending',
-+    text: window.l10n( "Sort ascending", { domain: "ext" } ),
++    text: window.l10n( "Sort ascending" ),
  
      value: 'ASC',
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js node_modules_patch/@sencha/ext-modern/src/grid/menu/SortDesc.js
 --- ../node_modules/@sencha/ext-modern/src/grid/menu/SortDesc.js	2023-09-06 19:37:06.797311800 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/grid/menu/SortDesc.js	2023-09-10 10:07:01.257255000 +0300
++++ node_modules_patch/@sencha/ext-modern/src/grid/menu/SortDesc.js	2023-09-11 18:59:42.702703700 +0300
 @@ -14,7 +14,7 @@
       * The menu item text for the Sort Ascending menu item.
       * @locale
       */
 -    text: 'Sort Descending',
-+    text: window.l10n( "Sort descending", { domain: "ext" } ),
++    text: window.l10n( "Sort descending" ),
  
      value: 'DESC',
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js
 --- ../node_modules/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2023-09-06 19:37:06.985235100 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2023-09-10 10:07:01.257255000 +0300
++++ node_modules_patch/@sencha/ext-modern/src/grid/plugin/ViewOptions.js	2023-09-11 18:59:42.703702200 +0300
 @@ -72,9 +72,9 @@
   * import '@sencha/ext-web-components/dist/ext-container.component';
   * import '@sencha/ext-web-components/dist/ext-grid.component';
@@ -1128,11 +1128,11 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
                      docked: 'top',
                      xtype: 'titlebar',
 -                    title: 'Customize',
-+                    title: window.l10n( "Customize", { domain: "ext" } ),
++                    title: window.l10n( "Customize" ),
                      items: [{
                          xtype: 'button',
 -                        text: 'Done',
-+                        text: window.l10n( "Done", { domain: "ext" } ),
++                        text: window.l10n( "Done" ),
                          ui: 'action',
                          align: 'right',
                          role: 'donebutton'
@@ -1141,7 +1141,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
              $value: {
                  xtype: 'nestedlist',
 -                title: 'Columns',
-+                title: window.l10n( "Columns", { domain: "ext" } ),
++                title: window.l10n( "Columns" ),
                  clearSelectionOnListChange: false,
                  listConfig: {
                      triggerEvent: null,
@@ -1150,7 +1150,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
                      ],
                      root: {
 -                        text: 'Columns'
-+                        text: window.l10n( "Columns", { domain: "ext" } )
++                        text: window.l10n( "Columns" )
                      }
                  }
              }
@@ -1175,7 +1175,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
      },
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/panel/Collapser.js node_modules_patch/@sencha/ext-modern/src/panel/Collapser.js
 --- ../node_modules/@sencha/ext-modern/src/panel/Collapser.js	2023-09-06 19:37:07.372885600 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/panel/Collapser.js	2023-09-10 10:07:01.258270600 +0300
++++ node_modules_patch/@sencha/ext-modern/src/panel/Collapser.js	2023-09-11 18:59:42.703702200 +0300
 @@ -192,8 +192,8 @@
      },
  
@@ -1235,7 +1235,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
  });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/panel/Date.js node_modules_patch/@sencha/ext-modern/src/panel/Date.js
 --- ../node_modules/@sencha/ext-modern/src/panel/Date.js	2023-09-06 19:37:07.385425500 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/panel/Date.js	2023-09-10 10:07:01.258270600 +0300
++++ node_modules_patch/@sencha/ext-modern/src/panel/Date.js	2023-09-11 18:59:42.703702200 +0300
 @@ -350,7 +350,7 @@
      tools: {
          previousMonth: {
@@ -1274,25 +1274,25 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
              increment: 1,
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/Panel.js node_modules_patch/@sencha/ext-modern/src/Panel.js
 --- ../node_modules/@sencha/ext-modern/src/Panel.js	2023-09-06 19:37:07.349841800 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/Panel.js	2023-09-10 10:07:01.252265900 +0300
++++ node_modules_patch/@sencha/ext-modern/src/Panel.js	2023-09-11 18:59:42.699683300 +0300
 @@ -748,7 +748,7 @@
           * **Note:** Applicable when the panel is {@link #closable}: true
           * @locale
           */
 -        closeToolText: 'Close panel'
-+        closeToolText: window.l10n( "Close panel", { domain: "ext" } )
++        closeToolText: window.l10n( "Close panel" )
      },
  
      /**
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/picker/Date.js node_modules_patch/@sencha/ext-modern/src/picker/Date.js
 --- ../node_modules/@sencha/ext-modern/src/picker/Date.js	2023-09-06 19:37:07.435813400 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/picker/Date.js	2023-09-10 10:07:01.263789600 +0300
++++ node_modules_patch/@sencha/ext-modern/src/picker/Date.js	2023-09-11 18:59:42.703702200 +0300
 @@ -160,21 +160,21 @@
           * The label to show for the month column.
           * @accessor
           */
 -        monthText: 'Month',
-+        monthText: window.l10n( "Month", { domain: "ext" } ),
++        monthText: window.l10n( "Month" ),
  
          /**
           * @cfg {String} dayText
@@ -1300,7 +1300,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
           * @accessor
           */
 -        dayText: 'Day',
-+        dayText: window.l10n( "Day", { domain: "ext" } ),
++        dayText: window.l10n( "Day" ),
  
          /**
           * @cfg {String} yearText
@@ -1308,13 +1308,13 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
           * @accessor
           */
 -        yearText: 'Year',
-+        yearText: window.l10n( "Year", { domain: "ext" } ),
++        yearText: window.l10n( "Year" ),
  
          /**
           * @cfg {Array} slotOrder
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/picker/Picker.js node_modules_patch/@sencha/ext-modern/src/picker/Picker.js
 --- ../node_modules/@sencha/ext-modern/src/picker/Picker.js	2023-09-06 19:37:07.440824300 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/picker/Picker.js	2023-09-10 10:07:01.264786000 +0300
++++ node_modules_patch/@sencha/ext-modern/src/picker/Picker.js	2023-09-11 18:59:42.704688900 +0300
 @@ -1,4 +1,4 @@
 -/**
 +    /**
@@ -1326,7 +1326,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
              Ext.applyIf(config, {
                  align: 'right',
 -                text: 'Done'
-+                text: window.l10n( "Done", { domain: "ext" } )
++                text: window.l10n( "Done" )
              });
          }
  
@@ -1335,7 +1335,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
              Ext.applyIf(config, {
                  align: 'left',
 -                text: 'Cancel'
-+                text: window.l10n( "Cancel", { domain: "ext" } )
++                text: window.l10n( "Cancel" )
              });
          }
  
@@ -1351,7 +1351,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-web-components-modern/src/common/util.js node_modules_patch/@sencha/ext-web-components-modern/src/common/util.js
 --- ../node_modules/@sencha/ext-web-components-modern/src/common/util.js	2023-09-06 19:37:09.803648600 +0300
-+++ node_modules_patch/@sencha/ext-web-components-modern/src/common/util.js	2023-09-10 10:07:01.264786000 +0300
++++ node_modules_patch/@sencha/ext-web-components-modern/src/common/util.js	2023-09-11 18:59:42.704688900 +0300
 @@ -51,7 +51,7 @@
      `
      window.stop();
@@ -1392,7 +1392,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-web-c
        return me.attributeObjects[property]
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js node_modules_patch/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js
 --- ../node_modules/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js	2023-09-06 19:37:09.677600400 +0300
-+++ node_modules_patch/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js	2023-09-10 10:07:01.265787600 +0300
++++ node_modules_patch/@sencha/ext-web-components-modern/src/Ext/form/TextArea.js	2023-09-11 18:59:42.704688900 +0300
 @@ -133,6 +133,7 @@
      'viewModel',
      'weight',
