@@ -7,8 +7,8 @@ Ext.define( "Ext.overrides.field.Date", {
         "editable": false,
     },
 
-    "minDateMessage": window.l10n( "The date in this field must be equal to or after {0}", { "domain": "ext" } ),
-    "maxDateMessage": window.l10n( "The date in this field must be equal to or before {0}", { "domain": "ext" } ),
+    "minDateMessage": window.l10n( "The date in this field must be equal to or after {0}" ),
+    "maxDateMessage": window.l10n( "The date in this field must be equal to or before {0}" ),
 
     parseValue ( value, errors ) {
 
