@@ -50,12 +50,12 @@ Ext.define( "Ext.overrides.util.Format", {
         return locale.formatCurrency( value, format );
     },
 
-    relativeTime ( value, format ) {
-        return locale.formatRelativeTime( value, format );
+    relativeDate ( value, format ) {
+        return locale.formatRelativeDate( value, format );
     },
 
-    relativeTimeRenderer ( format ) {
-        return value => this.relativeTime( value, format );
+    relativeDateRenderer ( format ) {
+        return value => this.relativeDate( value, format );
     },
 
     digitalSize ( value, format ) {
