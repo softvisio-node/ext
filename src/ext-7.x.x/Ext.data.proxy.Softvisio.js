@@ -106,4 +106,15 @@ Ext.define( "Ext.data.proxy.Softvisio", {
 
         return this.applyEncoding( out );
     },
+
+    // serialize sorters
+    encodeSorters ( sorters, preventArray ) {
+        const out = {};
+
+        for ( const sorter of sorters ) {
+            out[sorter.getProperty()] = sorter.getDirection().toLowerCase();
+        }
+
+        return out;
+    },
 } );

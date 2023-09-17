@@ -37,7 +37,6 @@ import "./Ext.overrides.froala.Editor.js";
 import "./Ext.overrides.froala.EditorField.js";
 import "./Ext.overrides.panel.TimeView.js";
 import "./Ext.overrides.util.Format.js";
-import "./Ext.overrides.util.Sorter.js";
 
 Ext.manifest.material = Ext.manifest.material || {};
 Ext.manifest.material.toolbar = Ext.manifest.material.toolbar || {};
