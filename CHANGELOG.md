@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.17.8 (2023-09-17)
+
+Fixes:
+
+-   fix: order_by param
+
 ### 5.17.7 (2023-09-11)
 
 Fixes:
