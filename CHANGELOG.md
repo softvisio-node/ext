@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.17.10 (2023-09-18)
+
+Fixes:
+
+-   fix: order_by array
+
 ### 5.17.9 (2023-09-17)
 
 Fixes:
