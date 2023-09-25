@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.17.11 (2023-09-25)
+
+Fixes:
+
+-   fix: passwords
+
 ### 5.17.10 (2023-09-18)
 
 Fixes:
