@@ -1,5 +1,5 @@
 import locale from "#vue/locale";
-import passwords from "#core/utils/passwords";
+import passwords from "#core/passwords";
 
 Ext.define( "Ext.data.validator.PasswordStrength", {
     "extend": "Ext.data.validator.Validator",
