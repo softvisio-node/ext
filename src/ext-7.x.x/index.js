@@ -9,6 +9,7 @@ import "./1.css";
 import "./froala.css";
 
 // components
+import "./Ext.Avatar.js";
 import "./Ext.Date.js";
 import "./Ext.data.field.BigInteger.js";
 import "./Ext.data.proxy.Softvisio.js";
