@@ -107,7 +107,7 @@ Ext.define( "Ext.data.proxy.Softvisio", {
                 const operator = filter.getOperator() || "=";
 
                 if ( operator === "like" ) {
-                    out[filter.getProperty()] = [operator, "%" + quoteLikePattern( quoteLikePattern ) + "%"];
+                    out[filter.getProperty()] = [operator, "%" + quoteLikePattern( filter.getValue() ) + "%"];
                 }
                 else {
                     out[filter.getProperty()] = [operator, filter.getValue()];
