@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.18.0 (2023-10-09)
+
+Features:
+
+-   feat: sql contains
+
 ### 5.17.13 (2023-10-09)
 
 Fixes:
