@@ -1,3 +1,7 @@
+function quoteLikePattern ( pattern ) {
+    return pattern.replaceAll( "\\", "\\\\" ).replaceAll( "_", "\\_" ).replaceAll( "%", "\\%" );
+}
+
 Ext.define( "Ext.data.proxy.Softvisio", {
     "extend": "Ext.data.proxy.Server",
 
@@ -100,7 +104,14 @@ Ext.define( "Ext.data.proxy.Softvisio", {
             filter.getFilterFn();
 
             if ( filter.generatedFilterFn ) {
-                out[filter.getProperty()] = [filter.getOperator() || "=", filter.getValue()];
+                const operator = filter.getOperator() || "=";
+
+                if ( operator === "like" ) {
+                    out[filter.getProperty()] = [operator, "%" + quoteLikePattern( quoteLikePattern ) + "%"];
+                }
+                else {
+                    out[filter.getProperty()] = [operator, filter.getValue()];
+                }
             }
         }
 
