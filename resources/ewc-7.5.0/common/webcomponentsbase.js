@@ -660,6 +660,17 @@ else {
     }
   }
 
+    // XXX patch: handler for vue dynamic attrinutes
+    setAttribute ( name, value ) {
+        if ( typeof value === "function" || typeof value === "object" ) {
+            this.attributeObjects[name] = value;
+
+            super.setAttribute( name, '[object Object]' );
+        }
+        else {
+            super.setAttribute( name, value );
+        }
+    }
 }
 
 WebComponentsBaseComponent.theDeleted = [];
