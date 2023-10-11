@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.18.1 (2023-10-11)
+
+Fixes:
+
+-   fix: web components vie attrs integration
+
 ### 5.18.0 (2023-10-09)
 
 Features:
