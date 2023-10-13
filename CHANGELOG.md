@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.18.2 (2023-10-13)
+
+Fixes:
+
+-   fix: sql ilike
+
 ### 5.18.1 (2023-10-11)
 
 Fixes:
