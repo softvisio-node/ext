@@ -103,7 +103,7 @@ Ext.define( "Ext.data.proxy.Softvisio", {
                 const operator = filter.getOperator() || "=";
 
                 if ( operator === "like" ) {
-                    out[filter.getProperty()] = ["icontains", filter.getValue()];
+                    out[filter.getProperty()] = ["includes case insensitive", filter.getValue()];
                 }
                 else {
                     out[filter.getProperty()] = [operator, filter.getValue()];
