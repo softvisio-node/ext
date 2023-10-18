@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.18.4 (2023-10-18)
+
+Fixes:
+
+-   fix: translations
+
 ### 5.18.3 (2023-10-14)
 
 Fixes:
