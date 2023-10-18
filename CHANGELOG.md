@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.18.5 (2023-10-18)
+
+Fixes:
+
+-   fix: collapsed panel
+
 ### 5.18.4 (2023-10-18)
 
 Fixes:
