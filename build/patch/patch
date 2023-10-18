@@ -1175,7 +1175,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
      },
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/panel/Collapser.js node_modules_patch/@sencha/ext-modern/src/panel/Collapser.js
 --- ../node_modules/@sencha/ext-modern/src/panel/Collapser.js	2023-10-11 20:27:17.972144300 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/panel/Collapser.js	2023-10-18 13:22:24.337101600 +0300
++++ node_modules_patch/@sencha/ext-modern/src/panel/Collapser.js	2023-10-18 16:03:29.172012700 +0300
 @@ -192,8 +192,8 @@
      },
  
@@ -1196,7 +1196,17 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
       * event which will cancel the expand action if it returns false.
       *
       * It also fires the {@link Ext.Panel#expand} event after the panel is expanded.
-@@ -782,9 +782,15 @@
+@@ -733,6 +733,9 @@
+             drawer.setWidth(width);
+             drawer.setHeight(height);
+ 
++            // XXX patch: drawer header position
++            drawer.setHeaderPosition( target.getHeaderPosition() );
++
+             if (resetPos) {
+                 drawer.setTop(0);
+                 drawer.setRight(null);
+@@ -782,9 +785,15 @@
  
                      if (direction === 'top' || direction === 'bottom') {
                          target.setHeight(null);
@@ -1212,7 +1222,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
                      }
                  }
                  else {
-@@ -1269,6 +1275,7 @@
+@@ -1269,6 +1278,7 @@
              }
          },
  
@@ -1220,7 +1230,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
          setupHeaderListeners: function() {
              var me = this,
                  header = me.getTarget().getHeader();
-@@ -1279,7 +1286,8 @@
+@@ -1279,7 +1289,8 @@
                  me.headerListeners = header.element.on({
                      destroyable: true,
                      scope: me,
@@ -1230,7 +1240,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
                  });
              }
          },
-@@ -1293,6 +1301,17 @@
+@@ -1293,6 +1304,17 @@
              }
  
              return this;
