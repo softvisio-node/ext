@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.18.7 (2023-10-24)
+
+Fixes:
+
+-   fix: components
+
 ### 5.18.6 (2023-10-20)
 
 Fixes:
