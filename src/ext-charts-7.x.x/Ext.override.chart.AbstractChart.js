@@ -22,7 +22,7 @@ const THEMES = {
     "blue-grey": "blue",
 };
 
-Ext.define( "Ext.overrides.chart.AbstractChart", {
+Ext.define( null, {
     "override": "Ext.chart.AbstractChart",
 
     "config": {

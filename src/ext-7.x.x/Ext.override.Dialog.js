@@ -1,4 +1,4 @@
-Ext.define( "Ext.overrides.Dialog", {
+Ext.define( null, {
     "override": "Ext.Dialog",
 
     "config": {

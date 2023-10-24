@@ -1,4 +1,4 @@
-Ext.define( "Ext.overrides.field.FileButton", {
+Ext.define( null, {
     "override": "Ext.field.FileButton",
 
     clearFiles ( suspendEvents ) {

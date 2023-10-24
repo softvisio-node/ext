@@ -1,6 +1,6 @@
 import locale from "#vue/locale";
 
-Ext.define( "Ext.overrides.util.Format", {
+Ext.define( null, {
     "override": "Ext.util.Format",
 
     "defaultDateFormat": "",

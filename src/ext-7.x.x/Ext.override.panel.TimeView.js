@@ -1,6 +1,6 @@
 import locale from "#vue/locale";
 
-Ext.define( "Ext.overrides.panel.TimeView", {
+Ext.define( null, {
     "override": "Ext.panel.TimeView",
 
     "config": {

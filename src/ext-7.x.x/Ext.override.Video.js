@@ -1,4 +1,4 @@
-Ext.define( "Ext.overrides.Video", {
+Ext.define( null, {
     "override": "Ext.Video",
 
     "template": [

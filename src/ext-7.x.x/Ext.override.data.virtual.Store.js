@@ -1,4 +1,4 @@
-Ext.define( "Ext.overrides.data.virtual.Store", {
+Ext.define( null, {
     "override": "Ext.data.virtual.Store",
 
     "config": {

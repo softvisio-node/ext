@@ -1,4 +1,4 @@
-Ext.define( "Ext.overrides.data.ProxyStore", {
+Ext.define( null, {
     "override": "Ext.data.ProxyStore",
 
     // set default proxy type to "softvisio"

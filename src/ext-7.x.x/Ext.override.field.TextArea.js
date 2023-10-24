@@ -1,4 +1,4 @@
-Ext.define( "Ext.overrides.field.TextArea", {
+Ext.define( null, {
     "override": "Ext.field.TextArea",
 
     "config": {

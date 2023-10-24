@@ -2,4 +2,4 @@
 import "#ext/charts.js";
 
 // overrides
-import "./Ext.overrides.chart.AbstractChart.js";
+import "./Ext.override.chart.AbstractChart.js";

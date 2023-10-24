@@ -1,4 +1,4 @@
-Ext.define( "Ext.overrides.data.Store", {
+Ext.define( null, {
     "override": "Ext.data.Store",
 
     onProxyLoad ( operation ) {

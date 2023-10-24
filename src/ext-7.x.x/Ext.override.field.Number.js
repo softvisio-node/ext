@@ -1,6 +1,6 @@
 const formatCache = {};
 
-Ext.define( "Ext.overrides.field.Number", {
+Ext.define( null, {
     "override": "Ext.field.Number",
 
     "config": {

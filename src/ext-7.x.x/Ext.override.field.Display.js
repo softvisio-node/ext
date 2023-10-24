@@ -1,4 +1,4 @@
-Ext.define( "Ext.overrides.field.Display", {
+Ext.define( null, {
     "override": "Ext.field.Display",
 
     "defaultBindProperty": "value",

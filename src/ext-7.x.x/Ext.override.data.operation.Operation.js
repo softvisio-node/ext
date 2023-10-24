@@ -1,4 +1,4 @@
-Ext.define( "Ext.overrides.data.operation.Operation", {
+Ext.define( null, {
     "override": "Ext.data.operation.Operation",
 
     getResult () {

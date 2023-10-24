@@ -1,4 +1,4 @@
-Ext.define( "Ext.overrides.Progress", {
+Ext.define( null, {
     "override": "Ext.Progress",
 
     updateValue ( newValue, oldValue ) {

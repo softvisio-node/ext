@@ -1,4 +1,4 @@
-Ext.define( "Ext.overrides.field.Time", {
+Ext.define( null, {
     "override": "Ext.field.Time",
 
     "config": {

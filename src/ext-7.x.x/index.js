@@ -17,27 +17,27 @@ import "./Ext.data.validator.Custom.js";
 import "./Ext.data.validator.PasswordStrength.js";
 import "./Ext.dataview.plugin.AutoPaging.js";
 
-// overrides
-import "./Ext.overrides.Dialog.js";
-import "./Ext.overrides.Progress.js";
-import "./Ext.overrides.Video.js";
-import "./Ext.overrides.data.AbstractStore.js";
-import "./Ext.overrides.data.ProxyStore.js";
-import "./Ext.overrides.data.Store.js";
-import "./Ext.overrides.data.operation.Operation.js";
-import "./Ext.overrides.data.virtual.Store.js";
-import "./Ext.overrides.field.ComboBox.js";
-import "./Ext.overrides.field.Date.js";
-import "./Ext.overrides.field.Display.js";
-import "./Ext.overrides.field.FieldGroupContainer.js";
-import "./Ext.overrides.field.FileButton.js";
-import "./Ext.overrides.field.Number.js";
-import "./Ext.overrides.field.TextArea.js";
-import "./Ext.overrides.field.Time.js";
-import "./Ext.overrides.froala.Editor.js";
-import "./Ext.overrides.froala.EditorField.js";
-import "./Ext.overrides.panel.TimeView.js";
-import "./Ext.overrides.util.Format.js";
+// override
+import "./Ext.override.Dialog.js";
+import "./Ext.override.Progress.js";
+import "./Ext.override.Video.js";
+import "./Ext.override.data.AbstractStore.js";
+import "./Ext.override.data.ProxyStore.js";
+import "./Ext.override.data.Store.js";
+import "./Ext.override.data.operation.Operation.js";
+import "./Ext.override.data.virtual.Store.js";
+import "./Ext.override.field.ComboBox.js";
+import "./Ext.override.field.Date.js";
+import "./Ext.override.field.Display.js";
+import "./Ext.override.field.FieldGroupContainer.js";
+import "./Ext.override.field.FileButton.js";
+import "./Ext.override.field.Number.js";
+import "./Ext.override.field.TextArea.js";
+import "./Ext.override.field.Time.js";
+import "./Ext.override.froala.Editor.js";
+import "./Ext.override.froala.EditorField.js";
+import "./Ext.override.panel.TimeView.js";
+import "./Ext.override.util.Format.js";
 
 Ext.manifest.material = Ext.manifest.material || {};
 Ext.manifest.material.toolbar = Ext.manifest.material.toolbar || {};

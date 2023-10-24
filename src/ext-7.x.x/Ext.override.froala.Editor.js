@@ -1,6 +1,6 @@
 const ANCHOR = `<p data-f-id="pbf"`;
 
-Ext.define( "Ext.overrides.froala.Editor", {
+Ext.define( null, {
     "override": "Ext.froala.Editor",
 
     "config": {

@@ -1,4 +1,4 @@
-Ext.define( "Ext.overrides.data.AbstractStore", {
+Ext.define( null, {
     "override": "Ext.data.AbstractStore",
 
     "config": {

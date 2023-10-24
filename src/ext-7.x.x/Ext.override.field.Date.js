@@ -1,4 +1,4 @@
-Ext.define( "Ext.overrides.field.Date", {
+Ext.define( null, {
     "override": "Ext.field.Date",
 
     "config": {

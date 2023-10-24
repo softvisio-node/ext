@@ -1,4 +1,4 @@
-Ext.define( "Ext.overrides.field.ComboBox", {
+Ext.define( null, {
     "override": "Ext.field.ComboBox",
 
     "config": {
