@@ -13,7 +13,7 @@ msgstr ""
 "X-Search-Path: ../**:/resources/**\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: ../../../resources/ext-7.7.0/ext.js:209399:10
+#: ../../../resources/ext-7.7.0/ext.js:209413:10
 msgid "Add to grouping"
 msgstr "Добавить в группировку"
 
@@ -26,17 +26,17 @@ msgstr "Отменить"
 msgid "Close panel"
 msgstr "Закрыть панель"
 
-#: ../../../resources/ext-7.7.0/ext.js:209540:18
+#: ../../../resources/ext-7.7.0/ext.js:209554:18
 msgid "Collapse all"
 msgstr "Свернуть все"
 
-#: ../../../resources/ext-7.7.0/ext.js:209452:10
-#: ../../../resources/ext-7.7.0/ext.js:225568:23
-#: ../../../resources/ext-7.7.0/ext.js:225601:30
+#: ../../../resources/ext-7.7.0/ext.js:209466:10
+#: ../../../resources/ext-7.7.0/ext.js:225582:23
+#: ../../../resources/ext-7.7.0/ext.js:225615:30
 msgid "Columns"
 msgstr "Колонки"
 
-#: ../../../resources/ext-7.7.0/ext.js:225539:31
+#: ../../../resources/ext-7.7.0/ext.js:225553:31
 msgid "Customize"
 msgstr "Настроить"
 
@@ -45,15 +45,15 @@ msgid "Day"
 msgstr "День"
 
 #: ../../../resources/ext-7.7.0/ext.js:189112:22
-#: ../../../resources/ext-7.7.0/ext.js:225543:38
+#: ../../../resources/ext-7.7.0/ext.js:225557:38
 msgid "Done"
 msgstr "Готово"
 
-#: ../../../resources/ext-7.7.0/ext.js:209535:18
+#: ../../../resources/ext-7.7.0/ext.js:209549:18
 msgid "Expand all"
 msgstr "Развернуть все"
 
-#: ../../../resources/ext-7.7.0/ext.js:209516:10
+#: ../../../resources/ext-7.7.0/ext.js:209530:10
 msgid "Group by this field"
 msgstr "Группировать по этому полю"
 
@@ -123,15 +123,15 @@ msgstr "Длина должна быть между {0} и {1}"
 msgid "Length must be no more than {0}"
 msgstr "Длина не должна быть больше {0}"
 
-#: ../../../resources/ext-7.7.0/ext.js:220175:26
+#: ../../../resources/ext-7.7.0/ext.js:220189:26
 msgid "Locked"
 msgstr "Закреплена"
 
-#: ../../../resources/ext-7.7.0/ext.js:220270:26
+#: ../../../resources/ext-7.7.0/ext.js:220284:26
 msgid "Locked (Left)"
 msgstr "Закреплена (слева)"
 
-#: ../../../resources/ext-7.7.0/ext.js:220284:26
+#: ../../../resources/ext-7.7.0/ext.js:220298:26
 msgid "Locked (Right)"
 msgstr "Закреплена (справа)"
 
@@ -164,19 +164,19 @@ msgstr "Ok"
 msgid "Password is weak"
 msgstr "Пароль слабый"
 
-#: ../../../resources/ext-7.7.0/ext.js:209558:10
+#: ../../../resources/ext-7.7.0/ext.js:209572:10
 msgid "Remove from grouping"
 msgstr "Удалить из группировки"
 
-#: ../../../resources/ext-7.7.0/ext.js:209574:10
+#: ../../../resources/ext-7.7.0/ext.js:209588:10
 msgid "Show in groups"
 msgstr "Показать в группах"
 
-#: ../../../resources/ext-7.7.0/ext.js:209806:10
+#: ../../../resources/ext-7.7.0/ext.js:209820:10
 msgid "Sort ascending"
 msgstr "Сортировать по возрастанию"
 
-#: ../../../resources/ext-7.7.0/ext.js:209825:10
+#: ../../../resources/ext-7.7.0/ext.js:209839:10
 msgid "Sort descending"
 msgstr "Сортировать по убыванию"
 
@@ -208,7 +208,7 @@ msgstr "Это значение неверно"
 msgid "This field is required"
 msgstr "Это поле обязательно к заполнению"
 
-#: ../../../resources/ext-7.7.0/ext.js:220277:26
+#: ../../../resources/ext-7.7.0/ext.js:220291:26
 msgid "Unlocked"
 msgstr "Не закреплена"
 
