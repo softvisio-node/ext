@@ -1389,6 +1389,80 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
              });
          }
  
+diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/slider/Slider.js node_modules_patch/@sencha/ext-modern/src/slider/Slider.js
+--- ../node_modules/@sencha/ext-modern/src/slider/Slider.js	2023-10-11 20:27:18.036539200 +0300
++++ node_modules_patch/@sencha/ext-modern/src/slider/Slider.js	2023-10-25 18:18:13.625713800 +0300
+@@ -41,7 +41,7 @@
+  *         type: 'hbox',
+  *         pack: 'center'
+  *     },
+- *     
++ *
+  *     viewModel: {
+  *         data: {
+  *             value: 42
+@@ -557,7 +557,11 @@
+ 
+         me.setThumbsCount(len);
+ 
+-        if (!this.isThumbAnimating) {
++        // XXX patch: revert toggle field vkue, until animation start;
++        if ( this.isThumbAnimating ) {
++            this._pending = true;
++        }
++        else {
+             for (i = 0; i < len; i++) {
+                 me.snapThumbPosition(thumbs[i], values[i]);
+             }
+@@ -575,10 +579,10 @@
+ 
+     /**
+      * @private
+-     * Takes a desired value of a thumb and returns the nearest snap value. 
+-     * e.g if minValue = 0, maxValue = 100, increment = 10 and we pass a value of 67 here, 
+-     * the returned value will be 70. The returned number is constrained 
+-     * within {@link #minValue} and {@link #maxValue}, so in the above example 68 would 
++     * Takes a desired value of a thumb and returns the nearest snap value.
++     * e.g if minValue = 0, maxValue = 100, increment = 10 and we pass a value of 67 here,
++     * the returned value will be 70. The returned number is constrained
++     * within {@link #minValue} and {@link #maxValue}, so in the above example 68 would
+      * be returned if {@link #maxValue} was set to 68.
+      * @param {Number} value The value to snap
+      * @return {Number} The snapped value
+@@ -751,7 +755,7 @@
+ 
+                 // Here we clear the drag limits, these will be recalculated on the next press.
+                 // We do this as it is likely the dragMin will remain 0 between vert/horz changes
+-                // This means the updater for dragMin will not be called on the thumb as the 
++                // This means the updater for dragMin will not be called on the thumb as the
+                 // previous and current value would both be 0.
+                 // The updated is responsible for swapping X and Y constraints so we need to force
+                 // the values to undefined values so the next press properly resets them.
+@@ -886,6 +890,24 @@
+ 
+         onThumbAnimationEnd: function() {
+             this.isThumbAnimating--;
++
++            // XXX patch: revert toggle field vkue, until animation start;
++            if ( this._pending ) {
++                this._pending = false;
++
++                this._updateValue();
++
++                const thumbs = this.thumbs,
++                    values = this.getArrayValues(),
++                    len = values.length;
++
++                thus.setThumbsCount( len );
++
++                for ( i = 0; i < len; i++ ) {
++                    me.snapThumbPosition( thumbs[i], values[i] );
++                }
++
++            }
+         }
+     }
+ });
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss node_modules_patch/@sencha/ext-modern-theme-base/sass/etc/all.scss
 --- ../node_modules/@sencha/ext-modern-theme-base/sass/etc/all.scss	2023-10-11 20:27:16.735871900 +0300
 +++ node_modules_patch/@sencha/ext-modern-theme-base/sass/etc/all.scss	2023-07-06 14:38:08.875963300 +0300
