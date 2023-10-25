@@ -1391,7 +1391,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
  
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/slider/Slider.js node_modules_patch/@sencha/ext-modern/src/slider/Slider.js
 --- ../node_modules/@sencha/ext-modern/src/slider/Slider.js	2023-10-11 20:27:18.036539200 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/slider/Slider.js	2023-10-25 18:25:54.474226200 +0300
++++ node_modules_patch/@sencha/ext-modern/src/slider/Slider.js	2023-10-25 18:31:46.550246200 +0300
 @@ -41,7 +41,7 @@
   *         type: 'hbox',
   *         pack: 'center'
@@ -1449,12 +1449,12 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
 +
 +                const thumbs = this.thumbs,
 +                    values = this.getArrayValues(),
-+                    len = values.length;
++                    length = values.length;
 +
-+                thus.setThumbsCount( len );
++                this.setThumbsCount( length );
 +
-+                for ( i = 0; i < len; i++ ) {
-+                    me.snapThumbPosition( thumbs[i], values[i] );
++                for ( let i = 0; i < length; i++ ) {
++                    this.snapThumbPosition( thumbs[i], values[i] );
 +                }
 +
 +            }
