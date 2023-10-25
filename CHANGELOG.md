@@ -1,5 +1,12 @@
 # Changelog
 
+### 5.18.8 (2023-10-25)
+
+Fixes:
+
+-   fix: revert toggle field value
+-   fix: translations
+
 ### 5.18.7 (2023-10-24)
 
 Fixes:
