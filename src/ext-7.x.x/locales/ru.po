@@ -18,7 +18,7 @@ msgid "Add to grouping"
 msgstr "Добавить в группировку"
 
 #: ../../../resources/ext-7.7.0/ext.js:189143:22
-#: ../Ext.overrides.panel.TimeView.js:15:24
+#: ../Ext.override.panel.TimeView.js:15:24
 msgid "Cancel"
 msgstr "Отменить"
 
@@ -156,7 +156,7 @@ msgstr "Значение должно быть не больше {0}"
 msgid "Must be present"
 msgstr "Должно присутствовать"
 
-#: ../Ext.overrides.panel.TimeView.js:11:24
+#: ../Ext.override.panel.TimeView.js:11:24
 msgid "Ok"
 msgstr "Ok"
 
@@ -180,11 +180,11 @@ msgstr "Сортировать по возрастанию"
 msgid "Sort descending"
 msgstr "Сортировать по убыванию"
 
-#: ../Ext.overrides.field.Date.js:10:22
+#: ../Ext.override.field.Date.js:10:22
 msgid "The date in this field must be equal to or after {0}"
 msgstr "Дата в этом поле должна быть равна или больше {0}."
 
-#: ../Ext.overrides.field.Date.js:11:22
+#: ../Ext.override.field.Date.js:11:22
 msgid "The date in this field must be equal to or before {0}"
 msgstr "Дата в этом поле должна быть равна или меньше {0}."
 
