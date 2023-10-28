@@ -757,7 +757,7 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
          if (sibling) {
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/field/Field.js node_modules_patch/@sencha/ext-modern/src/field/Field.js
 --- ../node_modules/@sencha/ext-modern/src/field/Field.js	2023-10-11 20:27:17.586779100 +0300
-+++ node_modules_patch/@sencha/ext-modern/src/field/Field.js	2023-09-11 18:59:42.701701500 +0300
++++ node_modules_patch/@sencha/ext-modern/src/field/Field.js	2023-10-28 17:31:50.202845600 +0300
 @@ -163,7 +163,7 @@
           * The error message to display when {@link #required} is `true` and the field's
           * value is "empty" (`null`, `undefined`, or empty string).
@@ -776,6 +776,15 @@ diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-moder
  
          /**
           * @cfg {Boolean} [validateDisabled=false]
+@@ -297,7 +297,7 @@
+          * - `under` Add a `div` beneath the field containing the error message.
+          * @since 6.5.0
+          */
+-        errorTarget: 'qtip',
++        errorTarget: 'under',
+ 
+         /**
+          * @cfg {String/String[]/Ext.XTemplate} errorTpl
 diff --recursive --no-ignore-file-name-case -u ../node_modules/@sencha/ext-modern/src/field/Number.js node_modules_patch/@sencha/ext-modern/src/field/Number.js
 --- ../node_modules/@sencha/ext-modern/src/field/Number.js	2023-10-11 20:27:17.606298000 +0300
 +++ node_modules_patch/@sencha/ext-modern/src/field/Number.js	2023-09-11 18:59:42.701701500 +0300
