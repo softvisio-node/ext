@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.18.10 (2023-11-13)
+
+Fixes:
+
+-   fix: avatar col
+
 ### 5.18.9 (2023-10-28)
 
 Fixes:
