@@ -1,4 +1,4 @@
-Ext.define( "Ext.gris.column.avatar.js", {
+Ext.define( "Ext.grid.column.avatar.js", {
     "extend": "Ext.grid.column.Column",
     "xtype": "avatarcolumn",
 
