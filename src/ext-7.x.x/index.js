@@ -16,6 +16,7 @@ import "./Ext.data.proxy.Softvisio.js";
 import "./Ext.data.validator.Custom.js";
 import "./Ext.data.validator.PasswordStrength.js";
 import "./Ext.dataview.plugin.AutoPaging.js";
+import "./Ext.gris.column.avatar.js";
 
 // override
 import "./Ext.override.Dialog.js";
