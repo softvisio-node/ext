@@ -33,8 +33,8 @@ Ext.define( null, {
         if ( !this._themeListener ) {
             this._themeListener = this._updateTheme.bind( this );
 
-            Ext.getApplication().app.theme.on( "darkModeChange", this._themeListener );
-            Ext.getApplication().app.theme.on( "themeChange", this._themeListener );
+            window[Symbol.for( "app" )].theme.on( "darkModeChange", this._themeListener );
+            window[Symbol.for( "app" )].theme.on( "themeChange", this._themeListener );
         }
 
         this._updateTheme();
@@ -48,8 +48,8 @@ Ext.define( null, {
 
     doDestroy () {
         if ( this._themeListener ) {
-            Ext.getApplication().app.theme.off( "darkModeChange", this._themeListener );
-            Ext.getApplication().app.theme.off( "themeChange", this._themeListener );
+            window[Symbol.for( "app" )].theme.off( "darkModeChange", this._themeListener );
+            window[Symbol.for( "app" )].theme.off( "themeChange", this._themeListener );
             this._themeListener = null;
         }
 
@@ -61,11 +61,11 @@ Ext.define( null, {
     },
 
     _updateTheme () {
-        if ( Ext.getApplication().app.theme.darkMode ) {
+        if ( window[Symbol.for( "app" )].theme.darkMode ) {
             this.setTheme( DARK_MODE_THEME );
         }
         else {
-            this.setTheme( THEMES[Ext.getApplication().app.theme.theme.base] || DEFAULT_THEME );
+            this.setTheme( THEMES[window[Symbol.for( "app" )].theme.theme.base] || DEFAULT_THEME );
         }
     },
 } );
