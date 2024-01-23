@@ -1,7 +1,7 @@
 Ext.define( "Ext.data.field.BigInteger", {
     "extend": "Ext.data.field.Field",
 
-    "alias": ["data.field.bigint"],
+    "alias": [ "data.field.bigint" ],
 
     "isNumeric": true,
     "isIntegerField": true,

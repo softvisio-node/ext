@@ -11,7 +11,7 @@ const rootDir = path.dirname( module.createRequire( import.meta.url ).resolve( "
 
 // apply patch
 {
-    let res = childProcess.spawnSync( "patch", ["--dry-run", "--forward", "-p1", "-i", "patch/patch"], {
+    let res = childProcess.spawnSync( "patch", [ "--dry-run", "--forward", "-p1", "-i", "patch/patch" ], {
         "cwd": rootDir,
         "shell": true,
         "stdio": "inherit",
@@ -19,7 +19,7 @@ const rootDir = path.dirname( module.createRequire( import.meta.url ).resolve( "
 
     if ( res.status ) process.exit();
 
-    res = childProcess.spawnSync( "patch", ["--quiet", "--forward", "-p1", "-i", "patch/patch"], {
+    res = childProcess.spawnSync( "patch", [ "--quiet", "--forward", "-p1", "-i", "patch/patch" ], {
         "cwd": rootDir,
         "shell": true,
         "stdio": "inherit",
@@ -55,7 +55,7 @@ if ( fs.existsSync( dataDir ) ) fs.rmSync( dataDir, { "recursive": true, "force"
 
 fs.mkdirSync( dataDir, { "recursive": true } );
 
-const res = childProcess.spawnSync( "npx", ["sencha", "--cwd", `"${srcDir}"`, "app", "build", "development"], {
+const res = childProcess.spawnSync( "npx", [ "sencha", "--cwd", `"${srcDir}"`, "app", "build", "development" ], {
     "cwd": dataDir,
     "shell": true,
     "stdio": "inherit",
@@ -114,14 +114,14 @@ fs.rmSync( dataDir + "/resources/images/pictos", { "recursive": true, "force": t
 
 // lint
 {
-    let res = childProcess.spawnSync( "softvisio-cli", ["lint", "**/*.css", "--action=compress"], {
+    let res = childProcess.spawnSync( "softvisio-cli", [ "lint", "**/*.css", "--action=compress" ], {
         "cwd": dataDir,
         "shell": true,
         "stdio": "inherit",
     } );
     if ( res.status ) process.exit( res.status );
 
-    res = childProcess.spawnSync( "softvisio-cli", ["lint", "**/*.css"], {
+    res = childProcess.spawnSync( "softvisio-cli", [ "lint", "**/*.css" ], {
         "cwd": dataDir,
         "shell": true,
         "stdio": "inherit",

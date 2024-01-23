@@ -57,15 +57,15 @@ Ext.define( "Ext.data.proxy.Softvisio", {
                     args = [];
                 }
                 else {
-                    args = [args];
+                    args = [ args ];
                 }
             }
             else {
-                args = [args];
+                args = [ args ];
             }
         }
         else {
-            args = [request.getJsonData()];
+            args = [ request.getJsonData() ];
         }
 
         window[Symbol.for( "app" )].api.call( method, ...args ).then( res => {
@@ -101,10 +101,10 @@ Ext.define( "Ext.data.proxy.Softvisio", {
                 const operator = filter.getOperator() || "=";
 
                 if ( operator === "like" ) {
-                    out[filter.getProperty()] = ["includes case insensitive", filter.getValue()];
+                    out[filter.getProperty()] = [ "includes case insensitive", filter.getValue() ];
                 }
                 else {
-                    out[filter.getProperty()] = [operator, filter.getValue()];
+                    out[filter.getProperty()] = [ operator, filter.getValue() ];
                 }
             }
         }
@@ -117,7 +117,7 @@ Ext.define( "Ext.data.proxy.Softvisio", {
         const out = [];
 
         for ( const sorter of sorters ) {
-            out.push( [sorter.getProperty(), sorter.getDirection().toLowerCase()] );
+            out.push( [ sorter.getProperty(), sorter.getDirection().toLowerCase() ] );
         }
 
         return out;

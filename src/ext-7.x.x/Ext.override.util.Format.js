@@ -15,7 +15,7 @@ Ext.define( null, {
         if ( !format ) return "";
 
         return Object.entries( format )
-            .map( ( [key, value] ) => `${key}:${value}` )
+            .map( ( [ key, value ] ) => `${key}:${value}` )
             .join( "," );
     },
 
