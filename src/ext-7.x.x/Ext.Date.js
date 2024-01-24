@@ -31,13 +31,13 @@ for ( let n = 0; n < 12; n++ ) {
 }
 
 for ( let n = 0; n < Ext.Date.monthNames.length; n++ ) {
-    Ext.Date.monthNumbers[Ext.Date.monthNames[n]] = n;
-    Ext.Date.monthNumbers[Ext.Date.monthNamesShort[n]] = n;
+    Ext.Date.monthNumbers[ Ext.Date.monthNames[ n ] ] = n;
+    Ext.Date.monthNumbers[ Ext.Date.monthNamesShort[ n ] ] = n;
 }
 
-Ext.Date.getShortMonthName = month => Ext.Date.monthNamesShort[month];
+Ext.Date.getShortMonthName = month => Ext.Date.monthNamesShort[ month ];
 
-Ext.Date.getShortDayName = day => Ext.Date.dayNamesShort[day];
+Ext.Date.getShortDayName = day => Ext.Date.dayNamesShort[ day ];
 
 Ext.Date.formatExt = Ext.Date.format;
 

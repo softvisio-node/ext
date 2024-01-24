@@ -20,7 +20,7 @@ Ext.define( "Ext.grid.column.avatar.js", {
                 "items": [
                     {
                         "xtype": "avatar",
-                        "bind": `{record.${this.getSrc()}}`,
+                        "bind": `{record.${ this.getSrc() }}`,
                     },
                 ],
             },

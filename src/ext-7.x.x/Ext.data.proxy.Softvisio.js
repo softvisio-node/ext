@@ -41,7 +41,7 @@ Ext.define( "Ext.data.proxy.Softvisio", {
 
         action = request.getAction();
 
-        method = api[action];
+        method = api[ action ];
 
         if ( action === "read" ) {
             args = request.getParams();
@@ -68,7 +68,7 @@ Ext.define( "Ext.data.proxy.Softvisio", {
             args = [ request.getJsonData() ];
         }
 
-        window[Symbol.for( "app" )].api.call( method, ...args ).then( res => {
+        window[ Symbol.for( "app" ) ].api.call( method, ...args ).then( res => {
             this.processResponse( res.ok, operation, request, res );
         } );
 
@@ -93,7 +93,7 @@ Ext.define( "Ext.data.proxy.Softvisio", {
             filter;
 
         for ( i = 0; i < length; i++ ) {
-            filter = filters[i];
+            filter = filters[ i ];
 
             filter.getFilterFn();
 
@@ -101,10 +101,10 @@ Ext.define( "Ext.data.proxy.Softvisio", {
                 const operator = filter.getOperator() || "=";
 
                 if ( operator === "like" ) {
-                    out[filter.getProperty()] = [ "includes case insensitive", filter.getValue() ];
+                    out[ filter.getProperty() ] = [ "includes case insensitive", filter.getValue() ];
                 }
                 else {
-                    out[filter.getProperty()] = [ operator, filter.getValue() ];
+                    out[ filter.getProperty() ] = [ operator, filter.getValue() ];
                 }
             }
         }

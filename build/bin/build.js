@@ -55,7 +55,7 @@ if ( fs.existsSync( dataDir ) ) fs.rmSync( dataDir, { "recursive": true, "force"
 
 fs.mkdirSync( dataDir, { "recursive": true } );
 
-const res = childProcess.spawnSync( "npx", [ "sencha", "--cwd", `"${srcDir}"`, "app", "build", "development" ], {
+const res = childProcess.spawnSync( "npx", [ "sencha", "--cwd", `"${ srcDir }"`, "app", "build", "development" ], {
     "cwd": dataDir,
     "shell": true,
     "stdio": "inherit",

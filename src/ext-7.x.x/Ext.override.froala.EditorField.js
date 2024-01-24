@@ -26,7 +26,7 @@ Ext.define( null, {
                         };
 
                         // read image as base64.
-                        reader.readAsDataURL( files[0] );
+                        reader.readAsDataURL( files[ 0 ] );
                     }
 
                     this.popups.hideAll();
