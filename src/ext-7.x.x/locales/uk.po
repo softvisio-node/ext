@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Search-Path: ../**:/resources/**\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: ../../../resources/ext-7.7.0/ext.js:209413:10
 msgid "Add to grouping"
@@ -140,7 +140,6 @@ msgid "Month"
 msgstr "Місяць"
 
 #: ../../../resources/ext-7.7.0/ext.js:127885:20
-#, fuzzy
 msgid "Must be at least {0}"
 msgstr "Має бути принаймні {0}"
 
@@ -307,7 +306,6 @@ msgstr "Рік"
 #~ msgid "October"
 #~ msgstr "Жовтень"
 
-#: ../Ext.override.panel.TimeView.js:11:24
 #~ msgid "Ok"
 #~ msgstr "Ok"
 
