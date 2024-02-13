@@ -8,7 +8,7 @@ Ext.define( null, {
         "meridiem": locale.hour12,
         "defaultButtons": [
             {
-                "text": window.l10n( "Ok" ),
+                "text": "Ok",
                 "handler": "up.onConfirm",
             },
             {
