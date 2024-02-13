@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.18.15 (2024-02-13)
+
+Fixes:
+
+-   fix: tramslations
+
 ### 5.18.14 (2024-01-24)
 
 Fixes:
