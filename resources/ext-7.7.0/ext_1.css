@@ -587,18 +587,18 @@
     width: 1px !important;
 }
 .x-unselectable {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-user-drag: none;
-    cursor: default;
     user-select: none;
     -o-user-select: none;
     -ms-user-select: none;
     -moz-user-select: -moz-none;
     -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-drag: none;
+    cursor: default;
 }
 .x-hidden-clip {
-    clip: rect(0, 0, 0, 0);
     position: absolute !important;
+    clip: rect(0, 0, 0, 0);
 }
 .x-hidden-display,
 .x-hiddenfield {
@@ -906,15 +906,15 @@
     width: 24px;
 }
 .x-treelist-item-expander:after {
-    font-feature-settings: "liga";
     content: "keyboard_arrow_down";
     font-family: Material Icons;
+    font-feature-settings: "liga";
     line-height: 24px;
 }
 .x-treelist-item-expanded > * > * > .x-treelist-item-expander:after {
-    font-feature-settings: "liga";
     content: "keyboard_arrow_up";
     font-family: Material Icons;
+    font-feature-settings: "liga";
     line-height: 24px;
 }
 .x-treelist-item-text {
@@ -966,15 +966,15 @@
     color: var(--color);
 }
 .x-treelist-item-expanded > .x-treelist-item-expander:after {
-    font-feature-settings: "liga";
     content: "keyboard_arrow_up";
     font-family: Material Icons;
+    font-feature-settings: "liga";
     line-height: 1;
 }
 .x-treelist-item-collapsed > * > .x-treelist-item-expander:after {
-    font-feature-settings: "liga";
     content: "keyboard_arrow_down";
     font-family: Material Icons;
+    font-feature-settings: "liga";
     line-height: 1;
 }
 .x-treelist-highlight-path .x-treelist-item-over > * > * > .x-treelist-item-expander,
@@ -1088,15 +1088,15 @@
     width: 24px;
 }
 .x-treelist-nav .x-treelist-item-expander:after {
-    font-feature-settings: "liga";
     content: "keyboard_arrow_down";
     font-family: Material Icons;
+    font-feature-settings: "liga";
     line-height: 44px;
 }
 .x-treelist-nav .x-treelist-item-expanded > * > * > .x-treelist-item-expander:after {
-    font-feature-settings: "liga";
     content: "keyboard_arrow_up";
     font-family: Material Icons;
+    font-feature-settings: "liga";
     line-height: 44px;
 }
 .x-treelist-nav .x-treelist-item-text {
@@ -1165,15 +1165,15 @@
     background-color: #eee;
 }
 .x-treelist-nav .x-treelist-item-expanded > .x-treelist-item-expander:after {
-    font-feature-settings: "liga";
     content: "keyboard_arrow_up";
     font-family: Material Icons;
+    font-feature-settings: "liga";
     line-height: 1;
 }
 .x-treelist-nav .x-treelist-item-collapsed > * > .x-treelist-item-expander:after {
-    font-feature-settings: "liga";
     content: "keyboard_arrow_down";
     font-family: Material Icons;
+    font-feature-settings: "liga";
     line-height: 1;
 }
 .x-treelist-nav .x-treelist-highlight-path .x-treelist-item-over > * > * > .x-treelist-item-icon {
@@ -1620,18 +1620,18 @@ html.x-fixed-viewport {
 }
 .x-fi:before,
 .x-font-icon:before {
-    word-wrap: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-feature-settings: "liga";
-    direction: ltr;
     display: flex;
     font-style: normal;
     letter-spacing: normal;
     line-height: 1;
-    text-rendering: optimizeLegibility;
     text-transform: none;
+    word-wrap: normal;
+    direction: ltr;
     white-space: nowrap;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "liga";
+    text-rendering: optimizeLegibility;
 }
 .x-noborder-l {
     border-left-width: 0 !important;
@@ -1810,9 +1810,9 @@ html.x-fixed-viewport {
     }
 }
 #ext-viewport {
+    margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    margin: 0;
 }
 .x-treelist-float-wrap {
     height: auto;
@@ -2223,13 +2223,13 @@ html.x-fixed-viewport {
     flex-direction: column;
 }
 .x-menuitem .x-body-el {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
     align-items: center;
     display: flex;
     max-width: 100%;
-    outline: 0;
     position: relative;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    outline: 0;
     text-decoration: none;
 }
 .x-menuitem .x-text-el {
@@ -2507,10 +2507,10 @@ html.x-fixed-viewport {
     padding-top: 0;
 }
 .x-tabguard-el {
-    clip: rect(0, 0, 0, 0);
     height: 0;
     position: absolute;
     width: 0;
+    clip: rect(0, 0, 0, 0);
 }
 .x-field {
     display: flex;
@@ -2625,14 +2625,14 @@ html.x-fixed-viewport {
     visibility: visible;
 }
 .x-field > * > * > .x-error-message-el {
-    word-wrap: break-word;
     flex: 1 1 auto;
+    overflow: hidden;
+    overflow: ellipsis;
+    word-wrap: break-word;
     -ms-hyphens: auto;
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
     hyphens: auto;
-    overflow: hidden;
-    overflow: ellipsis;
 }
 .x-layout-vbox > .x-field.x-no-min-content:not(.x-textareafield) {
     flex-basis: auto !important;
@@ -4211,137 +4211,137 @@ div.x-trigger.x-grouped {
 }
 .x-menuitem .x-operator-like:before,
 .x-operatortrigger.x-operator-like .x-icon-el:before {
-    font-feature-settings: "liga";
     color: hsla(0, 0%, 7%, 0.54);
     color: var(--highlight-color);
     content: "\e900";
     font-family: ExtJS;
+    font-feature-settings: "liga";
     font-size: 12px;
 }
 .x-menuitem .x-operator-nlike:before,
 .x-operatortrigger.x-operator-nlike .x-icon-el:before {
-    font-feature-settings: "liga";
     color: hsla(0, 0%, 7%, 0.54);
     color: var(--highlight-color);
     content: "\e901";
     font-family: ExtJS;
+    font-feature-settings: "liga";
     font-size: 12px;
 }
 .x-menuitem .x-operator-eq:before,
 .x-operatortrigger.x-operator-eq .x-icon-el:before {
-    font-feature-settings: "liga";
     color: hsla(0, 0%, 7%, 0.54);
     color: var(--highlight-color);
     content: "\e902";
     font-family: ExtJS;
+    font-feature-settings: "liga";
     font-size: 12px;
 }
 .x-menuitem .x-operator-neq:before,
 .x-operatortrigger.x-operator-neq .x-icon-el:before {
-    font-feature-settings: "liga";
     color: hsla(0, 0%, 7%, 0.54);
     color: var(--highlight-color);
     content: "\e903";
     font-family: ExtJS;
+    font-feature-settings: "liga";
     font-size: 12px;
 }
 .x-menuitem .x-operator-gt:before,
 .x-operatortrigger.x-operator-gt .x-icon-el:before {
-    font-feature-settings: "liga";
     color: hsla(0, 0%, 7%, 0.54);
     color: var(--highlight-color);
     content: "\e90b";
     font-family: ExtJS;
+    font-feature-settings: "liga";
     font-size: 12px;
 }
 .x-menuitem .x-operator-gte:before,
 .x-operatortrigger.x-operator-gte .x-icon-el:before {
-    font-feature-settings: "liga";
     color: hsla(0, 0%, 7%, 0.54);
     color: var(--highlight-color);
     content: "\e90c";
     font-family: ExtJS;
+    font-feature-settings: "liga";
     font-size: 12px;
 }
 .x-menuitem .x-operator-lt:before,
 .x-operatortrigger.x-operator-lt .x-icon-el:before {
-    font-feature-settings: "liga";
     color: hsla(0, 0%, 7%, 0.54);
     color: var(--highlight-color);
     content: "\e90d";
     font-family: ExtJS;
+    font-feature-settings: "liga";
     font-size: 12px;
 }
 .x-menuitem .x-operator-lte:before,
 .x-operatortrigger.x-operator-lte .x-icon-el:before {
-    font-feature-settings: "liga";
     color: hsla(0, 0%, 7%, 0.54);
     color: var(--highlight-color);
     content: "\e90e";
     font-family: ExtJS;
+    font-feature-settings: "liga";
     font-size: 12px;
 }
 .x-menuitem .x-operator-in:before,
 .x-operatortrigger.x-operator-in .x-icon-el:before {
-    font-feature-settings: "liga";
     color: hsla(0, 0%, 7%, 0.54);
     color: var(--highlight-color);
     content: "\e906";
     font-family: ExtJS;
+    font-feature-settings: "liga";
     font-size: 12px;
 }
 .x-menuitem .x-operator-nin:before,
 .x-operatortrigger.x-operator-nin .x-icon-el:before {
-    font-feature-settings: "liga";
     color: hsla(0, 0%, 7%, 0.54);
     color: var(--highlight-color);
     content: "\e907";
     font-family: ExtJS;
+    font-feature-settings: "liga";
     font-size: 12px;
 }
 .x-menuitem .x-operator-identical:before,
 .x-operatortrigger.x-operator-identical .x-icon-el:before {
-    font-feature-settings: "liga";
     color: hsla(0, 0%, 7%, 0.54);
     color: var(--highlight-color);
     content: "\e908";
     font-family: ExtJS;
+    font-feature-settings: "liga";
     font-size: 12px;
 }
 .x-menuitem .x-operator-nidentical:before,
 .x-operatortrigger.x-operator-nidentical .x-icon-el:before {
-    font-feature-settings: "liga";
     color: hsla(0, 0%, 7%, 0.54);
     color: var(--highlight-color);
     content: "\e909";
     font-family: ExtJS;
+    font-feature-settings: "liga";
     font-size: 12px;
 }
 .x-menuitem .x-operator-empty:before,
 .x-operatortrigger.x-operator-empty .x-icon-el:before {
-    font-feature-settings: "liga";
     color: hsla(0, 0%, 7%, 0.54);
     color: var(--highlight-color);
     content: "\e904";
     font-family: ExtJS;
+    font-feature-settings: "liga";
     font-size: 12px;
 }
 .x-menuitem .x-operator-exists:before,
 .x-operatortrigger.x-operator-exists .x-icon-el:before {
-    font-feature-settings: "liga";
     color: hsla(0, 0%, 7%, 0.54);
     color: var(--highlight-color);
     content: "\e905";
     font-family: ExtJS;
+    font-feature-settings: "liga";
     font-size: 12px;
 }
 .x-menuitem .x-operator-fn:before,
 .x-operatortrigger.x-operator-fn .x-icon-el:before {
-    font-feature-settings: "liga";
     color: hsla(0, 0%, 7%, 0.54);
     color: var(--highlight-color);
     content: "\e90a";
     font-family: ExtJS;
+    font-feature-settings: "liga";
     font-size: 12px;
 }
 .x-grid-filterbar .x-grid-filter-base {
@@ -4481,15 +4481,15 @@ div.x-trigger.x-grouped {
     flex-shrink: 0;
 }
 .x-panelresizer {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-user-drag: none;
-    cursor: default;
     position: absolute;
     user-select: none;
     -o-user-select: none;
     -ms-user-select: none;
     -moz-user-select: -moz-none;
     -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-drag: none;
+    cursor: default;
     z-index: 1;
 }
 .x-panelresizer.x-north {
@@ -8368,21 +8368,21 @@ div.x-trigger.x-grouped {
 .x-segmentedbutton .x-horizontal .x-button.x-first .x-inner-el,
 .x-segmentedbutton .x-horizontal .x-button.x-first:after {
     -moz-border-radius-topright: 0;
+    -webkit-border-top-right-radius: 0;
+    border-top-right-radius: 0;
     -moz-border-radius-bottomright: 0;
     -webkit-border-bottom-right-radius: 0;
     border-bottom-right-radius: 0;
-    -webkit-border-top-right-radius: 0;
-    border-top-right-radius: 0;
 }
 .x-segmentedbutton .x-horizontal .x-button.x-last,
 .x-segmentedbutton .x-horizontal .x-button.x-last .x-inner-el,
 .x-segmentedbutton .x-horizontal .x-button.x-last:after {
     -moz-border-radius-topleft: 0;
+    -webkit-border-top-left-radius: 0;
+    border-top-left-radius: 0;
     -moz-border-radius-bottomleft: 0;
     -webkit-border-bottom-left-radius: 0;
     border-bottom-left-radius: 0;
-    -webkit-border-top-left-radius: 0;
-    border-top-left-radius: 0;
 }
 .x-segmentedbutton.x-vertical .x-button:not(.x-first) .x-inner-el {
     border-top: 0;
@@ -8396,9 +8396,9 @@ div.x-trigger.x-grouped {
 .x-segmentedbutton.x-vertical .x-button.x-first .x-inner-el,
 .x-segmentedbutton.x-vertical .x-button.x-first:after {
     -moz-border-radius-bottomleft: 0;
-    -moz-border-radius-bottomright: 0;
     -webkit-border-bottom-left-radius: 0;
     border-bottom-left-radius: 0;
+    -moz-border-radius-bottomright: 0;
     -webkit-border-bottom-right-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -8406,9 +8406,9 @@ div.x-trigger.x-grouped {
 .x-segmentedbutton.x-vertical .x-button.x-last .x-inner-el,
 .x-segmentedbutton.x-vertical .x-button.x-last:after {
     -moz-border-radius-topleft: 0;
-    -moz-border-radius-topright: 0;
     -webkit-border-top-left-radius: 0;
     border-top-left-radius: 0;
+    -moz-border-radius-topright: 0;
     -webkit-border-top-right-radius: 0;
     border-top-right-radius: 0;
 }
@@ -9184,9 +9184,9 @@ div.x-trigger.x-grouped {
     transition: all 0.5s;
 }
 .x-pullrefreshbar .x-pullrefreshbar-arrow:before {
-    font-feature-settings: "liga";
     content: "get_app";
     display: inline-block;
+    font-feature-settings: "liga";
     -webkit-transform: rotate(180deg);
     transform: rotate(180deg);
     -webkit-transform-origin: 50% 50%;
@@ -9731,14 +9731,11 @@ div.x-trigger.x-grouped {
     font-size: 42px;
 }
 .x-analogtimeheader .x-header-el {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-user-drag: none;
     align-items: center;
     background-color: #2196f3;
     background-color: var(--base-color);
     color: #fff;
     color: var(--base-foreground-color);
-    cursor: default;
     display: flex;
     flex-direction: row;
     height: 100px;
@@ -9749,6 +9746,9 @@ div.x-trigger.x-grouped {
     -ms-user-select: none;
     -moz-user-select: -moz-none;
     -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-drag: none;
+    cursor: default;
 }
 .x-analogtimeheader .x-meridiem-wrapper-el {
     display: flex;
@@ -9834,14 +9834,14 @@ div.x-trigger.x-grouped {
     transition: transform 0.3s ease-out 0.2s;
 }
 .x-analogtime .x-analog-picker-face-el {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-user-drag: none;
-    cursor: default;
     user-select: none;
     -o-user-select: none;
     -ms-user-select: none;
     -moz-user-select: -moz-none;
     -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-drag: none;
+    cursor: default;
 }
 .x-analogtime .x-analog-picker-face-el > div {
     color: #111;
@@ -10038,17 +10038,17 @@ div.x-trigger.x-grouped {
 }
 .x-field.x-label-align-top:first-child .x-label-el {
     -moz-border-radius-topleft: 0;
-    -moz-border-radius-topright: 0;
     -webkit-border-top-left-radius: 0;
     border-top-left-radius: 0;
+    -moz-border-radius-topright: 0;
     -webkit-border-top-right-radius: 0;
     border-top-right-radius: 0;
 }
 .x-field.x-label-align-bottom:last-child .x-label-el {
     -moz-border-radius-bottomleft: 0;
-    -moz-border-radius-bottomright: 0;
     -webkit-border-bottom-left-radius: 0;
     border-bottom-left-radius: 0;
+    -moz-border-radius-bottomright: 0;
     -webkit-border-bottom-right-radius: 0;
     border-bottom-right-radius: 0;
 }

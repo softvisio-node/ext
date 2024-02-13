@@ -2962,11 +2962,11 @@ html {
 }
 .x-chart-toolbar[data-side="left"],
 .x-chart-toolbar[data-side="right"] {
+    top: 0;
     -webkit-box-orient: vertical;
     -moz-box-orient: vertical;
     -ms-box-orient: vertical;
     box-orient: vertical;
-    top: 0;
 }
 .x-chart-toolbar[data-side="left"] {
     left: 0;
@@ -2986,9 +2986,9 @@ html {
     top: 0;
 }
 .x-chart-toolbar[data-side="bottom"] {
+    bottom: 0;
     -webkit-box-orient: horizontal;
     -moz-box-orient: horizontal;
     -ms-box-orient: horizontal;
     box-orient: horizontal;
-    bottom: 0;
 }
