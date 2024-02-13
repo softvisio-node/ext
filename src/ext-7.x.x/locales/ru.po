@@ -156,10 +156,6 @@ msgstr "Значение должно быть не больше {0}"
 msgid "Must be present"
 msgstr "Должно присутствовать"
 
-#: ../Ext.override.panel.TimeView.js:11:24
-msgid "Ok"
-msgstr "Ok"
-
 #: ../Ext.data.validator.PasswordStrength.js:9:19
 msgid "Password is weak"
 msgstr "Пароль слабый"
@@ -309,6 +305,10 @@ msgstr "Год"
 
 #~ msgid "October"
 #~ msgstr "Октябрь"
+
+#: ../Ext.override.panel.TimeView.js:11:24
+#~ msgid "Ok"
+#~ msgstr "Ok"
 
 #~ msgid "Sat"
 #~ msgstr "Сб"
