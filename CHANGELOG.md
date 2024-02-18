@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.18.18 (2024-02-18)
+
+Fixes:
+
+-   fix: app global locale
+
 ### 5.18.17 (2024-02-18)
 
 Fixes:
