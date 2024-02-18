@@ -156,7 +156,7 @@ msgstr "Значение должно быть не больше {0}"
 msgid "Must be present"
 msgstr "Должно присутствовать"
 
-#: ../Ext.data.validator.PasswordStrength.js:9:19
+#: ../Ext.data.validator.PasswordStrength.js:8:19
 msgid "Password is weak"
 msgstr "Пароль слабый"
 
