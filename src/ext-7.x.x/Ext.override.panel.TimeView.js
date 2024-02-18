@@ -12,7 +12,7 @@ Ext.define( null, {
                 "handler": "up.onConfirm",
             },
             {
-                "text": window.l10n( "Cancel" ),
+                "text": l10n( "Cancel" ),
                 "handler": "up.onDecline",
             },
         ],

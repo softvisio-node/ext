@@ -1,4 +1,3 @@
-import locale from "#vue/locale";
 import passwords from "#core/passwords";
 
 Ext.define( "Ext.data.validator.PasswordStrength", {
@@ -6,7 +5,7 @@ Ext.define( "Ext.data.validator.PasswordStrength", {
     "alias": "data.validator.password-strength",
     "type": "password-strength",
 
-    "weakMessage": locale.l10n( `Password is weak` ),
+    "weakMessage": l10n( `Password is weak` ),
 
     "config": {
         "strength": "strong",
