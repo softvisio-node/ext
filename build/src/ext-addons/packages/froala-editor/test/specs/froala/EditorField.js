@@ -1,7 +1,11 @@
 topSuite("Ext.froala.EditorField", ["Ext.froala.*"], function() {
-    var editor;
+    var editor, froalaEl;
 
     afterEach(function() {
+        if (froalaEl) {
+            Ext.destroy(Ext.get(froalaEl.dom.id));
+        }
+
         editor = Ext.destroy(editor);
 
         // FroalaEditor leaks this global variable, which is out
@@ -22,6 +26,7 @@ topSuite("Ext.froala.EditorField", ["Ext.froala.*"], function() {
                 config
             )
         );
+        froalaEl = editor.froalaEl;
     }
 
     describe("Froala editor tests", function() {

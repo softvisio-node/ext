@@ -14,17 +14,11 @@ topSuite("Ext.froala.Editor", ["Ext.froala.*"], function() {
     });
 
     function create(config) {
-        editor = Ext.create(
-            Ext.apply(
-                {
-                    xtype: "froalaeditor",
-                    width: 500,
-                    height: 500,
-                    renderTo: Ext.getBody()
-                },
-                config
-            )
-        );
+        editor = new Ext.froala.Editor(Ext.apply({
+            width: 500,
+            height: 500,
+            renderTo: Ext.getBody()
+        }, config));
     }
 
     describe("Froala editor tests", function() {
@@ -38,7 +32,10 @@ topSuite("Ext.froala.Editor", ["Ext.froala.*"], function() {
                     autofocus: true
                 }
             });
-            waits(100);
+            waitsFor(function() {
+                // Scrolling should cause menu hide;
+                return editor.isVisible();
+            });
             runs(function() {
                 expect(editor.editorElement.isVisible()).toBeTruthy();
             });
@@ -211,7 +208,7 @@ topSuite("Ext.froala.Editor", ["Ext.froala.*"], function() {
 
                 for (i = 0; i < buttons.length; i++) {
                     expect(
-                        editor.editorElement.down(
+                        editor.editorElement.el.dom.querySelector(
                             "button[data-cmd= " + buttons[i] + "]"
                         )
                     ).not.toBeUndefined();

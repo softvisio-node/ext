@@ -2,7 +2,7 @@
   "name": "exporter",
   "namespace": "Ext",
   "format": "1",
-  "version": "7.7.0.31",
+  "version": "7.8.0.33",
   "creator": "Sencha",
   "summary": "Exports data to various formats like: Excel xml, Excel xlsx, csv, tsv, html etc",
   "detailedDescription": "Utilities and plugins to export data in various formats and download them client-side",
@@ -13,11 +13,11 @@
   "signatures": [
     {
       "name": "Sencha",
-      "uuid": "1d6b0d9c-3333-4e65-885f-5b07a1fc3198",
-      "created": "2023-03-13T17:25:17Z",
+      "uuid": "76c71712-41cd-4537-a7c8-b6bbb67f2f49",
+      "created": "2023-12-04T17:06:22Z",
       "algorithm": "SHA1withRSA",
-      "nonce": "Z4X2zSU4H3s\u003d",
-      "signature": "mkHjppJPm1xEyFisTMVWleBfeBz7uLh6MJfYMwWxStxysN4NLbW4KYBPlTSHauqGmH0ZBohHBEj0frdEQoQYug9Y0ccuFXkOsQKuekZipSi8Ok/iZ0xG7BPZxfbRQoBKyLJ+CNjE6ETBUHc6EKJCJsyd3jpvzK0uFQGChbs6N8Wohr7eJG4e5o1222sD9a1TfC+b/s7NWO1FlizUT+kITGPdf5zpJDpe03Skf4E9jrUhpJ6Z/R2Rxa1CrxfuryD3wgli0hp2ZT8nAySn3xgWZXKF/9bZkxU7XlHxBM7YbxXXfdNuZx2AljcZlyrErnSI74T4dptN3LXvYtOjcW/pag\u003d\u003d"
+      "nonce": "q5C7ACHF9I0\u003d",
+      "signature": "GJlRyd8Ub/mVYqvhpi1R3jzVRTCVCunl2zZv7pN0KPaqbe6aub75FBPVQ1UNVi2LARBqWm8HVfCHGiN2E+/osL3WIZs1adZHzB14xknEnSgux+0zLoZTY29lzmtT+kC5tnY4BUNmefpBtscmQNP6hqXTduKtW4ywBOfA61SfRqXR5wRdqgVXyLJXVq+LDMJrvtkKQgE7mgTAPAelOkHwqksGatOT4y/+s6KEQXE+3sDkM1A3gKBMbExc/BuZiGfKvG7sVR8zkw/Wa5Bss5p9iR1SwrcE9aahyrODhOAro9WfyWNqCzmGTMW/RP47ScCyknl2mqn1c1zRSrpYkzHxpw\u003d\u003d"
     }
   ],
   "builds": {
