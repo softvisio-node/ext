@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.19.1 (2024-05-29)
+
+Fixes:
+
+-   fix: email address
+
 ### 5.19.0 (2024-05-19)
 
 Features:
