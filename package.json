@@ -11,14 +11,14 @@
     "homepage": "https://softvisio-node.github.io/ext/",
     "bugs": {
         "url": "https://github.com/softvisio-node/ext/issues",
-        "email": "zdm <zdm@softvisio.net>"
+        "email": "root <root@softvisio.net>"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/softvisio-node/ext.git"
     },
     "license": "ISC",
-    "author": "zdm <zdm@softvisio.net>",
+    "author": "root <root@softvisio.net>",
     "imports": {
         "#core/*": "@softvisio/core/*",
         "#src/*": "./src/*.js*",
