@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.19.2 (2024-07-25)
+
+Fixes:
+
+-   fix: exports
+
 ### 5.19.1 (2024-05-29)
 
 Fixes:
