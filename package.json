@@ -21,11 +21,17 @@
     "author": "root <root@softvisio.net>",
     "imports": {
         "#core/*": "@softvisio/core/*",
-        "#src/*": "./src/*.js*",
-        "#resources/*": "./resources/*"
+        "#resources/*": "./resources/*",
+        "#src/*": {
+            "browser": "./src/*",
+            "node": "./src/*.js"
+        }
     },
     "exports": {
-        "./*": "./src/*.js",
+        "./*": {
+            "browser": "./src/*",
+            "node": "./src/*.js"
+        },
         "./resources/*": "./resources/*"
     },
     "files": [
