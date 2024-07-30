@@ -19,6 +19,14 @@ Ext.define( null, {
             .join( "," );
     },
 
+    name ( value, format ) {
+        return locale.formatName( value, format );
+    },
+
+    nameRenderer ( format ) {
+        return value => this.name( value, format );
+    },
+
     date ( value, format ) {
         if ( !value ) return "";
 
@@ -64,5 +72,21 @@ Ext.define( null, {
 
     digitalSizeRenderer ( format ) {
         return value => this.digitalSize( value, format );
+    },
+
+    duration ( value, format ) {
+        return locale.formatDuration( value, format );
+    },
+
+    durationRenderer ( format ) {
+        return value => this.duration( value, format );
+    },
+
+    list ( value, format ) {
+        return locale.formatList( value, format );
+    },
+
+    listRenderer ( format ) {
+        return value => this.list( value, format );
     },
 } );
