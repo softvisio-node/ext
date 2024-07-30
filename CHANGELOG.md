@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.19.3 (2024-07-30)
+
+Fixes:
+
+-   fix: formatters update
+
 ### 5.19.2 (2024-07-25)
 
 Fixes:
