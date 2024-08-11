@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import fs from "fs";
-import module from "module";
-import path from "path";
-import childProcess from "child_process";
+import fs from "node:fs";
+import module from "node:module";
+import path from "node:path";
+import childProcess from "node:child_process";
 
 const rootDir = path.dirname( module.createRequire( import.meta.url ).resolve( "#root/package.json" ) ),
     dataDir = path.join( rootDir, "data" ),
