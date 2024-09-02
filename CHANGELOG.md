@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.19.7 (2024-09-02)
+
+Fixes:
+
+-   fix: docs config
+
 ### 5.19.6 (2024-08-14)
 
 No notable changes since the previous release.
