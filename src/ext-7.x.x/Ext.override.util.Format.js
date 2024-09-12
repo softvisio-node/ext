@@ -34,26 +34,26 @@ Ext.define( null, {
             value = new Date( Date.parse( value ) );
         }
 
-        if ( format && format.startsWith( "ext:" ) ) return Ext.Date.formatExt( value, format.substring( 4 ) );
+        if ( format && format.startsWith( "ext:" ) ) return Ext.Date.formatExt( value, format.slice( 4 ) );
 
         return locale.formatDate( value, format );
     },
 
     number ( value, format ) {
-        if ( format && format.startsWith( "ext:" ) ) return this.callParent( value, format.substring( 4 ) );
+        if ( format && format.startsWith( "ext:" ) ) return this.callParent( value, format.slice( 4 ) );
 
         return locale.formatNumber( value, format );
     },
 
     // minimumFractionDigits:2,maximumFractionDigits:2
     percent ( value, format ) {
-        if ( format && format.startsWith( "ext:" ) ) return this.callParent( value, format.substring( 4 ) );
+        if ( format && format.startsWith( "ext:" ) ) return this.callParent( value, format.slice( 4 ) );
 
         return locale.formatPercent( value, format );
     },
 
     currency ( value, format ) {
-        if ( format && format.startsWith( "ext:" ) ) return this.callParent( value, format.substring( 4 ) );
+        if ( format && format.startsWith( "ext:" ) ) return this.callParent( value, format.slice( 4 ) );
 
         return locale.formatCurrency( value, format );
     },

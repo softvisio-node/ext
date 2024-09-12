@@ -61,7 +61,7 @@ Ext.define( null, {
                 : value.lastIndexOf( ANCHOR );
 
             if ( idx >= 0 ) {
-                value = value.substring( 0, idx ).trim();
+                value = value.slice( 0, idx ).trim();
             }
 
             return value;
