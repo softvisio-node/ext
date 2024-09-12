@@ -13,7 +13,7 @@ try {
         window.customElements.define( "ext-avatar", ElementParser.withParsedCallback( EwcAvatar ) );
     }
 }
-catch ( e ) {
+catch {
     if ( window.customElements.get( "ext-avatar" ) === undefined ) {
         window.customElements.define( "ext-avatar", EwcAvatar );
     }

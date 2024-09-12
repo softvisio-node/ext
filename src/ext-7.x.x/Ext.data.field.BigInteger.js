@@ -20,7 +20,7 @@ Ext.define( "Ext.data.field.BigInteger", {
             try {
                 return BigInt( v );
             }
-            catch ( e ) {
+            catch {
                 return this.allowNull
                     ? null
                     : NaN;

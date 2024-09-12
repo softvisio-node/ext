@@ -14,7 +14,7 @@ try {
         window.customElements.define( "ext-avatarcolumn", ElementParser.withParsedCallback( EwcAvatarColumn ) );
     }
 }
-catch ( e ) {
+catch {
     if ( window.customElements.get( "ext-avatarcolumn" ) === undefined ) {
         window.customElements.define( "ext-avatarcolumn", EwcAvatarColumn );
     }

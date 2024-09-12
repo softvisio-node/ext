@@ -43,7 +43,7 @@ Ext.define( null, {
         try {
             this.callParent( arguments );
         }
-        catch ( e ) {}
+        catch {}
     },
 
     doDestroy () {
@@ -57,7 +57,7 @@ Ext.define( null, {
         try {
             this.callParent( arguments );
         }
-        catch ( e ) {}
+        catch {}
     },
 
     _updateTheme () {
