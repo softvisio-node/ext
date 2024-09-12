@@ -36,6 +36,8 @@ Ext.define( "Ext.data.validator.Custom", {
         var validator = this.getValidator(),
             result = validator && validator( value, record );
 
-        return result ? result : this.getMessage();
+        return result
+            ? result
+            : this.getMessage();
     },
 } );

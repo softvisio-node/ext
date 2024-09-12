@@ -15,7 +15,9 @@ Ext.define( "Ext.grid.column.avatar.js", {
                 "xtype": "container",
                 "layout": {
                     "type": "hbox",
-                    "pack": this.getAlign() === "right" ? "end" : "start",
+                    "pack": this.getAlign() === "right"
+                        ? "end"
+                        : "start",
                 },
                 "items": [
                     {

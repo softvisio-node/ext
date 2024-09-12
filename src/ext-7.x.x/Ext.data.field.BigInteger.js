@@ -12,14 +12,18 @@ Ext.define( "Ext.data.field.BigInteger", {
             return v;
         }
         else if ( v == null ) {
-            return this.allowNull ? null : 0n;
+            return this.allowNull
+                ? null
+                : 0n;
         }
         else {
             try {
                 return BigInt( v );
             }
             catch ( e ) {
-                return this.allowNull ? null : NaN;
+                return this.allowNull
+                    ? null
+                    : NaN;
             }
         }
     },

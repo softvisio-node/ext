@@ -56,7 +56,9 @@ Ext.define( null, {
 
     "privates": {
         clearValue ( value ) {
-            const idx = value.length < 1000 ? value.indexOf( ANCHOR ) : value.lastIndexOf( ANCHOR );
+            const idx = value.length < 1000
+                ? value.indexOf( ANCHOR )
+                : value.lastIndexOf( ANCHOR );
 
             if ( idx >= 0 ) {
                 value = value.substring( 0, idx ).trim();
