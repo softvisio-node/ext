@@ -1363,7 +1363,7 @@
 }
 .x-treelist-nav .x-treelist-row-over {
     background-color: #e1e1e1;
-    transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1) 0s;
 }
 .x-treelist-nav .x-treelist-row-over > * > .x-treelist-item-icon {
     color: #515151;
