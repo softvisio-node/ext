@@ -1,5 +1,9 @@
 # Changelog
 
+### 5.19.10 (2024-09-13)
+
+No notable changes since the previous release.
+
 ### 5.19.9 (2024-09-07)
 
 No notable changes since the previous release.
