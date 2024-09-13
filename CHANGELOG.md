@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.19.11 (2024-09-13)
+
+Fixes:
+
+-   fix: css
+
 ### 5.19.10 (2024-09-13)
 
 No notable changes since the previous release.
