@@ -1,5 +1,9 @@
 # Changelog
 
+### 5.19.12 (2024-09-17)
+
+No notable changes since the previous release.
+
 ### 5.19.11 (2024-09-13)
 
 Fixes:
