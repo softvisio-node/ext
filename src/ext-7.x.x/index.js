@@ -1,14 +1,8 @@
-// framework
-
 import "#ext/ext.css";
 import "#ext/css-vars.js";
 import "#ext/ext.js";
-
-// styles
 import "./1.css";
 import "./froala.css";
-
-// components
 import "./Ext.Avatar.js";
 import "./Ext.Date.js";
 import "./Ext.data.field.BigInteger.js";
@@ -17,8 +11,6 @@ import "./Ext.data.validator.Custom.js";
 import "./Ext.data.validator.PasswordStrength.js";
 import "./Ext.dataview.plugin.AutoPaging.js";
 import "./Ext.grid.column.avatar.js";
-
-// override
 import "./Ext.override.Dialog.js";
 import "./Ext.override.Progress.js";
 import "./Ext.override.Video.js";

@@ -1,5 +1,5 @@
-import ExtGridColumn from "#ewc/Ext/grid/column/Number.js";
 import ElementParser from "#ewc/common/ElementParser";
+import ExtGridColumn from "#ewc/Ext/grid/column/Number.js";
 
 export default class EwcAvatarColumn extends ExtGridColumn {
     constructor () {

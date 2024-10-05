@@ -1,5 +1,5 @@
-import ExtImage from "#ewc/Ext/Image";
 import ElementParser from "#ewc/common/ElementParser";
+import ExtImage from "#ewc/Ext/Image";
 
 export default class EwcAvatar extends ExtImage {
     constructor () {
