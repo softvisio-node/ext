@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.19.14 (2024-10-06)
+
+Fixes:
+
+-   fix: dependabot
+
 ### 5.19.13 (2024-10-06)
 
 No notable changes since the previous release.
