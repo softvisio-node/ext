@@ -5,7 +5,7 @@ ExtJS bundle.
 ## Install
 
 ```shell
-npm i @softvisio/ext
+npm install @softvisio/ext
 ```
 
 ## Usage
