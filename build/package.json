@@ -1,11 +1,24 @@
 {
     "private": true,
+    "homepage": "https://github.com/softvisio-node/ext",
+    "bugs": {
+        "url": "https://github.com/softvisio-node/ext/issues",
+        "email": "root <root@softvisio.net>"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/softvisio-node/ext.git",
+        "directory": "build"
+    },
+    "license": "Proprietary Software",
+    "author": "root <root@softvisio.net>",
     "type": "module",
     "imports": {
         "#root/*": "./*"
     },
     "scripts": {
-        "build": "node bin/build.js"
+        "build": "node bin/build.js",
+        "publish": "softvisio-cli package publish"
     },
     "dependencies": {
         "@sencha/cmd": "^7.6.0",
