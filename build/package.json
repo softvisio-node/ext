@@ -1,4 +1,5 @@
 {
+    "name": "@softvisio/ext/build",
     "private": true,
     "homepage": "https://github.com/softvisio-node/ext",
     "bugs": {
