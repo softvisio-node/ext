@@ -17,8 +17,7 @@
         "#root/*": "./*"
     },
     "scripts": {
-        "build": "node bin/build.js",
-        "publish": "softvisio-cli package publish"
+        "build": "node bin/build.js"
     },
     "dependencies": {
         "@sencha/cmd": "^7.6.0",
