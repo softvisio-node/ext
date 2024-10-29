@@ -1,5 +1,13 @@
 # Changelog
 
+### 5.19.20 (2024-10-29)
+
+Other changes:
+
+-   chore: update docs
+
+[Compare with the previous release: v5.19.19 ... v5.19.20](https://github.com/softvisio-node/ext/compare/v5.19.19...v5.19.20)
+
 ### 5.19.19 (2024-10-20)
 
 No notable changes since the previous release.
