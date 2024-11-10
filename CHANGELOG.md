@@ -1,5 +1,13 @@
 # Changelog
 
+### 5.19.22 (2024-11-10)
+
+Other changes:
+
+-   chore: chmod files
+
+[Compare with the previous release: v5.19.21 ... v5.19.22](https://github.com/softvisio-node/ext/compare/v5.19.21...v5.19.22)
+
 ### 5.19.21 (2024-11-07)
 
 Other changes:
