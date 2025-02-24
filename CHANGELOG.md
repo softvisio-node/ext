@@ -1,5 +1,13 @@
 # Changelog
 
+### 5.19.28 (2025-02-24)
+
+Other changes:
+
+- chore: add build log
+
+Compare with the previous release: [`v5.19.27...v5.19.28`](https://github.com/softvisio-node/ext/compare/v5.19.27...v5.19.28)
+
 ### 5.19.27 (2025-02-19)
 
 Other changes:
