@@ -1,5 +1,13 @@
 # Changelog
 
+### 5.19.29 (2025-02-26)
+
+Other changes:
+
+- chore: update editorconfig
+
+Compare with the previous release: [`v5.19.28...v5.19.29`](https://github.com/softvisio-node/ext/compare/v5.19.28...v5.19.29)
+
 ### 5.19.28 (2025-02-24)
 
 Other changes:
