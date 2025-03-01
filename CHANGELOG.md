@@ -1,5 +1,13 @@
 # Changelog
 
+### 5.19.31 (2025-03-01)
+
+Other changes:
+
+- chore: update package metadata
+
+Compare with the previous release: [`v5.19.30...v5.19.31`](https://github.com/softvisio-node/ext/compare/v5.19.30...v5.19.31)
+
 ### 5.19.30 (2025-02-27)
 
 Other changes:
