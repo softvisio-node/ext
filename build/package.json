@@ -2,7 +2,7 @@
     "name": "@softvisio/ext/build",
     "version": "5.19.30",
     "private": true,
-    "homepage": "https://github.com/softvisio-node/ext",
+    "homepage": "https://softvisio-node.github.io/ext/",
     "bugs": {
         "url": "https://github.com/softvisio-node/ext/issues",
         "email": "root <root@softvisio.net>"
