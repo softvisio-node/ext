@@ -116,19 +116,18 @@ fs.rmSync( dataDir + "/resources/images/pictos", { "recursive": true, "force": t
 {
     console.log( "Compress css files" );
 
-    let res = childProcess.spawnSync( "softvisio-cli", [ "lint", "--action=compress", "**/*.css" ], {
+    const res = childProcess.spawnSync( "softvisio-cli", [ "lint", "--action=compress", "--no-lintignore", "**/*.css" ], {
         "cwd": dataDir,
         "shell": true,
         "stdio": "inherit",
     } );
     if ( res.status ) process.exit( res.status );
 
-    console.log( "Format css files" );
+    console.log( "\nLint files" );
 
-    res = childProcess.spawnSync( "softvisio-cli", [ "lint", "**/*.css" ], {
+    childProcess.spawnSync( "softvisio-cli", [ "lint", "--no-lintignore", "--no-log", "**" ], {
         "cwd": dataDir,
         "shell": true,
         "stdio": "inherit",
     } );
-    if ( res.status ) process.exit( res.status );
 }
