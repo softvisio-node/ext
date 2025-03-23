@@ -1,5 +1,13 @@
 # Changelog
 
+### 5.19.34 (2025-03-23)
+
+Other changes:
+
+- chore: add lint on build
+
+Compare with the previous release: [`v5.19.33...v5.19.34`](https://github.com/softvisio-node/ext/compare/v5.19.33...v5.19.34)
+
 ### 5.19.33 (2025-03-04)
 
 Other changes:
