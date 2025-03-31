@@ -1,5 +1,13 @@
 # Changelog
 
+### 5.19.36 (2025-03-31)
+
+Other changes:
+
+- chore: fix build
+
+Compare with the previous release: [`v5.19.35...v5.19.36`](https://github.com/softvisio-node/ext/compare/v5.19.35...v5.19.36)
+
 ### 5.19.35 (2025-03-26)
 
 Other changes:
