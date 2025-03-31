@@ -125,7 +125,7 @@ fs.rmSync( dataDir + "/resources/images/pictos", { "recursive": true, "force": t
 
     console.log( "\nLint files" );
 
-    childProcess.spawnSync( "softvisio-cli", [ "lint", "--no-lintignore", "--no-log", "**" ], {
+    childProcess.spawnSync( "softvisio-cli", [ "lint", "--no-lintignore", "--no-log", "--no-fix", "**" ], {
         "cwd": dataDir,
         "shell": true,
         "stdio": "inherit",
