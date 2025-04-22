@@ -1,5 +1,13 @@
 # Changelog
 
+### 5.20.0 (2025-04-22)
+
+Features:
+
+- feat: extjs 7.9.0
+
+Compare with the previous release: [`v5.19.36...v5.20.0`](https://github.com/softvisio-node/ext/compare/v5.19.36...v5.20.0)
+
 ### 5.19.36 (2025-03-31)
 
 Other changes:
