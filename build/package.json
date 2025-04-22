@@ -22,13 +22,13 @@
         "build": "node bin/build.js"
     },
     "dependencies": {
-        "@sencha/cmd": "^7.8.0",
-        "@sencha/ext": "^7.8.0",
-        "@sencha/ext-charts": "^7.8.0",
-        "@sencha/ext-google": "^7.8.0",
-        "@sencha/ext-modern": "^7.8.0",
-        "@sencha/ext-modern-theme-material": "^7.8.0",
-        "@sencha/ext-ux": "^7.8.0",
+        "@sencha/cmd": "^7.9.0",
+        "@sencha/ext": "^7.9.0",
+        "@sencha/ext-charts": "^7.9.0",
+        "@sencha/ext-google": "^7.9.0",
+        "@sencha/ext-modern": "^7.9.0",
+        "@sencha/ext-modern-theme-material": "^7.9.0",
+        "@sencha/ext-ux": "^7.9.0",
         "@sencha/ext-web-components-modern": "^7.5.0"
     }
 }
