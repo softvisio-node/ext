@@ -2,7 +2,7 @@
   "name": "pivot-d3",
   "namespace": "Ext",
   "format": "1",
-  "version": "7.8.0.33",
+  "version": "7.9.0.20",
   "creator": "Sencha",
   "summary": "Sencha Pivot integration with D3",
   "detailedDescription": "Pivot components working with D3",
@@ -15,10 +15,10 @@
     {
       "name": "Sencha",
       "uuid": "76c71712-41cd-4537-a7c8-b6bbb67f2f49",
-      "created": "2023-12-04T17:05:46Z",
+      "created": "2025-01-15T16:19:17Z",
       "algorithm": "SHA1withRSA",
-      "nonce": "vhFt8Ux4j44\u003d",
-      "signature": "doEpxBV2lQRiYi/lWY10O6PkS7wtfPTAMk/1d+QNSrbzQNCa8qofBVYfzJUnezIVCMzQFM45bPegGh0wE1dHHF9NYnG26pdR/yAGY+KivERFkJl7EgFqBqFaM1SAdGBtPKZiwUF8Pvp4RfjCCYBa5CEPw+W+sImbwCtnIotud7rGMaADUoay7sNCrhTnX5/5trGmgDRBW130+lTek7uqa/qdPfVIewrgYOIlz7YStPF2c/z/uBqrF752Wyl7y8prkh9sVvXUC4q0iOqX5izzaFxbbC5Y05e/I0i0iFBFAp7NTG7j0uGmfF5CFLMOcYGVXspIxxqm0zUYs62p34SDtg\u003d\u003d"
+      "nonce": "9pQn6GrtKpY\u003d",
+      "signature": "YtAqHmWYUicDVWlfrXPtIoKhfmHnFC41VCAqMWsgmtpV94UMWOfYPEF5Iw/RzeZixwTJ3DHMn4nmo3+bXTTpL+TWsp47LfRL7loNCEJO2zzp6xOZc6T/nOTL12sSOnqWSKctNEk2sowkhZqJvyyS3Jz8lE5OYbytK04xVwa58k2cJAtUTG550ElFd1slhXZeyWHWUfLw0BmbHyab5AY+sQk7uQguyhj+3ATeyohPyWFH1SP6oRzV0WxbeIBu/8/z42T22eFtGz3V85xmdT1oICHHCOxcZ2CzCPqS0Nk5S4KLLwav0PGzNw23mzw0QCgX4lwxNSSW2Y4y+/LX8mNTiQ\u003d\u003d"
     }
   ],
   "resources": [

@@ -26,7 +26,7 @@ Ext.define('Ext.pivot.plugin.configurator.Column', {
     focusable: true,
     isConfiguratorField: true,
 
-    /* eslint-disable max-len, indent */
+    /* eslint-disable max-len */
     renderTpl:
         '<div id="{id}-configCol" role="button" class="' + Ext.baseCSSPrefix + 'pivot-grid-config-column-inner" >' +
             '<span id="{id}-customCol" role="presentation" data-ref="customCol" class="' + Ext.baseCSSPrefix + 'pivot-grid-config-column-btn-customize ' + Ext.baseCSSPrefix + 'border-box ' + Ext.baseCSSPrefix + 'pivot-grid-config-column-btn ' + Ext.baseCSSPrefix + 'pivot-grid-config-column-btn-image"></span>' +
@@ -36,7 +36,7 @@ Ext.define('Ext.pivot.plugin.configurator.Column', {
                 '{header}' +
             '</span>' +
         '</div>',
-    /* eslint-enable max-len, indent */
+    /* eslint-enable max-len */
 
     header: '&#160;',
     minWidth: 80,

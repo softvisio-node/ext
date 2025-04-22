@@ -363,6 +363,30 @@ topSuite("Ext.calendar.store.EventSource", ["Ext.calendar.store.*"], function() 
             setDefaultRangeAndComplete(cal1Data, cal2Data);
         });
 
+        describe("filtering", function() {
+            it("should filter an event", function() {
+                var events = store.getAt(0).events();
+
+                events.filter("id", 1);
+                expect(source.indexOfId(1)).toBe(-1);
+                events.add({
+                    id: 101,
+                    title: 'Cal1.3',
+                    startDate: format(new Date(2010, 0, 4)),
+                    endDate: format(new Date(2010, 0, 5))
+                }, {
+                    id: 102,
+                    title: 'Cal1.3',
+                    startDate: format(new Date(2010, 0, 4)),
+                    endDate: format(new Date(2010, 0, 5))
+                });
+                events.filter("id", 99999);
+                store.getAt(1).events().filter("id", 99999);
+                expect(source.getCount()).toBe(0);
+                events.clearFilter();
+            });
+        });
+
         describe("adding", function() {
             describe("record is in the range", function() {
                 it("should add an event", function() {
@@ -435,6 +459,15 @@ topSuite("Ext.calendar.store.EventSource", ["Ext.calendar.store.*"], function() 
                     events.remove(events.getById(3));
 
                     expect(store.indexOfId(3)).toBe(-1);
+                });
+
+                it("should remove an event when the events are filtered", function() {
+                    var events = store.getAt(0).events();
+
+                    events.filter('id', 1);
+                    events.remove(events.getById(1));
+                    expect(events.getCount()).toBe(0);
+                    events.clearFilter();
                 });
 
                 it("should fire a remove event", function() {

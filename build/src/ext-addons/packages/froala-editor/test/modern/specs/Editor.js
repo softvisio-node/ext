@@ -175,7 +175,7 @@ topSuite("Ext.froala.Editor.modern",
                 });
                 waits(100);
                 runs(function() {
-                    // Manually fire the event, since doing a file upload 
+                    // Manually fire the event, since doing a file upload
                     // in a Jasmine test would be difficult.
                     editor.getEditor().events.trigger('image.beforeUpload');
                     expect(eventFired).toBe(true);

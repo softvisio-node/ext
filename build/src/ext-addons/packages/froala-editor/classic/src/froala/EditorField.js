@@ -3,7 +3,7 @@
  * within a form and automatically have its name and value included in a form submit.
  */
 Ext.define('Ext.froala.EditorField', {
-    extend: 'Ext.form.Field',
+    extend: 'Ext.form.field.Base',
     xtype: 'froalaeditorfield',
     mixins: {
         froalaeditor: 'Ext.froala.Mixin'

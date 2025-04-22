@@ -152,20 +152,16 @@ Ext.define('Ext.calendar.model.EventBase', {
     isSpan: function() {
         var me = this,
             DATE = Ext.Date,
-            startTime = me.data.startTime,
+            startDateTime = me.data.startDate,
             nextDayStart;
 
         if (me.getAllDay()) {
             return true;
         }
-        else if (!startTime) {
-            return me.getDuration() > 1440;
-        }
 
-        nextDayStart = DATE.add(DATE.clearTime(DATE.clone(startTime)), DATE.DAY, 1);
+        nextDayStart = DATE.add(DATE.clearTime(DATE.clone(startDateTime)), DATE.DAY, 1);
 
-        return DATE.diff(startTime, nextDayStart, 'mi') < me.getDuration();
-
+        return me.getDuration() > DATE.diff(startDateTime, nextDayStart, 'mi');
     },
 
     /**

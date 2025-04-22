@@ -3350,14 +3350,12 @@ Ext.define('Ext.calendar.model.EventBase', {extend:'Ext.Mixin', requires:['Ext.c
 }, isContainedByRange:function(start, end) {
   return this.getRange().isContainedBy(start, end);
 }, isSpan:function() {
-  var me = this, DATE = Ext.Date, startTime = me.data.startTime, nextDayStart;
+  var me = this, DATE = Ext.Date, startDateTime = me.data.startDate, nextDayStart;
   if (me.getAllDay()) {
     return true;
-  } else if (!startTime) {
-    return me.getDuration() > 1440;
   }
-  nextDayStart = DATE.add(DATE.clearTime(DATE.clone(startTime)), DATE.DAY, 1);
-  return DATE.diff(startTime, nextDayStart, 'mi') < me.getDuration();
+  nextDayStart = DATE.add(DATE.clearTime(DATE.clone(startDateTime)), DATE.DAY, 1);
+  return me.getDuration() > DATE.diff(startDateTime, nextDayStart, 'mi');
 }, occursInRange:function(start, end) {
   return this.getRange().overlaps(start, end);
 }, setCalendar:function(calendar, dirty) {
@@ -4163,7 +4161,7 @@ header:null, store:null, timezoneOffset:undefined, value:undefined}, platformCon
   me.setHeader(null);
   me.setStore(null);
   me.callParent();
-}, privates:{$eventCls:Ext.baseCSSPrefix + 'calendar-event', $eventInnerCls:Ext.baseCSSPrefix + 'calendar-event-inner', $eventColorCls:Ext.baseCSSPrefix + 'calendar-event-marker-color', $staticEventCls:Ext.baseCSSPrefix + 'calendar-event-static', $tableCls:Ext.baseCSSPrefix + 'calendar-table', eventRefreshSuspend:0, refreshCounter:0, forwardDirection:'left', backwardDirection:'right', dateInfo:null, calculateMove:function(offset) {
+}, privates:{$eventCls:Ext.baseCSSPrefix + 'calendar-event', $eventInnerCls:Ext.baseCSSPrefix + 'calendar-event-inner', $eventColorCls:Ext.baseCSSPrefix + 'calendar-event-marker-color', $staticEventCls:Ext.baseCSSPrefix + 'calendar-event-static', $tableCls:Ext.baseCSSPrefix + 'calendar-table', eventRefreshSuspend:0, isRefreshing:false, forwardDirection:'left', backwardDirection:'right', dateInfo:null, calculateMove:function(offset) {
   var interval = this.getMoveInterval(), val = this.getMoveBaseValue();
   return Ext.Date.add(val, interval.unit, offset * interval.amount, true);
 }, calculateMoveNext:function() {
@@ -4383,16 +4381,20 @@ header:null, store:null, timezoneOffset:undefined, value:undefined}, platformCon
 }, refresh:function() {
   var me = this;
   if (!me.isConfiguring) {
-    ++me.refreshCounter;
-    me.doRefresh();
-    if (me.hasListeners.refresh) {
-      me.fireEvent('refresh', me);
+    me.isRefreshing = true;
+    try {
+      me.doRefresh();
+      if (me.hasListeners.refresh) {
+        me.fireEvent('refresh', me);
+      }
+    } finally {
+      me.isRefreshing = false;
     }
   }
 }, refreshEvents:function() {
   var me = this;
   if (!me.eventRefreshSuspend && !me.isConfiguring) {
-    if (!me.refreshCounter) {
+    if (!me.isRefreshing) {
       me.refresh();
     }
     me.doRefreshEvents();

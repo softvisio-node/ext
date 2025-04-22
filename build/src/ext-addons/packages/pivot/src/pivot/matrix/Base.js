@@ -420,10 +420,11 @@ Ext.define('Ext.pivot.matrix.Base', {
      * @private
      */
     naturalSort: (function() {
-        /* eslint-disable no-useless-escape */
+        // eslint-disable-next-line no-useless-escape
         var re = /(^([+\-]?(?:\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?)?$|^0x[\da-fA-F]+$|\d+)/g,
             sre = /^\s+|\s+$/g,   // trim pre-post whitespace
             snre = /\s+/g,        // normalize all whitespace to single ' ' character
+            // eslint-disable-next-line no-useless-escape
             dre = /(^([\w ]+,?[\w ]+)?[\w ]+,?[\w ]+\d+:\d+(:\d+)?[\w ]?|^\d{1,4}[\/\-]\d{1,4}[\/\-]\d{1,4}|^\w+, \w+ \d+, \d{4})/,
             hre = /^0x[0-9a-f]+$/i,
             ore = /^0/,
@@ -435,7 +436,6 @@ Ext.define('Ext.pivot.matrix.Base', {
                 return (!s.match(ore) || l === 1) &&
                        parseFloat(s) || s.replace(snre, ' ').replace(sre, '') || 0;
             };
-        /* eslint-enable no-useless-escape */
 
         return function(a, b) {
             // convert all to strings strip whitespace

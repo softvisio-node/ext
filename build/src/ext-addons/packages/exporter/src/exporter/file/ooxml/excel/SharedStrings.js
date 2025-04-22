@@ -43,7 +43,6 @@ Ext.define('Ext.exporter.file.ooxml.excel.SharedStrings', {
     folder: '/xl/',
     fileName: 'sharedStrings',
 
-    /* eslint-disable max-len */
     tpl: [
         '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',
         '<sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" count="{strings.length}" uniqueCount="{strings.length}">',
@@ -55,7 +54,6 @@ Ext.define('Ext.exporter.file.ooxml.excel.SharedStrings', {
             }
         }
     ],
-    /* eslint-enable max-len */
 
     destroy: function() {
         this.setStrings(null);

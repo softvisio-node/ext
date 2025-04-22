@@ -198,8 +198,8 @@ Ext.define('Ext.exporter.file.ooxml.excel.SharedItems', {
             data = me.callParent(),
             items = data.items,
             str = '',
-            hasBlank = false, // eslint-disable-line no-unused-vars
-            hasBool = false, // eslint-disable-line no-unused-vars
+            hasBlank = false,
+            hasBool = false,
             hasNumber = false,
             hasDate = false,
             hasString = false,
@@ -220,6 +220,7 @@ Ext.define('Ext.exporter.file.ooxml.excel.SharedItems', {
                 v = items[i];
 
                 if (v == null || v === '') {
+                    // eslint-disable-next-line no-unused-vars
                     hasBlank = true;
                 }
                 else {
@@ -232,6 +233,7 @@ Ext.define('Ext.exporter.file.ooxml.excel.SharedItems', {
                         types.push('s');
                     }
                     else if (typeof v === 'boolean') {
+                        // eslint-disable-next-line no-unused-vars
                         hasBool = true;
                         tpl = me.booleanTpl;
                         types.push('b');

@@ -16,7 +16,7 @@ Ext.define('Ext.calendar.List', {
 
     cls: Ext.baseCSSPrefix + 'calendar-list',
 
-    /* eslint-disable max-len, indent */
+    /* eslint-disable max-len */
     itemTpl: '<div class="' +
                  '<tpl if="hidden">' +
                      Ext.baseCSSPrefix + 'calendar-list-item-hidden' +
@@ -24,7 +24,7 @@ Ext.define('Ext.calendar.List', {
                  '<div class="' + Ext.baseCSSPrefix + 'calendar-list-icon" style="background-color: {color};"></div>' +
                  '<div class="' + Ext.baseCSSPrefix + 'calendar-list-text">{title:htmlEncode}</div>' +
              '</div>',
-    /* eslint-enable max-len, indent */
+    /* eslint-enable max-len */
 
     itemSelector: '.' + Ext.baseCSSPrefix + 'calendar-list-item',
     itemCls: Ext.baseCSSPrefix + 'calendar-list-item',

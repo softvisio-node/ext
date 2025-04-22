@@ -632,7 +632,7 @@ Ext.define('Ext.calendar.view.Base', {
         $tableCls: Ext.baseCSSPrefix + 'calendar-table',
 
         eventRefreshSuspend: 0,
-        refreshCounter: 0,
+        isRefreshing: false,
 
         forwardDirection: 'left',
         backwardDirection: 'right',
@@ -1334,11 +1334,18 @@ Ext.define('Ext.calendar.view.Base', {
             var me = this;
 
             if (!me.isConfiguring) {
-                ++me.refreshCounter;
-                me.doRefresh();
+                me.isRefreshing = true;
 
-                if (me.hasListeners.refresh) {
-                    me.fireEvent('refresh', me);
+                try {
+                    me.doRefresh();
+
+                    if (me.hasListeners.refresh) {
+                        me.fireEvent('refresh', me);
+                    }
+                }
+                finally {
+                    // Reset isRefreshing after the refresh is complete
+                    me.isRefreshing = false;
                 }
             }
         },
@@ -1353,7 +1360,7 @@ Ext.define('Ext.calendar.view.Base', {
             var me = this;
 
             if (!me.eventRefreshSuspend && !me.isConfiguring) {
-                if (!me.refreshCounter) {
+                if (!me.isRefreshing) {
                     me.refresh();
                 }
 

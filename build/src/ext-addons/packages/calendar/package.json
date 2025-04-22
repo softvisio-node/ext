@@ -2,7 +2,7 @@
   "name": "calendar",
   "namespace": "Ext",
   "format": "1",
-  "version": "7.8.0.33",
+  "version": "7.9.0.20",
   "creator": "Sencha",
   "summary": "Sencha Calendar",
   "detailedDescription": "Calendar components",
@@ -11,10 +11,10 @@
     {
       "name": "Sencha",
       "uuid": "76c71712-41cd-4537-a7c8-b6bbb67f2f49",
-      "created": "2023-12-04T17:00:34Z",
+      "created": "2025-01-15T16:14:01Z",
       "algorithm": "SHA1withRSA",
-      "nonce": "R/7DhAy5DAk\u003d",
-      "signature": "I7DBphDXbWw7nr9TZxHlCYUGlyNGCsoTkT5KVwS/nMj1WDBT5mD8WROItKYsEsmfCH+Lw5d8Di2M+/3NuQB3gQF8HWxIDyjOUJ8swcqD/DUCnczywc4uUkZ406TavF4nsWwJwqDW3IhVOYgCJd5wEGvdrkqQktm/35GwsUerbYjzBe4uuspEpoD7/dV74xSp3NpuObmMQnC0Ad+viL22dgRnQDoWiQ4k4VGLjo164iE4tRcwVuLpNmWchpsMUzCOy3cR9zgICkwHyoGyJUi/CqXWNdPlT1jnwgdyndVKakvNedGkbVSkYHbuO+BVM9CUXVd5Ax+haLQYwc8UQy8fSg\u003d\u003d"
+      "nonce": "okauERQyMkM\u003d",
+      "signature": "0bIRcJGNjPJVSMkVfCSIcY/lF2fZhdQIyJfvL5MUqeKe8udPZwBg/6ce47mu7K4vK6msPEjHwBYxvTwAotvbwboGS5kRbivhS1TLWcu4EO1TDUf7CMukZZ305gj6CFpFSQBm7sBBz1rJ9+/51EpmO2nVciO7Q5MXkRvik+oG9H0G4sIkAPBT8jLBWI1etz26C2QE5IzMTzZkcDJC7J52IX2Mpn/TEa0Yo7eJmVG7cOLsT3RplrwfXkF+6N+BBMgI+X/zCqIdGGr9iga5LNbC50avqVPFjyXHYG5KwXb09vNbTz3hywjBCJq7COKXsFsv79RLHLcuHGaq3+qlPyRrKA\u003d\u003d"
     }
   ],
   "resources": [

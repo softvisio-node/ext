@@ -5402,12 +5402,13 @@ Ext.define('Ext.pivot.matrix.Base', {
      * @private
      */
     naturalSort: (function() {
-        /* eslint-disable no-useless-escape */
+        // eslint-disable-next-line no-useless-escape
         var re = /(^([+\-]?(?:\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?)?$|^0x[\da-fA-F]+$|\d+)/g,
             sre = /^\s+|\s+$/g,
             // trim pre-post whitespace
             snre = /\s+/g,
             // normalize all whitespace to single ' ' character
+            // eslint-disable-next-line no-useless-escape
             dre = /(^([\w ]+,?[\w ]+)?[\w ]+,?[\w ]+\d+:\d+(:\d+)?[\w ]?|^\d{1,4}[\/\-]\d{1,4}[\/\-]\d{1,4}|^\w+, \w+ \d+, \d{4})/,
             hre = /^0x[0-9a-f]+$/i,
             ore = /^0/,
@@ -5417,7 +5418,6 @@ Ext.define('Ext.pivot.matrix.Base', {
                 s = s || '';
                 return (!s.match(ore) || l === 1) && parseFloat(s) || s.replace(snre, ' ').replace(sre, '') || 0;
             };
-        /* eslint-enable no-useless-escape */
         return function(a, b) {
             // convert all to strings strip whitespace
             var x = String(a instanceof Date ? a.getTime() : (a || '')).replace(sre, ''),
@@ -11204,9 +11204,9 @@ Ext.define('Ext.pivot.plugin.configurator.Column', {
     tabIndex: 0,
     focusable: true,
     isConfiguratorField: true,
-    /* eslint-disable max-len, indent */
+    /* eslint-disable max-len */
     renderTpl: '<div id="{id}-configCol" role="button" class="' + Ext.baseCSSPrefix + 'pivot-grid-config-column-inner" >' + '<span id="{id}-customCol" role="presentation" data-ref="customCol" class="' + Ext.baseCSSPrefix + 'pivot-grid-config-column-btn-customize ' + Ext.baseCSSPrefix + 'border-box ' + Ext.baseCSSPrefix + 'pivot-grid-config-column-btn ' + Ext.baseCSSPrefix + 'pivot-grid-config-column-btn-image"></span>' + '<span id="{id}-sortCol" role="presentation" data-ref="sortCol" class="' + Ext.baseCSSPrefix + 'border-box ' + Ext.baseCSSPrefix + 'pivot-grid-config-column-btn"></span>' + '<span id="{id}-filterCol" role="presentation" data-ref="filterCol" class="' + Ext.baseCSSPrefix + 'border-box ' + Ext.baseCSSPrefix + 'pivot-grid-config-column-btn"></span>' + '<span id="{id}-textCol" role="presentation" data-ref="textCol" data-qtip="{header}" class="' + Ext.baseCSSPrefix + 'pivot-grid-config-column-text ' + Ext.baseCSSPrefix + 'column-header-text ' + Ext.baseCSSPrefix + 'border-box">' + '{header}' + '</span>' + '</div>',
-    /* eslint-enable max-len, indent */
+    /* eslint-enable max-len */
     header: '&#160;',
     minWidth: 80,
     sortAscText: 'Sort A to Z',

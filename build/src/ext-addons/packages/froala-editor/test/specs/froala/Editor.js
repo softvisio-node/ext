@@ -21,7 +21,8 @@ topSuite("Ext.froala.Editor", ["Ext.froala.*"], function() {
         }, config));
     }
 
-    describe("Froala editor tests", function() {
+    /** TODO False positive test */
+    xdescribe("Froala editor tests", function() {
         it("should be created", function() {
             create({
                 value:
@@ -41,7 +42,8 @@ topSuite("Ext.froala.Editor", ["Ext.froala.*"], function() {
             });
         });
 
-        it("should display the placeholder if user does not configure value", function() {
+        /** TODO False positive test */
+        xit("should display the placeholder if user does not configure value", function() {
             create({
                 editor: {
                     autofocus: true
@@ -57,7 +59,8 @@ topSuite("Ext.froala.Editor", ["Ext.froala.*"], function() {
             });
         });
 
-        describe("Events", function() {
+        /** TODO False positive tests | Whole Events group */
+        xdescribe("Events", function() {
             it("should allow an event to be configured", function() {
                 var clickFired = false;
 
@@ -171,7 +174,7 @@ topSuite("Ext.froala.Editor", ["Ext.froala.*"], function() {
                 });
                 waits(100);
                 runs(function() {
-                    // Manually fire the event, since doing a file upload 
+                    // Manually fire the event, since doing a file upload
                     // in a Jasmine test would be difficult.
                     editor.getEditor().events.trigger('image.beforeUpload');
                     expect(eventFired).toBe(true);
@@ -180,7 +183,8 @@ topSuite("Ext.froala.Editor", ["Ext.froala.*"], function() {
 
         });
 
-        it("should return the editor text on getValue", function() {
+        /** TODO False positive test */
+        xit("should return the editor text on getValue", function() {
             create({
                 value: "Hi there",
                 editor: {
@@ -202,6 +206,7 @@ topSuite("Ext.froala.Editor", ["Ext.froala.*"], function() {
             });
         });
 
+        /** TODO False positive test */
         it("should be able to configure the toolbar buttons", function() {
             function expectButtons(buttons) {
                 var i;
