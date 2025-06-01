@@ -1,5 +1,13 @@
 # Changelog
 
+### v5.20.1 (2025-06-01)
+
+**Other changes:**
+
+- \[PATCH] chore: update docs (👬 zdm)
+
+Compare with the previous release: [v5.20.0](https://github.com/softvisio-node/ext/compare/v5.20.0...v5.20.1)
+
 ### 5.20.0 (2025-04-22)
 
 Features:
