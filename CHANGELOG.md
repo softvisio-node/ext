@@ -1,5 +1,13 @@
 # Changelog
 
+### v5.20.2 (2025-06-07)
+
+**Other changes:**
+
+- \[PATCH] chore: update cli config (👬 zdm)
+
+Compare with the previous release: [v5.20.1](https://github.com/softvisio-node/ext/compare/v5.20.1...v5.20.2)
+
 ### v5.20.1 (2025-06-01)
 
 **Other changes:**
