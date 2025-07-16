@@ -1,5 +1,13 @@
 # Changelog
 
+### v5.20.3 (2025-07-16)
+
+**Other changes:**
+
+- docs: update (● [7b834c0](https://github.com/softvisio-node/ext/commit/7b834c0); 👬 zdm)
+
+Compare with the previous release: [v5.20.2](https://github.com/softvisio-node/ext/compare/v5.20.2...v5.20.3)
+
 ### v5.20.2 (2025-06-07)
 
 **Other changes:**
