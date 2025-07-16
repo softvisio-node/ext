@@ -107,7 +107,7 @@ fs.rmSync( dataDir + "/resources/images/pictos", { "recursive": true, "force": t
 // extract charts code
 {
     const ext = fs.readFileSync( dataDir + "/ext.js", "utf8" );
-    const idx = ext.indexOf( `Ext.define('Ext.draw.ContainerBase'` );
+    const idx = ext.indexOf( "Ext.define('Ext.draw.ContainerBase'" );
     fs.writeFileSync( dataDir + "/ext.js", ext.slice( 0, idx ) + "window.Ext = Ext;\n" );
     fs.writeFileSync( dataDir + "/charts.js", ext.slice( idx ) );
 }
