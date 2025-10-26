@@ -10,12 +10,12 @@ export default class EwcAvatarColumn extends ExtGridColumn {
 }
 
 try {
-    if ( window.customElements.get( "ext-avatarcolumn" ) === undefined ) {
-        window.customElements.define( "ext-avatarcolumn", ElementParser.withParsedCallback( EwcAvatarColumn ) );
+    if ( globalThis.customElements.get( "ext-avatarcolumn" ) === undefined ) {
+        globalThis.customElements.define( "ext-avatarcolumn", ElementParser.withParsedCallback( EwcAvatarColumn ) );
     }
 }
 catch {
-    if ( window.customElements.get( "ext-avatarcolumn" ) === undefined ) {
-        window.customElements.define( "ext-avatarcolumn", EwcAvatarColumn );
+    if ( globalThis.customElements.get( "ext-avatarcolumn" ) === undefined ) {
+        globalThis.customElements.define( "ext-avatarcolumn", EwcAvatarColumn );
     }
 }

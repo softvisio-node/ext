@@ -1,1 +1,1 @@
-window.Ext = Ext;
+globalThis.Ext = Ext;

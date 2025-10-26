@@ -9,12 +9,12 @@ export default class EwcAvatar extends ExtImage {
 }
 
 try {
-    if ( window.customElements.get( "ext-avatar" ) === undefined ) {
-        window.customElements.define( "ext-avatar", ElementParser.withParsedCallback( EwcAvatar ) );
+    if ( globalThis.customElements.get( "ext-avatar" ) === undefined ) {
+        globalThis.customElements.define( "ext-avatar", ElementParser.withParsedCallback( EwcAvatar ) );
     }
 }
 catch {
-    if ( window.customElements.get( "ext-avatar" ) === undefined ) {
-        window.customElements.define( "ext-avatar", EwcAvatar );
+    if ( globalThis.customElements.get( "ext-avatar" ) === undefined ) {
+        globalThis.customElements.define( "ext-avatar", EwcAvatar );
     }
 }
