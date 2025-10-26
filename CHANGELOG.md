@@ -1,5 +1,13 @@
 # Changelog
 
+### v5.20.8 (2025-10-26)
+
+**Other changes:**
+
+- style: lint (● [ff6bade](https://github.com/softvisio-node/ext/commit/ff6bade); 👬 zdm)
+
+Compare with the previous release: [v5.20.7](https://github.com/softvisio-node/ext/compare/v5.20.7...v5.20.8)
+
 ### v5.20.7 (2025-07-23)
 
 **Other changes:**
