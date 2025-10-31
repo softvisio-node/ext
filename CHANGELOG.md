@@ -1,5 +1,13 @@
 # Changelog
 
+### v5.20.9 (2025-10-31)
+
+**Bug fixes:**
+
+- \[PATCH] fix: fix spawn shell args (● [5d18aa1](https://github.com/softvisio-node/ext/commit/5d18aa1); 👬 zdm)
+
+Compare with the previous release: [v5.20.8](https://github.com/softvisio-node/ext/compare/v5.20.8...v5.20.9)
+
 ### v5.20.8 (2025-10-26)
 
 **Other changes:**
