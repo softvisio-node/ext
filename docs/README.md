@@ -5,9 +5,9 @@ ExtJS bundle.
 ## Install
 
 ```sh
-npm install @softvisio/ext
+npm install @c0rejs/ext
 ```
 
 ## Usage
 
-This package is used internally and relies on `@softvisio/webpack` config.
+This package is used internally and relies on `@c0rejs/webpack` config.

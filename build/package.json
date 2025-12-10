@@ -1,5 +1,5 @@
 {
-    "name": "@softvisio/ext/build",
+    "name": "@c0rejs/ext/build",
     "version": "5.20.9",
     "private": true,
     "homepage": "https://softvisio-node.github.io/ext/",

@@ -1,5 +1,5 @@
 {
-    "name": "@softvisio/ext",
+    "name": "@c0rejs/ext",
     "version": "5.20.9",
     "description": "ExtJS patches",
     "keywords": [
@@ -20,7 +20,7 @@
     "license": "ISC",
     "author": "root <root@softvisio.net>",
     "imports": {
-        "#core/*": "@softvisio/core/*",
+        "#core/*": "@c0rejs/core/*",
         "#resources/*": "./resources/*",
         "#src/*": {
             "browser": "./src/*",
