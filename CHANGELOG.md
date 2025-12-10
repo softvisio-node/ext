@@ -1,5 +1,19 @@
 # Changelog
 
+### v5.20.10 (2025-12-10)
+
+**Bug fixes:**
+
+- \[PATCH] fix: add sudo, less to setup (● [1ecfacc](https://github.com/c0rejs/ext/commit/1ecfacc); 👬 zdm)
+
+**Other changes:**
+
+- build: migrate to c0rejs namespace (● [dd15c85](https://github.com/c0rejs/ext/commit/dd15c85), [cee1d1b](https://github.com/c0rejs/ext/commit/cee1d1b), [17e70a5](https://github.com/c0rejs/ext/commit/17e70a5); 👬 zdm)
+
+- chore(metadata): update package metadata (● [266a792](https://github.com/c0rejs/ext/commit/266a792); 👬 zdm)
+
+Compare with the previous release: [v5.20.9](https://github.com/c0rejs/ext/compare/v5.20.9...v5.20.10)
+
 ### v5.20.9 (2025-10-31)
 
 **Bug fixes:**
