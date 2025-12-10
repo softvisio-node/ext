@@ -8,14 +8,14 @@
         "ewc",
         "ext web components"
     ],
-    "homepage": "https://softvisio-node.github.io/ext/",
+    "homepage": "https://c0rejs.github.io/ext/",
     "bugs": {
-        "url": "https://github.com/softvisio-node/ext/issues",
+        "url": "https://github.com/c0rejs/ext/issues",
         "email": "root <root@softvisio.net>"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/softvisio-node/ext.git"
+        "url": "git+https://github.com/c0rejs/ext.git"
     },
     "license": "ISC",
     "author": "root <root@softvisio.net>",
