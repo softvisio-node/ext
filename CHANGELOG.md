@@ -4,57 +4,57 @@
 
 **Bug fixes:**
 
-- \[PATCH] fix: fix spawn shell args (● [5d18aa1](https://github.com/softvisio-node/ext/commit/5d18aa1); 👬 zdm)
+- \[PATCH] fix: fix spawn shell args (● [5d18aa1](https://github.com/c0rejs/ext/commit/5d18aa1); 👬 zdm)
 
-Compare with the previous release: [v5.20.8](https://github.com/softvisio-node/ext/compare/v5.20.8...v5.20.9)
+Compare with the previous release: [v5.20.8](https://github.com/c0rejs/ext/compare/v5.20.8...v5.20.9)
 
 ### v5.20.8 (2025-10-26)
 
 **Other changes:**
 
-- style: lint (● [ff6bade](https://github.com/softvisio-node/ext/commit/ff6bade); 👬 zdm)
+- style: lint (● [ff6bade](https://github.com/c0rejs/ext/commit/ff6bade); 👬 zdm)
 
-Compare with the previous release: [v5.20.7](https://github.com/softvisio-node/ext/compare/v5.20.7...v5.20.8)
+Compare with the previous release: [v5.20.7](https://github.com/c0rejs/ext/compare/v5.20.7...v5.20.8)
 
 ### v5.20.7 (2025-07-23)
 
 **Other changes:**
 
-- style: update .npmrc (● [a6ae6e8](https://github.com/softvisio-node/ext/commit/a6ae6e8); 👬 zdm)
+- style: update .npmrc (● [a6ae6e8](https://github.com/c0rejs/ext/commit/a6ae6e8); 👬 zdm)
 
-Compare with the previous release: [v5.20.6](https://github.com/softvisio-node/ext/compare/v5.20.6...v5.20.7)
+Compare with the previous release: [v5.20.6](https://github.com/c0rejs/ext/compare/v5.20.6...v5.20.7)
 
 ### v5.20.6 (2025-07-23)
 
 **Bug fixes:**
 
-- \[PATCH] fix: update editorconfig (● [7f7ebbb](https://github.com/softvisio-node/ext/commit/7f7ebbb); 👬 zdm)
+- \[PATCH] fix: update editorconfig (● [7f7ebbb](https://github.com/c0rejs/ext/commit/7f7ebbb); 👬 zdm)
 
-Compare with the previous release: [v5.20.5](https://github.com/softvisio-node/ext/compare/v5.20.5...v5.20.6)
+Compare with the previous release: [v5.20.5](https://github.com/c0rejs/ext/compare/v5.20.5...v5.20.6)
 
 ### v5.20.5 (2025-07-22)
 
 **Bug fixes:**
 
-- \[PATCH] fix: fix editorconfig (● [33df740](https://github.com/softvisio-node/ext/commit/33df740); 👬 zdm)
+- \[PATCH] fix: fix editorconfig (● [33df740](https://github.com/c0rejs/ext/commit/33df740); 👬 zdm)
 
-Compare with the previous release: [v5.20.4](https://github.com/softvisio-node/ext/compare/v5.20.4...v5.20.5)
+Compare with the previous release: [v5.20.4](https://github.com/c0rejs/ext/compare/v5.20.4...v5.20.5)
 
 ### v5.20.4 (2025-07-16)
 
 **Other changes:**
 
-- style: lint (● [a15daae](https://github.com/softvisio-node/ext/commit/a15daae); 👬 zdm)
+- style: lint (● [a15daae](https://github.com/c0rejs/ext/commit/a15daae); 👬 zdm)
 
-Compare with the previous release: [v5.20.3](https://github.com/softvisio-node/ext/compare/v5.20.3...v5.20.4)
+Compare with the previous release: [v5.20.3](https://github.com/c0rejs/ext/compare/v5.20.3...v5.20.4)
 
 ### v5.20.3 (2025-07-16)
 
 **Other changes:**
 
-- docs: update (● [7b834c0](https://github.com/softvisio-node/ext/commit/7b834c0); 👬 zdm)
+- docs: update (● [7b834c0](https://github.com/c0rejs/ext/commit/7b834c0); 👬 zdm)
 
-Compare with the previous release: [v5.20.2](https://github.com/softvisio-node/ext/compare/v5.20.2...v5.20.3)
+Compare with the previous release: [v5.20.2](https://github.com/c0rejs/ext/compare/v5.20.2...v5.20.3)
 
 ### v5.20.2 (2025-06-07)
 
@@ -62,7 +62,7 @@ Compare with the previous release: [v5.20.2](https://github.com/softvisio-node/e
 
 - \[PATCH] chore: update cli config (👬 zdm)
 
-Compare with the previous release: [v5.20.1](https://github.com/softvisio-node/ext/compare/v5.20.1...v5.20.2)
+Compare with the previous release: [v5.20.1](https://github.com/c0rejs/ext/compare/v5.20.1...v5.20.2)
 
 ### v5.20.1 (2025-06-01)
 
@@ -70,7 +70,7 @@ Compare with the previous release: [v5.20.1](https://github.com/softvisio-node/e
 
 - \[PATCH] chore: update docs (👬 zdm)
 
-Compare with the previous release: [v5.20.0](https://github.com/softvisio-node/ext/compare/v5.20.0...v5.20.1)
+Compare with the previous release: [v5.20.0](https://github.com/c0rejs/ext/compare/v5.20.0...v5.20.1)
 
 ### 5.20.0 (2025-04-22)
 
@@ -78,7 +78,7 @@ Features:
 
 - feat: extjs 7.9.0
 
-Compare with the previous release: [`v5.19.36...v5.20.0`](https://github.com/softvisio-node/ext/compare/v5.19.36...v5.20.0)
+Compare with the previous release: [`v5.19.36...v5.20.0`](https://github.com/c0rejs/ext/compare/v5.19.36...v5.20.0)
 
 ### 5.19.36 (2025-03-31)
 
@@ -86,7 +86,7 @@ Other changes:
 
 - chore: fix build
 
-Compare with the previous release: [`v5.19.35...v5.19.36`](https://github.com/softvisio-node/ext/compare/v5.19.35...v5.19.36)
+Compare with the previous release: [`v5.19.35...v5.19.36`](https://github.com/c0rejs/ext/compare/v5.19.35...v5.19.36)
 
 ### 5.19.35 (2025-03-26)
 
@@ -94,7 +94,7 @@ Other changes:
 
 - chore: update markdown code tags
 
-Compare with the previous release: [`v5.19.34...v5.19.35`](https://github.com/softvisio-node/ext/compare/v5.19.34...v5.19.35)
+Compare with the previous release: [`v5.19.34...v5.19.35`](https://github.com/c0rejs/ext/compare/v5.19.34...v5.19.35)
 
 ### 5.19.34 (2025-03-23)
 
@@ -102,7 +102,7 @@ Other changes:
 
 - chore: add lint on build
 
-Compare with the previous release: [`v5.19.33...v5.19.34`](https://github.com/softvisio-node/ext/compare/v5.19.33...v5.19.34)
+Compare with the previous release: [`v5.19.33...v5.19.34`](https://github.com/c0rejs/ext/compare/v5.19.33...v5.19.34)
 
 ### 5.19.33 (2025-03-04)
 
@@ -110,7 +110,7 @@ Other changes:
 
 - chore: update package metadata
 
-Compare with the previous release: [`v5.19.32...v5.19.33`](https://github.com/softvisio-node/ext/compare/v5.19.32...v5.19.33)
+Compare with the previous release: [`v5.19.32...v5.19.33`](https://github.com/c0rejs/ext/compare/v5.19.32...v5.19.33)
 
 ### 5.19.32 (2025-03-04)
 
@@ -118,7 +118,7 @@ Other changes:
 
 - chore: update package metadata
 
-Compare with the previous release: [`v5.19.31...v5.19.32`](https://github.com/softvisio-node/ext/compare/v5.19.31...v5.19.32)
+Compare with the previous release: [`v5.19.31...v5.19.32`](https://github.com/c0rejs/ext/compare/v5.19.31...v5.19.32)
 
 ### 5.19.31 (2025-03-01)
 
@@ -126,7 +126,7 @@ Other changes:
 
 - chore: update package metadata
 
-Compare with the previous release: [`v5.19.30...v5.19.31`](https://github.com/softvisio-node/ext/compare/v5.19.30...v5.19.31)
+Compare with the previous release: [`v5.19.30...v5.19.31`](https://github.com/c0rejs/ext/compare/v5.19.30...v5.19.31)
 
 ### 5.19.30 (2025-02-27)
 
@@ -134,7 +134,7 @@ Other changes:
 
 - chore: add editorconfig yaml
 
-Compare with the previous release: [`v5.19.29...v5.19.30`](https://github.com/softvisio-node/ext/compare/v5.19.29...v5.19.30)
+Compare with the previous release: [`v5.19.29...v5.19.30`](https://github.com/c0rejs/ext/compare/v5.19.29...v5.19.30)
 
 ### 5.19.29 (2025-02-26)
 
@@ -142,7 +142,7 @@ Other changes:
 
 - chore: update editorconfig
 
-Compare with the previous release: [`v5.19.28...v5.19.29`](https://github.com/softvisio-node/ext/compare/v5.19.28...v5.19.29)
+Compare with the previous release: [`v5.19.28...v5.19.29`](https://github.com/c0rejs/ext/compare/v5.19.28...v5.19.29)
 
 ### 5.19.28 (2025-02-24)
 
@@ -150,7 +150,7 @@ Other changes:
 
 - chore: add build log
 
-Compare with the previous release: [`v5.19.27...v5.19.28`](https://github.com/softvisio-node/ext/compare/v5.19.27...v5.19.28)
+Compare with the previous release: [`v5.19.27...v5.19.28`](https://github.com/c0rejs/ext/compare/v5.19.27...v5.19.28)
 
 ### 5.19.27 (2025-02-19)
 
@@ -158,7 +158,7 @@ Other changes:
 
 - chore: update cli config
 
-Compare with the previous release: [`v5.19.26...v5.19.27`](https://github.com/softvisio-node/ext/compare/v5.19.26...v5.19.27)
+Compare with the previous release: [`v5.19.26...v5.19.27`](https://github.com/c0rejs/ext/compare/v5.19.26...v5.19.27)
 
 ### 5.19.26 (2025-01-08)
 
@@ -166,7 +166,7 @@ Other changes:
 
 - chore: update package metadata
 
-[Compare with the previous release: v5.19.25 ... v5.19.26](https://github.com/softvisio-node/ext/compare/v5.19.25...v5.19.26)
+[Compare with the previous release: v5.19.25 ... v5.19.26](https://github.com/c0rejs/ext/compare/v5.19.25...v5.19.26)
 
 ### 5.19.25 (2024-12-07)
 
@@ -174,7 +174,7 @@ Other changes:
 
 - chore: set yaml indent to 4 spaces
 
-[Compare with the previous release: v5.19.24 ... v5.19.25](https://github.com/softvisio-node/ext/compare/v5.19.24...v5.19.25)
+[Compare with the previous release: v5.19.24 ... v5.19.25](https://github.com/c0rejs/ext/compare/v5.19.24...v5.19.25)
 
 ### 5.19.24 (2024-11-27)
 
@@ -182,7 +182,7 @@ Other changes:
 
 - chore: update package metadata
 
-[Compare with the previous release: v5.19.23 ... v5.19.24](https://github.com/softvisio-node/ext/compare/v5.19.23...v5.19.24)
+[Compare with the previous release: v5.19.23 ... v5.19.24](https://github.com/c0rejs/ext/compare/v5.19.23...v5.19.24)
 
 ### 5.19.23 (2024-11-27)
 
@@ -190,7 +190,7 @@ Other changes:
 
 - chore: update package metadata
 
-[Compare with the previous release: v5.19.22 ... v5.19.23](https://github.com/softvisio-node/ext/compare/v5.19.22...v5.19.23)
+[Compare with the previous release: v5.19.22 ... v5.19.23](https://github.com/c0rejs/ext/compare/v5.19.22...v5.19.23)
 
 ### 5.19.22 (2024-11-10)
 
@@ -198,7 +198,7 @@ Other changes:
 
 - chore: chmod files
 
-[Compare with the previous release: v5.19.21 ... v5.19.22](https://github.com/softvisio-node/ext/compare/v5.19.21...v5.19.22)
+[Compare with the previous release: v5.19.21 ... v5.19.22](https://github.com/c0rejs/ext/compare/v5.19.21...v5.19.22)
 
 ### 5.19.21 (2024-11-07)
 
@@ -206,7 +206,7 @@ Other changes:
 
 - chore: update package metadata
 
-[Compare with the previous release: v5.19.20 ... v5.19.21](https://github.com/softvisio-node/ext/compare/v5.19.20...v5.19.21)
+[Compare with the previous release: v5.19.20 ... v5.19.21](https://github.com/c0rejs/ext/compare/v5.19.20...v5.19.21)
 
 ### 5.19.20 (2024-10-29)
 
@@ -214,37 +214,37 @@ Other changes:
 
 - chore: update docs
 
-[Compare with the previous release: v5.19.19 ... v5.19.20](https://github.com/softvisio-node/ext/compare/v5.19.19...v5.19.20)
+[Compare with the previous release: v5.19.19 ... v5.19.20](https://github.com/c0rejs/ext/compare/v5.19.19...v5.19.20)
 
 ### 5.19.19 (2024-10-20)
 
 No notable changes since the previous release.
 
-[Full list of the changes](https://github.com/softvisio-node/ext/compare/v5.19.18...v5.19.19)
+[Full list of the changes](https://github.com/c0rejs/ext/compare/v5.19.18...v5.19.19)
 
 ### 5.19.18 (2024-10-18)
 
 No notable changes since the previous release.
 
-[Full list of the changes](https://github.com/softvisio-node/ext/compare/v5.19.17...v5.19.18)
+[Full list of the changes](https://github.com/c0rejs/ext/compare/v5.19.17...v5.19.18)
 
 ### 5.19.17 (2024-10-17)
 
 No notable changes since the previous release.
 
-[Full list of the changes](https://github.com/softvisio-node/ext/compare/v5.19.16...v5.19.17)
+[Full list of the changes](https://github.com/c0rejs/ext/compare/v5.19.16...v5.19.17)
 
 ### 5.19.16 (2024-10-16)
 
 No notable changes since the previous release.
 
-[Full list of the changes](https://github.com/softvisio-node/ext/compare/v5.19.15...v5.19.16)
+[Full list of the changes](https://github.com/c0rejs/ext/compare/v5.19.15...v5.19.16)
 
 ### 5.19.15 (2024-10-11)
 
 No notable changes since the previous release.
 
-[Full list of the changes](https://github.com/softvisio-node/ext/compare/v5.19.14...v5.19.15)
+[Full list of the changes](https://github.com/c0rejs/ext/compare/v5.19.14...v5.19.15)
 
 ### 5.19.14 (2024-10-06)
 
