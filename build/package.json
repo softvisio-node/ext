@@ -1,6 +1,6 @@
 {
     "name": "@c0rejs/ext/build",
-    "version": "5.20.10",
+    "version": "5.20.11",
     "private": true,
     "homepage": "https://c0rejs.github.io/ext/",
     "bugs": {
