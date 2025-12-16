@@ -1,5 +1,17 @@
 # Changelog
 
+### v5.20.12 (2025-12-16)
+
+**Bug fixes:**
+
+- \[PATCH] fix: fix shell quote (● [c4cc365](https://github.com/c0rejs/ext/commit/c4cc365); 👬 zdm)
+
+**Other changes:**
+
+- style: lint (● [184eeae](https://github.com/c0rejs/ext/commit/184eeae), [89637be](https://github.com/c0rejs/ext/commit/89637be); 👬 zdm)
+
+Compare with the previous release: [v5.20.11](https://github.com/c0rejs/ext/compare/v5.20.11...v5.20.12)
+
 ### v5.20.11 (2025-12-11)
 
 **Bug fixes:**
