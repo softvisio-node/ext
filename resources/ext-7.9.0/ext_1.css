@@ -6030,9 +6030,9 @@ div.x-trigger.x-grouped {
 .x-panel > .x-anchor-el .x-pointer-el {
     fill: #fafafa;
     fill: var(--background-color);
-    stroke-width: 1px;
     stroke: #e1e1e1;
     stroke: var(--faded-color);
+    stroke-width: 1px;
 }
 .x-panel > .x-anchor-el.x-top {
     height: 10px;
@@ -10971,9 +10971,9 @@ div.x-trigger.x-grouped {
 .x-panel-roweditor > .x-anchor-el .x-pointer-el {
     fill: #f5f5f5;
     fill: var(--header-background-color);
-    stroke-width: 1px 0;
     stroke: #e2e2e2;
     stroke: var(--divider-color);
+    stroke-width: 1px 0;
 }
 .x-panel-roweditor > .x-anchor-el.x-top {
     padding-bottom: 1px 0;
@@ -11097,9 +11097,9 @@ div.x-trigger.x-grouped {
 .x-panel-roweditor-buttons > .x-anchor-el .x-pointer-el {
     fill: #f5f5f5;
     fill: var(--header-background-color);
-    stroke-width: 1px;
     stroke: #e2e2e2;
     stroke: var(--divider-color);
+    stroke-width: 1px;
 }
 .x-panel-roweditor-buttons > .x-anchor-el.x-top {
     padding-bottom: 1px;

@@ -1,79 +1,81 @@
-Ext.define("Ext.draw.ContainerBase", {
-    extend: Ext.Container,
-    constructor: function (config) {
-        this.callParent([config]);
+Ext.define( "Ext.draw.ContainerBase", {
+    "extend": Ext.Container,
+    "constructor": function ( config ) {
+        this.callParent( [ config ] );
         this.initAnimator();
     },
-    onResize: function (width, height, oldWidth, oldHeight) {
+    "onResize": function ( width, height, oldWidth, oldHeight ) {
         this.handleResize(
             {
-                width: width,
-                height: height,
+                "width": width,
+                "height": height,
             },
             true
         );
     },
-    addElementListener: function () {
+    "addElementListener": function () {
         var el = this.element;
-        el.on.apply(el, arguments);
+        el.on.apply( el, arguments );
     },
-    removeElementListener: function () {
+    "removeElementListener": function () {
         var el = this.element;
-        el.un.apply(el, arguments);
+        el.un.apply( el, arguments );
     },
-    preview: function (image) {
+    "preview": function ( image ) {
         var item;
         image = image || this.getImage();
-        if (image.type === "svg-markup") {
+        if ( image.type === "svg-markup" ) {
             item = {
-                xtype: "container",
-                html: image.data,
-            };
-        } else {
-            item = {
-                xtype: "image",
-                mode: "img",
-                imageCls: "",
-                cls: Ext.baseCSSPrefix + "chart-preview",
-                src: image.data,
+                "xtype": "container",
+                "html": image.data,
             };
         }
-        Ext.Viewport.add({
-            xtype: "panel",
-            layout: "fit",
-            modal: true,
-            border: 1,
-            shadow: true,
-            width: "90%",
-            height: "90%",
-            hideOnMaskTap: true,
-            centered: true,
-            floated: true,
-            scrollable: false,
-            closable: true,
+        else {
+            item = {
+                "xtype": "image",
+                "mode": "img",
+                "imageCls": "",
+                "cls": Ext.baseCSSPrefix + "chart-preview",
+                "src": image.data,
+            };
+        }
+        Ext.Viewport.add( {
+            "xtype": "panel",
+            "layout": "fit",
+            "modal": true,
+            "border": 1,
+            "shadow": true,
+            "width": "90%",
+            "height": "90%",
+            "hideOnMaskTap": true,
+            "centered": true,
+            "floated": true,
+            "scrollable": false,
+            "closable": true,
+
             // Use 'hide' so that hiding via close button/mask tap go through
             // the same code path
-            closeAction: "hide",
-            items: [item],
-            listeners: {
-                hide: function () {
+            "closeAction": "hide",
+            "items": [ item ],
+            "listeners": {
+                "hide": function () {
                     this.destroy();
                 },
             },
-        }).show();
+        } ).show();
     },
-});
+} );
 
 /**
  * @private
  * @class Ext.draw.SurfaceBase
  */
-Ext.define("Ext.draw.SurfaceBase", {
-    extend: Ext.Widget,
-    getOwnerBody: function () {
+Ext.define( "Ext.draw.SurfaceBase", {
+    "extend": Ext.Widget,
+    "getOwnerBody": function () {
         return this.getRefOwner().bodyElement;
     },
-});
+} );
 
 /**
  * @private
@@ -84,73 +86,80 @@ Ext.define("Ext.draw.SurfaceBase", {
  * before an intermidiate value can be computed (parseInitial), or the computed value
  * needs to be processed before it can be used as a valid attribute value (serve).
  */
-Ext.define("Ext.draw.sprite.AnimationParser", function () {
-    function compute(from, to, delta) {
-        return from + (to - from) * delta;
+Ext.define( "Ext.draw.sprite.AnimationParser", function () {
+    function compute ( from, to, delta ) {
+        return from + ( to - from ) * delta;
     }
     return {
-        singleton: true,
-        attributeRe: /^url\(#([a-zA-Z-]+)\)$/,
-        color: {
-            parseInitial: function (color1, color2) {
-                if (Ext.isString(color1)) {
-                    color1 = Ext.util.Color.create(color1);
+        "singleton": true,
+        "attributeRe": /^url\(#([A-Za-z-]+)\)$/,
+        "color": {
+            "parseInitial": function ( color1, color2 ) {
+                if ( Ext.isString( color1 ) ) {
+                    color1 = Ext.util.Color.create( color1 );
                 }
-                if (Ext.isString(color2)) {
-                    color2 = Ext.util.Color.create(color2);
+                if ( Ext.isString( color2 ) ) {
+                    color2 = Ext.util.Color.create( color2 );
                 }
-                if (color1 && color1.isColor && color2 && color2.isColor) {
+                if ( color1 && color1.isColor && color2 && color2.isColor ) {
                     return [
-                        [color1.r, color1.g, color1.b, color1.a],
-                        [color2.r, color2.g, color2.b, color2.a],
+                        [ color1.r, color1.g, color1.b, color1.a ],
+                        [ color2.r, color2.g, color2.b, color2.a ],
                     ];
-                } else {
-                    return [color1 || color2, color2 || color1];
+                }
+                else {
+                    return [ color1 || color2, color2 || color1 ];
                 }
             },
-            compute: function (from, to, delta) {
-                if (!Ext.isArray(from) || !Ext.isArray(to)) {
+            "compute": function ( from, to, delta ) {
+                if ( !Ext.isArray( from ) || !Ext.isArray( to ) ) {
                     return to || from;
-                } else {
-                    return [compute(from[0], to[0], delta), compute(from[1], to[1], delta), compute(from[2], to[2], delta), compute(from[3], to[3], delta)];
+                }
+                else {
+                    return [ compute( from[ 0 ], to[ 0 ], delta ), compute( from[ 1 ], to[ 1 ], delta ), compute( from[ 2 ], to[ 2 ], delta ), compute( from[ 3 ], to[ 3 ], delta ) ];
                 }
             },
-            serve: function (array) {
-                var color = Ext.util.Color.fly(array[0], array[1], array[2], array[3]);
+            "serve": function ( array ) {
+                var color = Ext.util.Color.fly( array[ 0 ], array[ 1 ], array[ 2 ], array[ 3 ] );
                 return color.toString();
             },
         },
-        number: {
-            parse: function (n) {
-                return n === null ? null : +n;
+        "number": {
+            "parse": function ( n ) {
+                return n === null
+                    ? null
+                    : +n;
             },
-            compute: function (from, to, delta) {
-                if (!Ext.isNumber(from) || !Ext.isNumber(to)) {
+            "compute": function ( from, to, delta ) {
+                if ( !Ext.isNumber( from ) || !Ext.isNumber( to ) ) {
                     return to || from;
-                } else {
-                    return compute(from, to, delta);
+                }
+                else {
+                    return compute( from, to, delta );
                 }
             },
         },
-        angle: {
-            parseInitial: function (from, to) {
-                if (to - from > Math.PI) {
+        "angle": {
+            "parseInitial": function ( from, to ) {
+                if ( to - from > Math.PI ) {
                     to -= Math.PI * 2;
-                } else if (to - from < -Math.PI) {
+                }
+                else if ( to - from < -Math.PI ) {
                     to += Math.PI * 2;
                 }
-                return [from, to];
+                return [ from, to ];
             },
-            compute: function (from, to, delta) {
-                if (!Ext.isNumber(from) || !Ext.isNumber(to)) {
+            "compute": function ( from, to, delta ) {
+                if ( !Ext.isNumber( from ) || !Ext.isNumber( to ) ) {
                     return to || from;
-                } else {
-                    return compute(from, to, delta);
+                }
+                else {
+                    return compute( from, to, delta );
                 }
             },
         },
-        path: {
-            parseInitial: function (from, to) {
+        "path": {
+            "parseInitial": function ( from, to ) {
                 var fromStripes = from.toStripes(),
                     toStripes = to.toStripes(),
                     i,
@@ -160,45 +169,45 @@ Ext.define("Ext.draw.sprite.AnimationParser", function () {
                     fromStripe,
                     toStripe,
                     length,
-                    lastStripe = toStripes[toLength - 1],
-                    endPoint = [lastStripe[lastStripe.length - 2], lastStripe[lastStripe.length - 1]];
-                for (i = fromLength; i < toLength; i++) {
-                    fromStripes.push(fromStripes[fromLength - 1].slice(0));
+                    lastStripe = toStripes[ toLength - 1 ],
+                    endPoint = [ lastStripe.at( -2 ), lastStripe.at( -1 ) ];
+                for ( i = fromLength; i < toLength; i++ ) {
+                    fromStripes.push( fromStripes[ fromLength - 1 ].slice( 0 ) );
                 }
-                for (i = toLength; i < fromLength; i++) {
-                    toStripes.push(endPoint.slice(0));
+                for ( i = toLength; i < fromLength; i++ ) {
+                    toStripes.push( endPoint.slice( 0 ) );
                 }
                 length = fromStripes.length;
                 toStripes.path = to;
                 toStripes.temp = new Ext.draw.Path();
-                for (i = 0; i < length; i++) {
-                    fromStripe = fromStripes[i];
-                    toStripe = toStripes[i];
+                for ( i = 0; i < length; i++ ) {
+                    fromStripe = fromStripes[ i ];
+                    toStripe = toStripes[ i ];
                     fromLength = fromStripe.length;
                     toLength = toStripe.length;
-                    toStripes.temp.commands.push("M");
-                    for (j = toLength; j < fromLength; j += 6) {
-                        toStripe.push(endPoint[0], endPoint[1], endPoint[0], endPoint[1], endPoint[0], endPoint[1]);
+                    toStripes.temp.commands.push( "M" );
+                    for ( j = toLength; j < fromLength; j += 6 ) {
+                        toStripe.push( endPoint[ 0 ], endPoint[ 1 ], endPoint[ 0 ], endPoint[ 1 ], endPoint[ 0 ], endPoint[ 1 ] );
                     }
-                    lastStripe = toStripes[toStripes.length - 1];
-                    endPoint = [lastStripe[lastStripe.length - 2], lastStripe[lastStripe.length - 1]];
-                    for (j = fromLength; j < toLength; j += 6) {
-                        fromStripe.push(endPoint[0], endPoint[1], endPoint[0], endPoint[1], endPoint[0], endPoint[1]);
+                    lastStripe = toStripes.at( -1 );
+                    endPoint = [ lastStripe.at( -2 ), lastStripe.at( -1 ) ];
+                    for ( j = fromLength; j < toLength; j += 6 ) {
+                        fromStripe.push( endPoint[ 0 ], endPoint[ 1 ], endPoint[ 0 ], endPoint[ 1 ], endPoint[ 0 ], endPoint[ 1 ] );
                     }
-                    for (i = 0; i < toStripe.length; i++) {
-                        toStripe[i] -= fromStripe[i];
+                    for ( i = 0; i < toStripe.length; i++ ) {
+                        toStripe[ i ] -= fromStripe[ i ];
                     }
-                    for (i = 2; i < toStripe.length; i += 6) {
-                        toStripes.temp.commands.push("C");
+                    for ( i = 2; i < toStripe.length; i += 6 ) {
+                        toStripes.temp.commands.push( "C" );
                     }
                 }
-                return [fromStripes, toStripes];
+                return [ fromStripes, toStripes ];
             },
-            compute: function (fromStripes, toStripes, delta) {
-                if (delta >= 1) {
+            "compute": function ( fromStripes, toStripes, delta ) {
+                if ( delta >= 1 ) {
                     return toStripes.path;
                 }
-                // eslint-disable-next-line vars-on-top
+
                 var i = 0,
                     ln = fromStripes.length,
                     j = 0,
@@ -207,34 +216,35 @@ Ext.define("Ext.draw.sprite.AnimationParser", function () {
                     to,
                     temp = toStripes.temp.params,
                     pos = 0;
-                for (; i < ln; i++) {
-                    from = fromStripes[i];
-                    to = toStripes[i];
+                for ( ; i < ln; i++ ) {
+                    from = fromStripes[ i ];
+                    to = toStripes[ i ];
                     ln2 = from.length;
-                    for (j = 0; j < ln2; j++) {
-                        temp[pos++] = to[j] * delta + from[j];
+                    for ( j = 0; j < ln2; j++ ) {
+                        temp[ pos++ ] = to[ j ] * delta + from[ j ];
                     }
                 }
                 return toStripes.temp;
             },
         },
-        data: {
-            compute: function (from, to, delta, target) {
+        "data": {
+            "compute": function ( from, to, delta, target ) {
                 var iMaxFrom = from.length - 1,
                     iMaxTo = to.length - 1,
-                    iMax = Math.max(iMaxFrom, iMaxTo),
+                    iMax = Math.max( iMaxFrom, iMaxTo ),
                     i,
                     start,
                     end;
-                if (!target || target === from) {
+                if ( !target || target === from ) {
                     target = [];
                 }
                 target.length = iMax + 1;
-                for (i = 0; i <= iMax; i++) {
-                    start = from[Math.min(i, iMaxFrom)];
-                    end = to[Math.min(i, iMaxTo)];
-                    if (Ext.isNumber(start)) {
-                        if (!Ext.isNumber(end)) {
+                for ( i = 0; i <= iMax; i++ ) {
+                    start = from[ Math.min( i, iMaxFrom ) ];
+                    end = to[ Math.min( i, iMaxTo ) ];
+                    if ( Ext.isNumber( start ) ) {
+                        if ( !Ext.isNumber( end ) ) {
+
                             // This may not give the desired visual result during
                             // animation (after all, we don't know what the target
                             // value should be, if it wasn't given to us), but it's
@@ -243,78 +253,85 @@ Ext.define("Ext.draw.sprite.AnimationParser", function () {
                             // array.
                             end = 0;
                         }
-                        target[i] = start + (end - start) * delta;
-                    } else {
-                        target[i] = end;
+                        target[ i ] = start + ( end - start ) * delta;
+                    }
+                    else {
+                        target[ i ] = end;
                     }
                 }
                 return target;
             },
         },
-        text: {
-            compute: function (from, to, delta) {
-                return from.substr(0, Math.round(from.length * (1 - delta))) + to.substr(Math.round(to.length * (1 - delta)));
+        "text": {
+            "compute": function ( from, to, delta ) {
+                return from.slice( 0, Math.max( 0, Math.round( from.length * ( 1 - delta ) ) ) ) + to.slice( Math.round( to.length * ( 1 - delta ) ) );
             },
         },
-        limited: "number",
-        limited01: "number",
+        "limited": "number",
+        "limited01": "number",
     };
-});
+} );
 
 /* global Float32Array */
-/* eslint-disable indent */
-(function () {
-    if (!Ext.global.Float32Array) {
+
+( function () {
+    if ( !Ext.global.Float32Array ) {
+
         // Typed Array polyfill
-        // eslint-disable-next-line vars-on-top
-        var Float32Array = function (array) {
+
+        var Float32Array = function ( array ) {
             var i, len;
-            if (typeof array === "number") {
+            if ( typeof array === "number" ) {
                 this.length = array;
-            } else if ("length" in array) {
+            }
+            else if ( "length" in array ) {
                 this.length = array.length;
-                for (i = 0, len = array.length; i < len; i++) {
-                    this[i] = +array[i];
+                for ( i = 0, len = array.length; i < len; i++ ) {
+                    this[ i ] = +array[ i ];
                 }
             }
         };
         Float32Array.prototype = [];
         Ext.global.Float32Array = Float32Array;
     }
-})();
-/* eslint-enable indent */
+} )();
+
 /**
  * Utility class providing mathematics functionalities through all the draw package.
  */
-Ext.define("Ext.draw.Draw", {
-    singleton: true,
-    radian: Math.PI / 180,
-    pi2: Math.PI * 2,
+Ext.define( "Ext.draw.Draw", {
+    "singleton": true,
+    "radian": Math.PI / 180,
+    "pi2": Math.PI * 2,
+
     /**
      * @deprecated 6.5.0 Please use the {@link Ext#identityFn} instead.
      * Function that returns its first element.
      * @param {Mixed} a
      * @return {Mixed}
      */
-    reflectFn: function (a) {
+    "reflectFn": function ( a ) {
         return a;
     },
+
     /**
      * Converting degrees to radians.
      * @param {Number} degrees
      * @return {Number}
      */
-    rad: function (degrees) {
-        return (degrees % 360) * this.radian;
+    "rad": function ( degrees ) {
+        return ( degrees % 360 ) * this.radian;
     },
+
     /**
      * Converting radians to degrees.
      * @param {Number} radian
      * @return {Number}
      */
-    degrees: function (radian) {
-        return (radian / this.radian) % 360;
+    "degrees": function ( radian ) {
+        return ( radian / this.radian ) % 360;
     },
+
     /**
      *
      * @param {Object} bbox1
@@ -322,10 +339,11 @@ Ext.define("Ext.draw.Draw", {
      * @param {Number} [padding]
      * @return {Boolean}
      */
-    isBBoxIntersect: function (bbox1, bbox2, padding) {
+    "isBBoxIntersect": function ( bbox1, bbox2, padding ) {
         padding = padding || 0;
-        return Math.max(bbox1.x, bbox2.x) - padding > Math.min(bbox1.x + bbox1.width, bbox2.x + bbox2.width) || Math.max(bbox1.y, bbox2.y) - padding > Math.min(bbox1.y + bbox1.height, bbox2.y + bbox2.height);
+        return Math.max( bbox1.x, bbox2.x ) - padding > Math.min( bbox1.x + bbox1.width, bbox2.x + bbox2.width ) || Math.max( bbox1.y, bbox2.y ) - padding > Math.min( bbox1.y + bbox1.height, bbox2.y + bbox2.height );
     },
+
     /**
      * Checks if a point is within a bounding box.
      * @param x
@@ -333,16 +351,17 @@ Ext.define("Ext.draw.Draw", {
      * @param bbox
      * @return {Boolean}
      */
-    isPointInBBox: function (x, y, bbox) {
+    "isPointInBBox": function ( x, y, bbox ) {
         return !!bbox && x >= bbox.x && x <= bbox.x + bbox.width && y >= bbox.y && y <= bbox.y + bbox.height;
     },
+
     /**
      * Natural cubic spline interpolation.
      * This algorithm runs in linear time.
      *
      * @param {Array} points Array of numbers.
      */
-    naturalSpline: function (points) {
+    "naturalSpline": function ( points ) {
         var i,
             j,
             ln = points.length,
@@ -351,79 +370,83 @@ Ext.define("Ext.draw.Draw", {
             y,
             ny,
             r = 0,
-            zs = new Float32Array(points.length),
-            result = new Float32Array(points.length * 3 - 2);
-        zs[0] = 0;
-        zs[ln - 1] = 0;
-        for (i = 1; i < ln - 1; i++) {
-            zs[i] = points[i + 1] + points[i - 1] - 2 * points[i] - zs[i - 1];
-            r = 1 / (4 - r);
-            zs[i] *= r;
+            zs = new Float32Array( points.length ),
+            result = new Float32Array( points.length * 3 - 2 );
+        zs[ 0 ] = 0;
+        zs[ ln - 1 ] = 0;
+        for ( i = 1; i < ln - 1; i++ ) {
+            zs[ i ] = points[ i + 1 ] + points[ i - 1 ] - 2 * points[ i ] - zs[ i - 1 ];
+            r = 1 / ( 4 - r );
+            zs[ i ] *= r;
         }
-        for (i = ln - 2; i > 0; i--) {
-            r = 3.732050807568877 + 48.248711305964385 / (-13.928203230275537 + Math.pow(0.07179676972449123, i));
-            zs[i] -= zs[i + 1] * r;
+        for ( i = ln - 2; i > 0; i-- ) {
+            r = 3.732_050_807_568_877 + 48.248_711_305_964_385 / ( -13.928_203_230_275_537 + 0.071_796_769_724_491_23 ** i );
+            zs[ i ] -= zs[ i + 1 ] * r;
         }
-        ny = points[0];
-        nd = ny - zs[0];
-        for (i = 0, j = 0; i < ln - 1; j += 3) {
+        ny = points[ 0 ];
+        nd = ny - zs[ 0 ];
+        for ( i = 0, j = 0; i < ln - 1; j += 3 ) {
             y = ny;
             d = nd;
             i++;
-            ny = points[i];
-            nd = ny - zs[i];
-            result[j] = y;
-            result[j + 1] = (nd + 2 * d) / 3;
-            result[j + 2] = (nd * 2 + d) / 3;
+            ny = points[ i ];
+            nd = ny - zs[ i ];
+            result[ j ] = y;
+            result[ j + 1 ] = ( nd + 2 * d ) / 3;
+            result[ j + 2 ] = ( nd * 2 + d ) / 3;
         }
-        result[j] = ny;
+        result[ j ] = ny;
         return result;
     },
+
     /**
      * Shorthand for {@link #naturalSpline}
      */
-    spline: function (points) {
-        return this.naturalSpline(points);
+    "spline": function ( points ) {
+        return this.naturalSpline( points );
     },
+
     /**
      * @private
      * Cardinal spline interpolation.
      * Goes from cardinal control points to cubic Bezier control points.
      */
-    cardinalToBezier: function (P1, P2, P3, P4, tension) {
-        return [P2, P2 + ((P3 - P1) / 6) * tension, P3 - ((P4 - P2) / 6) * tension, P3];
+    "cardinalToBezier": function ( P1, P2, P3, P4, tension ) {
+        return [ P2, P2 + ( ( P3 - P1 ) / 6 ) * tension, P3 - ( ( P4 - P2 ) / 6 ) * tension, P3 ];
     },
+
     /**
      * @private
      * @param {Number[]} P An array of n x- or y-coordinates.
      * @param {Number} tension
      * @return {Float32Array} An array of 3n - 2 Bezier control points.
      */
-    cardinalSpline: function (P, tension) {
+    "cardinalSpline": function ( P, tension ) {
         var n = P.length,
-            result = new Float32Array(n * 3 - 2),
+            result = new Float32Array( n * 3 - 2 ),
             i,
             bezier;
-        if (tension === undefined) {
+        if ( tension === undefined ) {
             tension = 0.5;
         }
-        bezier = this.cardinalToBezier(P[0], P[0], P[1], P[2], tension);
-        result[0] = bezier[0];
-        result[1] = bezier[1];
-        result[2] = bezier[2];
-        result[3] = bezier[3];
-        for (i = 0; i < n - 3; i++) {
-            bezier = this.cardinalToBezier(P[i], P[i + 1], P[i + 2], P[i + 3], tension);
-            result[4 + i * 3] = bezier[1];
-            result[4 + i * 3 + 1] = bezier[2];
-            result[4 + i * 3 + 2] = bezier[3];
+        bezier = this.cardinalToBezier( P[ 0 ], P[ 0 ], P[ 1 ], P[ 2 ], tension );
+        result[ 0 ] = bezier[ 0 ];
+        result[ 1 ] = bezier[ 1 ];
+        result[ 2 ] = bezier[ 2 ];
+        result[ 3 ] = bezier[ 3 ];
+        for ( i = 0; i < n - 3; i++ ) {
+            bezier = this.cardinalToBezier( P[ i ], P[ i + 1 ], P[ i + 2 ], P[ i + 3 ], tension );
+            result[ 4 + i * 3 ] = bezier[ 1 ];
+            result[ 4 + i * 3 + 1 ] = bezier[ 2 ];
+            result[ 4 + i * 3 + 2 ] = bezier[ 3 ];
         }
-        bezier = this.cardinalToBezier(P[n - 3], P[n - 2], P[n - 1], P[n - 1], tension);
-        result[4 + i * 3] = bezier[1];
-        result[4 + i * 3 + 1] = bezier[2];
-        result[4 + i * 3 + 2] = bezier[3];
+        bezier = this.cardinalToBezier( P[ n - 3 ], P[ n - 2 ], P[ n - 1 ], P[ n - 1 ], tension );
+        result[ 4 + i * 3 ] = bezier[ 1 ];
+        result[ 4 + i * 3 + 1 ] = bezier[ 2 ];
+        result[ 4 + i * 3 + 2 ] = bezier[ 3 ];
         return result;
     },
+
     /**
      * @private
      *
@@ -446,7 +469,7 @@ Ext.define("Ext.draw.Draw", {
      *                  are the control point for the curve toward the previous path point, and
      *                  x2 and y2 are the control point for the curve toward the next path point.
      */
-    getAnchors: function (prevX, prevY, curX, curY, nextX, nextY, value) {
+    "getAnchors": function ( prevX, prevY, curX, curY, nextX, nextY, value ) {
         var PI = Math.PI,
             halfPI = PI / 2,
             abs = Math.abs,
@@ -463,57 +486,64 @@ Ext.define("Ext.draw.Draw", {
             control2Y,
             alpha;
         value = value || 4;
+
         // Find the length of each control anchor line, by dividing the horizontal distance
         // between points by the value parameter.
-        control1Length = (curX - prevX) / value;
-        control2Length = (nextX - curX) / value;
+        control1Length = ( curX - prevX ) / value;
+        control2Length = ( nextX - curX ) / value;
+
         // Determine the angle of each control anchor line. If the middle point is a vertical
         // turnaround then we force it to a flat horizontal angle to prevent the curve from
         // dipping above or below the middle point. Otherwise we use an angle that points
         // toward the previous/next target point.
-        if ((curY >= prevY && curY >= nextY) || (curY <= prevY && curY <= nextY)) {
+        if ( ( curY >= prevY && curY >= nextY ) || ( curY <= prevY && curY <= nextY ) ) {
             control1Angle = control2Angle = halfPI;
-        } else {
-            control1Angle = atan((curX - prevX) / abs(curY - prevY));
-            if (prevY < curY) {
+        }
+        else {
+            control1Angle = atan( ( curX - prevX ) / abs( curY - prevY ) );
+            if ( prevY < curY ) {
                 control1Angle = PI - control1Angle;
             }
-            control2Angle = atan((nextX - curX) / abs(curY - nextY));
-            if (nextY < curY) {
+            control2Angle = atan( ( nextX - curX ) / abs( curY - nextY ) );
+            if ( nextY < curY ) {
                 control2Angle = PI - control2Angle;
             }
         }
+
         // Adjust the calculated angles so they point away from each other on the same line
-        alpha = halfPI - ((control1Angle + control2Angle) % (PI * 2)) / 2;
-        if (alpha > halfPI) {
+        alpha = halfPI - ( ( control1Angle + control2Angle ) % ( PI * 2 ) ) / 2;
+        if ( alpha > halfPI ) {
             alpha -= PI;
         }
         control1Angle += alpha;
         control2Angle += alpha;
+
         // Find the control anchor points from the angles and length
-        control1X = curX - control1Length * sin(control1Angle);
-        control1Y = curY + control1Length * cos(control1Angle);
-        control2X = curX + control2Length * sin(control2Angle);
-        control2Y = curY + control2Length * cos(control2Angle);
+        control1X = curX - control1Length * sin( control1Angle );
+        control1Y = curY + control1Length * cos( control1Angle );
+        control2X = curX + control2Length * sin( control2Angle );
+        control2Y = curY + control2Length * cos( control2Angle );
+
         // One last adjustment, make sure that no control anchor point extends vertically past
         // its target prev/next point, as that results in curves dipping above or below and
         // bending back strangely. If we find this happening we keep the control angle but
         // reduce the length of the control line so it stays within bounds.
-        if ((curY > prevY && control1Y < prevY) || (curY < prevY && control1Y > prevY)) {
-            control1X += (abs(prevY - control1Y) * (control1X - curX)) / (control1Y - curY);
+        if ( ( curY > prevY && control1Y < prevY ) || ( curY < prevY && control1Y > prevY ) ) {
+            control1X += ( abs( prevY - control1Y ) * ( control1X - curX ) ) / ( control1Y - curY );
             control1Y = prevY;
         }
-        if ((curY > nextY && control2Y < nextY) || (curY < nextY && control2Y > nextY)) {
-            control2X -= (abs(nextY - control2Y) * (control2X - curX)) / (control2Y - curY);
+        if ( ( curY > nextY && control2Y < nextY ) || ( curY < nextY && control2Y > nextY ) ) {
+            control2X -= ( abs( nextY - control2Y ) * ( control2X - curX ) ) / ( control2Y - curY );
             control2Y = nextY;
         }
         return {
-            x1: control1X,
-            y1: control1Y,
-            x2: control2X,
-            y2: control2Y,
+            "x1": control1X,
+            "y1": control1Y,
+            "x2": control2X,
+            "y2": control2Y,
         };
     },
+
     /**
      * Given coordinates of the points, calculates coordinates of a Bezier curve
      * that goes through them.
@@ -522,7 +552,7 @@ Ext.define("Ext.draw.Draw", {
      * @param value A value to control the smoothness of the curve.
      * @return {Object} Object holding two arrays, for x and y coordinates of the curve.
      */
-    smooth: function (dataX, dataY, value) {
+    "smooth": function ( dataX, dataY, value ) {
         var ln = dataX.length,
             prevX,
             prevY,
@@ -536,102 +566,106 @@ Ext.define("Ext.draw.Draw", {
             smoothY = [],
             i,
             anchors;
-        for (i = 0; i < ln - 1; i++) {
-            prevX = dataX[i];
-            prevY = dataY[i];
-            if (i === 0) {
+        for ( i = 0; i < ln - 1; i++ ) {
+            prevX = dataX[ i ];
+            prevY = dataY[ i ];
+            if ( i === 0 ) {
                 x = prevX;
                 y = prevY;
-                smoothX.push(x);
-                smoothY.push(y);
-                if (ln === 1) {
+                smoothX.push( x );
+                smoothY.push( y );
+                if ( ln === 1 ) {
                     break;
                 }
             }
-            curX = dataX[i + 1];
-            curY = dataY[i + 1];
-            nextX = dataX[i + 2];
-            nextY = dataY[i + 2];
-            if (!(Ext.isNumber(nextX) && Ext.isNumber(nextY))) {
-                smoothX.push(x, curX, curX);
-                smoothY.push(y, curY, curY);
+            curX = dataX[ i + 1 ];
+            curY = dataY[ i + 1 ];
+            nextX = dataX[ i + 2 ];
+            nextY = dataY[ i + 2 ];
+            if ( !( Ext.isNumber( nextX ) && Ext.isNumber( nextY ) ) ) {
+                smoothX.push( x, curX, curX );
+                smoothY.push( y, curY, curY );
                 break;
             }
-            anchors = this.getAnchors(prevX, prevY, curX, curY, nextX, nextY, value);
-            smoothX.push(x, anchors.x1, curX);
-            smoothY.push(y, anchors.y1, curY);
+            anchors = this.getAnchors( prevX, prevY, curX, curY, nextX, nextY, value );
+            smoothX.push( x, anchors.x1, curX );
+            smoothY.push( y, anchors.y1, curY );
             x = anchors.x2;
             y = anchors.y2;
         }
         return {
-            smoothX: smoothX,
-            smoothY: smoothY,
+            "smoothX": smoothX,
+            "smoothY": smoothY,
         };
     },
+
     /**
      * @method
      * @private
      * Work around for iOS.
      * Nested 3d-transforms seems to prevent the redraw inside it until some event is fired.
      */
-    beginUpdateIOS: Ext.os.is.iOS
+    "beginUpdateIOS": Ext.os.is.iOS
         ? function () {
-              this.iosUpdateEl = Ext.getBody().createChild({
-                  "data-sticky": true,
-                  style: "position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px; " + "background: rgba(0,0,0,0.001); z-index: 100000",
-              });
-          }
+            this.iosUpdateEl = Ext.getBody().createChild( {
+                "data-sticky": true,
+                "style": "position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px; " + "background: rgba(0,0,0,0.001); z-index: 100000",
+            } );
+        }
         : Ext.emptyFn,
-    endUpdateIOS: function () {
-        this.iosUpdateEl = Ext.destroy(this.iosUpdateEl);
+    "endUpdateIOS": function () {
+        this.iosUpdateEl = Ext.destroy( this.iosUpdateEl );
     },
-});
+} );
 
 /**
  * @class Ext.draw.gradient.Gradient
  *
  * Creates a gradient.
  */
-Ext.define("Ext.draw.gradient.Gradient", {
-    isGradient: true,
-    config: {
+Ext.define( "Ext.draw.gradient.Gradient", {
+    "isGradient": true,
+    "config": {
+
         /**
          * @cfg {Object[]} stops
          * Defines the stops of the gradient.
          */
-        stops: [],
+        "stops": [],
     },
-    applyStops: function (newStops) {
+    "applyStops": function ( newStops ) {
         var stops = [],
             ln = newStops.length,
             i,
             stop,
             color;
-        for (i = 0; i < ln; i++) {
-            stop = newStops[i];
+        for ( i = 0; i < ln; i++ ) {
+            stop = newStops[ i ];
             color = stop.color;
-            if (!(color && color.isColor)) {
-                color = Ext.util.Color.fly(color || Ext.util.Color.NONE);
+            if ( !( color && color.isColor ) ) {
+                color = Ext.util.Color.fly( color || Ext.util.Color.NONE );
             }
-            stops.push({
-                // eslint-disable-next-line max-len
-                offset: Math.min(1, Math.max(0, "offset" in stop ? stop.offset : stop.position || 0)),
-                color: color.toString(),
-            });
+            stops.push( {
+                "offset": Math.min( 1, Math.max( 0, "offset" in stop
+                    ? stop.offset
+                    : stop.position || 0 ) ),
+                "color": color.toString(),
+            } );
         }
-        stops.sort(function (a, b) {
+        stops.sort( function ( a, b ) {
             return a.offset - b.offset;
-        });
+        } );
         return stops;
     },
-    onClassExtended: function (subClass, member) {
-        if (!member.alias && member.type) {
+    "onClassExtended": function ( subClass, member ) {
+        if ( !member.alias && member.type ) {
             member.alias = "gradient." + member.type;
         }
     },
-    constructor: function (config) {
-        this.initConfig(config);
+    "constructor": function ( config ) {
+        this.initConfig( config );
     },
+
     /**
      * @method
      * @protected
@@ -640,40 +674,40 @@ Ext.define("Ext.draw.gradient.Gradient", {
      * @param {Object} bbox
      * @return {CanvasGradient/Ext.draw.engine.SvgContext.Gradient/Ext.util.Color.NONE}
      */
-    generateGradient: Ext.emptyFn,
-});
+    "generateGradient": Ext.emptyFn,
+} );
 
 /**
  * @class Ext.draw.gradient.GradientDefinition
  *
  * A global map of all gradient configs.
  */
-Ext.define("Ext.draw.gradient.GradientDefinition", {
-    singleton: true,
-    urlStringRe: /^url\(#([\w-]+)\)$/,
-    gradients: {},
-    add: function (gradients) {
+Ext.define( "Ext.draw.gradient.GradientDefinition", {
+    "singleton": true,
+    "urlStringRe": /^url\(#([\w-]+)\)$/,
+    "gradients": {},
+    "add": function ( gradients ) {
         var store = this.gradients,
             i,
             n,
             gradient;
-        for (i = 0, n = gradients.length; i < n; i++) {
-            gradient = gradients[i];
-            if (Ext.isString(gradient.id)) {
-                store[gradient.id] = gradient;
+        for ( i = 0, n = gradients.length; i < n; i++ ) {
+            gradient = gradients[ i ];
+            if ( Ext.isString( gradient.id ) ) {
+                store[ gradient.id ] = gradient;
             }
         }
     },
-    get: function (str) {
+    "get": function ( str ) {
         var store = this.gradients,
-            match = str.match(this.urlStringRe),
+            match = str.match( this.urlStringRe ),
             gradient;
-        if (match && match[1] && (gradient = store[match[1]])) {
+        if ( match && match[ 1 ] && ( gradient = store[ match[ 1 ] ] ) ) {
             return gradient || str;
         }
         return str;
     },
-});
+} );
 
 /* global Float32Array */
 /**
@@ -687,101 +721,119 @@ Ext.define("Ext.draw.gradient.GradientDefinition", {
  * Methods of the singleton correpond either to the processor functions themselves or processor
  * factories.
  */
-Ext.define("Ext.draw.sprite.AttributeParser", {
-    singleton: true,
-    attributeRe: /^url\(#([a-zA-Z-]+)\)$/,
-    default: Ext.identityFn,
-    string: function (n) {
-        return String(n);
+Ext.define( "Ext.draw.sprite.AttributeParser", {
+    "singleton": true,
+    "attributeRe": /^url\(#([A-Za-z-]+)\)$/,
+    "default": Ext.identityFn,
+    "string": function ( n ) {
+        return String( n );
     },
-    number: function (n) {
+    "number": function ( n ) {
+
         // Numbers as strings will be converted to numbers,
         // null will be converted to 0.
-        if (Ext.isNumber(+n)) {
+        if ( Ext.isNumber( +n ) ) {
             return n;
         }
     },
+
     /**
      * Normalize angle to the [-180,180) interval.
      * @param n Angle in radians.
      * @return {Number/undefined} Normalized angle or undefined.
      */
-    angle: function (n) {
-        if (Ext.isNumber(n)) {
+    "angle": function ( n ) {
+        if ( Ext.isNumber( n ) ) {
             n %= Math.PI * 2;
-            if (n < -Math.PI) {
+            if ( n < -Math.PI ) {
                 n += Math.PI * 2;
-            } else if (n >= Math.PI) {
+            }
+            else if ( n >= Math.PI ) {
                 n -= Math.PI * 2;
             }
             return n;
         }
     },
-    data: function (n) {
-        if (Ext.isArray(n)) {
+    "data": function ( n ) {
+        if ( Ext.isArray( n ) ) {
             return n.slice();
-        } else if (n instanceof Float32Array) {
-            return new Float32Array(n);
+        }
+        else if ( n instanceof Float32Array ) {
+            return new Float32Array( n );
         }
     },
-    bool: function (n) {
+    "bool": function ( n ) {
         return !!n;
     },
-    color: function (n) {
-        if (n && n.isColor) {
+    "color": function ( n ) {
+        if ( n && n.isColor ) {
             return n.toString();
-        } else if (n && n.isGradient) {
+        }
+        else if ( n && n.isGradient ) {
             return n;
-        } else if (!n) {
+        }
+        else if ( !n ) {
             return Ext.util.Color.NONE;
-        } else if (Ext.isString(n)) {
-            if (n.substr(0, 3) === "url") {
-                n = Ext.draw.gradient.GradientDefinition.get(n);
-                if (Ext.isString(n)) {
+        }
+        else if ( Ext.isString( n ) ) {
+            if ( n.slice( 0, 3 ) === "url" ) {
+                n = Ext.draw.gradient.GradientDefinition.get( n );
+                if ( Ext.isString( n ) ) {
                     return n;
                 }
-            } else {
-                return Ext.util.Color.fly(n).toString();
+            }
+            else {
+                return Ext.util.Color.fly( n ).toString();
             }
         }
-        if (n.type === "linear") {
-            return Ext.create("Ext.draw.gradient.Linear", n);
-        } else if (n.type === "radial") {
-            return Ext.create("Ext.draw.gradient.Radial", n);
-        } else if (n.type === "pattern") {
-            return Ext.create("Ext.draw.gradient.Pattern", n);
-        } else {
+        if ( n.type === "linear" ) {
+            return Ext.create( "Ext.draw.gradient.Linear", n );
+        }
+        else if ( n.type === "radial" ) {
+            return Ext.create( "Ext.draw.gradient.Radial", n );
+        }
+        else if ( n.type === "pattern" ) {
+            return Ext.create( "Ext.draw.gradient.Pattern", n );
+        }
+        else {
             return Ext.util.Color.NONE;
         }
     },
-    limited: function (low, hi) {
-        return function (n) {
+    "limited": function ( low, hi ) {
+        return function ( n ) {
             n = +n;
-            return Ext.isNumber(n) ? Math.min(Math.max(n, low), hi) : undefined;
+            return Ext.isNumber( n )
+                ? Math.min( Math.max( n, low ), hi )
+                : undefined;
         };
     },
-    limited01: function (n) {
+    "limited01": function ( n ) {
         n = +n;
-        return Ext.isNumber(n) ? Math.min(Math.max(n, 0), 1) : undefined;
+        return Ext.isNumber( n )
+            ? Math.min( Math.max( n, 0 ), 1 )
+            : undefined;
     },
+
     /**
      * Generates a function that checks if a value matches
      * one of the given attributes.
      * @return {Function}
      */
-    enums: function () {
+    "enums": function () {
         var enums = {},
-            args = Array.prototype.slice.call(arguments, 0),
+            args = Array.prototype.slice.call( arguments, 0 ),
             i,
             ln;
-        for (i = 0, ln = args.length; i < ln; i++) {
-            enums[args[i]] = true;
+        for ( i = 0, ln = args.length; i < ln; i++ ) {
+            enums[ args[ i ] ] = true;
         }
-        return function (n) {
-            return n in enums ? n : undefined;
+        return function ( n ) {
+            return n in enums
+                ? n
+                : undefined;
         };
     },
-});
+} );
 
 /**
  * @private
@@ -790,19 +842,22 @@ Ext.define("Ext.draw.sprite.AttributeParser", {
  * See `onClassCreated` and `onClassExtended` callbacks
  * of the {@link Ext.draw.sprite.Sprite} for more info.
  */
-Ext.define("Ext.draw.sprite.AttributeDefinition", {
-    config: {
+Ext.define( "Ext.draw.sprite.AttributeDefinition", {
+    "config": {
+
         /**
          * @cfg {Object} defaults Defines the default values of attributes.
          */
-        defaults: {
-            $value: {},
-            lazy: true,
+        "defaults": {
+            "$value": {},
+            "lazy": true,
         },
+
         /**
          * @cfg {Object} aliases Defines the alternative names for attributes.
          */
-        aliases: {},
+        "aliases": {},
+
         /**
          * @cfg {Object} animationProcessors Defines the process used to animate between attributes.
          * One doesn't have to define animation processors for sprite attributes that use
@@ -815,24 +870,27 @@ Ext.define("Ext.draw.sprite.AttributeDefinition", {
          * For more information on animation processors please see
          * {@link Ext.draw.sprite.AnimationParser} documentation.
          */
-        animationProcessors: {},
+        "animationProcessors": {},
+
         /**
          * @cfg {Object} processors Defines the preprocessing used on the attributes.
          * One can define a custom processor function here or use the name of a predefined
          * processor from the {@link Ext.draw.sprite.AttributeParser} singleton.
          */
-        processors: {
+        "processors": {
+
             // A plus side of lazy initialization is that the 'processors' and 'defaults' will
             // only be applied for those sprite classes that are actually instantiated.
-            $value: {},
-            lazy: true,
+            "$value": {},
+            "lazy": true,
         },
+
         /**
          * @cfg {Object} dirtyTriggers
          * @deprecated 6.5.0 Use the {@link #triggers} config instead.
          */
-        dirtyTriggers: {},
-        /* eslint-disable max-len */
+        "dirtyTriggers": {},
+
         /**
          * @cfg {Object} triggers Defines which updaters have to be called when an attribute is changed.
          * For example, the config below indicates that the 'size' updater
@@ -852,7 +910,8 @@ Ext.define("Ext.draw.sprite.AttributeDefinition", {
          * indicating that this attribute should be applied to a Canvas context (or whatever emulates it).
          * @since 5.1.0
          */
-        triggers: {},
+        "triggers": {},
+
         /**
          * @cfg {Object} updaters Defines the postprocessing used by the attribute.
          * Inside the updater function 'this' refers to the sprite that the attributes belong to.
@@ -875,35 +934,38 @@ Ext.define("Ext.draw.sprite.AttributeDefinition", {
          *         }
          *     }
          */
-        updaters: {},
+        "updaters": {},
     },
-    /* eslint-enable max-len */
-    inheritableStatics: {
+
+    "inheritableStatics": {
+
         /**
          * @private
          * Processor declaration in the form of 'processorFactory(argument1,argument2,...)'.
          * E.g.: {@link Ext.draw.sprite.AttributeParser#enums enums},
          * {@link Ext.draw.sprite.AttributeParser#limited limited}.
          */
-        processorFactoryRe: /^(\w+)\(([\w\-,]*)\)$/,
+        "processorFactoryRe": /^(\w+)\(([\w,\-]*)\)$/,
     },
+
     // The sprite class for which AttributeDefinition instance is created.
-    spriteClass: null,
-    constructor: function (config) {
+    "spriteClass": null,
+    "constructor": function ( config ) {
         var me = this;
-        me.initConfig(config);
+        me.initConfig( config );
     },
-    applyDefaults: function (defaults, oldDefaults) {
-        oldDefaults = Ext.apply(oldDefaults || {}, this.normalize(defaults));
+    "applyDefaults": function ( defaults, oldDefaults ) {
+        oldDefaults = Ext.apply( oldDefaults || {}, this.normalize( defaults ) );
         return oldDefaults;
     },
-    applyAliases: function (aliases, oldAliases) {
-        return Ext.apply(oldAliases || {}, aliases);
+    "applyAliases": function ( aliases, oldAliases ) {
+        return Ext.apply( oldAliases || {}, aliases );
     },
-    applyProcessors: function (processors, oldProcessors) {
+    "applyProcessors": function ( processors, oldProcessors ) {
         this.getAnimationProcessors();
+
         // Apply custom animation processors first.
-        // eslint-disable-next-line vars-on-top
+
         var result = oldProcessors || {},
             defaultProcessor = Ext.draw.sprite.AttributeParser,
             processorFactoryRe = this.self.processorFactoryRe,
@@ -912,77 +974,83 @@ Ext.define("Ext.draw.sprite.AttributeDefinition", {
             name,
             match,
             fn;
-        for (name in processors) {
-            fn = processors[name];
-            if (typeof fn === "string") {
-                match = fn.match(processorFactoryRe);
-                if (match) {
+        for ( name in processors ) {
+            fn = processors[ name ];
+            if ( typeof fn === "string" ) {
+                match = fn.match( processorFactoryRe );
+                if ( match ) {
+
                     // enums(... , limited(... or something of that nature.
-                    fn = defaultProcessor[match[1]].apply(defaultProcessor, match[2].split(","));
-                } else if (defaultProcessor[fn]) {
+                    fn = defaultProcessor[ match[ 1 ] ].apply( defaultProcessor, match[ 2 ].split( "," ) );
+                }
+                else if ( defaultProcessor[ fn ] ) {
+
                     // Names of animation parsers match the names of attribute parsers.
-                    animationProcessors[name] = fn;
+                    animationProcessors[ name ] = fn;
                     anyAnimationProcessors = true;
-                    fn = defaultProcessor[fn];
+                    fn = defaultProcessor[ fn ];
                 }
             }
-            if (!Ext.isFunction(fn)) {
-                Ext.raise(this.spriteClass.$className + ": processor '" + name + "' has not been found.");
+            if ( !Ext.isFunction( fn ) ) {
+                Ext.raise( this.spriteClass.$className + ": processor '" + name + "' has not been found." );
             }
-            result[name] = fn;
+            result[ name ] = fn;
         }
-        if (anyAnimationProcessors) {
-            this.setAnimationProcessors(animationProcessors);
+        if ( anyAnimationProcessors ) {
+            this.setAnimationProcessors( animationProcessors );
         }
         return result;
     },
-    applyAnimationProcessors: function (animationProcessors, oldAnimationProcessors) {
+    "applyAnimationProcessors": function ( animationProcessors, oldAnimationProcessors ) {
         var parser = Ext.draw.sprite.AnimationParser,
             name,
             item;
-        if (!oldAnimationProcessors) {
+        if ( !oldAnimationProcessors ) {
             oldAnimationProcessors = {};
         }
-        for (name in animationProcessors) {
-            item = animationProcessors[name];
-            if (item === "none") {
-                oldAnimationProcessors[name] = null;
-            } else if (Ext.isString(item) && !(name in oldAnimationProcessors)) {
-                if (item in parser) {
+        for ( name in animationProcessors ) {
+            item = animationProcessors[ name ];
+            if ( item === "none" ) {
+                oldAnimationProcessors[ name ] = null;
+            }
+            else if ( Ext.isString( item ) && !( name in oldAnimationProcessors ) ) {
+                if ( item in parser ) {
+
                     // The while loop is used to resolve aliases, e.g. `num: 'number'`,
                     // where `number` maps to a parser object or is an alias too.
-                    while (Ext.isString(parser[item])) {
-                        item = parser[item];
+                    while ( Ext.isString( parser[ item ] ) ) {
+                        item = parser[ item ];
                     }
-                    oldAnimationProcessors[name] = parser[item];
+                    oldAnimationProcessors[ name ] = parser[ item ];
                 }
-            } else if (Ext.isObject(item)) {
-                oldAnimationProcessors[name] = item;
+            }
+            else if ( Ext.isObject( item ) ) {
+                oldAnimationProcessors[ name ] = item;
             }
         }
         return oldAnimationProcessors;
     },
-    updateDirtyTriggers: function (dirtyTriggers) {
-        this.setTriggers(dirtyTriggers);
+    "updateDirtyTriggers": function ( dirtyTriggers ) {
+        this.setTriggers( dirtyTriggers );
     },
-    applyTriggers: function (triggers, oldTriggers) {
+    "applyTriggers": function ( triggers, oldTriggers ) {
         var name;
-        if (!oldTriggers) {
+        if ( !oldTriggers ) {
             oldTriggers = {};
         }
-        for (name in triggers) {
-            oldTriggers[name] = triggers[name].split(",");
+        for ( name in triggers ) {
+            oldTriggers[ name ] = triggers[ name ].split( "," );
         }
         return oldTriggers;
     },
-    applyUpdaters: function (updaters, oldUpdaters) {
-        return Ext.apply(oldUpdaters || {}, updaters);
+    "applyUpdaters": function ( updaters, oldUpdaters ) {
+        return Ext.apply( oldUpdaters || {}, updaters );
     },
-    batchedNormalize: function (batchedChanges, keepUnrecognized) {
-        if (!batchedChanges) {
+    "batchedNormalize": function ( batchedChanges, keepUnrecognized ) {
+        if ( !batchedChanges ) {
             return {};
         }
-        // eslint-disable-next-line vars-on-top
+
         var processors = this.getProcessors(),
             aliases = this.getAliases(),
             translation = batchedChanges.translation || batchedChanges.translate,
@@ -996,69 +1064,79 @@ Ext.define("Ext.draw.sprite.AttributeDefinition", {
             matrix,
             subVal,
             split;
-        if ("rotation" in batchedChanges) {
+        if ( "rotation" in batchedChanges ) {
             rotation = batchedChanges.rotation;
-        } else {
-            rotation = "rotate" in batchedChanges ? batchedChanges.rotate : undefined;
         }
-        if ("scaling" in batchedChanges) {
+        else {
+            rotation = "rotate" in batchedChanges
+                ? batchedChanges.rotate
+                : undefined;
+        }
+        if ( "scaling" in batchedChanges ) {
             scaling = batchedChanges.scaling;
-        } else {
-            scaling = "scale" in batchedChanges ? batchedChanges.scale : undefined;
         }
-        if (typeof scaling !== "undefined") {
-            if (Ext.isNumber(scaling)) {
+        else {
+            scaling = "scale" in batchedChanges
+                ? batchedChanges.scale
+                : undefined;
+        }
+        if ( typeof scaling !== "undefined" ) {
+            if ( Ext.isNumber( scaling ) ) {
                 normalized.scalingX = scaling;
                 normalized.scalingY = scaling;
-            } else {
-                if ("x" in scaling) {
+            }
+            else {
+                if ( "x" in scaling ) {
                     normalized.scalingX = scaling.x;
                 }
-                if ("y" in scaling) {
+                if ( "y" in scaling ) {
                     normalized.scalingY = scaling.y;
                 }
-                if ("centerX" in scaling) {
+                if ( "centerX" in scaling ) {
                     normalized.scalingCenterX = scaling.centerX;
                 }
-                if ("centerY" in scaling) {
+                if ( "centerY" in scaling ) {
                     normalized.scalingCenterY = scaling.centerY;
                 }
             }
         }
-        if (typeof rotation !== "undefined") {
-            if (Ext.isNumber(rotation)) {
-                rotation = Ext.draw.Draw.rad(rotation);
+        if ( typeof rotation !== "undefined" ) {
+            if ( Ext.isNumber( rotation ) ) {
+                rotation = Ext.draw.Draw.rad( rotation );
                 normalized.rotationRads = rotation;
-            } else {
-                if ("rads" in rotation) {
+            }
+            else {
+                if ( "rads" in rotation ) {
                     normalized.rotationRads = rotation.rads;
-                } else if ("degrees" in rotation) {
-                    if (Ext.isArray(rotation.degrees)) {
-                        normalized.rotationRads = Ext.Array.map(rotation.degrees, function (deg) {
-                            return Ext.draw.Draw.rad(deg);
-                        });
-                    } else {
-                        normalized.rotationRads = Ext.draw.Draw.rad(rotation.degrees);
+                }
+                else if ( "degrees" in rotation ) {
+                    if ( Ext.isArray( rotation.degrees ) ) {
+                        normalized.rotationRads = Ext.Array.map( rotation.degrees, function ( deg ) {
+                            return Ext.draw.Draw.rad( deg );
+                        } );
+                    }
+                    else {
+                        normalized.rotationRads = Ext.draw.Draw.rad( rotation.degrees );
                     }
                 }
-                if ("centerX" in rotation) {
+                if ( "centerX" in rotation ) {
                     normalized.rotationCenterX = rotation.centerX;
                 }
-                if ("centerY" in rotation) {
+                if ( "centerY" in rotation ) {
                     normalized.rotationCenterY = rotation.centerY;
                 }
             }
         }
-        if (typeof translation !== "undefined") {
-            if ("x" in translation) {
+        if ( typeof translation !== "undefined" ) {
+            if ( "x" in translation ) {
                 normalized.translationX = translation.x;
             }
-            if ("y" in translation) {
+            if ( "y" in translation ) {
                 normalized.translationY = translation.y;
             }
         }
-        if ("matrix" in batchedChanges) {
-            matrix = Ext.draw.Matrix.create(batchedChanges.matrix);
+        if ( "matrix" in batchedChanges ) {
+            matrix = Ext.draw.Matrix.create( batchedChanges.matrix );
             split = matrix.split();
             normalized.matrix = matrix;
             normalized.rotationRads = split.rotation;
@@ -1071,41 +1149,46 @@ Ext.define("Ext.draw.sprite.AttributeDefinition", {
             normalized.translationX = split.translateX;
             normalized.translationY = split.translateY;
         }
-        for (name in batchedChanges) {
-            val = batchedChanges[name];
-            if (typeof val === "undefined") {
+        for ( name in batchedChanges ) {
+            val = batchedChanges[ name ];
+            if ( typeof val === "undefined" ) {
                 continue;
-            } else if (Ext.isArray(val)) {
-                if (name in aliases) {
-                    name = aliases[name];
+            }
+            else if ( Ext.isArray( val ) ) {
+                if ( name in aliases ) {
+                    name = aliases[ name ];
                 }
-                if (name in processors) {
-                    normalized[name] = [];
-                    for (i = 0, ln = val.length; i < ln; i++) {
-                        subVal = processors[name].call(this, val[i]);
-                        if (typeof subVal !== "undefined") {
-                            normalized[name][i] = subVal;
+                if ( name in processors ) {
+                    normalized[ name ] = [];
+                    for ( i = 0, ln = val.length; i < ln; i++ ) {
+                        subVal = processors[ name ].call( this, val[ i ] );
+                        if ( typeof subVal !== "undefined" ) {
+                            normalized[ name ][ i ] = subVal;
                         }
                     }
-                } else if (keepUnrecognized) {
-                    normalized[name] = val;
                 }
-            } else {
-                if (name in aliases) {
-                    name = aliases[name];
+                else if ( keepUnrecognized ) {
+                    normalized[ name ] = val;
                 }
-                if (name in processors) {
-                    val = processors[name].call(this, val);
-                    if (typeof val !== "undefined") {
-                        normalized[name] = val;
+            }
+            else {
+                if ( name in aliases ) {
+                    name = aliases[ name ];
+                }
+                if ( name in processors ) {
+                    val = processors[ name ].call( this, val );
+                    if ( typeof val !== "undefined" ) {
+                        normalized[ name ] = val;
                     }
-                } else if (keepUnrecognized) {
-                    normalized[name] = val;
+                }
+                else if ( keepUnrecognized ) {
+                    normalized[ name ] = val;
                 }
             }
         }
         return normalized;
     },
+
     /**
      * Normalizes the changes given via their processors before they are applied as attributes.
      *
@@ -1114,11 +1197,11 @@ Ext.define("Ext.draw.sprite.AttributeDefinition", {
      * as normalized values.
      * @return {Object} The normalized values.
      */
-    normalize: function (changes, keepUnrecognized) {
-        if (!changes) {
+    "normalize": function ( changes, keepUnrecognized ) {
+        if ( !changes ) {
             return {};
         }
-        // eslint-disable-next-line vars-on-top
+
         var processors = this.getProcessors(),
             aliases = this.getAliases(),
             translation = changes.translation || changes.translate,
@@ -1129,64 +1212,74 @@ Ext.define("Ext.draw.sprite.AttributeDefinition", {
             scaling,
             matrix,
             split;
-        if ("rotation" in changes) {
+        if ( "rotation" in changes ) {
             rotation = changes.rotation;
-        } else {
-            rotation = "rotate" in changes ? changes.rotate : undefined;
         }
-        if ("scaling" in changes) {
+        else {
+            rotation = "rotate" in changes
+                ? changes.rotate
+                : undefined;
+        }
+        if ( "scaling" in changes ) {
             scaling = changes.scaling;
-        } else {
-            scaling = "scale" in changes ? changes.scale : undefined;
         }
-        if (translation) {
-            if ("x" in translation) {
+        else {
+            scaling = "scale" in changes
+                ? changes.scale
+                : undefined;
+        }
+        if ( translation ) {
+            if ( "x" in translation ) {
                 normalized.translationX = translation.x;
             }
-            if ("y" in translation) {
+            if ( "y" in translation ) {
                 normalized.translationY = translation.y;
             }
         }
-        if (typeof scaling !== "undefined") {
-            if (Ext.isNumber(scaling)) {
+        if ( typeof scaling !== "undefined" ) {
+            if ( Ext.isNumber( scaling ) ) {
                 normalized.scalingX = scaling;
                 normalized.scalingY = scaling;
-            } else {
-                if ("x" in scaling) {
+            }
+            else {
+                if ( "x" in scaling ) {
                     normalized.scalingX = scaling.x;
                 }
-                if ("y" in scaling) {
+                if ( "y" in scaling ) {
                     normalized.scalingY = scaling.y;
                 }
-                if ("centerX" in scaling) {
+                if ( "centerX" in scaling ) {
                     normalized.scalingCenterX = scaling.centerX;
                 }
-                if ("centerY" in scaling) {
+                if ( "centerY" in scaling ) {
                     normalized.scalingCenterY = scaling.centerY;
                 }
             }
         }
-        if (typeof rotation !== "undefined") {
-            if (Ext.isNumber(rotation)) {
-                rotation = Ext.draw.Draw.rad(rotation);
+        if ( typeof rotation !== "undefined" ) {
+            if ( Ext.isNumber( rotation ) ) {
+                rotation = Ext.draw.Draw.rad( rotation );
                 normalized.rotationRads = rotation;
-            } else {
-                if ("rads" in rotation) {
+            }
+            else {
+                if ( "rads" in rotation ) {
                     normalized.rotationRads = rotation.rads;
-                } else if ("degrees" in rotation) {
-                    normalized.rotationRads = Ext.draw.Draw.rad(rotation.degrees);
                 }
-                if ("centerX" in rotation) {
+                else if ( "degrees" in rotation ) {
+                    normalized.rotationRads = Ext.draw.Draw.rad( rotation.degrees );
+                }
+                if ( "centerX" in rotation ) {
                     normalized.rotationCenterX = rotation.centerX;
                 }
-                if ("centerY" in rotation) {
+                if ( "centerY" in rotation ) {
                     normalized.rotationCenterY = rotation.centerY;
                 }
             }
         }
-        if ("matrix" in changes) {
-            matrix = Ext.draw.Matrix.create(changes.matrix);
+        if ( "matrix" in changes ) {
+            matrix = Ext.draw.Matrix.create( changes.matrix );
             split = matrix.split();
+
             // This will NOT update the transformation matrix of a sprite
             // with the given elements. It will attempt to extract the
             // individual transformation attributes from the transformation matrix
@@ -1212,33 +1305,34 @@ Ext.define("Ext.draw.sprite.AttributeDefinition", {
             normalized.translationX = split.translateX;
             normalized.translationY = split.translateY;
         }
-        for (name in changes) {
-            val = changes[name];
-            if (typeof val === "undefined") {
+        for ( name in changes ) {
+            val = changes[ name ];
+            if ( typeof val === "undefined" ) {
                 continue;
             }
-            if (name in aliases) {
-                name = aliases[name];
+            if ( name in aliases ) {
+                name = aliases[ name ];
             }
-            if (name in processors) {
-                val = processors[name].call(this, val);
-                if (typeof val !== "undefined") {
-                    normalized[name] = val;
+            if ( name in processors ) {
+                val = processors[ name ].call( this, val );
+                if ( typeof val !== "undefined" ) {
+                    normalized[ name ] = val;
                 }
-            } else if (keepUnrecognized) {
-                normalized[name] = val;
+            }
+            else if ( keepUnrecognized ) {
+                normalized[ name ] = val;
             }
         }
         return normalized;
     },
-    setBypassingNormalization: function (attr, modifierStack, changes) {
-        return modifierStack.pushDown(attr, changes);
+    "setBypassingNormalization": function ( attr, modifierStack, changes ) {
+        return modifierStack.pushDown( attr, changes );
     },
-    set: function (attr, modifierStack, changes) {
-        changes = this.normalize(changes);
-        return this.setBypassingNormalization(attr, modifierStack, changes);
+    "set": function ( attr, modifierStack, changes ) {
+        changes = this.normalize( changes );
+        return this.setBypassingNormalization( attr, modifierStack, changes );
     },
-});
+} );
 
 /**
  * Ext.draw.Matix is a utility class used to calculate
@@ -1350,8 +1444,9 @@ Ext.define("Ext.draw.sprite.AttributeDefinition", {
 Ext.define(
     "Ext.draw.Matrix",
     {
-        isMatrix: true,
-        statics: {
+        "isMatrix": true,
+        "statics": {
+
             /**
              * @static
              * Return the affine matrix that transform two points (x0, y0) and (x1, y1) to (x0p, y0p)
@@ -1365,18 +1460,19 @@ Ext.define(
              * @param {Number} x1p
              * @param {Number} y1p
              */
-            createAffineMatrixFromTwoPair: function (x0, y0, x1, y1, x0p, y0p, x1p, y1p) {
+            "createAffineMatrixFromTwoPair": function ( x0, y0, x1, y1, x0p, y0p, x1p, y1p ) {
                 var dx = x1 - x0,
                     dy = y1 - y0,
                     dxp = x1p - x0p,
                     dyp = y1p - y0p,
-                    r = 1 / (dx * dx + dy * dy),
+                    r = 1 / ( dx * dx + dy * dy ),
                     a = dx * dxp + dy * dyp,
                     b = dxp * dy - dx * dyp,
                     c = -a * x0 - b * y0,
                     f = b * x0 - a * y0;
-                return new this(a * r, -b * r, b * r, a * r, c * r + x0p, f * r + y0p);
+                return new this( a * r, -b * r, b * r, a * r, c * r + x0p, f * r + y0p );
             },
+
             /**
              * @static
              * Return the affine matrix that transform two points (x0, y0) and (x1, y1) to (x0p, y0p)
@@ -1390,24 +1486,25 @@ Ext.define(
              * @param {Number} x1p
              * @param {Number} y1p
              */
-            createPanZoomFromTwoPair: function (x0, y0, x1, y1, x0p, y0p, x1p, y1p) {
-                if (arguments.length === 2) {
-                    return this.createPanZoomFromTwoPair.apply(this, x0.concat(y0));
+            "createPanZoomFromTwoPair": function ( x0, y0, x1, y1, x0p, y0p, x1p, y1p ) {
+                if ( arguments.length === 2 ) {
+                    return this.createPanZoomFromTwoPair.apply( this, x0.concat( y0 ) );
                 }
-                // eslint-disable-next-line vars-on-top
+
                 var dx = x1 - x0,
                     dy = y1 - y0,
-                    cx = (x0 + x1) * 0.5,
-                    cy = (y0 + y1) * 0.5,
+                    cx = ( x0 + x1 ) * 0.5,
+                    cy = ( y0 + y1 ) * 0.5,
                     dxp = x1p - x0p,
                     dyp = y1p - y0p,
-                    cxp = (x0p + x1p) * 0.5,
-                    cyp = (y0p + y1p) * 0.5,
+                    cxp = ( x0p + x1p ) * 0.5,
+                    cyp = ( y0p + y1p ) * 0.5,
                     r = dx * dx + dy * dy,
                     rp = dxp * dxp + dyp * dyp,
-                    scale = Math.sqrt(rp / r);
-                return new this(scale, 0, 0, scale, cxp - scale * cx, cyp - scale * cy);
+                    scale = Math.sqrt( rp / r );
+                return new this( scale, 0, 0, scale, cxp - scale * cx, cyp - scale * cy );
             },
+
             /**
              * @method
              * @static
@@ -1420,34 +1517,36 @@ Ext.define(
              * @param {Array} elements
              * @return {Ext.draw.Matrix}
              */
-            fly: (function () {
+            "fly": ( function () {
                 var flyMatrix = null,
-                    simplefly = function (elements) {
+                    simplefly = function ( elements ) {
                         flyMatrix.elements = elements;
                         return flyMatrix;
                     };
-                return function (elements) {
-                    if (!flyMatrix) {
+                return function ( elements ) {
+                    if ( !flyMatrix ) {
                         flyMatrix = new Ext.draw.Matrix();
                     }
                     flyMatrix.elements = elements;
                     Ext.draw.Matrix.fly = simplefly;
                     return flyMatrix;
                 };
-            })(),
+            } )(),
+
             /**
              * @static
              * Create a matrix from `mat`. If `mat` is already a matrix, returns it.
              * @param {Mixed} mat
              * @return {Ext.draw.Matrix}
              */
-            create: function (mat) {
-                if (mat instanceof this) {
+            "create": function ( mat ) {
+                if ( mat instanceof this ) {
                     return mat;
                 }
-                return new this(mat);
+                return new this( mat );
             },
         },
+
         /**
          * Create an affine transform matrix.
          *
@@ -1458,15 +1557,18 @@ Ext.define(
          * @param {Number} dx Offset of x
          * @param {Number} dy Offset of y
          */
-        constructor: function (xx, xy, yx, yy, dx, dy) {
-            if (xx && xx.length === 6) {
+        "constructor": function ( xx, xy, yx, yy, dx, dy ) {
+            if ( xx && xx.length === 6 ) {
                 this.elements = xx.slice();
-            } else if (xx !== undefined) {
-                this.elements = [xx, xy, yx, yy, dx, dy];
-            } else {
-                this.elements = [1, 0, 0, 1, 0, 0];
+            }
+            else if ( xx !== undefined ) {
+                this.elements = [ xx, xy, yx, yy, dx, dy ];
+            }
+            else {
+                this.elements = [ 1, 0, 0, 1, 0, 0 ];
             }
         },
+
         /**
          * Prepend a matrix onto the current.
          *
@@ -1480,22 +1582,23 @@ Ext.define(
          * @param {Number} dy Offset of y.
          * @return {Ext.draw.Matrix} this
          */
-        prepend: function (xx, xy, yx, yy, dx, dy) {
+        "prepend": function ( xx, xy, yx, yy, dx, dy ) {
             var elements = this.elements,
-                xx0 = elements[0],
-                xy0 = elements[1],
-                yx0 = elements[2],
-                yy0 = elements[3],
-                dx0 = elements[4],
-                dy0 = elements[5];
-            elements[0] = xx * xx0 + yx * xy0;
-            elements[1] = xy * xx0 + yy * xy0;
-            elements[2] = xx * yx0 + yx * yy0;
-            elements[3] = xy * yx0 + yy * yy0;
-            elements[4] = xx * dx0 + yx * dy0 + dx;
-            elements[5] = xy * dx0 + yy * dy0 + dy;
+                xx0 = elements[ 0 ],
+                xy0 = elements[ 1 ],
+                yx0 = elements[ 2 ],
+                yy0 = elements[ 3 ],
+                dx0 = elements[ 4 ],
+                dy0 = elements[ 5 ];
+            elements[ 0 ] = xx * xx0 + yx * xy0;
+            elements[ 1 ] = xy * xx0 + yy * xy0;
+            elements[ 2 ] = xx * yx0 + yx * yy0;
+            elements[ 3 ] = xy * yx0 + yy * yy0;
+            elements[ 4 ] = xx * dx0 + yx * dy0 + dx;
+            elements[ 5 ] = xy * dx0 + yy * dy0 + dy;
             return this;
         },
+
         /**
          * Prepend a matrix onto the current.
          *
@@ -1503,9 +1606,10 @@ Ext.define(
          * @param {Ext.draw.Matrix} matrix
          * @return {Ext.draw.Matrix} this
          */
-        prependMatrix: function (matrix) {
-            return this.prepend.apply(this, matrix.elements);
+        "prependMatrix": function ( matrix ) {
+            return this.prepend.apply( this, matrix.elements );
         },
+
         /**
          * Postpend a matrix onto the current.
          *
@@ -1519,22 +1623,23 @@ Ext.define(
          * @param {Number} dy Offset of y.
          * @return {Ext.draw.Matrix} this
          */
-        append: function (xx, xy, yx, yy, dx, dy) {
+        "append": function ( xx, xy, yx, yy, dx, dy ) {
             var elements = this.elements,
-                xx0 = elements[0],
-                xy0 = elements[1],
-                yx0 = elements[2],
-                yy0 = elements[3],
-                dx0 = elements[4],
-                dy0 = elements[5];
-            elements[0] = xx * xx0 + xy * yx0;
-            elements[1] = xx * xy0 + xy * yy0;
-            elements[2] = yx * xx0 + yy * yx0;
-            elements[3] = yx * xy0 + yy * yy0;
-            elements[4] = dx * xx0 + dy * yx0 + dx0;
-            elements[5] = dx * xy0 + dy * yy0 + dy0;
+                xx0 = elements[ 0 ],
+                xy0 = elements[ 1 ],
+                yx0 = elements[ 2 ],
+                yy0 = elements[ 3 ],
+                dx0 = elements[ 4 ],
+                dy0 = elements[ 5 ];
+            elements[ 0 ] = xx * xx0 + xy * yx0;
+            elements[ 1 ] = xx * xy0 + xy * yy0;
+            elements[ 2 ] = yx * xx0 + yy * yx0;
+            elements[ 3 ] = yx * xy0 + yy * yy0;
+            elements[ 4 ] = dx * xx0 + dy * yx0 + dx0;
+            elements[ 5 ] = dx * xy0 + dy * yy0 + dy0;
             return this;
         },
+
         /**
          * Postpend a matrix onto the current.
          *
@@ -1543,9 +1648,10 @@ Ext.define(
          * @param {Ext.draw.Matrix} matrix
          * @return {Ext.draw.Matrix} this
          */
-        appendMatrix: function (matrix) {
-            return this.append.apply(this, matrix.elements);
+        "appendMatrix": function ( matrix ) {
+            return this.append.apply( this, matrix.elements );
         },
+
         /**
          * Set the elements of a Matrix
          * @param {Number} xx
@@ -1556,16 +1662,17 @@ Ext.define(
          * @param {Number} dy
          * @return {Ext.draw.Matrix} this
          */
-        set: function (xx, xy, yx, yy, dx, dy) {
+        "set": function ( xx, xy, yx, yy, dx, dy ) {
             var elements = this.elements;
-            elements[0] = xx;
-            elements[1] = xy;
-            elements[2] = yx;
-            elements[3] = yy;
-            elements[4] = dx;
-            elements[5] = dy;
+            elements[ 0 ] = xx;
+            elements[ 1 ] = xy;
+            elements[ 2 ] = yx;
+            elements[ 3 ] = yy;
+            elements[ 4 ] = dx;
+            elements[ 5 ] = dy;
             return this;
         },
+
         /**
          * Return a new matrix represents the opposite transformation of the current one.
          *
@@ -1574,26 +1681,28 @@ Ext.define(
          *
          * @return {Ext.draw.Matrix}
          */
-        inverse: function (target) {
+        "inverse": function ( target ) {
             var elements = this.elements,
-                a = elements[0],
-                b = elements[1],
-                c = elements[2],
-                d = elements[3],
-                e = elements[4],
-                f = elements[5],
-                rDim = 1 / (a * d - b * c);
+                a = elements[ 0 ],
+                b = elements[ 1 ],
+                c = elements[ 2 ],
+                d = elements[ 3 ],
+                e = elements[ 4 ],
+                f = elements[ 5 ],
+                rDim = 1 / ( a * d - b * c );
             a *= rDim;
             b *= rDim;
             c *= rDim;
             d *= rDim;
-            if (target) {
-                target.set(d, -b, -c, a, c * f - d * e, b * e - a * f);
+            if ( target ) {
+                target.set( d, -b, -c, a, c * f - d * e, b * e - a * f );
                 return target;
-            } else {
-                return new Ext.draw.Matrix(d, -b, -c, a, c * f - d * e, b * e - a * f);
+            }
+            else {
+                return new Ext.draw.Matrix( d, -b, -c, a, c * f - d * e, b * e - a * f );
             }
         },
+
         /**
          * Translate the matrix.
          *
@@ -1602,13 +1711,15 @@ Ext.define(
          * @param {Boolean} [prepend] If `true`, this will transformation be prepended to the matrix.
          * @return {Ext.draw.Matrix} this
          */
-        translate: function (x, y, prepend) {
-            if (prepend) {
-                return this.prepend(1, 0, 0, 1, x, y);
-            } else {
-                return this.append(1, 0, 0, 1, x, y);
+        "translate": function ( x, y, prepend ) {
+            if ( prepend ) {
+                return this.prepend( 1, 0, 0, 1, x, y );
+            }
+            else {
+                return this.append( 1, 0, 0, 1, x, y );
             }
         },
+
         /**
          * Scale the matrix.
          *
@@ -1619,24 +1730,27 @@ Ext.define(
          * @param {Boolean} [prepend] If `true`, this will transformation be prepended to the matrix.
          * @return {Ext.draw.Matrix} this
          */
-        scale: function (sx, sy, scx, scy, prepend) {
+        "scale": function ( sx, sy, scx, scy, prepend ) {
             var me = this;
+
             // null or undefined
-            if (sy == null) {
+            if ( sy == null ) {
                 sy = sx;
             }
-            if (scx === undefined) {
+            if ( scx === undefined ) {
                 scx = 0;
             }
-            if (scy === undefined) {
+            if ( scy === undefined ) {
                 scy = 0;
             }
-            if (prepend) {
-                return me.prepend(sx, 0, 0, sy, scx - scx * sx, scy - scy * sy);
-            } else {
-                return me.append(sx, 0, 0, sy, scx - scx * sx, scy - scy * sy);
+            if ( prepend ) {
+                return me.prepend( sx, 0, 0, sy, scx - scx * sx, scy - scy * sy );
+            }
+            else {
+                return me.append( sx, 0, 0, sy, scx - scx * sx, scy - scy * sy );
             }
         },
+
         /**
          * Rotate the matrix.
          *
@@ -1646,18 +1760,20 @@ Ext.define(
          * @param {Boolean} [prepend] If `true`, this will transformation be prepended to the matrix.
          * @return {Ext.draw.Matrix} this
          */
-        rotate: function (angle, rcx, rcy, prepend) {
+        "rotate": function ( angle, rcx, rcy, prepend ) {
             var me = this,
-                cos = Math.cos(angle),
-                sin = Math.sin(angle);
+                cos = Math.cos( angle ),
+                sin = Math.sin( angle );
             rcx = rcx || 0;
             rcy = rcy || 0;
-            if (prepend) {
-                return me.prepend(cos, sin, -sin, cos, rcx - cos * rcx + rcy * sin, rcy - cos * rcy - rcx * sin);
-            } else {
-                return me.append(cos, sin, -sin, cos, rcx - cos * rcx + rcy * sin, rcy - cos * rcy - rcx * sin);
+            if ( prepend ) {
+                return me.prepend( cos, sin, -sin, cos, rcx - cos * rcx + rcy * sin, rcy - cos * rcy - rcx * sin );
+            }
+            else {
+                return me.append( cos, sin, -sin, cos, rcx - cos * rcx + rcy * sin, rcy - cos * rcy - rcx * sin );
             }
         },
+
         /**
          * Rotate the matrix by the angle of a vector.
          *
@@ -1666,170 +1782,185 @@ Ext.define(
          * @param {Boolean} [prepend] If `true`, this will transformation be prepended to the matrix.
          * @return {Ext.draw.Matrix} this
          */
-        rotateFromVector: function (x, y, prepend) {
+        "rotateFromVector": function ( x, y, prepend ) {
             var me = this,
-                d = Math.sqrt(x * x + y * y),
+                d = Math.hypot( x, y ),
                 cos = x / d,
                 sin = y / d;
-            if (prepend) {
-                return me.prepend(cos, sin, -sin, cos, 0, 0);
-            } else {
-                return me.append(cos, sin, -sin, cos, 0, 0);
+            if ( prepend ) {
+                return me.prepend( cos, sin, -sin, cos, 0, 0 );
+            }
+            else {
+                return me.append( cos, sin, -sin, cos, 0, 0 );
             }
         },
+
         /**
          * Clone this matrix.
          * @return {Ext.draw.Matrix}
          */
-        clone: function () {
-            return new Ext.draw.Matrix(this.elements);
+        "clone": function () {
+            return new Ext.draw.Matrix( this.elements );
         },
+
         /**
          * Horizontally flip the matrix
          * @return {Ext.draw.Matrix} this
          */
-        flipX: function () {
-            return this.append(-1, 0, 0, 1, 0, 0);
+        "flipX": function () {
+            return this.append( -1, 0, 0, 1, 0, 0 );
         },
+
         /**
          * Vertically flip the matrix
          * @return {Ext.draw.Matrix} this
          */
-        flipY: function () {
-            return this.append(1, 0, 0, -1, 0, 0);
+        "flipY": function () {
+            return this.append( 1, 0, 0, -1, 0, 0 );
         },
+
         /**
          * Skew the matrix
          * @param {Number} angle
          * @return {Ext.draw.Matrix} this
          */
-        skewX: function (angle) {
-            return this.append(1, 0, Math.tan(angle), 1, 0, 0);
+        "skewX": function ( angle ) {
+            return this.append( 1, 0, Math.tan( angle ), 1, 0, 0 );
         },
+
         /**
          * Skew the matrix
          * @param {Number} angle
          * @return {Ext.draw.Matrix} this
          */
-        skewY: function (angle) {
-            return this.append(1, Math.tan(angle), 0, 1, 0, 0);
+        "skewY": function ( angle ) {
+            return this.append( 1, Math.tan( angle ), 0, 1, 0, 0 );
         },
+
         /**
          * Shear the matrix along the x-axis.
          * @param factor The horizontal shear factor.
          * @return {Ext.draw.Matrix} this
          */
-        shearX: function (factor) {
-            return this.append(1, 0, factor, 1, 0, 0);
+        "shearX": function ( factor ) {
+            return this.append( 1, 0, factor, 1, 0, 0 );
         },
+
         /**
          * Shear the matrix along the y-axis.
          * @param factor The vertical shear factor.
          * @return {Ext.draw.Matrix} this
          */
-        shearY: function (factor) {
-            return this.append(1, factor, 0, 1, 0, 0);
+        "shearY": function ( factor ) {
+            return this.append( 1, factor, 0, 1, 0, 0 );
         },
+
         /**
          * Reset the matrix to identical.
          * @return {Ext.draw.Matrix} this
          */
-        reset: function () {
-            return this.set(1, 0, 0, 1, 0, 0);
+        "reset": function () {
+            return this.set( 1, 0, 0, 1, 0, 0 );
         },
-        /* eslint-disable max-len */
+
         /**
          * @private
          * Split Matrix to `{{devicePixelRatio,c,0},{b,devicePixelRatio,0},{0,0,1}}.{{xx,0,dx},{0,yy,dy},{0,0,1}}`
          * @return {Object} Object with b,c,d=devicePixelRatio,xx,yy,dx,dy
          */
-        precisionCompensate: function (devicePixelRatio, comp) {
-            /* eslint-enable max-len */
+        "precisionCompensate": function ( devicePixelRatio, comp ) {
             var elements = this.elements,
-                x2x = elements[0],
-                x2y = elements[1],
-                y2x = elements[2],
-                y2y = elements[3],
-                newDx = elements[4],
-                newDy = elements[5],
+                x2x = elements[ 0 ],
+                x2y = elements[ 1 ],
+                y2x = elements[ 2 ],
+                y2y = elements[ 3 ],
+                newDx = elements[ 4 ],
+                newDy = elements[ 5 ],
                 r = x2y * y2x - x2x * y2y;
-            comp.b = (devicePixelRatio * x2y) / x2x;
-            comp.c = (devicePixelRatio * y2x) / y2y;
+            comp.b = ( devicePixelRatio * x2y ) / x2x;
+            comp.c = ( devicePixelRatio * y2x ) / y2y;
             comp.d = devicePixelRatio;
             comp.xx = x2x / devicePixelRatio;
             comp.yy = y2y / devicePixelRatio;
-            comp.dx = (newDy * x2x * y2x - newDx * x2x * y2y) / r / devicePixelRatio;
-            comp.dy = (newDx * x2y * y2y - newDy * x2x * y2y) / r / devicePixelRatio;
+            comp.dx = ( newDy * x2x * y2x - newDx * x2x * y2y ) / r / devicePixelRatio;
+            comp.dy = ( newDx * x2y * y2y - newDy * x2x * y2y ) / r / devicePixelRatio;
         },
+
         /**
          * @private
          * Split Matrix to `{{1,c,0},{b,d,0},{0,0,1}}.{{xx,0,dx},{0,xx,dy},{0,0,1}}`
          * @return {Object} Object with b,c,d,xx,yy=xx,dx,dy
          */
-        precisionCompensateRect: function (devicePixelRatio, comp) {
+        "precisionCompensateRect": function ( devicePixelRatio, comp ) {
             var elements = this.elements,
-                x2x = elements[0],
-                x2y = elements[1],
-                y2x = elements[2],
-                y2y = elements[3],
-                newDx = elements[4],
-                newDy = elements[5],
+                x2x = elements[ 0 ],
+                x2y = elements[ 1 ],
+                y2x = elements[ 2 ],
+                y2y = elements[ 3 ],
+                newDx = elements[ 4 ],
+                newDy = elements[ 5 ],
                 yxOnXx = y2x / x2x;
-            comp.b = (devicePixelRatio * x2y) / x2x;
+            comp.b = ( devicePixelRatio * x2y ) / x2x;
             comp.c = devicePixelRatio * yxOnXx;
-            comp.d = (devicePixelRatio * y2y) / x2x;
+            comp.d = ( devicePixelRatio * y2y ) / x2x;
             comp.xx = x2x / devicePixelRatio;
             comp.yy = x2x / devicePixelRatio;
-            comp.dx = (newDy * y2x - newDx * y2y) / (x2y * yxOnXx - y2y) / devicePixelRatio;
-            comp.dy = -(newDy * x2x - newDx * x2y) / (x2y * yxOnXx - y2y) / devicePixelRatio;
+            comp.dx = ( newDy * y2x - newDx * y2y ) / ( x2y * yxOnXx - y2y ) / devicePixelRatio;
+            comp.dy = -( newDy * x2x - newDx * x2y ) / ( x2y * yxOnXx - y2y ) / devicePixelRatio;
         },
+
         /**
          * Transform point returning the x component of the result.
          * @param {Number} x
          * @param {Number} y
          * @return {Number} x component of the result.
          */
-        x: function (x, y) {
+        "x": function ( x, y ) {
             var elements = this.elements;
-            return x * elements[0] + y * elements[2] + elements[4];
+            return x * elements[ 0 ] + y * elements[ 2 ] + elements[ 4 ];
         },
+
         /**
          * Transform point returning the y component of the result.
          * @param {Number} x
          * @param {Number} y
          * @return {Number} y component of the result.
          */
-        y: function (x, y) {
+        "y": function ( x, y ) {
             var elements = this.elements;
-            return x * elements[1] + y * elements[3] + elements[5];
+            return x * elements[ 1 ] + y * elements[ 3 ] + elements[ 5 ];
         },
+
         /**
          * @private
          * @param {Number} i
          * @param {Number} j
          * @return {String}
          */
-        get: function (i, j) {
-            return +this.elements[i + j * 2].toFixed(4);
+        "get": function ( i, j ) {
+            return +this.elements[ i + j * 2 ].toFixed( 4 );
         },
+
         /**
          * Transform a point to a new array.
          * @param {Array} point
          * @return {Array}
          */
-        transformPoint: function (point) {
+        "transformPoint": function ( point ) {
             var elements = this.elements,
                 x,
                 y;
-            if (point.isPoint) {
+            if ( point.isPoint ) {
                 x = point.x;
                 y = point.y;
-            } else {
-                x = point[0];
-                y = point[1];
             }
-            return [x * elements[0] + y * elements[2] + elements[4], x * elements[1] + y * elements[3] + elements[5]];
+            else {
+                x = point[ 0 ];
+                y = point[ 1 ];
+            }
+            return [ x * elements[ 0 ] + y * elements[ 2 ] + elements[ 4 ], x * elements[ 1 ] + y * elements[ 3 ] + elements[ 5 ] ];
         },
+
         /**
          * @param {Object} bbox Given as `{x: Number, y: Number, width: Number, height: Number}`.
          * @param {Number} [radius]
@@ -1838,40 +1969,42 @@ Ext.define(
          *
          * @return {Object} Object with x, y, width and height.
          */
-        transformBBox: function (bbox, radius, target) {
+        "transformBBox": function ( bbox, radius, target ) {
             var elements = this.elements,
                 l = bbox.x,
                 t = bbox.y,
                 w0 = bbox.width * 0.5,
                 h0 = bbox.height * 0.5,
-                xx = elements[0],
-                xy = elements[1],
-                yx = elements[2],
-                yy = elements[3],
+                xx = elements[ 0 ],
+                xy = elements[ 1 ],
+                yx = elements[ 2 ],
+                yy = elements[ 3 ],
                 cx = l + w0,
                 cy = t + h0,
                 w,
                 h,
                 scales;
-            if (radius) {
+            if ( radius ) {
                 w0 -= radius;
                 h0 -= radius;
-                scales = [Math.sqrt(elements[0] * elements[0] + elements[2] * elements[2]), Math.sqrt(elements[1] * elements[1] + elements[3] * elements[3])];
-                w = Math.abs(w0 * xx) + Math.abs(h0 * yx) + Math.abs(scales[0] * radius);
-                h = Math.abs(w0 * xy) + Math.abs(h0 * yy) + Math.abs(scales[1] * radius);
-            } else {
-                w = Math.abs(w0 * xx) + Math.abs(h0 * yx);
-                h = Math.abs(w0 * xy) + Math.abs(h0 * yy);
+                scales = [ Math.hypot( elements[ 0 ], elements[ 2 ] ), Math.hypot( elements[ 1 ], elements[ 3 ] ) ];
+                w = Math.abs( w0 * xx ) + Math.abs( h0 * yx ) + Math.abs( scales[ 0 ] * radius );
+                h = Math.abs( w0 * xy ) + Math.abs( h0 * yy ) + Math.abs( scales[ 1 ] * radius );
             }
-            if (!target) {
+            else {
+                w = Math.abs( w0 * xx ) + Math.abs( h0 * yx );
+                h = Math.abs( w0 * xy ) + Math.abs( h0 * yy );
+            }
+            if ( !target ) {
                 target = {};
             }
-            target.x = cx * xx + cy * yx + elements[4] - w;
-            target.y = cx * xy + cy * yy + elements[5] - h;
+            target.x = cx * xx + cy * yx + elements[ 4 ] - w;
+            target.y = cx * xy + cy * yy + elements[ 5 ] - h;
             target.width = w + w;
             target.height = h + h;
             return target;
         },
+
         /**
          * Transform a list for points.
          *
@@ -1879,198 +2012,220 @@ Ext.define(
          * @param {Array} list
          * @return {Array} list
          */
-        transformList: function (list) {
+        "transformList": function ( list ) {
             var elements = this.elements,
-                xx = elements[0],
-                yx = elements[2],
-                dx = elements[4],
-                xy = elements[1],
-                yy = elements[3],
-                dy = elements[5],
+                xx = elements[ 0 ],
+                yx = elements[ 2 ],
+                dx = elements[ 4 ],
+                xy = elements[ 1 ],
+                yy = elements[ 3 ],
+                dy = elements[ 5 ],
                 ln = list.length,
                 p,
                 i;
-            for (i = 0; i < ln; i++) {
-                p = list[i];
-                list[i] = [p[0] * xx + p[1] * yx + dx, p[0] * xy + p[1] * yy + dy];
+            for ( i = 0; i < ln; i++ ) {
+                p = list[ i ];
+                list[ i ] = [ p[ 0 ] * xx + p[ 1 ] * yx + dx, p[ 0 ] * xy + p[ 1 ] * yy + dy ];
             }
             return list;
         },
+
         /**
          * Determines whether this matrix is an identity matrix (no transform).
          * @return {Boolean}
          */
-        isIdentity: function () {
+        "isIdentity": function () {
             var elements = this.elements;
-            return elements[0] === 1 && elements[1] === 0 && elements[2] === 0 && elements[3] === 1 && elements[4] === 0 && elements[5] === 0;
+            return elements[ 0 ] === 1 && elements[ 1 ] === 0 && elements[ 2 ] === 0 && elements[ 3 ] === 1 && elements[ 4 ] === 0 && elements[ 5 ] === 0;
         },
+
         /**
          * Determines if this matrix has the same values as another matrix.
          * @param {Ext.draw.Matrix} matrix A maxtrix or array of its elements.
          * @return {Boolean}
          */
-        isEqual: function (matrix) {
-            var elements = matrix && matrix.isMatrix ? matrix.elements : matrix,
+        "isEqual": function ( matrix ) {
+            var elements = matrix && matrix.isMatrix
+                    ? matrix.elements
+                    : matrix,
                 myElements = this.elements;
-            return myElements[0] === elements[0] && myElements[1] === elements[1] && myElements[2] === elements[2] && myElements[3] === elements[3] && myElements[4] === elements[4] && myElements[5] === elements[5];
+            return myElements[ 0 ] === elements[ 0 ] && myElements[ 1 ] === elements[ 1 ] && myElements[ 2 ] === elements[ 2 ] && myElements[ 3 ] === elements[ 3 ] && myElements[ 4 ] === elements[ 4 ] && myElements[ 5 ] === elements[ 5 ];
         },
+
         /**
          * @deprecated 6.0.1 This method is deprecated.
          * Determines if this matrix has the same values as another matrix.
          * @param {Ext.draw.Matrix} matrix
          * @return {Boolean}
          */
-        equals: function (matrix) {
-            return this.isEqual(matrix);
+        "equals": function ( matrix ) {
+            return this.isEqual( matrix );
         },
+
         /**
          * Create an array of elements by horizontal order (xx,yx,dx,yx,yy,dy).
          * @return {Array}
          */
-        toArray: function () {
+        "toArray": function () {
             var elements = this.elements;
-            return [elements[0], elements[2], elements[4], elements[1], elements[3], elements[5]];
+            return [ elements[ 0 ], elements[ 2 ], elements[ 4 ], elements[ 1 ], elements[ 3 ], elements[ 5 ] ];
         },
+
         /**
          * Create an array of elements by vertical order (xx,xy,yx,yy,dx,dy).
          * @return {Array|String}
          */
-        toVerticalArray: function () {
+        "toVerticalArray": function () {
             return this.elements.slice();
         },
+
         /**
          * Get an array of elements.
          * The numbers are rounded to keep only 4 decimals.
          * @return {Array}
          */
-        toString: function () {
+        "toString": function () {
             var me = this;
-            return [me.get(0, 0), me.get(0, 1), me.get(1, 0), me.get(1, 1), me.get(2, 0), me.get(2, 1)].join(",");
+            return [ me.get( 0, 0 ), me.get( 0, 1 ), me.get( 1, 0 ), me.get( 1, 1 ), me.get( 2, 0 ), me.get( 2, 1 ) ].join( "," );
         },
+
         /**
          * Apply the matrix to a drawing context.
          * @param {Object} ctx
          * @return {Ext.draw.Matrix} this
          */
-        toContext: function (ctx) {
-            ctx.transform.apply(ctx, this.elements);
+        "toContext": function ( ctx ) {
+            ctx.transform.apply( ctx, this.elements );
             return this;
         },
+
         /**
          * Return a string that can be used as transform attribute in SVG.
          * @return {String}
          */
-        toSvg: function () {
+        "toSvg": function () {
             var elements = this.elements;
+
             // The reason why we cannot use `.join` is the `1e5` form is not accepted in svg.
-            return "matrix(" + elements[0].toFixed(9) + "," + elements[1].toFixed(9) + "," + elements[2].toFixed(9) + "," + elements[3].toFixed(9) + "," + elements[4].toFixed(9) + "," + elements[5].toFixed(9) + ")";
+            return "matrix(" + elements[ 0 ].toFixed( 9 ) + "," + elements[ 1 ].toFixed( 9 ) + "," + elements[ 2 ].toFixed( 9 ) + "," + elements[ 3 ].toFixed( 9 ) + "," + elements[ 4 ].toFixed( 9 ) + "," + elements[ 5 ].toFixed( 9 ) + ")";
         },
+
         /**
          * Get the x scale of the matrix.
          * @return {Number}
          */
-        getScaleX: function () {
+        "getScaleX": function () {
             var elements = this.elements;
-            return Math.sqrt(elements[0] * elements[0] + elements[2] * elements[2]);
+            return Math.hypot( elements[ 0 ], elements[ 2 ] );
         },
+
         /**
          * Get the y scale of the matrix.
          * @return {Number}
          */
-        getScaleY: function () {
+        "getScaleY": function () {
             var elements = this.elements;
-            return Math.sqrt(elements[1] * elements[1] + elements[3] * elements[3]);
+            return Math.hypot( elements[ 1 ], elements[ 3 ] );
         },
+
         /**
          * Get x-to-x component of the matrix
          * @return {Number}
          */
-        getXX: function () {
-            return this.elements[0];
+        "getXX": function () {
+            return this.elements[ 0 ];
         },
+
         /**
          * Get x-to-y component of the matrix.
          * @return {Number}
          */
-        getXY: function () {
-            return this.elements[1];
+        "getXY": function () {
+            return this.elements[ 1 ];
         },
+
         /**
          * Get y-to-x component of the matrix.
          * @return {Number}
          */
-        getYX: function () {
-            return this.elements[2];
+        "getYX": function () {
+            return this.elements[ 2 ];
         },
+
         /**
          * Get y-to-y component of the matrix.
          * @return {Number}
          */
-        getYY: function () {
-            return this.elements[3];
+        "getYY": function () {
+            return this.elements[ 3 ];
         },
+
         /**
          * Get offset x component of the matrix.
          * @return {Number}
          */
-        getDX: function () {
-            return this.elements[4];
+        "getDX": function () {
+            return this.elements[ 4 ];
         },
+
         /**
          * Get offset y component of the matrix.
          * @return {Number}
          */
-        getDY: function () {
-            return this.elements[5];
+        "getDY": function () {
+            return this.elements[ 5 ];
         },
+
         /**
          * Splits this transformation matrix into Scale, Rotate, Translate components,
          * assuming it was produced by applying transformations in that order.
          * @return {Object}
          */
-        split: function () {
+        "split": function () {
             var el = this.elements,
-                xx = el[0],
-                xy = el[1],
-                yy = el[3],
+                xx = el[ 0 ],
+                xy = el[ 1 ],
+                yy = el[ 3 ],
                 out = {
-                    translateX: el[4],
-                    translateY: el[5],
+                    "translateX": el[ 4 ],
+                    "translateY": el[ 5 ],
                 };
-            out.rotate = out.rotation = Math.atan2(xy, xx);
-            out.scaleX = xx / Math.cos(out.rotate);
-            out.scaleY = (yy / xx) * out.scaleX;
+            out.rotate = out.rotation = Math.atan2( xy, xx );
+            out.scaleX = xx / Math.cos( out.rotate );
+            out.scaleY = ( yy / xx ) * out.scaleX;
             return out;
         },
     },
     function () {
-        function registerName(properties, name, i) {
-            properties[name] = {
-                get: function () {
-                    return this.elements[i];
+        function registerName ( properties, name, i ) {
+            properties[ name ] = {
+                "get": function () {
+                    return this.elements[ i ];
                 },
-                set: function (val) {
-                    this.elements[i] = val;
+                "set": function ( val ) {
+                    this.elements[ i ] = val;
                 },
             };
         }
+
         // Compatibility with SVGMatrix.
-        if (Object.defineProperties) {
+        if ( Object.defineProperties ) {
             var properties = {};
-            // eslint-disable-line vars-on-top
+
             /**
              * @property {Number} a Get x-to-x component of the matrix. Avoid using it for performance
              * consideration.
              * Use {@link #getXX} instead.
              */
-            registerName(properties, "a", 0);
-            registerName(properties, "b", 1);
-            registerName(properties, "c", 2);
-            registerName(properties, "d", 3);
-            registerName(properties, "e", 4);
-            registerName(properties, "f", 5);
-            Object.defineProperties(this.prototype, properties);
+            registerName( properties, "a", 0 );
+            registerName( properties, "b", 1 );
+            registerName( properties, "c", 2 );
+            registerName( properties, "d", 3 );
+            registerName( properties, "e", 4 );
+            registerName( properties, "f", 5 );
+            Object.defineProperties( this.prototype, properties );
         }
+
         /**
          * Performs matrix multiplication. This matrix is post-multiplied by another matrix.
          *
@@ -2093,40 +2248,44 @@ Ext.define(
  * additive changes; When modifier is triggered to change the attribute of a
  * sprite, it will pop-up the changes to the top.
  */
-Ext.define("Ext.draw.modifier.Modifier", {
-    isModifier: true,
-    mixins: {
-        observable: Ext.mixin.Observable,
+Ext.define( "Ext.draw.modifier.Modifier", {
+    "isModifier": true,
+    "mixins": {
+        "observable": Ext.mixin.Observable,
     },
-    config: {
+    "config": {
+
         /**
          * @private
          * @cfg {Ext.draw.modifier.Modifier} lower Modifier that receives the push-down changes.
          */
-        lower: null,
+        "lower": null,
+
         /**
          * @private
          * @cfg {Ext.draw.modifier.Modifier} upper Modifier that receives the pop-up changes.
          */
-        upper: null,
+        "upper": null,
+
         /**
          * @cfg {Ext.draw.sprite.Sprite} sprite The sprite to which the modifier belongs.
          */
-        sprite: null,
+        "sprite": null,
     },
-    constructor: function (config) {
-        this.mixins.observable.constructor.call(this, config);
+    "constructor": function ( config ) {
+        this.mixins.observable.constructor.call( this, config );
     },
-    updateUpper: function (upper) {
-        if (upper) {
-            upper.setLower(this);
+    "updateUpper": function ( upper ) {
+        if ( upper ) {
+            upper.setLower( this );
         }
     },
-    updateLower: function (lower) {
-        if (lower) {
-            lower.setUpper(this);
+    "updateLower": function ( lower ) {
+        if ( lower ) {
+            lower.setUpper( this );
         }
     },
+
     /**
      * @private
      * Validate attribute set before use.
@@ -2134,24 +2293,27 @@ Ext.define("Ext.draw.modifier.Modifier", {
      * @param {Object} attr The attribute to be validated. Note that it may be already initialized,
      * so do not override properties that have already been used.
      */
-    prepareAttributes: function (attr) {
-        if (this._lower) {
-            this._lower.prepareAttributes(attr);
+    "prepareAttributes": function ( attr ) {
+        if ( this._lower ) {
+            this._lower.prepareAttributes( attr );
         }
     },
+
     /**
      * @private
      * Invoked when changes need to be popped up to the top.
      * @param {Object} attr The source attributes.
      * @param {Object} changes The changes to be popped up.
      */
-    popUp: function (attr, changes) {
-        if (this._upper) {
-            this._upper.popUp(attr, changes);
-        } else {
-            Ext.apply(attr, changes);
+    "popUp": function ( attr, changes ) {
+        if ( this._upper ) {
+            this._upper.popUp( attr, changes );
+        }
+        else {
+            Ext.apply( attr, changes );
         }
     },
+
     /**
      * @private
      *
@@ -2174,27 +2336,29 @@ Ext.define("Ext.draw.modifier.Modifier", {
      * value (value at the end of animation, 5) should be used for comparison instead, so
      * that 3 won't be filtered out.
      */
-    filterChanges: function (attr, changes, receiver) {
+    "filterChanges": function ( attr, changes, receiver ) {
         var targets = attr.targets,
             name,
             value;
-        if (receiver) {
-            for (name in changes) {
-                value = changes[name];
-                if (value !== attr[name] || (targets && value !== targets[name])) {
-                    receiver[name] = value;
+        if ( receiver ) {
+            for ( name in changes ) {
+                value = changes[ name ];
+                if ( value !== attr[ name ] || ( targets && value !== targets[ name ] ) ) {
+                    receiver[ name ] = value;
                 }
             }
-        } else {
-            for (name in changes) {
-                value = changes[name];
-                if (value === attr[name] && (!targets || value === targets[name])) {
-                    delete changes[name];
+        }
+        else {
+            for ( name in changes ) {
+                value = changes[ name ];
+                if ( value === attr[ name ] && ( !targets || value === targets[ name ] ) ) {
+                    delete changes[ name ];
                 }
             }
         }
         return receiver || changes;
     },
+
     /**
      * @private
      * Invoked when changes need to be pushed down to the sprite.
@@ -2203,10 +2367,12 @@ Ext.define("Ext.draw.modifier.Modifier", {
      * inside the method.
      * @return {Mixed}
      */
-    pushDown: function (attr, changes) {
-        return this._lower ? this._lower.pushDown(attr, changes) : this.filterChanges(attr, changes);
+    "pushDown": function ( attr, changes ) {
+        return this._lower
+            ? this._lower.pushDown( attr, changes )
+            : this.filterChanges( attr, changes );
     },
-});
+} );
 
 /**
  * @class Ext.draw.modifier.Target
@@ -2219,30 +2385,32 @@ Ext.define("Ext.draw.modifier.Modifier", {
  * for the changed set of attributes and makes the sprite and its instances (if any)
  * call them.
  */
-Ext.define("Ext.draw.modifier.Target", {
-    extend: Ext.draw.modifier.Modifier,
-    alias: "modifier.target",
-    statics: {
+Ext.define( "Ext.draw.modifier.Target", {
+    "extend": Ext.draw.modifier.Modifier,
+    "alias": "modifier.target",
+    "statics": {
+
         /**
          * @private
          */
-        uniqueId: 0,
+        "uniqueId": 0,
     },
-    prepareAttributes: function (attr) {
-        if (this._lower) {
-            this._lower.prepareAttributes(attr);
+    "prepareAttributes": function ( attr ) {
+        if ( this._lower ) {
+            this._lower.prepareAttributes( attr );
         }
         attr.attributeId = "attribute-" + Ext.draw.modifier.Target.uniqueId++;
-        if (!attr.hasOwnProperty("canvasAttributes")) {
+        if ( !attr.hasOwnProperty( "canvasAttributes" ) ) {
             attr.bbox = {
-                plain: {
-                    dirty: true,
+                "plain": {
+                    "dirty": true,
                 },
-                transform: {
-                    dirty: true,
+                "transform": {
+                    "dirty": true,
                 },
             };
             attr.dirty = true;
+
             /*
             Maps updaters that have to be called to the attributes that triggered the update.
             It is basically a reversed `triggers` map (see Ext.draw.sprite.AttributeDefinition),
@@ -2254,6 +2422,7 @@ Ext.define("Ext.draw.modifier.Target", {
             context.
             */
             attr.pendingUpdaters = {};
+
             /*
             Holds the attributes that triggered the canvas update (attr.pendingUpdaters.canvas).
             Canvas attributes are applied directly to a canvas context
@@ -2264,6 +2433,7 @@ Ext.define("Ext.draw.modifier.Target", {
             attr.inverseMatrix = new Ext.draw.Matrix();
         }
     },
+
     /**
      * @private
      * Applies changes to sprite/instance attributes and determines which updaters
@@ -2271,9 +2441,9 @@ Ext.define("Ext.draw.modifier.Target", {
      * @param {Object} attr The source attributes.
      * @param {Object} changes The modifier changes.
      */
-    applyChanges: function (attr, changes) {
-        Ext.apply(attr, changes);
-        // eslint-disable-next-line vars-on-top
+    "applyChanges": function ( attr, changes ) {
+        Ext.apply( attr, changes );
+
         var sprite = this.getSprite(),
             pendingUpdaters = attr.pendingUpdaters,
             triggers = sprite.self.def.getTriggers(),
@@ -2286,50 +2456,53 @@ Ext.define("Ext.draw.modifier.Target", {
             i,
             j,
             ln;
-        for (name in changes) {
+        for ( name in changes ) {
             hasChanges = true;
-            if ((updaters = triggers[name])) {
-                sprite.scheduleUpdaters(attr, updaters, [name]);
+            if ( ( updaters = triggers[ name ] ) ) {
+                sprite.scheduleUpdaters( attr, updaters, [ name ] );
             }
-            if (attr.template && changes.removeFromInstance && changes.removeFromInstance[name]) {
-                delete attr[name];
+            if ( attr.template && changes.removeFromInstance && changes.removeFromInstance[ name ] ) {
+                delete attr[ name ];
             }
         }
-        if (!hasChanges) {
+        if ( !hasChanges ) {
             return;
         }
+
         // This can prevent sub objects to set duplicated attributes to context.
-        if (pendingUpdaters.canvas) {
+        if ( pendingUpdaters.canvas ) {
             canvasAttributes = pendingUpdaters.canvas;
             delete pendingUpdaters.canvas;
-            for (i = 0, ln = canvasAttributes.length; i < ln; i++) {
-                name = canvasAttributes[i];
-                attr.canvasAttributes[name] = attr[name];
+            for ( i = 0, ln = canvasAttributes.length; i < ln; i++ ) {
+                name = canvasAttributes[ i ];
+                attr.canvasAttributes[ name ] = attr[ name ];
             }
         }
+
         // If the attributes of an instancing sprite template are being modified here,
         // then spread the pending updaters to the instances (template's children).
-        if (attr.hasOwnProperty("children")) {
+        if ( attr.hasOwnProperty( "children" ) ) {
             instances = attr.children;
-            for (i = 0, ln = instances.length; i < ln; i++) {
-                instance = instances[i];
-                Ext.apply(instance.pendingUpdaters, pendingUpdaters);
-                if (canvasAttributes) {
-                    for (j = 0; j < canvasAttributes.length; j++) {
-                        name = canvasAttributes[j];
-                        instance.canvasAttributes[name] = instance[name];
+            for ( i = 0, ln = instances.length; i < ln; i++ ) {
+                instance = instances[ i ];
+                Ext.apply( instance.pendingUpdaters, pendingUpdaters );
+                if ( canvasAttributes ) {
+                    for ( j = 0; j < canvasAttributes.length; j++ ) {
+                        name = canvasAttributes[ j ];
+                        instance.canvasAttributes[ name ] = instance[ name ];
                     }
                 }
-                sprite.callUpdaters(instance);
+                sprite.callUpdaters( instance );
             }
         }
-        sprite.setDirty(true);
-        sprite.callUpdaters(attr);
+        sprite.setDirty( true );
+        sprite.callUpdaters( attr );
     },
-    popUp: function (attr, changes) {
-        this.applyChanges(attr, changes);
+    "popUp": function ( attr, changes ) {
+        this.applyChanges( attr, changes );
     },
-    pushDown: function (attr, changes) {
+    "pushDown": function ( attr, changes ) {
+
         // Modifier chain looks like this:
         // sprite.modifiers.target <---> postFx <---> sprite.modifiers.animation <---> preFx
         // There can be any number of postFx and preFx modifiers, the difference between them
@@ -2338,14 +2511,15 @@ Ext.define("Ext.draw.modifier.Target", {
         // `postFx` modifier changes are not.
         // preFx modifiers include Highlight (Draw) and Callout (Charts).
         // There are no postFx modifiers at the moment.
-        if (this._lower) {
+        if ( this._lower ) {
+
             // Without any postFx modifiers, `lower` is going to be Animation.
-            changes = this._lower.pushDown(attr, changes);
+            changes = this._lower.pushDown( attr, changes );
         }
-        this.applyChanges(attr, changes);
+        this.applyChanges( attr, changes );
         return changes;
     },
-});
+} );
 
 /**
  * @class Ext.draw.TimingFunctions
@@ -2361,77 +2535,82 @@ Ext.define(
             cos = Math.cos,
             sqrt = Math.sqrt,
             pi = Math.PI,
-            poly = ["quad", "cube", "quart", "quint"],
+            poly = [ "quad", "cube", "quart", "quint" ],
             easings = {
-                pow: function (p, x) {
-                    return pow(p, x || 6);
+                "pow": function ( p, x ) {
+                    return p ** ( x || 6 );
                 },
-                expo: function (p) {
-                    return pow(2, 8 * (p - 1));
+                "expo": function ( p ) {
+                    return 2 ** ( 8 * ( p - 1 ) );
                 },
-                circ: function (p) {
-                    return 1 - sqrt(1 - p * p);
+                "circ": function ( p ) {
+                    return 1 - sqrt( 1 - p * p );
                 },
-                sine: function (p) {
-                    return 1 - sin(((1 - p) * pi) / 2);
+                "sine": function ( p ) {
+                    return 1 - sin( ( ( 1 - p ) * pi ) / 2 );
                 },
-                back: function (p, n) {
+                "back": function ( p, n ) {
                     n = n || 1.616;
-                    return p * p * ((n + 1) * p - n);
+                    return p * p * ( ( n + 1 ) * p - n );
                 },
-                bounce: function (p) {
+                "bounce": function ( p ) {
                     var a, b;
-                    // eslint-disable-next-line no-constant-condition
-                    for (a = 0, b = 1; 1; a += b, b /= 2) {
-                        if (p >= (7 - 4 * a) / 11) {
-                            return b * b - pow((11 - 6 * a - 11 * p) / 4, 2);
+
+                    for ( a = 0, b = 1; 1; a += b, b /= 2 ) {
+                        if ( p >= ( 7 - 4 * a ) / 11 ) {
+                            return b * b - ( ( 11 - 6 * a - 11 * p ) / 4 ) ** 2;
                         }
                     }
                 },
-                elastic: function (p, x) {
-                    return pow(2, 10 * --p) * cos((20 * p * pi * (x || 1)) / 3);
+                "elastic": function ( p, x ) {
+                    return 2 ** ( 10 * --p ) * cos( ( 20 * p * pi * ( x || 1 ) ) / 3 );
                 },
             },
             easingsMap = {},
             name,
             len,
             i;
+
         // Create polynomial easing equations.
-        function createPoly(times) {
-            return function (p) {
-                return pow(p, times);
+        function createPoly ( times ) {
+            return function ( p ) {
+                return p ** times;
             };
         }
-        function addEasing(name, easing) {
-            easingsMap[name + "In"] = function (pos) {
-                return easing(pos);
+        function addEasing ( name, easing ) {
+            easingsMap[ name + "In" ] = function ( pos ) {
+                return easing( pos );
             };
-            easingsMap[name + "Out"] = function (pos) {
-                return 1 - easing(1 - pos);
+            easingsMap[ name + "Out" ] = function ( pos ) {
+                return 1 - easing( 1 - pos );
             };
-            easingsMap[name + "InOut"] = function (pos) {
-                return pos <= 0.5 ? easing(2 * pos) / 2 : (2 - easing(2 * (1 - pos))) / 2;
+            easingsMap[ name + "InOut" ] = function ( pos ) {
+                return pos <= 0.5
+                    ? easing( 2 * pos ) / 2
+                    : ( 2 - easing( 2 * ( 1 - pos ) ) ) / 2;
             };
         }
-        for (i = 0, len = poly.length; i < len; ++i) {
-            easings[poly[i]] = createPoly(i + 2);
+        for ( i = 0, len = poly.length; i < len; ++i ) {
+            easings[ poly[ i ] ] = createPoly( i + 2 );
         }
-        for (name in easings) {
-            addEasing(name, easings[name]);
+        for ( name in easings ) {
+            addEasing( name, easings[ name ] );
         }
+
         // Add linear interpolator.
         easingsMap.linear = Ext.identityFn;
+
         // Add aliases for quad easings.
         easingsMap.easeIn = easingsMap.quadIn;
         easingsMap.easeOut = easingsMap.quadOut;
         easingsMap.easeInOut = easingsMap.quadInOut;
         return {
-            singleton: true,
-            easingMap: easingsMap,
+            "singleton": true,
+            "easingMap": easingsMap,
         };
     },
-    function (Cls) {
-        Ext.apply(Cls, Cls.easingMap);
+    function ( Cls ) {
+        Ext.apply( Cls, Cls.easingMap );
     }
 );
 
@@ -2440,120 +2619,128 @@ Ext.define(
  *
  * Singleton class that manages the animation pool.
  */
-Ext.define("Ext.draw.Animator", {
-    singleton: true,
-    frameCallbacks: {},
-    frameCallbackId: 0,
-    scheduled: 0,
-    frameStartTimeOffset: Ext.now(),
-    animations: [],
-    running: false,
+Ext.define( "Ext.draw.Animator", {
+    "singleton": true,
+    "frameCallbacks": {},
+    "frameCallbackId": 0,
+    "scheduled": 0,
+    "frameStartTimeOffset": Ext.now(),
+    "animations": [],
+    "running": false,
+
     /**
      *  Cross platform `animationTime` implementation.
      *  @return {Number}
      */
-    animationTime: function () {
+    "animationTime": function () {
         return Ext.AnimationQueue.frameStartTime - this.frameStartTimeOffset;
     },
+
     /**
      * Adds an animated object to the animation pool.
      *
      * @param {Object} animation The animation descriptor to add to the pool.
      */
-    add: function (animation) {
+    "add": function ( animation ) {
         var me = this;
-        if (!me.contains(animation)) {
-            me.animations.push(animation);
+        if ( !me.contains( animation ) ) {
+            me.animations.push( animation );
             me.ignite();
-            if ("fireEvent" in animation) {
-                animation.fireEvent("animationstart", animation);
+            if ( "fireEvent" in animation ) {
+                animation.fireEvent( "animationstart", animation );
             }
         }
     },
+
     /**
      * Removes an animation from the pool.
      * TODO: This is broken when called within `step` method.
      * @param {Object} animation The animation to remove from the pool.
      */
-    remove: function (animation) {
+    "remove": function ( animation ) {
         var me = this,
             animations = me.animations,
             i = 0,
             l = animations.length;
-        for (; i < l; ++i) {
-            if (animations[i] === animation) {
-                animations.splice(i, 1);
-                if ("fireEvent" in animation) {
-                    animation.fireEvent("animationend", animation);
+        for ( ; i < l; ++i ) {
+            if ( animations[ i ] === animation ) {
+                animations.splice( i, 1 );
+                if ( "fireEvent" in animation ) {
+                    animation.fireEvent( "animationend", animation );
                 }
                 return;
             }
         }
     },
+
     /**
      * Returns `true` or `false` whether it contains the given animation or not.
      *
      * @param {Object} animation The animation to check for.
      * @return {Boolean}
      */
-    contains: function (animation) {
-        return Ext.Array.indexOf(this.animations, animation) > -1;
+    "contains": function ( animation ) {
+        return Ext.Array.indexOf( this.animations, animation ) > -1;
     },
+
     /**
      * Returns `true` or `false` whether the pool is empty or not.
      * @return {Boolean}
      */
-    empty: function () {
+    "empty": function () {
         return this.animations.length === 0;
     },
-    idle: function () {
+    "idle": function () {
         return this.scheduled === 0 && this.animations.length === 0;
     },
+
     /**
      * Given a frame time it will filter out finished animations from the pool.
      *
      * @param {Number} frameTime The frame's start time, in milliseconds.
      */
-    step: function (frameTime) {
+    "step": function ( frameTime ) {
         var me = this,
             animations = me.animations,
             animation,
             i = 0,
             ln = animations.length;
-        for (; i < ln; i++) {
-            animation = animations[i];
-            animation.step(frameTime);
-            if (!animation.animating) {
-                animations.splice(i, 1);
+        for ( ; i < ln; i++ ) {
+            animation = animations[ i ];
+            animation.step( frameTime );
+            if ( !animation.animating ) {
+                animations.splice( i, 1 );
                 i--;
                 ln--;
-                if (animation.fireEvent) {
-                    animation.fireEvent("animationend", animation);
+                if ( animation.fireEvent ) {
+                    animation.fireEvent( "animationend", animation );
                 }
             }
         }
     },
+
     /**
      * Register a one-time callback that will be called at the next frame.
      * @param {Function/String} callback
      * @param {Object} scope
      * @return {String} The ID of the scheduled callback.
      */
-    schedule: function (callback, scope) {
+    "schedule": function ( callback, scope ) {
         var id = "frameCallback" + this.frameCallbackId++;
         scope = scope || this;
-        if (Ext.isString(callback)) {
-            callback = scope[callback];
+        if ( Ext.isString( callback ) ) {
+            callback = scope[ callback ];
         }
-        Ext.draw.Animator.frameCallbacks[id] = {
-            fn: callback,
-            scope: scope,
-            once: true,
+        Ext.draw.Animator.frameCallbacks[ id ] = {
+            "fn": callback,
+            "scope": scope,
+            "once": true,
         };
         this.scheduled++;
         Ext.draw.Animator.ignite();
         return id;
     },
+
     /**
      * Register a one-time callback that will be called at the next frame,
      * if that callback (with a matching function and scope) isn't already scheduled.
@@ -2562,41 +2749,43 @@ Ext.define("Ext.draw.Animator", {
      * @return {String/null} The ID of the scheduled callback or null, if that callback
      * has already been scheduled.
      */
-    scheduleIf: function (callback, scope) {
+    "scheduleIf": function ( callback, scope ) {
         var frameCallbacks = Ext.draw.Animator.frameCallbacks,
             cb,
             id;
         scope = scope || this;
-        if (Ext.isString(callback)) {
-            callback = scope[callback];
+        if ( Ext.isString( callback ) ) {
+            callback = scope[ callback ];
         }
-        for (id in frameCallbacks) {
-            cb = frameCallbacks[id];
-            if (cb.once && cb.fn === callback && cb.scope === scope) {
+        for ( id in frameCallbacks ) {
+            cb = frameCallbacks[ id ];
+            if ( cb.once && cb.fn === callback && cb.scope === scope ) {
                 return null;
             }
         }
-        return this.schedule(callback, scope);
+        return this.schedule( callback, scope );
     },
+
     /**
      * Cancel a registered one-time callback
      * @param {String} id
      */
-    cancel: function (id) {
-        if (Ext.draw.Animator.frameCallbacks[id] && Ext.draw.Animator.frameCallbacks[id].once) {
-            this.scheduled = Math.max(--this.scheduled, 0);
-            delete Ext.draw.Animator.frameCallbacks[id];
+    "cancel": function ( id ) {
+        if ( Ext.draw.Animator.frameCallbacks[ id ] && Ext.draw.Animator.frameCallbacks[ id ].once ) {
+            this.scheduled = Math.max( --this.scheduled, 0 );
+            delete Ext.draw.Animator.frameCallbacks[ id ];
             Ext.draw.Draw.endUpdateIOS();
         }
-        if (this.idle()) {
+        if ( this.idle() ) {
             this.extinguish();
         }
     },
-    clear: function () {
+    "clear": function () {
         this.animations.length = 0;
         Ext.draw.Animator.frameCallbacks = {};
         this.extinguish();
     },
+
     /**
      * Register a recursive callback that will be called at every frame.
      *
@@ -2604,70 +2793,72 @@ Ext.define("Ext.draw.Animator", {
      * @param {Object} scope
      * @return {String}
      */
-    addFrameCallback: function (callback, scope) {
+    "addFrameCallback": function ( callback, scope ) {
         var id = "frameCallback" + this.frameCallbackId++;
         scope = scope || this;
-        if (Ext.isString(callback)) {
-            callback = scope[callback];
+        if ( Ext.isString( callback ) ) {
+            callback = scope[ callback ];
         }
-        Ext.draw.Animator.frameCallbacks[id] = {
-            fn: callback,
-            scope: scope,
+        Ext.draw.Animator.frameCallbacks[ id ] = {
+            "fn": callback,
+            "scope": scope,
         };
         return id;
     },
+
     /**
      * Unregister a recursive callback.
      * @param {String} id
      */
-    removeFrameCallback: function (id) {
-        delete Ext.draw.Animator.frameCallbacks[id];
-        if (this.idle()) {
+    "removeFrameCallback": function ( id ) {
+        delete Ext.draw.Animator.frameCallbacks[ id ];
+        if ( this.idle() ) {
             this.extinguish();
         }
     },
+
     /**
      * @private
      */
-    fireFrameCallbacks: function () {
+    "fireFrameCallbacks": function () {
         var callbacks = this.frameCallbacks,
             id,
             fn,
             cb;
-        for (id in callbacks) {
-            cb = callbacks[id];
+        for ( id in callbacks ) {
+            cb = callbacks[ id ];
             fn = cb.fn;
-            if (Ext.isString(fn)) {
-                fn = cb.scope[fn];
+            if ( Ext.isString( fn ) ) {
+                fn = cb.scope[ fn ];
             }
-            fn.call(cb.scope);
-            if (callbacks[id] && cb.once) {
-                this.scheduled = Math.max(--this.scheduled, 0);
-                delete callbacks[id];
+            fn.call( cb.scope );
+            if ( callbacks[ id ] && cb.once ) {
+                this.scheduled = Math.max( --this.scheduled, 0 );
+                delete callbacks[ id ];
             }
         }
     },
-    handleFrame: function () {
+    "handleFrame": function () {
         var me = this;
-        me.step(me.animationTime());
+        me.step( me.animationTime() );
         me.fireFrameCallbacks();
-        if (me.idle()) {
+        if ( me.idle() ) {
             me.extinguish();
         }
     },
-    ignite: function () {
-        if (!this.running) {
+    "ignite": function () {
+        if ( !this.running ) {
             this.running = true;
-            Ext.AnimationQueue.start(this.handleFrame, this);
+            Ext.AnimationQueue.start( this.handleFrame, this );
             Ext.draw.Draw.beginUpdateIOS();
         }
     },
-    extinguish: function () {
+    "extinguish": function () {
         this.running = false;
-        Ext.AnimationQueue.stop(this.handleFrame, this);
+        Ext.AnimationQueue.stop( this.handleFrame, this );
         Ext.draw.Draw.endUpdateIOS();
     },
-});
+} );
 
 /**
  * The Animation modifier.
@@ -2711,20 +2902,23 @@ Ext.define("Ext.draw.Animator", {
  * You can get the animation modifier of a sprite via its
  * {@link Ext.draw.sprite.Sprite#method-getAnimation getAnimation} method.
  */
-Ext.define("Ext.draw.modifier.Animation", {
-    extend: Ext.draw.modifier.Modifier,
-    alias: "modifier.animation",
-    config: {
+Ext.define( "Ext.draw.modifier.Animation", {
+    "extend": Ext.draw.modifier.Modifier,
+    "alias": "modifier.animation",
+    "config": {
+
         /**
          * @cfg {Function} easing
          * Default easing function.
          */
-        easing: Ext.identityFn,
+        "easing": Ext.identityFn,
+
         /**
          * @cfg {Number} duration
          * Default duration time (ms).
          */
-        duration: 0,
+        "duration": 0,
+
         /**
          * @cfg {Object} customEasings Overrides the default easing function for defined attributes.
          * E.g.:
@@ -2740,7 +2934,8 @@ Ext.define("Ext.draw.modifier.Animation", {
          *         }
          *     }
          */
-        customEasings: {},
+        "customEasings": {},
+
         /**
          * @cfg {Object} customDurations Overrides the default duration for defined attributes.
          * E.g.:
@@ -2752,62 +2947,64 @@ Ext.define("Ext.draw.modifier.Animation", {
          *         'cx,cy': 1000
          *     }
          */
-        customDurations: {},
+        "customDurations": {},
     },
-    constructor: function (config) {
+    "constructor": function ( config ) {
         var me = this;
         me.anyAnimation = me.anySpecialAnimations = false;
         me.animating = 0;
         me.animatingPool = [];
-        me.callParent([config]);
+        me.callParent( [ config ] );
     },
-    prepareAttributes: function (attr) {
-        if (!attr.hasOwnProperty("timers")) {
+    "prepareAttributes": function ( attr ) {
+        if ( !attr.hasOwnProperty( "timers" ) ) {
             attr.animating = false;
             attr.timers = {};
+
             // The 'targets' object is used to hold the target values for the
             // attributes while they are being animated from source to target values.
             // The 'targets' is pushed down to the lower level modifiers,
             // instead of the actual attr object, to hide the fact that the
             // attributes are being animated.
-            attr.targets = Ext.Object.chain(attr);
+            attr.targets = Ext.Object.chain( attr );
             attr.targets.prototype = attr;
         }
-        if (this._lower) {
-            this._lower.prepareAttributes(attr.targets);
+        if ( this._lower ) {
+            this._lower.prepareAttributes( attr.targets );
         }
     },
-    updateSprite: function (sprite) {
-        this.setConfig(sprite.config.animation);
+    "updateSprite": function ( sprite ) {
+        this.setConfig( sprite.config.animation );
     },
-    updateDuration: function (duration) {
+    "updateDuration": function ( duration ) {
         this.anyAnimation = duration > 0;
     },
-    applyEasing: function (easing) {
-        if (typeof easing === "string") {
-            easing = Ext.draw.TimingFunctions.easingMap[easing];
+    "applyEasing": function ( easing ) {
+        if ( typeof easing === "string" ) {
+            easing = Ext.draw.TimingFunctions.easingMap[ easing ];
         }
         return easing;
     },
-    applyCustomEasings: function (newEasings, oldEasings) {
+    "applyCustomEasings": function ( newEasings, oldEasings ) {
         var any, key, attrs, easing, i, ln;
         oldEasings = oldEasings || {};
-        for (key in newEasings) {
+        for ( key in newEasings ) {
             any = true;
-            easing = newEasings[key];
-            attrs = key.split(",");
-            if (typeof easing === "string") {
-                easing = Ext.draw.TimingFunctions.easingMap[easing];
+            easing = newEasings[ key ];
+            attrs = key.split( "," );
+            if ( typeof easing === "string" ) {
+                easing = Ext.draw.TimingFunctions.easingMap[ easing ];
             }
-            for (i = 0, ln = attrs.length; i < ln; i++) {
-                oldEasings[attrs[i]] = easing;
+            for ( i = 0, ln = attrs.length; i < ln; i++ ) {
+                oldEasings[ attrs[ i ] ] = easing;
             }
         }
-        if (any) {
+        if ( any ) {
             this.anySpecialAnimations = any;
         }
         return oldEasings;
     },
+
     /**
      * Set special easings on the given attributes. E.g.:
      *
@@ -2816,43 +3013,45 @@ Ext.define("Ext.draw.modifier.Animation", {
      * @param {String/Array} attrs The source attribute(s).
      * @param {String} easing The special easings.
      */
-    setEasingOn: function (attrs, easing) {
+    "setEasingOn": function ( attrs, easing ) {
         var customEasings = {},
             i,
             ln;
-        attrs = Ext.Array.from(attrs).slice();
-        for (i = 0, ln = attrs.length; i < ln; i++) {
-            customEasings[attrs[i]] = easing;
+        attrs = Ext.Array.from( attrs ).slice();
+        for ( i = 0, ln = attrs.length; i < ln; i++ ) {
+            customEasings[ attrs[ i ] ] = easing;
         }
-        this.setCustomEasings(customEasings);
+        this.setCustomEasings( customEasings );
     },
+
     /**
      * Remove special easings on the given attributes.
      * @param {String/Array} attrs The source attribute(s).
      */
-    clearEasingOn: function (attrs) {
+    "clearEasingOn": function ( attrs ) {
         var i, ln;
-        attrs = Ext.Array.from(attrs, true);
-        for (i = 0, ln = attrs.length; i < ln; i++) {
-            delete this._customEasings[attrs[i]];
+        attrs = Ext.Array.from( attrs, true );
+        for ( i = 0, ln = attrs.length; i < ln; i++ ) {
+            delete this._customEasings[ attrs[ i ] ];
         }
     },
-    applyCustomDurations: function (newDurations, oldDurations) {
+    "applyCustomDurations": function ( newDurations, oldDurations ) {
         var any, key, duration, attrs, i, ln;
         oldDurations = oldDurations || {};
-        for (key in newDurations) {
+        for ( key in newDurations ) {
             any = true;
-            duration = newDurations[key];
-            attrs = key.split(",");
-            for (i = 0, ln = attrs.length; i < ln; i++) {
-                oldDurations[attrs[i]] = duration;
+            duration = newDurations[ key ];
+            attrs = key.split( "," );
+            for ( i = 0, ln = attrs.length; i < ln; i++ ) {
+                oldDurations[ attrs[ i ] ] = duration;
             }
         }
-        if (any) {
+        if ( any ) {
             this.anySpecialAnimations = any;
         }
         return oldDurations;
     },
+
     /**
      * Set special duration on the given attributes. E.g.:
      *
@@ -2861,55 +3060,59 @@ Ext.define("Ext.draw.modifier.Animation", {
      * @param {String/Array} attrs The source attributes.
      * @param {Number} duration The special duration.
      */
-    setDurationOn: function (attrs, duration) {
+    "setDurationOn": function ( attrs, duration ) {
         var customDurations = {},
             i,
             ln;
-        attrs = Ext.Array.from(attrs).slice();
-        for (i = 0, ln = attrs.length; i < ln; i++) {
-            customDurations[attrs[i]] = duration;
+        attrs = Ext.Array.from( attrs ).slice();
+        for ( i = 0, ln = attrs.length; i < ln; i++ ) {
+            customDurations[ attrs[ i ] ] = duration;
         }
-        this.setCustomDurations(customDurations);
+        this.setCustomDurations( customDurations );
     },
+
     /**
      * Remove special easings on the given attributes.
      * @param {Object} attrs The source attributes.
      */
-    clearDurationOn: function (attrs) {
+    "clearDurationOn": function ( attrs ) {
         var i, ln;
-        attrs = Ext.Array.from(attrs, true);
-        for (i = 0, ln = attrs.length; i < ln; i++) {
-            delete this._customDurations[attrs[i]];
+        attrs = Ext.Array.from( attrs, true );
+        for ( i = 0, ln = attrs.length; i < ln; i++ ) {
+            delete this._customDurations[ attrs[ i ] ];
         }
     },
+
     /**
      * @private
      * Initializes Animator for the animation.
      * @param {Object} attr The source attributes.
      * @param {Boolean} animating The animating flag.
      */
-    setAnimating: function (attr, animating) {
+    "setAnimating": function ( attr, animating ) {
         var me = this,
             pool = me.animatingPool,
             i;
-        if (attr.animating !== animating) {
+        if ( attr.animating !== animating ) {
             attr.animating = animating;
-            if (animating) {
-                pool.push(attr);
-                if (me.animating === 0) {
-                    Ext.draw.Animator.add(me);
+            if ( animating ) {
+                pool.push( attr );
+                if ( me.animating === 0 ) {
+                    Ext.draw.Animator.add( me );
                 }
                 me.animating++;
-            } else {
-                for (i = pool.length; i--; ) {
-                    if (pool[i] === attr) {
-                        pool.splice(i, 1);
+            }
+            else {
+                for ( i = pool.length; i--; ) {
+                    if ( pool[ i ] === attr ) {
+                        pool.splice( i, 1 );
                     }
                 }
                 me.animating = pool.length;
             }
         }
     },
+
     /**
      * @private
      * Set the attr with given easing and duration.
@@ -2917,7 +3120,7 @@ Ext.define("Ext.draw.modifier.Animation", {
      * @param {Object} changes The changes that popped up from lower modifier.
      * @return {Object} The changes to pop up.
      */
-    setAttrs: function (attr, changes) {
+    "setAttrs": function ( attr, changes ) {
         var me = this,
             timers = attr.timers,
             parsers = me._sprite.self.def._animationProcessors,
@@ -2937,88 +3140,103 @@ Ext.define("Ext.draw.modifier.Animation", {
             easing,
             duration,
             initial;
-        if (!any) {
+        if ( !any ) {
+
             // If there is no animation enabled.
             // When applying changes to attributes, simply stop current animation
             // and set the value.
-            for (name in changes) {
-                if (attr[name] === changes[name]) {
-                    delete changes[name];
-                } else {
-                    attr[name] = changes[name];
+            for ( name in changes ) {
+                if ( attr[ name ] === changes[ name ] ) {
+                    delete changes[ name ];
                 }
-                delete targets[name];
-                delete timers[name];
+                else {
+                    attr[ name ] = changes[ name ];
+                }
+                delete targets[ name ];
+                delete timers[ name ];
             }
             return changes;
-        } else {
+        }
+        else {
+
             // If any animation.
-            for (name in changes) {
-                newValue = changes[name];
-                startValue = attr[name];
-                if (newValue !== startValue && startValue !== undefined && startValue !== null && (parser = parsers[name])) {
+            for ( name in changes ) {
+                newValue = changes[ name ];
+                startValue = attr[ name ];
+                if ( newValue !== startValue && startValue !== undefined && startValue !== null && ( parser = parsers[ name ] ) ) {
+
                     // If this property is animating.
                     // Figure out the desired duration and easing.
                     easing = defaultEasing;
                     duration = defaultDuration;
-                    if (anySpecial) {
+                    if ( anySpecial ) {
+
                         // Deducing the easing function and duration
-                        if (name in customEasings) {
-                            easing = customEasings[name];
+                        if ( name in customEasings ) {
+                            easing = customEasings[ name ];
                         }
-                        if (name in customDurations) {
-                            duration = customDurations[name];
+                        if ( name in customDurations ) {
+                            duration = customDurations[ name ];
                         }
                     }
+
                     // Transitions betweens color and gradient or between gradients
                     // are not supported.
-                    if ((startValue && startValue.isGradient) || (newValue && newValue.isGradient)) {
+                    if ( ( startValue && startValue.isGradient ) || ( newValue && newValue.isGradient ) ) {
                         duration = 0;
                     }
+
                     // If the property is animating
-                    if (duration) {
-                        if (!timers[name]) {
-                            timers[name] = {};
+                    if ( duration ) {
+                        if ( !timers[ name ] ) {
+                            timers[ name ] = {};
                         }
-                        timer = timers[name];
+                        timer = timers[ name ];
                         timer.start = 0;
                         timer.easing = easing;
                         timer.duration = duration;
                         timer.compute = parser.compute;
                         timer.serve = parser.serve || Ext.identityFn;
-                        timer.remove = changes.removeFromInstance && changes.removeFromInstance[name];
-                        if (parser.parseInitial) {
-                            initial = parser.parseInitial(startValue, newValue);
-                            timer.source = initial[0];
-                            timer.target = initial[1];
-                        } else if (parser.parse) {
-                            timer.source = parser.parse(startValue);
-                            timer.target = parser.parse(newValue);
-                        } else {
+                        timer.remove = changes.removeFromInstance && changes.removeFromInstance[ name ];
+                        if ( parser.parseInitial ) {
+                            initial = parser.parseInitial( startValue, newValue );
+                            timer.source = initial[ 0 ];
+                            timer.target = initial[ 1 ];
+                        }
+                        else if ( parser.parse ) {
+                            timer.source = parser.parse( startValue );
+                            timer.target = parser.parse( newValue );
+                        }
+                        else {
                             timer.source = startValue;
                             timer.target = newValue;
                         }
+
                         // The animation started. Change to originalVal.
-                        targets[name] = newValue;
-                        delete changes[name];
+                        targets[ name ] = newValue;
+                        delete changes[ name ];
                         ignite = true;
 
                         continue;
-                    } else {
-                        delete targets[name];
                     }
-                } else {
-                    delete targets[name];
+                    else {
+                        delete targets[ name ];
+                    }
                 }
+                else {
+                    delete targets[ name ];
+                }
+
                 // If the property is not animating.
-                delete timers[name];
+                delete timers[ name ];
             }
         }
-        if (ignite && !attr.animating) {
-            me.setAnimating(attr, true);
+        if ( ignite && !attr.animating ) {
+            me.setAnimating( attr, true );
         }
         return changes;
     },
+
     /**
      * @private
      *
@@ -3028,11 +3246,11 @@ Ext.define("Ext.draw.modifier.Animation", {
      * @param {Object} attr The source attributes.
      * @return {Object} The changes to pop up or null.
      */
-    updateAttributes: function (attr) {
-        if (!attr.animating) {
+    "updateAttributes": function ( attr ) {
+        if ( !attr.animating ) {
             return {};
         }
-        // eslint-disable-next-line vars-on-top
+
         var changes = {},
             any = false,
             timers = attr.timers,
@@ -3041,88 +3259,94 @@ Ext.define("Ext.draw.modifier.Animation", {
             name,
             timer,
             delta;
+
         // If updated in the same frame, return.
-        if (attr.lastUpdate === now) {
+        if ( attr.lastUpdate === now ) {
             return null;
         }
-        for (name in timers) {
-            timer = timers[name];
-            if (!timer.start) {
+        for ( name in timers ) {
+            timer = timers[ name ];
+            if ( !timer.start ) {
                 timer.start = now;
                 delta = 0;
-            } else {
-                delta = (now - timer.start) / timer.duration;
             }
-            if (delta >= 1) {
-                changes[name] = targets[name];
-                delete targets[name];
-                if (timers[name].remove) {
+            else {
+                delta = ( now - timer.start ) / timer.duration;
+            }
+            if ( delta >= 1 ) {
+                changes[ name ] = targets[ name ];
+                delete targets[ name ];
+                if ( timers[ name ].remove ) {
                     changes.removeFromInstance = changes.removeFromInstance || {};
-                    changes.removeFromInstance[name] = true;
+                    changes.removeFromInstance[ name ] = true;
                 }
-                delete timers[name];
-            } else {
-                changes[name] = timer.serve(timer.compute(timer.source, timer.target, timer.easing(delta), attr[name]));
+                delete timers[ name ];
+            }
+            else {
+                changes[ name ] = timer.serve( timer.compute( timer.source, timer.target, timer.easing( delta ), attr[ name ] ) );
                 any = true;
             }
         }
         attr.lastUpdate = now;
-        this.setAnimating(attr, any);
+        this.setAnimating( attr, any );
         return changes;
     },
-    pushDown: function (attr, changes) {
-        changes = this.callParent([attr.targets, changes]);
-        return this.setAttrs(attr, changes);
+    "pushDown": function ( attr, changes ) {
+        changes = this.callParent( [ attr.targets, changes ] );
+        return this.setAttrs( attr, changes );
     },
-    popUp: function (attr, changes) {
+    "popUp": function ( attr, changes ) {
         attr = attr.prototype;
-        changes = this.setAttrs(attr, changes);
-        if (this._upper) {
-            return this._upper.popUp(attr, changes);
-        } else {
-            return Ext.apply(attr, changes);
+        changes = this.setAttrs( attr, changes );
+        if ( this._upper ) {
+            return this._upper.popUp( attr, changes );
+        }
+        else {
+            return Ext.apply( attr, changes );
         }
     },
+
     /**
      * @private
      * This is called as an animated object in `Ext.draw.Animator`.
      */
-    step: function (frameTime) {
+    "step": function ( frameTime ) {
         var me = this,
             pool = me.animatingPool.slice(),
             ln = pool.length,
             i = 0,
             attr,
             changes;
-        for (; i < ln; i++) {
-            attr = pool[i];
-            changes = me.updateAttributes(attr);
-            if (changes && me._upper) {
-                me._upper.popUp(attr, changes);
+        for ( ; i < ln; i++ ) {
+            attr = pool[ i ];
+            changes = me.updateAttributes( attr );
+            if ( changes && me._upper ) {
+                me._upper.popUp( attr, changes );
             }
         }
     },
+
     /**
      * Stop all animations affected by this modifier.
      */
-    stop: function () {
+    "stop": function () {
         var me = this,
             pool = me.animatingPool,
             i,
             ln;
         this.step();
-        for (i = 0, ln = pool.length; i < ln; i++) {
-            pool[i].animating = false;
+        for ( i = 0, ln = pool.length; i < ln; i++ ) {
+            pool[ i ].animating = false;
         }
         me.animatingPool.length = 0;
         me.animating = 0;
-        Ext.draw.Animator.remove(me);
+        Ext.draw.Animator.remove( me );
     },
-    destroy: function () {
-        Ext.draw.Animator.remove(this);
+    "destroy": function () {
+        Ext.draw.Animator.remove( this );
         this.callParent();
     },
-});
+} );
 
 /**
  * @class Ext.draw.modifier.Highlight
@@ -3132,66 +3356,72 @@ Ext.define("Ext.draw.modifier.Animation", {
  * with {@link Ext.draw.modifier.Highlight#style style} attributes
  * when sprite's `highlighted` attribute is true.
  */
-Ext.define("Ext.draw.modifier.Highlight", {
-    extend: Ext.draw.modifier.Modifier,
-    alias: "modifier.highlight",
-    config: {
+Ext.define( "Ext.draw.modifier.Highlight", {
+    "extend": Ext.draw.modifier.Modifier,
+    "alias": "modifier.highlight",
+    "config": {
+
         /**
          * @cfg {Boolean} enabled 'true' if the highlight is applied.
          */
-        enabled: false,
+        "enabled": false,
+
         /**
          * @cfg {Object} style The style attributes of the highlight modifier.
          */
-        style: null,
+        "style": null,
     },
-    preFx: true,
-    applyStyle: function (style, oldStyle) {
+    "preFx": true,
+    "applyStyle": function ( style, oldStyle ) {
         oldStyle = oldStyle || {};
-        if (this.getSprite()) {
-            Ext.apply(oldStyle, this.getSprite().self.def.normalize(style));
-        } else {
-            Ext.apply(oldStyle, style);
+        if ( this.getSprite() ) {
+            Ext.apply( oldStyle, this.getSprite().self.def.normalize( style ) );
+        }
+        else {
+            Ext.apply( oldStyle, style );
         }
         return oldStyle;
     },
-    prepareAttributes: function (attr) {
-        if (!attr.hasOwnProperty("highlightOriginal")) {
+    "prepareAttributes": function ( attr ) {
+        if ( !attr.hasOwnProperty( "highlightOriginal" ) ) {
             attr.highlighted = false;
-            attr.highlightOriginal = Ext.Object.chain(attr);
+            attr.highlightOriginal = Ext.Object.chain( attr );
             attr.highlightOriginal.prototype = attr;
+
             // A list of attributes that should be removed from a sprite instance
             // when it is unhighlighted.
             attr.highlightOriginal.removeFromInstance = {};
         }
-        if (this._lower) {
-            this._lower.prepareAttributes(attr.highlightOriginal);
+        if ( this._lower ) {
+            this._lower.prepareAttributes( attr.highlightOriginal );
         }
     },
-    updateSprite: function (sprite, oldSprite) {
+    "updateSprite": function ( sprite, oldSprite ) {
         var me = this,
             style = me.getStyle(),
             attributeDefinitions;
-        if (sprite) {
+        if ( sprite ) {
             attributeDefinitions = sprite.self.def;
-            if (style) {
-                me._style = attributeDefinitions.normalize(style);
+            if ( style ) {
+                me._style = attributeDefinitions.normalize( style );
             }
-            me.setStyle(sprite.config.highlight);
+            me.setStyle( sprite.config.highlight );
+
             // Add highlight related attributes to sprite's attribute definition.
             // This will affect all sprites of the same type, even those without
             // the highlight modifier.
-            attributeDefinitions.setConfig({
-                defaults: {
-                    highlighted: false,
+            attributeDefinitions.setConfig( {
+                "defaults": {
+                    "highlighted": false,
                 },
-                processors: {
-                    highlighted: "bool",
+                "processors": {
+                    "highlighted": "bool",
                 },
-            });
+            } );
         }
-        this.setSprite(sprite);
+        this.setSprite( sprite );
     },
+
     /**
      * @private
      * Filter out modifier changes that override highlight style or source attributes.
@@ -3199,25 +3429,26 @@ Ext.define("Ext.draw.modifier.Highlight", {
      * @param {Object} changes The modifier changes.
      * @return {*} The filtered changes.
      */
-    filterChanges: function (attr, changes) {
+    "filterChanges": function ( attr, changes ) {
         var me = this,
             highlightOriginal = attr.highlightOriginal,
             style = me.getStyle(),
             name;
-        if (attr.highlighted) {
-            for (name in changes) {
-                if (style.hasOwnProperty(name)) {
+        if ( attr.highlighted ) {
+            for ( name in changes ) {
+                if ( style.hasOwnProperty( name ) ) {
+
                     // If sprite is highlighted, then stash the changes
                     // to the `style` attributes made by lower level modifiers
                     // to apply them later when sprite is unhighlighted.
-                    highlightOriginal[name] = changes[name];
-                    delete changes[name];
+                    highlightOriginal[ name ] = changes[ name ];
+                    delete changes[ name ];
                 }
             }
         }
         return changes;
     },
-    pushDown: function (attr, changes) {
+    "pushDown": function ( attr, changes ) {
         var style = this.getStyle(),
             highlightOriginal = attr.highlightOriginal,
             removeFromInstance = highlightOriginal.removeFromInstance,
@@ -3225,24 +3456,30 @@ Ext.define("Ext.draw.modifier.Highlight", {
             name,
             tplAttr,
             timer;
-        if (changes.hasOwnProperty("highlighted")) {
+        if ( changes.hasOwnProperty( "highlighted" ) ) {
             highlighted = changes.highlighted;
+
             // Hide `highlighted` and `style` from underlying modifiers.
             delete changes.highlighted;
-            if (this._lower) {
-                changes = this._lower.pushDown(highlightOriginal, changes);
+            if ( this._lower ) {
+                changes = this._lower.pushDown( highlightOriginal, changes );
             }
-            changes = this.filterChanges(attr, changes);
-            if (highlighted !== attr.highlighted) {
-                if (highlighted) {
+            changes = this.filterChanges( attr, changes );
+            if ( highlighted !== attr.highlighted ) {
+                if ( highlighted ) {
+
                     // Switching ON.
                     // At this time, original should be empty.
-                    for (name in style) {
+                    for ( name in style ) {
+
                         // Remember the values of attributes to revert back to them on unhighlight.
-                        if (name in changes) {
+                        if ( name in changes ) {
+
                             // Remember value set by lower level modifiers.
-                            highlightOriginal[name] = changes[name];
-                        } else {
+                            highlightOriginal[ name ] = changes[ name ];
+                        }
+                        else {
+
                             // Remember the original value.
                             // If this is a sprite instance and it doesn't have its own
                             // 'name' attribute, (i.e. inherits template's attribute value)
@@ -3253,10 +3490,12 @@ Ext.define("Ext.draw.modifier.Highlight", {
                             // Check out the prepareAttributes method of the Animation
                             // modifier for more details on the 'targets' object.
                             tplAttr = attr.template && attr.template.ownAttr;
-                            if (tplAttr && !attr.prototype.hasOwnProperty(name)) {
-                                removeFromInstance[name] = true;
-                                highlightOriginal[name] = tplAttr.targets[name];
-                            } else {
+                            if ( tplAttr && !attr.prototype.hasOwnProperty( name ) ) {
+                                removeFromInstance[ name ] = true;
+                                highlightOriginal[ name ] = tplAttr.targets[ name ];
+                            }
+                            else {
+
                                 // Even if a sprite instance has its own property, it may
                                 // still have to be removed from the instance after
                                 // unhighlighting is done.
@@ -3273,46 +3512,50 @@ Ext.define("Ext.draw.modifier.Highlight", {
                                 // for removal from the instance, if it was our original
                                 // intention. To tell if it was, we can check the timer
                                 // for the attribute and see if the 'remove' flag is set.
-                                timer = highlightOriginal.timers[name];
-                                if (timer && timer.remove) {
-                                    removeFromInstance[name] = true;
+                                timer = highlightOriginal.timers[ name ];
+                                if ( timer && timer.remove ) {
+                                    removeFromInstance[ name ] = true;
                                 }
-                                highlightOriginal[name] = attr[name];
+                                highlightOriginal[ name ] = attr[ name ];
                             }
                         }
-                        if (highlightOriginal[name] !== style[name]) {
-                            changes[name] = style[name];
+                        if ( highlightOriginal[ name ] !== style[ name ] ) {
+                            changes[ name ] = style[ name ];
                         }
                     }
-                } else {
+                }
+                else {
+
                     // Switching OFF.
-                    for (name in style) {
-                        if (!(name in changes)) {
-                            changes[name] = highlightOriginal[name];
+                    for ( name in style ) {
+                        if ( !( name in changes ) ) {
+                            changes[ name ] = highlightOriginal[ name ];
                         }
-                        delete highlightOriginal[name];
+                        delete highlightOriginal[ name ];
                     }
                     changes.removeFromInstance = changes.removeFromInstance || {};
+
                     // Let the higher lever animation modifier know which attributes
                     // should be removed from instance when the animation is done.
-                    Ext.apply(changes.removeFromInstance, removeFromInstance);
+                    Ext.apply( changes.removeFromInstance, removeFromInstance );
                     highlightOriginal.removeFromInstance = {};
                 }
                 changes.highlighted = highlighted;
             }
-        } else {
-            if (this._lower) {
-                changes = this._lower.pushDown(highlightOriginal, changes);
+        }
+        else {
+            if ( this._lower ) {
+                changes = this._lower.pushDown( highlightOriginal, changes );
             }
-            changes = this.filterChanges(attr, changes);
+            changes = this.filterChanges( attr, changes );
         }
         return changes;
     },
-    popUp: function (attr, changes) {
-        changes = this.filterChanges(attr, changes);
-        this.callParent([attr, changes]);
+    "popUp": function ( attr, changes ) {
+        changes = this.filterChanges( attr, changes );
+        this.callParent( [ attr, changes ] );
     },
-});
+} );
 
 /**
  * A sprite is a basic primitive from the charts package which represents a graphical
@@ -3407,14 +3650,14 @@ Ext.define("Ext.draw.modifier.Highlight", {
 Ext.define(
     "Ext.draw.sprite.Sprite",
     {
-        alias: "sprite.sprite",
-        mixins: {
-            observable: Ext.mixin.Observable,
+        "alias": "sprite.sprite",
+        "mixins": {
+            "observable": Ext.mixin.Observable,
         },
-        isSprite: true,
-        $configStrict: false,
-        statics: {
-            /* eslint-disable max-len */
+        "isSprite": true,
+        "$configStrict": false,
+        "statics": {
+
             /**
              * Debug rendering options:
              *
@@ -3424,45 +3667,53 @@ Ext.define(
              * }
              *
              */
-            debug: false,
-            /* eslint-enable max-len */
-            defaultHitTestOptions: {
-                fill: true,
-                stroke: true,
+            "debug": false,
+
+            "defaultHitTestOptions": {
+                "fill": true,
+                "stroke": true,
             },
         },
-        inheritableStatics: {
-            def: {
-                processors: {
-                    debug: "default",
+        "inheritableStatics": {
+            "def": {
+                "processors": {
+                    "debug": "default",
+
                     /**
                      * @cfg {String} [strokeStyle="none"] The color of the stroke (a CSS color value).
                      */
-                    strokeStyle: "color",
+                    "strokeStyle": "color",
+
                     /**
                      * @cfg {String} [fillStyle="none"] The color of the shape (a CSS color value).
                      */
-                    fillStyle: "color",
+                    "fillStyle": "color",
+
                     /**
                      * @cfg {Number} [strokeOpacity=1] The opacity of the stroke. Limited from 0 to 1.
                      */
-                    strokeOpacity: "limited01",
+                    "strokeOpacity": "limited01",
+
                     /**
                      * @cfg {Number} [fillOpacity=1] The opacity of the fill. Limited from 0 to 1.
                      */
-                    fillOpacity: "limited01",
+                    "fillOpacity": "limited01",
+
                     /**
                      * @cfg {Number} [lineWidth=1] The width of the line stroke.
                      */
-                    lineWidth: "number",
+                    "lineWidth": "number",
+
                     /**
                      * @cfg {String} [lineCap="butt"] The style of the line caps.
                      */
-                    lineCap: "enums(butt,round,square)",
+                    "lineCap": "enums(butt,round,square)",
+
                     /**
                      * @cfg {String} [lineJoin="miter"] The style of the line join.
                      */
-                    lineJoin: "enums(round,bevel,miter)",
+                    "lineJoin": "enums(round,bevel,miter)",
+
                     /**
                      * @cfg {Array} [lineDash=[]]
                      * An even number of non-negative numbers specifying a dash/space sequence.
@@ -3472,60 +3723,72 @@ Ext.define(
                      * Although IE9 and IE10 have Canvas support, the 'lineDash'
                      * attribute is not supported in those browsers.
                      */
-                    lineDash: "data",
+                    "lineDash": "data",
+
                     /**
                      * @cfg {Number} [lineDashOffset=0]
                      * A number specifying how far into the line dash sequence drawing commences.
                      */
-                    lineDashOffset: "number",
+                    "lineDashOffset": "number",
+
                     /**
                      * @cfg {Number} [miterLimit=10]
                      * Sets the distance between the inner corner and the outer corner
                      * where two lines meet.
                      */
-                    miterLimit: "number",
+                    "miterLimit": "number",
+
                     /**
                      * @cfg {String} [shadowColor="none"] The color of the shadow (a CSS color value).
                      */
-                    shadowColor: "color",
+                    "shadowColor": "color",
+
                     /**
                      * @cfg {Number} [shadowOffsetX=0] The offset of the sprite's shadow on the x-axis.
                      */
-                    shadowOffsetX: "number",
+                    "shadowOffsetX": "number",
+
                     /**
                      * @cfg {Number} [shadowOffsetY=0] The offset of the sprite's shadow on the y-axis.
                      */
-                    shadowOffsetY: "number",
+                    "shadowOffsetY": "number",
+
                     /**
                      * @cfg {Number} [shadowBlur=0] The amount blur used on the shadow.
                      */
-                    shadowBlur: "number",
+                    "shadowBlur": "number",
+
                     /**
                      * @cfg {Number} [globalAlpha=1] The opacity of the sprite. Limited from 0 to 1.
                      */
-                    globalAlpha: "limited01",
+                    "globalAlpha": "limited01",
+
                     /**
                      * @cfg {String} [globalCompositeOperation=source-over]
                      * Indicates how source images are drawn onto a destination image.
                      * globalCompositeOperation attribute is not supported by the SVG and VML
                      * (excanvas) engines.
                      */
-                    // eslint-disable-next-line max-len
-                    globalCompositeOperation: "enums(source-over,destination-over,source-in,destination-in,source-out,destination-out,source-atop,destination-atop,lighter,xor,copy)",
+
+                    "globalCompositeOperation": "enums(source-over,destination-over,source-in,destination-in,source-out,destination-out,source-atop,destination-atop,lighter,xor,copy)",
+
                     /**
                      * @cfg {Boolean} [hidden=false] Determines whether or not the sprite is hidden.
                      */
-                    hidden: "bool",
+                    "hidden": "bool",
+
                     /**
                      * @cfg {Boolean} [transformFillStroke=false]
                      * Determines whether the fill and stroke are affected by sprite transformations.
                      */
-                    transformFillStroke: "bool",
+                    "transformFillStroke": "bool",
+
                     /**
                      * @cfg {Number} [zIndex=0]
                      * The stacking order of the sprite.
                      */
-                    zIndex: "number",
+                    "zIndex": "number",
+
                     /**
                      * @cfg {Number} [translationX=0]
                      * The translation, position offset, of the sprite on the x-axis.
@@ -3539,7 +3802,8 @@ Ext.define(
                      *
                      * See also: {@link #translation} and {@link #translationY}
                      */
-                    translationX: "number",
+                    "translationX": "number",
+
                     /**
                      * @cfg {Number} [translationY=0]
                      * The translation, position offset, of the sprite on the y-axis.
@@ -3553,7 +3817,8 @@ Ext.define(
                      *
                      * See also: {@link #translation} and {@link #translationX}
                      */
-                    translationY: "number",
+                    "translationY": "number",
+
                     /**
                      * @cfg {Number} [rotationRads=0]
                      * The angle of rotation of the sprite in radians.
@@ -3568,7 +3833,8 @@ Ext.define(
                      * See also: {@link #rotation}, {@link #rotationCenterX}, and
                      * {@link #rotationCenterY}
                      */
-                    rotationRads: "number",
+                    "rotationRads": "number",
+
                     /**
                      * @cfg {Number} [rotationCenterX=null]
                      * The central coordinate of the sprite's scale operation on the x-axis.
@@ -3585,7 +3851,8 @@ Ext.define(
                      * See also: {@link #rotation}, {@link #rotationRads}, and
                      * {@link #rotationCenterY}
                      */
-                    rotationCenterX: "number",
+                    "rotationCenterX": "number",
+
                     /**
                      * @cfg {Number} [rotationCenterY=null]
                      * The central coordinate of the sprite's rotate operation on the y-axis.
@@ -3602,7 +3869,8 @@ Ext.define(
                      * See also: {@link #rotation}, {@link #rotationRads}, and
                      * {@link #rotationCenterX}
                      */
-                    rotationCenterY: "number",
+                    "rotationCenterY": "number",
+
                     /**
                      * @cfg {Number} [scalingX=1] The scaling of the sprite on the x-axis.
                      * The number value represents a percentage by which to scale the
@@ -3618,7 +3886,8 @@ Ext.define(
                      * See also: {@link #scaling}, {@link #scalingY},
                      * {@link #scalingCenterX}, and {@link #scalingCenterY}
                      */
-                    scalingX: "number",
+                    "scalingX": "number",
+
                     /**
                      * @cfg {Number} [scalingY=1] The scaling of the sprite on the y-axis.
                      * The number value represents a percentage by which to scale the
@@ -3634,7 +3903,8 @@ Ext.define(
                      * See also: {@link #scaling}, {@link #scalingX},
                      * {@link #scalingCenterX}, and {@link #scalingCenterY}
                      */
-                    scalingY: "number",
+                    "scalingY": "number",
+
                     /**
                      * @cfg {Number} [scalingCenterX=null]
                      * The central coordinate of the sprite's scale operation on the x-axis.
@@ -3649,7 +3919,8 @@ Ext.define(
                      * See also: {@link #scaling}, {@link #scalingX},
                      * {@link #scalingY}, and {@link #scalingCenterY}
                      */
-                    scalingCenterX: "number",
+                    "scalingCenterX": "number",
+
                     /**
                      * @cfg {Number} [scalingCenterY=null]
                      * The central coordinate of the sprite's scale operation on the y-axis.
@@ -3664,9 +3935,10 @@ Ext.define(
                      * See also: {@link #scaling}, {@link #scalingX},
                      * {@link #scalingY}, and {@link #scalingCenterX}
                      */
-                    scalingCenterY: "number",
-                    constrainGradients: "bool",
+                    "scalingCenterY": "number",
+                    "constrainGradients": "bool",
                 },
+
                 /**
                  * @cfg {Number/Object} rotation
                  * Applies an initial angle of rotation to the sprite.  May be a number
@@ -3824,100 +4096,102 @@ Ext.define(
                  * @cfg {Number} translation.y
                  * The amount to translate the sprite along the y-axis.
                  */
-                aliases: {
-                    stroke: "strokeStyle",
-                    fill: "fillStyle",
-                    color: "fillStyle",
+                "aliases": {
+                    "stroke": "strokeStyle",
+                    "fill": "fillStyle",
+                    "color": "fillStyle",
                     "stroke-width": "lineWidth",
                     "stroke-linecap": "lineCap",
                     "stroke-linejoin": "lineJoin",
                     "stroke-miterlimit": "miterLimit",
                     "text-anchor": "textAlign",
-                    opacity: "globalAlpha",
-                    translateX: "translationX",
-                    translateY: "translationY",
-                    rotateRads: "rotationRads",
-                    rotateCenterX: "rotationCenterX",
-                    rotateCenterY: "rotationCenterY",
-                    scaleX: "scalingX",
-                    scaleY: "scalingY",
-                    scaleCenterX: "scalingCenterX",
-                    scaleCenterY: "scalingCenterY",
+                    "opacity": "globalAlpha",
+                    "translateX": "translationX",
+                    "translateY": "translationY",
+                    "rotateRads": "rotationRads",
+                    "rotateCenterX": "rotationCenterX",
+                    "rotateCenterY": "rotationCenterY",
+                    "scaleX": "scalingX",
+                    "scaleY": "scalingY",
+                    "scaleCenterX": "scalingCenterX",
+                    "scaleCenterY": "scalingCenterY",
                 },
-                defaults: {
-                    hidden: false,
-                    zIndex: 0,
-                    strokeStyle: "none",
-                    fillStyle: "none",
-                    lineWidth: 1,
-                    lineDash: [],
-                    lineDashOffset: 0,
-                    lineCap: "butt",
-                    lineJoin: "miter",
-                    miterLimit: 10,
-                    shadowColor: "none",
-                    shadowOffsetX: 0,
-                    shadowOffsetY: 0,
-                    shadowBlur: 0,
-                    globalAlpha: 1,
-                    strokeOpacity: 1,
-                    fillOpacity: 1,
-                    transformFillStroke: false,
-                    translationX: 0,
-                    translationY: 0,
-                    rotationRads: 0,
-                    rotationCenterX: null,
-                    rotationCenterY: null,
-                    scalingX: 1,
-                    scalingY: 1,
-                    scalingCenterX: null,
-                    scalingCenterY: null,
-                    constrainGradients: false,
+                "defaults": {
+                    "hidden": false,
+                    "zIndex": 0,
+                    "strokeStyle": "none",
+                    "fillStyle": "none",
+                    "lineWidth": 1,
+                    "lineDash": [],
+                    "lineDashOffset": 0,
+                    "lineCap": "butt",
+                    "lineJoin": "miter",
+                    "miterLimit": 10,
+                    "shadowColor": "none",
+                    "shadowOffsetX": 0,
+                    "shadowOffsetY": 0,
+                    "shadowBlur": 0,
+                    "globalAlpha": 1,
+                    "strokeOpacity": 1,
+                    "fillOpacity": 1,
+                    "transformFillStroke": false,
+                    "translationX": 0,
+                    "translationY": 0,
+                    "rotationRads": 0,
+                    "rotationCenterX": null,
+                    "rotationCenterY": null,
+                    "scalingX": 1,
+                    "scalingY": 1,
+                    "scalingCenterX": null,
+                    "scalingCenterY": null,
+                    "constrainGradients": false,
                 },
-                triggers: {
-                    zIndex: "zIndex",
-                    globalAlpha: "canvas",
-                    globalCompositeOperation: "canvas",
-                    transformFillStroke: "canvas",
-                    strokeStyle: "canvas",
-                    fillStyle: "canvas",
-                    strokeOpacity: "canvas",
-                    fillOpacity: "canvas",
-                    lineWidth: "canvas",
-                    lineCap: "canvas",
-                    lineJoin: "canvas",
-                    lineDash: "canvas",
-                    lineDashOffset: "canvas",
-                    miterLimit: "canvas",
-                    shadowColor: "canvas",
-                    shadowOffsetX: "canvas",
-                    shadowOffsetY: "canvas",
-                    shadowBlur: "canvas",
-                    translationX: "transform",
-                    translationY: "transform",
-                    rotationRads: "transform",
-                    rotationCenterX: "transform",
-                    rotationCenterY: "transform",
-                    scalingX: "transform",
-                    scalingY: "transform",
-                    scalingCenterX: "transform",
-                    scalingCenterY: "transform",
-                    constrainGradients: "canvas",
+                "triggers": {
+                    "zIndex": "zIndex",
+                    "globalAlpha": "canvas",
+                    "globalCompositeOperation": "canvas",
+                    "transformFillStroke": "canvas",
+                    "strokeStyle": "canvas",
+                    "fillStyle": "canvas",
+                    "strokeOpacity": "canvas",
+                    "fillOpacity": "canvas",
+                    "lineWidth": "canvas",
+                    "lineCap": "canvas",
+                    "lineJoin": "canvas",
+                    "lineDash": "canvas",
+                    "lineDashOffset": "canvas",
+                    "miterLimit": "canvas",
+                    "shadowColor": "canvas",
+                    "shadowOffsetX": "canvas",
+                    "shadowOffsetY": "canvas",
+                    "shadowBlur": "canvas",
+                    "translationX": "transform",
+                    "translationY": "transform",
+                    "rotationRads": "transform",
+                    "rotationCenterX": "transform",
+                    "rotationCenterY": "transform",
+                    "scalingX": "transform",
+                    "scalingY": "transform",
+                    "scalingCenterX": "transform",
+                    "scalingCenterY": "transform",
+                    "constrainGradients": "canvas",
                 },
-                updaters: {
+                "updaters": {
+
                     // 'bbox' updater is meant to be called by subclasses when changes
                     // to attributes are expected to result in a change in sprite's dimensions.
-                    bbox: "bboxUpdater",
-                    zIndex: function (attr) {
+                    "bbox": "bboxUpdater",
+                    "zIndex": function ( attr ) {
                         attr.dirtyZIndex = true;
                     },
-                    transform: function (attr) {
+                    "transform": function ( attr ) {
                         attr.dirtyTransform = true;
                         attr.bbox.transform.dirty = true;
                     },
                 },
             },
         },
+
         /**
          * @property {Object} attr
          * The visual attributes of the sprite, e.g. strokeStyle, fillStyle, lineWidth...
@@ -3926,13 +4200,15 @@ Ext.define(
          * @cfg {Ext.draw.modifier.Animation} animation
          * @accessor
          */
-        config: {
+        "config": {
+
             /**
              * @private
              * @cfg {Ext.draw.Surface/Ext.draw.sprite.Instancing/Ext.draw.sprite.Composite} parent
              * The immediate parent of the sprite. Not necessarily a surface.
              */
-            parent: null,
+            "parent": null,
+
             /**
              * @private
              * @cfg {Ext.draw.Surface} surface
@@ -3940,32 +4216,36 @@ Ext.define(
              * This config is not meant to be used directly.
              * Please use the {@link Ext.draw.Surface#add} method instead.
              */
-            surface: null,
+            "surface": null,
         },
-        onClassExtended: function (subClass, data) {
+        "onClassExtended": function ( subClass, data ) {
+
             // The `def` here is no longer a config, but an instance
             // of the AttributeDefinition class created with that config,
             // which can now be retrieved from `initialConfig`.
             var superclassCfg = subClass.superclass.self.def.initialConfig,
                 ownCfg = data.inheritableStatics && data.inheritableStatics.def,
                 cfg;
+
             // If sprite defines attributes of its own, merge that with those of its parent.
-            if (ownCfg) {
-                cfg = Ext.Object.merge({}, superclassCfg, ownCfg);
-                subClass.def = new Ext.draw.sprite.AttributeDefinition(cfg);
+            if ( ownCfg ) {
+                cfg = Ext.Object.merge( {}, superclassCfg, ownCfg );
+                subClass.def = new Ext.draw.sprite.AttributeDefinition( cfg );
                 delete data.inheritableStatics.def;
-            } else {
-                subClass.def = new Ext.draw.sprite.AttributeDefinition(superclassCfg);
+            }
+            else {
+                subClass.def = new Ext.draw.sprite.AttributeDefinition( superclassCfg );
             }
             subClass.def.spriteClass = subClass;
         },
-        constructor: function (config) {
-            if (Ext.getClassName(this) === "Ext.draw.sprite.Sprite") {
+        "constructor": function ( config ) {
+            if ( Ext.getClassName( this ) === "Ext.draw.sprite.Sprite" ) {
                 throw "Ext.draw.sprite.Sprite is an abstract class";
             }
-            // eslint-disable-next-line vars-on-top
+
             var me = this,
                 attributeDefinition = me.self.def,
+
                 // It is important to get defaults (make sure
                 // 'defaults' config applier of the AttributeDefinition is called,
                 // since it is initialized lazily) before the attributes
@@ -3974,27 +4254,31 @@ Ext.define(
                 processors = attributeDefinition.getProcessors(),
                 modifiers,
                 name;
-            config = Ext.isObject(config) ? config : {};
-            me.id = config.id || Ext.id(null, "ext-sprite-");
+            config = Ext.isObject( config )
+                ? config
+                : {};
+            me.id = config.id || Ext.id( null, "ext-sprite-" );
             me.attr = {};
+
             // Observable's constructor also calls the initConfig for us.
-            me.mixins.observable.constructor.apply(me, arguments);
-            modifiers = Ext.Array.from(config.modifiers, true);
-            me.createModifiers(modifiers);
+            me.mixins.observable.constructor.apply( me, arguments );
+            modifiers = Ext.Array.from( config.modifiers, true );
+            me.createModifiers( modifiers );
             me.initializeAttributes();
-            me.setAttributes(defaults, true);
-            for (name in config) {
-                if (name in processors && me["get" + name.charAt(0).toUpperCase() + name.substr(1)]) {
-                    Ext.raise("The " + me.$className + " sprite has both a config and an attribute with the same name: " + name + ".");
+            me.setAttributes( defaults, true );
+            for ( name in config ) {
+                if ( name in processors && me[ "get" + name.charAt( 0 ).toUpperCase() + name.slice( 1 ) ] ) {
+                    Ext.raise( "The " + me.$className + " sprite has both a config and an attribute with the same name: " + name + "." );
                 }
             }
-            me.setAttributes(config);
+            me.setAttributes( config );
         },
-        updateSurface: function (surface, oldSurface) {
-            if (oldSurface) {
-                oldSurface.remove(this);
+        "updateSurface": function ( surface, oldSurface ) {
+            if ( oldSurface ) {
+                oldSurface.remove( this );
             }
         },
+
         /**
          * @private
          * Current state of the sprite.
@@ -4002,11 +4286,12 @@ Ext.define(
          * @cfg {Boolean} dirty
          * @accessor
          */
-        getDirty: function () {
+        "getDirty": function () {
             return this.attr.dirty;
         },
-        setDirty: function (dirty) {
+        "setDirty": function ( dirty ) {
             var parent;
+
             // This could have been a regular attribute.
             // Instead, it's a hidden one, which is initialized inside in the
             // Target's modifier `prepareAttributes` method and is exposed
@@ -4014,76 +4299,81 @@ Ext.define(
             // we simply need to change the sprite's state and notify
             // the sprite's parent.
             this.attr.dirty = dirty;
-            if (dirty) {
+            if ( dirty ) {
                 parent = this.getParent();
-                if (parent) {
-                    parent.setDirty(true);
+                if ( parent ) {
+                    parent.setDirty( true );
                 }
             }
         },
-        addModifier: function (modifier, reinitializeAttributes) {
+        "addModifier": function ( modifier, reinitializeAttributes ) {
             var me = this,
                 mods = me.modifiers,
                 animation = mods.animation,
                 target = mods.target,
                 type;
-            if (!(modifier instanceof Ext.draw.modifier.Modifier)) {
-                type = typeof modifier === "string" ? modifier : modifier.type;
-                if (type && !mods[type]) {
-                    mods[type] = modifier = Ext.factory(modifier, null, null, "modifier");
+            if ( !( modifier instanceof Ext.draw.modifier.Modifier ) ) {
+                type = typeof modifier === "string"
+                    ? modifier
+                    : modifier.type;
+                if ( type && !mods[ type ] ) {
+                    mods[ type ] = modifier = Ext.factory( modifier, null, null, "modifier" );
                 }
             }
-            modifier.setSprite(me);
-            if (modifier.preFx || (modifier.config && modifier.config.preFx)) {
-                if (animation._lower) {
-                    animation._lower.setUpper(modifier);
+            modifier.setSprite( me );
+            if ( modifier.preFx || ( modifier.config && modifier.config.preFx ) ) {
+                if ( animation._lower ) {
+                    animation._lower.setUpper( modifier );
                 }
-                modifier.setUpper(animation);
-            } else {
-                target._lower.setUpper(modifier);
-                modifier.setUpper(target);
+                modifier.setUpper( animation );
             }
-            if (reinitializeAttributes) {
+            else {
+                target._lower.setUpper( modifier );
+                modifier.setUpper( target );
+            }
+            if ( reinitializeAttributes ) {
                 me.initializeAttributes();
             }
             return modifier;
         },
-        createModifiers: function (modifiers) {
+        "createModifiers": function ( modifiers ) {
             var me = this,
                 Modifier = Ext.draw.modifier,
                 animation = me.getInitialConfig().animation,
                 mods,
                 i,
                 ln;
+
             // Create default modifiers.
             me.modifiers = mods = {
-                target: new Modifier.Target({
-                    sprite: me,
-                }),
-                animation: new Modifier.Animation(
-                    Ext.apply(
-                        {
-                            sprite: me,
-                        },
-                        animation
-                    )
-                ),
+                "target": new Modifier.Target( {
+                    "sprite": me,
+                } ),
+                "animation": new Modifier.Animation( Ext.apply(
+                    {
+                        "sprite": me,
+                    },
+                    animation
+                ) ),
             };
+
             // Link modifiers.
-            mods.animation.setUpper(mods.target);
-            for (i = 0, ln = modifiers.length; i < ln; i++) {
-                me.addModifier(modifiers[i], false);
+            mods.animation.setUpper( mods.target );
+            for ( i = 0, ln = modifiers.length; i < ln; i++ ) {
+                me.addModifier( modifiers[ i ], false );
             }
             return mods;
         },
+
         /**
          * Returns the current animation instance.
          * return {Ext.draw.modifier.Animation} The animation modifier used to animate the
          * sprite
          */
-        getAnimation: function () {
+        "getAnimation": function () {
             return this.modifiers.animation;
         },
+
         /**
          * Sets the animation config used by the sprite when animating the sprite's
          * attributes and transformation properties.
@@ -4119,24 +4409,23 @@ Ext.define(
          * @param {Object} config The Ext.draw.modifier.Animation config for this sprite's
          * animations.
          */
-        setAnimation: function (config) {
-            if (!this.isConfiguring) {
-                this.modifiers.animation.setConfig(
-                    config || {
-                        duration: 0,
-                    }
-                );
+        "setAnimation": function ( config ) {
+            if ( !this.isConfiguring ) {
+                this.modifiers.animation.setConfig( config || {
+                    "duration": 0,
+                } );
             }
         },
-        initializeAttributes: function () {
-            this.modifiers.target.prepareAttributes(this.attr);
+        "initializeAttributes": function () {
+            this.modifiers.target.prepareAttributes( this.attr );
         },
+
         /**
          * @private
          * Calls updaters triggered by changes to sprite attributes.
          * @param attr The attributes of a sprite or its instance.
          */
-        callUpdaters: function (attr) {
+        "callUpdaters": function ( attr ) {
             var me = this,
                 updaters = me.self.def.getUpdaters(),
                 any = false,
@@ -4147,40 +4436,45 @@ Ext.define(
                 fn;
             attr = attr || this.attr;
             pendingUpdaters = attr.pendingUpdaters;
+
             // If updaters set sprite attributes that trigger other updaters,
             // those updaters are not called right away, but wait until all current
             // updaters are called (till the next do/while loop iteration).
             me.callUpdaters = Ext.emptyFn;
+
             // Hide class method from the instance.
             do {
                 any = false;
-                for (updater in pendingUpdaters) {
+                for ( updater in pendingUpdaters ) {
                     any = true;
-                    flags = pendingUpdaters[updater];
-                    delete pendingUpdaters[updater];
-                    fn = updaters[updater];
-                    if (typeof fn === "string") {
-                        fn = me[fn];
+                    flags = pendingUpdaters[ updater ];
+                    delete pendingUpdaters[ updater ];
+                    fn = updaters[ updater ];
+                    if ( typeof fn === "string" ) {
+                        fn = me[ fn ];
                     }
-                    if (fn) {
-                        fn.call(me, attr, flags);
+                    if ( fn ) {
+                        fn.call( me, attr, flags );
                     }
                 }
                 dirty = dirty || any;
-            } while (any);
+            } while ( any );
             delete me.callUpdaters;
+
             // Restore class method.
-            if (dirty) {
-                me.setDirty(true);
+            if ( dirty ) {
+                me.setDirty( true );
             }
         },
+
         /**
          * @private
          */
-        callUpdater: function (attr, updater, triggers) {
-            this.scheduleUpdater(attr, updater, triggers);
-            this.callUpdaters(attr);
+        "callUpdater": function ( attr, updater, triggers ) {
+            this.scheduleUpdater( attr, updater, triggers );
+            this.callUpdaters( attr );
         },
+
         /**
          * @private
          * Schedules specified updaters to be called.
@@ -4208,21 +4502,23 @@ Ext.define(
          * @param {String[]} [triggers] Attributes that triggered the update. An optional parameter.
          * If used, the `updaters` parameter will be treated as an array of updaters to be called.
          */
-        scheduleUpdaters: function (attr, updaters, triggers) {
+        "scheduleUpdaters": function ( attr, updaters, triggers ) {
             var updater, i, ln;
             attr = attr || this.attr;
-            if (triggers) {
-                for (i = 0, ln = updaters.length; i < ln; i++) {
-                    updater = updaters[i];
-                    this.scheduleUpdater(attr, updater, triggers);
+            if ( triggers ) {
+                for ( i = 0, ln = updaters.length; i < ln; i++ ) {
+                    updater = updaters[ i ];
+                    this.scheduleUpdater( attr, updater, triggers );
                 }
-            } else {
-                for (updater in updaters) {
-                    triggers = updaters[updater];
-                    this.scheduleUpdater(attr, updater, triggers);
+            }
+            else {
+                for ( updater in updaters ) {
+                    triggers = updaters[ updater ];
+                    this.scheduleUpdater( attr, updater, triggers );
                 }
             }
         },
+
         /**
          * @private
          * @param attr {Object} The attributes object (not necesseraly of a sprite,
@@ -4230,19 +4526,21 @@ Ext.define(
          * @param updater {String} Updater to be called.
          * @param {String[]} [triggers] Attributes that triggered the update.
          */
-        scheduleUpdater: function (attr, updater, triggers) {
+        "scheduleUpdater": function ( attr, updater, triggers ) {
             var pendingUpdaters;
             triggers = triggers || [];
             attr = attr || this.attr;
             pendingUpdaters = attr.pendingUpdaters;
-            if (updater in pendingUpdaters) {
-                if (triggers.length) {
-                    pendingUpdaters[updater] = Ext.Array.merge(pendingUpdaters[updater], triggers);
+            if ( updater in pendingUpdaters ) {
+                if ( triggers.length ) {
+                    pendingUpdaters[ updater ] = Ext.Array.merge( pendingUpdaters[ updater ], triggers );
                 }
-            } else {
-                pendingUpdaters[updater] = triggers;
+            }
+            else {
+                pendingUpdaters[ updater ] = triggers;
             }
         },
+
         /**
          * Set attributes of the sprite.
          * By default only the attributes that have processors will be set
@@ -4264,23 +4562,26 @@ Ext.define(
          * @param {Boolean} [avoidCopy] `true` to avoid copying the `changes` object.
          * `bypassNormalization` should also be `true`. The content of object may be destroyed.
          */
-        setAttributes: function (changes, bypassNormalization, avoidCopy) {
+        "setAttributes": function ( changes, bypassNormalization, avoidCopy ) {
             var me = this,
                 changesToPush;
-            if (me.destroyed) {
-                Ext.Error.raise("Setting attributes of a destroyed sprite.");
+            if ( me.destroyed ) {
+                Ext.Error.raise( "Setting attributes of a destroyed sprite." );
             }
-            if (bypassNormalization) {
-                if (avoidCopy) {
+            if ( bypassNormalization ) {
+                if ( avoidCopy ) {
                     changesToPush = changes;
-                } else {
-                    changesToPush = Ext.apply({}, changes);
                 }
-            } else {
-                changesToPush = me.self.def.normalize(changes);
+                else {
+                    changesToPush = Ext.apply( {}, changes );
+                }
             }
-            me.modifiers.target.pushDown(me.attr, changesToPush);
+            else {
+                changesToPush = me.self.def.normalize( changes );
+            }
+            me.modifiers.target.pushDown( me.attr, changesToPush );
         },
+
         /**
          * Set attributes of the sprite, assuming the names and values have already been
          * normalized.
@@ -4290,17 +4591,19 @@ Ext.define(
          * @param {Boolean} [avoidCopy] `true` to avoid copying the `changes` object.
          * The content of object may be destroyed.
          */
-        setAttributesBypassingNormalization: function (changes, avoidCopy) {
-            return this.setAttributes(changes, true, avoidCopy);
+        "setAttributesBypassingNormalization": function ( changes, avoidCopy ) {
+            return this.setAttributes( changes, true, avoidCopy );
         },
+
         /**
          * @private
          */
-        bboxUpdater: function (attr) {
+        "bboxUpdater": function ( attr ) {
             var hasRotation = attr.rotationRads !== 0,
                 hasScaling = attr.scalingX !== 1 || attr.scalingY !== 1,
                 noRotationCenter = attr.rotationCenterX === null || attr.rotationCenterY === null,
                 noScalingCenter = attr.scalingCenterX === null || attr.scalingCenterY === null;
+
             // 'bbox' is not a standard attribute (in the sense that it doesn't have
             // a processor = not explicitly declared and cannot be set by a user)
             // and is calculated automatically by the 'getBBox' method.
@@ -4309,6 +4612,7 @@ Ext.define(
             // Both plain and tranformed bounding boxes need to be updated.
             // Mark them as such below.
             attr.bbox.plain.dirty = true;
+
             // updated by the 'updatePlainBBox' method
             // Before transformed bounding box can be updated,
             // we must ensure that we have correct forward and inverse
@@ -4320,40 +4624,44 @@ Ext.define(
             // is set to true when any of the transformation attributes change,
             // to let us know that transformation matrices need to be updated.
             attr.bbox.transform.dirty = true;
+
             // updated by the 'updateTransformedBBox' method
-            if ((hasRotation && noRotationCenter) || (hasScaling && noScalingCenter)) {
-                this.scheduleUpdater(attr, "transform");
+            if ( ( hasRotation && noRotationCenter ) || ( hasScaling && noScalingCenter ) ) {
+                this.scheduleUpdater( attr, "transform" );
             }
         },
+
         /**
          * Returns the bounding box for the given Sprite as calculated with the Canvas engine.
          *
          * @param {Boolean} [isWithoutTransform] Whether to calculate the bounding box
          * with the current transforms or not.
          */
-        getBBox: function (isWithoutTransform) {
+        "getBBox": function ( isWithoutTransform ) {
             var me = this,
                 attr = me.attr,
                 bbox = attr.bbox,
                 plain = bbox.plain,
                 transform = bbox.transform;
-            if (plain.dirty) {
-                me.updatePlainBBox(plain);
+            if ( plain.dirty ) {
+                me.updatePlainBBox( plain );
                 plain.dirty = false;
             }
-            if (!isWithoutTransform) {
+            if ( !isWithoutTransform ) {
+
                 // If tranformations are to be applied ('dirtyTransform' is true),
                 // then this will itself call the 'getBBox' method
                 // to get the plain untransformed bbox and calculate its center.
                 me.applyTransformations();
-                if (transform.dirty) {
-                    me.updateTransformedBBox(transform, plain);
+                if ( transform.dirty ) {
+                    me.updateTransformedBBox( transform, plain );
                     transform.dirty = false;
                 }
                 return transform;
             }
             return plain;
         },
+
         /**
          * @method
          * @protected
@@ -4362,7 +4670,8 @@ Ext.define(
          *
          * @param {Object} plain Target object.
          */
-        updatePlainBBox: Ext.emptyFn,
+        "updatePlainBBox": Ext.emptyFn,
+
         /**
          * @protected
          * Subclass will fill the plain object with `x`, `y`, `width`, `height` information
@@ -4371,48 +4680,54 @@ Ext.define(
          * @param {Object} transform Target object (transformed bounding box) to populate.
          * @param {Object} plain Untransformed bounding box.
          */
-        updateTransformedBBox: function (transform, plain) {
-            this.attr.matrix.transformBBox(plain, 0, transform);
+        "updateTransformedBBox": function ( transform, plain ) {
+            this.attr.matrix.transformBBox( plain, 0, transform );
         },
+
         /**
          * Subclass can rewrite this function to gain better performance.
          * @param {Boolean} isWithoutTransform
          * @return {Array}
          */
-        getBBoxCenter: function (isWithoutTransform) {
-            var bbox = this.getBBox(isWithoutTransform);
-            if (bbox) {
-                return [bbox.x + bbox.width * 0.5, bbox.y + bbox.height * 0.5];
-            } else {
-                return [0, 0];
+        "getBBoxCenter": function ( isWithoutTransform ) {
+            var bbox = this.getBBox( isWithoutTransform );
+            if ( bbox ) {
+                return [ bbox.x + bbox.width * 0.5, bbox.y + bbox.height * 0.5 ];
+            }
+            else {
+                return [ 0, 0 ];
             }
         },
+
         /**
          * Hide the sprite.
          * @return {Ext.draw.sprite.Sprite} this
          * @chainable
          */
-        hide: function () {
+        "hide": function () {
             this.attr.hidden = true;
-            this.setDirty(true);
+            this.setDirty( true );
             return this;
         },
+
         /**
          * Show the sprite.
          * @return {Ext.draw.sprite.Sprite} this
          * @chainable
          */
-        show: function () {
+        "show": function () {
             this.attr.hidden = false;
-            this.setDirty(true);
+            this.setDirty( true );
             return this;
         },
+
         /**
          * Applies sprite's attributes to the given context.
          * @param {Object} ctx Context to apply sprite's attributes to.
          * @param {Array} rect The rect of the context to be affected by gradients.
          */
-        useAttributes: function (ctx, rect) {
+        "useAttributes": function ( ctx, rect ) {
+
             // Always (force) apply transformation to sprite instances,
             // even if their 'dirtyTransform' flag is false.
             // The 'dirtyTransform' flag of an instance may never be set to 'true', as the
@@ -4426,8 +4741,8 @@ Ext.define(
             // flag is set to 'true' is not a correct solution here, because of the way instances
             // are rendered (see Ext.draw.sprite.Instancing's 'render' method) - there is no way
             // an instance wounldn't want its 'applyTransformations' method called.
-            this.applyTransformations(this.isSpriteInstance);
-            // eslint-disable-next-line vars-on-top
+            this.applyTransformations( this.isSpriteInstance );
+
             var attr = this.attr,
                 canvasAttributes = attr.canvasAttributes,
                 strokeStyle = canvasAttributes.strokeStyle,
@@ -4435,49 +4750,54 @@ Ext.define(
                 lineDash = canvasAttributes.lineDash,
                 lineDashOffset = canvasAttributes.lineDashOffset,
                 id;
-            if (strokeStyle) {
-                if (strokeStyle.isGradient) {
+            if ( strokeStyle ) {
+                if ( strokeStyle.isGradient ) {
                     ctx.strokeStyle = "black";
                     ctx.strokeGradient = strokeStyle;
-                } else {
+                }
+                else {
                     ctx.strokeGradient = false;
                 }
             }
-            if (fillStyle) {
-                if (fillStyle.isGradient) {
+            if ( fillStyle ) {
+                if ( fillStyle.isGradient ) {
                     ctx.fillStyle = "black";
                     ctx.fillGradient = fillStyle;
-                } else {
+                }
+                else {
                     ctx.fillGradient = false;
                 }
             }
-            if (lineDash) {
-                ctx.setLineDash(lineDash);
+            if ( lineDash ) {
+                ctx.setLineDash( lineDash );
             }
+
             // Only set lineDashOffset to contexts that support the property (excludes VML).
-            if (Ext.isNumber(lineDashOffset) && Ext.isNumber(ctx.lineDashOffset)) {
+            if ( Ext.isNumber( lineDashOffset ) && Ext.isNumber( ctx.lineDashOffset ) ) {
                 ctx.lineDashOffset = lineDashOffset;
             }
-            for (id in canvasAttributes) {
-                if (canvasAttributes[id] !== undefined && canvasAttributes[id] !== ctx[id]) {
-                    ctx[id] = canvasAttributes[id];
+            for ( id in canvasAttributes ) {
+                if ( canvasAttributes[ id ] !== undefined && canvasAttributes[ id ] !== ctx[ id ] ) {
+                    ctx[ id ] = canvasAttributes[ id ];
                 }
             }
-            this.setGradientBBox(ctx, rect);
+            this.setGradientBBox( ctx, rect );
         },
-        setGradientBBox: function (ctx, rect) {
+        "setGradientBBox": function ( ctx, rect ) {
             var attr = this.attr;
-            if (attr.constrainGradients) {
-                ctx.setGradientBBox({
-                    x: rect[0],
-                    y: rect[1],
-                    width: rect[2],
-                    height: rect[3],
-                });
-            } else {
-                ctx.setGradientBBox(this.getBBox(attr.transformFillStroke));
+            if ( attr.constrainGradients ) {
+                ctx.setGradientBBox( {
+                    "x": rect[ 0 ],
+                    "y": rect[ 1 ],
+                    "width": rect[ 2 ],
+                    "height": rect[ 3 ],
+                } );
+            }
+            else {
+                ctx.setGradientBBox( this.getBBox( attr.transformFillStroke ) );
             }
         },
+
         /**
          * @private
          *
@@ -4486,53 +4806,65 @@ Ext.define(
          * @param {Boolean} [force=false] Forces recalculation of transform matrices even when
          * sprite's transform attributes supposedly haven't changed.
          */
-        applyTransformations: function (force) {
-            if (!force && !this.attr.dirtyTransform) {
+        "applyTransformations": function ( force ) {
+            if ( !force && !this.attr.dirtyTransform ) {
                 return;
             }
-            // eslint-disable-next-line vars-on-top
+
             var me = this,
                 attr = me.attr,
-                center = me.getBBoxCenter(true),
-                centerX = center[0],
-                centerY = center[1],
+                center = me.getBBoxCenter( true ),
+                centerX = center[ 0 ],
+                centerY = center[ 1 ],
                 tx = attr.translationX,
                 ty = attr.translationY,
                 sx = attr.scalingX,
-                sy = attr.scalingY === null ? attr.scalingX : attr.scalingY,
-                scx = attr.scalingCenterX === null ? centerX : attr.scalingCenterX,
-                scy = attr.scalingCenterY === null ? centerY : attr.scalingCenterY,
+                sy = attr.scalingY === null
+                    ? attr.scalingX
+                    : attr.scalingY,
+                scx = attr.scalingCenterX === null
+                    ? centerX
+                    : attr.scalingCenterX,
+                scy = attr.scalingCenterY === null
+                    ? centerY
+                    : attr.scalingCenterY,
                 rad = attr.rotationRads,
-                rcx = attr.rotationCenterX === null ? centerX : attr.rotationCenterX,
-                rcy = attr.rotationCenterY === null ? centerY : attr.rotationCenterY,
-                cos = Math.cos(rad),
-                sin = Math.sin(rad),
+                rcx = attr.rotationCenterX === null
+                    ? centerX
+                    : attr.rotationCenterX,
+                rcy = attr.rotationCenterY === null
+                    ? centerY
+                    : attr.rotationCenterY,
+                cos = Math.cos( rad ),
+                sin = Math.sin( rad ),
                 tx_4,
                 ty_4;
-            if (sx === 1 && sy === 1) {
+            if ( sx === 1 && sy === 1 ) {
                 scx = 0;
                 scy = 0;
             }
-            if (rad === 0) {
+            if ( rad === 0 ) {
                 rcx = 0;
                 rcy = 0;
             }
+
             // Translation component after steps 1-4 (see below).
             // Saving it here to prevent double calculation.
-            tx_4 = scx * (1 - sx) - rcx;
-            ty_4 = scy * (1 - sy) - rcy;
-            /* eslint-disable max-len */
+            tx_4 = scx * ( 1 - sx ) - rcx;
+            ty_4 = scy * ( 1 - sy ) - rcy;
+
             // The matrix below is a result of:
             //     (7)          (6)             (5)             (4)           (3)           (2)           (1)
             // | 1 0 tx |   | 1 0 rcx |   | cos -sin 0 |   | 1 0 -rcx |   | 1 0 scx |   | sx 0 0 |   | 1 0 -scx |
             // | 0 1 ty | * | 0 1 rcy | * | sin  cos 0 | * | 0 1 -rcy | * | 0 1 scy | * | 0 sy 0 | * | 0 1 -scy |
             // | 0 0  1 |   | 0 0  1  |   |  0    0  1 |   | 0 0  1   |   | 0 0  1  |   | 0  0 0 |   | 0 0  1   |
-            /* eslint-enable max-len */
-            attr.matrix.elements = [cos * sx, sin * sx, -sin * sy, cos * sy, cos * tx_4 - sin * ty_4 + rcx + tx, sin * tx_4 + cos * ty_4 + rcy + ty];
-            attr.matrix.inverse(attr.inverseMatrix);
+
+            attr.matrix.elements = [ cos * sx, sin * sx, -sin * sy, cos * sy, cos * tx_4 - sin * ty_4 + rcx + tx, sin * tx_4 + cos * ty_4 + rcy + ty ];
+            attr.matrix.inverse( attr.inverseMatrix );
             attr.dirtyTransform = false;
             attr.bbox.transform.dirty = true;
         },
+
         /**
          * Pre-multiplies the current transformation matrix of a sprite with the given matrix.
          * If `isSplit` parameter is `true`, the resulting matrix is also split into
@@ -4554,32 +4886,34 @@ Ext.define(
          * @param {Boolean} [isSplit=false] If 'true', transformation attributes are updated.
          * @return {Ext.draw.sprite.Sprite} This sprite.
          */
-        transform: function (matrix, isSplit) {
+        "transform": function ( matrix, isSplit ) {
             var attr = this.attr,
                 spriteMatrix = attr.matrix,
                 elements;
-            if (matrix && matrix.isMatrix) {
+            if ( matrix && matrix.isMatrix ) {
                 elements = matrix.elements;
-            } else {
+            }
+            else {
                 elements = matrix;
             }
-            if (!(Ext.isArray(elements) && elements.length === 6)) {
-                Ext.raise("An instance of Ext.draw.Matrix or an array of 6 numbers is expected.");
+            if ( !( Ext.isArray( elements ) && elements.length === 6 ) ) {
+                Ext.raise( "An instance of Ext.draw.Matrix or an array of 6 numbers is expected." );
             }
-            spriteMatrix.prepend.apply(spriteMatrix, elements.slice());
-            spriteMatrix.inverse(attr.inverseMatrix);
-            if (isSplit) {
+            spriteMatrix.prepend.apply( spriteMatrix, elements.slice() );
+            spriteMatrix.inverse( attr.inverseMatrix );
+            if ( isSplit ) {
                 this.updateTransformAttributes();
             }
             attr.dirtyTransform = false;
             attr.bbox.transform.dirty = true;
-            this.setDirty(true);
+            this.setDirty( true );
             return this;
         },
+
         /**
          * @private
          */
-        updateTransformAttributes: function () {
+        "updateTransformAttributes": function () {
             var attr = this.attr,
                 split = attr.matrix.split();
             attr.rotationRads = split.rotate;
@@ -4592,23 +4926,25 @@ Ext.define(
             attr.translationX = split.translateX;
             attr.translationY = split.translateY;
         },
+
         /**
          * Resets current transformation matrix of a sprite to the identify matrix.
          * @param {Boolean} [isSplit=false] If 'true', transformation attributes are updated.
          * @return {Ext.draw.sprite.Sprite} This sprite.
          */
-        resetTransform: function (isSplit) {
+        "resetTransform": function ( isSplit ) {
             var attr = this.attr;
             attr.matrix.reset();
             attr.inverseMatrix.reset();
-            if (!isSplit) {
+            if ( !isSplit ) {
                 this.updateTransformAttributes();
             }
             attr.dirtyTransform = false;
             attr.bbox.transform.dirty = true;
-            this.setDirty(true);
+            this.setDirty( true );
             return this;
         },
+
         /**
          * Resets current transformation matrix of a sprite to the identify matrix
          * and pre-multiplies it with the given matrix.
@@ -4810,16 +5146,18 @@ Ext.define(
          * @param {Boolean} [isSplit=false] If `true`, transformation attributes are updated.
          * @return {Ext.draw.sprite.Sprite} This sprite.
          */
-        setTransform: function (matrix, isSplit) {
-            this.resetTransform(true);
-            this.transform.call(this, matrix, isSplit);
+        "setTransform": function ( matrix, isSplit ) {
+            this.resetTransform( true );
+            this.transform.call( this, matrix, isSplit );
             return this;
         },
+
         /**
          * @method
          * Called before rendering.
          */
-        preRender: Ext.emptyFn,
+        "preRender": Ext.emptyFn,
+
         /**
          * @method
          * This is where the actual sprite rendering happens by calling `ctx` methods.
@@ -4835,24 +5173,26 @@ Ext.define(
          * @return {*} returns `false` to stop rendering in this frame.
          * All the sprites that haven't been rendered will have their dirty flag untouched.
          */
-        render: Ext.emptyFn,
+        "render": Ext.emptyFn,
+
         /**
          * @private
          * Renders the bounding box of transformed sprite.
          */
-        renderBBox: function (surface, ctx) {
+        "renderBBox": function ( surface, ctx ) {
             var bbox = this.getBBox();
             ctx.beginPath();
-            ctx.moveTo(bbox.x, bbox.y);
-            ctx.lineTo(bbox.x + bbox.width, bbox.y);
-            ctx.lineTo(bbox.x + bbox.width, bbox.y + bbox.height);
-            ctx.lineTo(bbox.x, bbox.y + bbox.height);
+            ctx.moveTo( bbox.x, bbox.y );
+            ctx.lineTo( bbox.x + bbox.width, bbox.y );
+            ctx.lineTo( bbox.x + bbox.width, bbox.y + bbox.height );
+            ctx.lineTo( bbox.x, bbox.y + bbox.height );
             ctx.closePath();
             ctx.strokeStyle = "red";
             ctx.strokeOpacity = 1;
             ctx.lineWidth = 0.5;
             ctx.stroke();
         },
+
         /**
          * Performs a hit test on the sprite.
          * @param {Array} point A two-item array containing x and y coordinates of the point.
@@ -4860,24 +5200,26 @@ Ext.define(
          * @return {Object} A hit result object that contains more information about what
          * exactly was hit or null if nothing was hit.
          */
-        hitTest: function (point, options) {
+        "hitTest": function ( point, options ) {
             var x, y, bbox, isBBoxHit;
+
             // Meant to be overridden in subclasses for more precise hit testing.
             // This version doesn't take any options and simply hit tests sprite's
             // bounding box, if the sprite is visible.
-            if (this.isVisible()) {
-                x = point[0];
-                y = point[1];
+            if ( this.isVisible() ) {
+                x = point[ 0 ];
+                y = point[ 1 ];
                 bbox = this.getBBox();
                 isBBoxHit = bbox && x >= bbox.x && x <= bbox.x + bbox.width && y >= bbox.y && y <= bbox.y + bbox.height;
-                if (isBBoxHit) {
+                if ( isBBoxHit ) {
                     return {
-                        sprite: this,
+                        "sprite": this,
                     };
                 }
             }
             return null;
         },
+
         /**
          * @private
          * Checks if the sprite can be seen.
@@ -4886,63 +5228,66 @@ Ext.define(
          * The method doesn't check if the sprite is off-screen.
          * @return {Boolean} Returns `true`, if the sprite can be seen.
          */
-        isVisible: function () {
+        "isVisible": function () {
             var attr = this.attr,
                 parent = this.getParent(),
-                hasParent = parent && (parent.isSurface || parent.isVisible()),
+                hasParent = parent && ( parent.isSurface || parent.isVisible() ),
                 isSeen = hasParent && !attr.hidden && attr.globalAlpha,
                 none1 = Ext.util.Color.NONE,
                 none2 = Ext.util.Color.RGBA_NONE,
                 hasFill = attr.fillOpacity && attr.fillStyle !== none1 && attr.fillStyle !== none2,
                 hasStroke = attr.strokeOpacity && attr.strokeStyle !== none1 && attr.strokeStyle !== none2,
-                result = isSeen && (hasFill || hasStroke);
+                result = isSeen && ( hasFill || hasStroke );
             return !!result;
         },
-        repaint: function () {
+        "repaint": function () {
             var surface = this.getSurface();
-            if (surface) {
+            if ( surface ) {
                 surface.renderFrame();
             }
         },
+
         /**
          * Removes this sprite from its surface.
          * The sprite itself is not destroyed.
          * @return {Ext.draw.sprite.Sprite} Returns the removed sprite or `null` otherwise.
          */
-        remove: function () {
+        "remove": function () {
             var surface = this.getSurface();
-            if (surface && surface.isSurface) {
-                return surface.remove(this);
+            if ( surface && surface.isSurface ) {
+                return surface.remove( this );
             }
             return null;
         },
+
         /**
          * Removes the sprite and clears all listeners.
          */
-        destroy: function () {
+        "destroy": function () {
             var me = this,
                 modifier = me.modifiers.target,
                 currentModifier;
-            while (modifier) {
+            while ( modifier ) {
                 currentModifier = modifier;
                 modifier = modifier._lower;
                 currentModifier.destroy();
             }
             delete me.attr;
             me.remove();
-            if (me.fireEvent("beforedestroy", me) !== false) {
-                me.fireEvent("destroy", me);
+            if ( me.fireEvent( "beforedestroy", me ) !== false ) {
+                me.fireEvent( "destroy", me );
             }
             me.callParent();
         },
     },
     function () {
+
         // onClassCreated
         // Create one AttributeDefinition instance per sprite class when a class is created
         // and replace the `def` config with the instance that was created using that config.
         // Here we only create an AttributeDefinition instance for the base Sprite class,
         // attribute definitions for subclasses are created inside onClassExtended method.
-        this.def = new Ext.draw.sprite.AttributeDefinition(this.def);
+        this.def = new Ext.draw.sprite.AttributeDefinition( this.def );
         this.def.spriteClass = this;
     }
 );
@@ -4952,23 +5297,26 @@ Ext.define(
  * Designed to be compatible with [CanvasPathMethods](http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#canvaspathmethods)
  * and will hopefully be replaced by the browsers' implementation of the Path object.
  */
-Ext.define("Ext.draw.Path", {
-    statics: {
-        pathRe: /,?([achlmqrstvxz]),?/gi,
-        pathRe2: /-/gi,
-        pathSplitRe: /\s|,/g,
+Ext.define( "Ext.draw.Path", {
+    "statics": {
+        "pathRe": /,?([achlmq-tvxz]),?/gi,
+        "pathRe2": /-/gi,
+        "pathSplitRe": /\s|,/g,
     },
-    svgString: "",
+    "svgString": "",
+
     /**
      * Create a path from pathString.
      * @constructor
      * @param {String} pathString
      */
-    constructor: function (pathString) {
+    "constructor": function ( pathString ) {
         var me = this;
         me.commands = [];
+
         // Stores command letters from the SVG path data ('d' attribute).
         me.params = [];
+
         // Stores command parameters from the SVG path data.
         // All command parameters are actually point coordinates as the only commands used
         // are the M, L, C, Z. This makes path transformations and hit testing easier.
@@ -4977,14 +5325,15 @@ Ext.define("Ext.draw.Path", {
         me.cursor = null;
         me.startX = 0;
         me.startY = 0;
-        if (pathString) {
-            me.fromSvgString(pathString);
+        if ( pathString ) {
+            me.fromSvgString( pathString );
         }
     },
+
     /**
      * Clear the path.
      */
-    clear: function () {
+    "clear": function () {
         var me = this;
         me.params.length = 0;
         me.commands.length = 0;
@@ -4993,49 +5342,54 @@ Ext.define("Ext.draw.Path", {
         me.startY = 0;
         me.dirt();
     },
+
     /**
      * @private
      */
-    dirt: function () {
+    "dirt": function () {
         this.svgString = "";
     },
+
     /**
      * Move to a position.
      * @param {Number} x
      * @param {Number} y
      */
-    moveTo: function (x, y) {
+    "moveTo": function ( x, y ) {
         var me = this;
-        if (!me.cursor) {
-            me.cursor = [x, y];
+        if ( !me.cursor ) {
+            me.cursor = [ x, y ];
         }
-        me.params.push(x, y);
-        me.commands.push("M");
+        me.params.push( x, y );
+        me.commands.push( "M" );
         me.startX = x;
         me.startY = y;
-        me.cursor[0] = x;
-        me.cursor[1] = y;
+        me.cursor[ 0 ] = x;
+        me.cursor[ 1 ] = y;
         me.dirt();
     },
+
     /**
      * A straight line to a position.
      * @param {Number} x
      * @param {Number} y
      */
-    lineTo: function (x, y) {
+    "lineTo": function ( x, y ) {
         var me = this;
-        if (!me.cursor) {
-            me.cursor = [x, y];
-            me.params.push(x, y);
-            me.commands.push("M");
-        } else {
-            me.params.push(x, y);
-            me.commands.push("L");
+        if ( !me.cursor ) {
+            me.cursor = [ x, y ];
+            me.params.push( x, y );
+            me.commands.push( "M" );
         }
-        me.cursor[0] = x;
-        me.cursor[1] = y;
+        else {
+            me.params.push( x, y );
+            me.commands.push( "L" );
+        }
+        me.cursor[ 0 ] = x;
+        me.cursor[ 1 ] = y;
         me.dirt();
     },
+
     /**
      * A cubic bezier curve to a position.
      * @param {Number} cx1
@@ -5045,17 +5399,18 @@ Ext.define("Ext.draw.Path", {
      * @param {Number} x
      * @param {Number} y
      */
-    bezierCurveTo: function (cx1, cy1, cx2, cy2, x, y) {
+    "bezierCurveTo": function ( cx1, cy1, cx2, cy2, x, y ) {
         var me = this;
-        if (!me.cursor) {
-            me.moveTo(cx1, cy1);
+        if ( !me.cursor ) {
+            me.moveTo( cx1, cy1 );
         }
-        me.params.push(cx1, cy1, cx2, cy2, x, y);
-        me.commands.push("C");
-        me.cursor[0] = x;
-        me.cursor[1] = y;
+        me.params.push( cx1, cy1, cx2, cy2, x, y );
+        me.commands.push( "C" );
+        me.cursor[ 0 ] = x;
+        me.cursor[ 1 ] = y;
         me.dirt();
     },
+
     /**
      * A quadratic bezier curve to a position.
      * @param {Number} cx
@@ -5063,24 +5418,26 @@ Ext.define("Ext.draw.Path", {
      * @param {Number} x
      * @param {Number} y
      */
-    quadraticCurveTo: function (cx, cy, x, y) {
+    "quadraticCurveTo": function ( cx, cy, x, y ) {
         var me = this;
-        if (!me.cursor) {
-            me.moveTo(cx, cy);
+        if ( !me.cursor ) {
+            me.moveTo( cx, cy );
         }
-        me.bezierCurveTo((2 * cx + me.cursor[0]) / 3, (2 * cy + me.cursor[1]) / 3, (2 * cx + x) / 3, (2 * cy + y) / 3, x, y);
+        me.bezierCurveTo( ( 2 * cx + me.cursor[ 0 ] ) / 3, ( 2 * cy + me.cursor[ 1 ] ) / 3, ( 2 * cx + x ) / 3, ( 2 * cy + y ) / 3, x, y );
     },
+
     /**
      * Close this path with a straight line.
      */
-    closePath: function () {
+    "closePath": function () {
         var me = this;
-        if (me.cursor) {
+        if ( me.cursor ) {
             me.cursor = null;
-            me.commands.push("Z");
+            me.commands.push( "Z" );
             me.dirt();
         }
     },
+
     /**
      * Create a elliptic arc curve compatible with SVG's arc to instruction.
      *
@@ -5094,27 +5451,27 @@ Ext.define("Ext.draw.Path", {
      * @param {Number} [ry]
      * @param {Number} [rotation]
      */
-    arcTo: function (x1, y1, x2, y2, rx, ry, rotation) {
+    "arcTo": function ( x1, y1, x2, y2, rx, ry, rotation ) {
         var me = this;
-        if (ry === undefined) {
+        if ( ry === undefined ) {
             ry = rx;
         }
-        if (rotation === undefined) {
+        if ( rotation === undefined ) {
             rotation = 0;
         }
-        if (!me.cursor) {
-            me.moveTo(x1, y1);
+        if ( !me.cursor ) {
+            me.moveTo( x1, y1 );
             return;
         }
-        if (rx === 0 || ry === 0) {
-            me.lineTo(x1, y1);
+        if ( rx === 0 || ry === 0 ) {
+            me.lineTo( x1, y1 );
             return;
         }
         x2 -= x1;
         y2 -= y1;
-        // eslint-disable-next-line vars-on-top
-        var x0 = me.cursor[0] - x1,
-            y0 = me.cursor[1] - y1,
+
+        var x0 = me.cursor[ 0 ] - x1,
+            y0 = me.cursor[ 1 ] - y1,
             area = x2 * y0 - y2 * x0,
             cos,
             sin,
@@ -5122,21 +5479,22 @@ Ext.define("Ext.draw.Path", {
             yx,
             xy,
             yy,
-            l0 = Math.sqrt(x0 * x0 + y0 * y0),
-            l2 = Math.sqrt(x2 * x2 + y2 * y2),
+            l0 = Math.hypot( x0, y0 ),
+            l2 = Math.hypot( x2, y2 ),
             dist,
             cx,
             cy,
             temp;
+
         // cos rx, -sin ry , x1 - cos rx x1 + ry sin y1
         // sin rx, cos ry, -rx sin x1 + y1 - cos ry y1
-        if (area === 0) {
-            me.lineTo(x1, y1);
+        if ( area === 0 ) {
+            me.lineTo( x1, y1 );
             return;
         }
-        if (ry !== rx) {
-            cos = Math.cos(rotation);
-            sin = Math.sin(rotation);
+        if ( ry !== rx ) {
+            cos = Math.cos( rotation );
+            sin = Math.sin( rotation );
             xx = cos / rx;
             yx = sin / ry;
             xy = -sin / rx;
@@ -5147,7 +5505,8 @@ Ext.define("Ext.draw.Path", {
             temp = xx * x2 + yx * y2;
             y2 = xy * x2 + yy * y2;
             x2 = temp;
-        } else {
+        }
+        else {
             x0 /= rx;
             y0 /= ry;
             x2 /= rx;
@@ -5155,39 +5514,42 @@ Ext.define("Ext.draw.Path", {
         }
         cx = x0 * l2 + x2 * l0;
         cy = y0 * l2 + y2 * l0;
-        dist = 1 / (Math.sin(Math.asin(Math.abs(area) / (l0 * l2)) * 0.5) * Math.sqrt(cx * cx + cy * cy));
+        dist = 1 / ( Math.sin( Math.asin( Math.abs( area ) / ( l0 * l2 ) ) * 0.5 ) * Math.hypot( cx, cy ) );
         cx *= dist;
         cy *= dist;
-        // eslint-disable-next-line vars-on-top
-        var k0 = (cx * x0 + cy * y0) / (x0 * x0 + y0 * y0),
-            k2 = (cx * x2 + cy * y2) / (x2 * x2 + y2 * y2),
+
+        var k0 = ( cx * x0 + cy * y0 ) / ( x0 * x0 + y0 * y0 ),
+            k2 = ( cx * x2 + cy * y2 ) / ( x2 * x2 + y2 * y2 ),
             cosStart = x0 * k0 - cx,
             sinStart = y0 * k0 - cy,
             cosEnd = x2 * k2 - cx,
             sinEnd = y2 * k2 - cy,
-            startAngle = Math.atan2(sinStart, cosStart),
-            endAngle = Math.atan2(sinEnd, cosEnd);
-        if (area > 0) {
-            if (endAngle < startAngle) {
+            startAngle = Math.atan2( sinStart, cosStart ),
+            endAngle = Math.atan2( sinEnd, cosEnd );
+        if ( area > 0 ) {
+            if ( endAngle < startAngle ) {
                 endAngle += Math.PI * 2;
             }
-        } else {
-            if (startAngle < endAngle) {
+        }
+        else {
+            if ( startAngle < endAngle ) {
                 startAngle += Math.PI * 2;
             }
         }
-        if (ry !== rx) {
+        if ( ry !== rx ) {
             cx = cos * cx * rx - sin * cy * ry + x1;
             cy = sin * cy * ry + cos * cy * ry + y1;
-            me.lineTo(cos * rx * cosStart - sin * ry * sinStart + cx, sin * rx * cosStart + cos * ry * sinStart + cy);
-            me.ellipse(cx, cy, rx, ry, rotation, startAngle, endAngle, area < 0);
-        } else {
+            me.lineTo( cos * rx * cosStart - sin * ry * sinStart + cx, sin * rx * cosStart + cos * ry * sinStart + cy );
+            me.ellipse( cx, cy, rx, ry, rotation, startAngle, endAngle, area < 0 );
+        }
+        else {
             cx = cx * rx + x1;
             cy = cy * ry + y1;
-            me.lineTo(rx * cosStart + cx, ry * sinStart + cy);
-            me.ellipse(cx, cy, rx, ry, rotation, startAngle, endAngle, area < 0);
+            me.lineTo( rx * cosStart + cx, ry * sinStart + cy );
+            me.ellipse( cx, cy, rx, ry, rotation, startAngle, endAngle, area < 0 );
         }
     },
+
     /**
      * Create an elliptic arc.
      *
@@ -5202,7 +5564,7 @@ Ext.define("Ext.draw.Path", {
      * @param {Number} endAngle
      * @param {Number} anticlockwise
      */
-    ellipse: function (cx, cy, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise) {
+    "ellipse": function ( cx, cy, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise ) {
         var me = this,
             params = me.params,
             start = params.length,
@@ -5210,43 +5572,46 @@ Ext.define("Ext.draw.Path", {
             temp,
             i,
             j;
-        if (endAngle - startAngle >= Math.PI * 2) {
-            me.ellipse(cx, cy, radiusX, radiusY, rotation, startAngle, startAngle + Math.PI, anticlockwise);
-            me.ellipse(cx, cy, radiusX, radiusY, rotation, startAngle + Math.PI, endAngle, anticlockwise);
+        if ( endAngle - startAngle >= Math.PI * 2 ) {
+            me.ellipse( cx, cy, radiusX, radiusY, rotation, startAngle, startAngle + Math.PI, anticlockwise );
+            me.ellipse( cx, cy, radiusX, radiusY, rotation, startAngle + Math.PI, endAngle, anticlockwise );
             return;
         }
-        if (!anticlockwise) {
-            if (endAngle < startAngle) {
+        if ( !anticlockwise ) {
+            if ( endAngle < startAngle ) {
                 endAngle += Math.PI * 2;
             }
-            count = me.approximateArc(params, cx, cy, radiusX, radiusY, rotation, startAngle, endAngle);
-        } else {
-            if (startAngle < endAngle) {
+            count = me.approximateArc( params, cx, cy, radiusX, radiusY, rotation, startAngle, endAngle );
+        }
+        else {
+            if ( startAngle < endAngle ) {
                 startAngle += Math.PI * 2;
             }
-            count = me.approximateArc(params, cx, cy, radiusX, radiusY, rotation, endAngle, startAngle);
-            for (i = start, j = params.length - 2; i < j; i += 2, j -= 2) {
-                temp = params[i];
-                params[i] = params[j];
-                params[j] = temp;
-                temp = params[i + 1];
-                params[i + 1] = params[j + 1];
-                params[j + 1] = temp;
+            count = me.approximateArc( params, cx, cy, radiusX, radiusY, rotation, endAngle, startAngle );
+            for ( i = start, j = params.length - 2; i < j; i += 2, j -= 2 ) {
+                temp = params[ i ];
+                params[ i ] = params[ j ];
+                params[ j ] = temp;
+                temp = params[ i + 1 ];
+                params[ i + 1 ] = params[ j + 1 ];
+                params[ j + 1 ] = temp;
             }
         }
-        if (!me.cursor) {
-            me.cursor = [params[params.length - 2], params[params.length - 1]];
-            me.commands.push("M");
-        } else {
-            me.cursor[0] = params[params.length - 2];
-            me.cursor[1] = params[params.length - 1];
-            me.commands.push("L");
+        if ( !me.cursor ) {
+            me.cursor = [ params.at( -2 ), params.at( -1 ) ];
+            me.commands.push( "M" );
         }
-        for (i = 2; i < count; i += 6) {
-            me.commands.push("C");
+        else {
+            me.cursor[ 0 ] = params.at( -2 );
+            me.cursor[ 1 ] = params.at( -1 );
+            me.commands.push( "L" );
+        }
+        for ( i = 2; i < count; i += 6 ) {
+            me.commands.push( "C" );
         }
         me.dirt();
     },
+
     /**
      * Create an circular arc.
      *
@@ -5257,9 +5622,10 @@ Ext.define("Ext.draw.Path", {
      * @param {Number} endAngle
      * @param {Number} anticlockwise
      */
-    arc: function (x, y, radius, startAngle, endAngle, anticlockwise) {
-        this.ellipse(x, y, radius, radius, 0, startAngle, endAngle, anticlockwise);
+    "arc": function ( x, y, radius, startAngle, endAngle, anticlockwise ) {
+        this.ellipse( x, y, radius, radius, 0, startAngle, endAngle, anticlockwise );
     },
+
     /**
      * Draw a rectangle and close it.
      *
@@ -5268,17 +5634,18 @@ Ext.define("Ext.draw.Path", {
      * @param {Number} width
      * @param {Number} height
      */
-    rect: function (x, y, width, height) {
+    "rect": function ( x, y, width, height ) {
         var me = this;
-        if (width === 0 || height === 0) {
+        if ( width === 0 || height === 0 ) {
             return;
         }
-        me.moveTo(x, y);
-        me.lineTo(x + width, y);
-        me.lineTo(x + width, y + height);
-        me.lineTo(x, y + height);
+        me.moveTo( x, y );
+        me.lineTo( x + width, y );
+        me.lineTo( x + width, y + height );
+        me.lineTo( x, y + height );
         me.closePath();
     },
+
     /**
      * @private
      * @param {Array} result
@@ -5291,11 +5658,11 @@ Ext.define("Ext.draw.Path", {
      * @param {Number} theta2
      * @return {Number}
      */
-    approximateArc: function (result, cx, cy, rx, ry, phi, theta1, theta2) {
-        var cosPhi = Math.cos(phi),
-            sinPhi = Math.sin(phi),
-            cosTheta1 = Math.cos(theta1),
-            sinTheta1 = Math.sin(theta1),
+    "approximateArc": function ( result, cx, cy, rx, ry, phi, theta1, theta2 ) {
+        var cosPhi = Math.cos( phi ),
+            sinPhi = Math.sin( phi ),
+            cosTheta1 = Math.cos( theta1 ),
+            sinTheta1 = Math.sin( theta1 ),
             xx = cosPhi * cosTheta1 * rx - sinPhi * sinTheta1 * ry,
             yx = -cosPhi * sinTheta1 * rx - sinPhi * cosTheta1 * ry,
             xy = sinPhi * cosTheta1 * rx + cosPhi * sinTheta1 * ry,
@@ -5306,7 +5673,7 @@ Ext.define("Ext.draw.Path", {
             eyx = yx,
             exy = xy,
             eyy = yy,
-            rho = 0.547443256150549,
+            rho = 0.547_443_256_150_549,
             temp,
             y1,
             x3,
@@ -5314,12 +5681,12 @@ Ext.define("Ext.draw.Path", {
             x2,
             y2;
         theta2 -= theta1;
-        if (theta2 < 0) {
+        if ( theta2 < 0 ) {
             theta2 += Math.PI * 2;
         }
-        result.push(xx + cx, xy + cy);
-        while (theta2 >= rightAngle) {
-            result.push(exx + eyx * rho + cx, exy + eyy * rho + cy, exx * rho + eyx + cx, exy * rho + eyy + cy, eyx + cx, eyy + cy);
+        result.push( xx + cx, xy + cy );
+        while ( theta2 >= rightAngle ) {
+            result.push( exx + eyx * rho + cx, exy + eyy * rho + cy, exx * rho + eyx + cx, exy * rho + eyy + cy, eyx + cx, eyy + cy );
             count += 6;
             theta2 -= rightAngle;
             temp = exx;
@@ -5329,17 +5696,18 @@ Ext.define("Ext.draw.Path", {
             exy = eyy;
             eyy = -temp;
         }
-        if (theta2) {
-            y1 = (0.3294738052815987 + 0.012120855841304373 * theta2) * theta2;
-            x3 = Math.cos(theta2);
-            y3 = Math.sin(theta2);
+        if ( theta2 ) {
+            y1 = ( 0.329_473_805_281_598_7 + 0.012_120_855_841_304_373 * theta2 ) * theta2;
+            x3 = Math.cos( theta2 );
+            y3 = Math.sin( theta2 );
             x2 = x3 + y1 * y3;
             y2 = y3 - y1 * x3;
-            result.push(exx + eyx * y1 + cx, exy + eyy * y1 + cy, exx * x2 + eyx * y2 + cx, exy * x2 + eyy * y2 + cy, exx * x3 + eyx * y3 + cx, exy * x3 + eyy * y3 + cy);
+            result.push( exx + eyx * y1 + cx, exy + eyy * y1 + cy, exx * x2 + eyx * y2 + cx, exy * x2 + eyy * y2 + cy, exx * x3 + eyx * y3 + cx, exy * x3 + eyy * y3 + cy );
             count += 6;
         }
         return count;
     },
+
     /**
      * [http://www.w3.org/TR/SVG/implnote.html#ArcImplementationNotes](http://www.w3.org/TR/SVG/implnote.html#ArcImplementationNotes)
      * @param {Number} rx
@@ -5350,40 +5718,41 @@ Ext.define("Ext.draw.Path", {
      * @param {Number} x2
      * @param {Number} y2
      */
-    arcSvg: function (rx, ry, rotation, fA, fS, x2, y2) {
-        if (rx < 0) {
+    "arcSvg": function ( rx, ry, rotation, fA, fS, x2, y2 ) {
+        if ( rx < 0 ) {
             rx = -rx;
         }
-        if (ry < 0) {
+        if ( ry < 0 ) {
             ry = -ry;
         }
-        // eslint-disable-next-line vars-on-top
+
         var me = this,
-            x1 = me.cursor[0],
-            y1 = me.cursor[1],
-            hdx = (x1 - x2) / 2,
-            hdy = (y1 - y2) / 2,
-            cosPhi = Math.cos(rotation),
-            sinPhi = Math.sin(rotation),
+            x1 = me.cursor[ 0 ],
+            y1 = me.cursor[ 1 ],
+            hdx = ( x1 - x2 ) / 2,
+            hdy = ( y1 - y2 ) / 2,
+            cosPhi = Math.cos( rotation ),
+            sinPhi = Math.sin( rotation ),
             xp = hdx * cosPhi + hdy * sinPhi,
             yp = -hdx * sinPhi + hdy * cosPhi,
             ratX = xp / rx,
             ratY = yp / ry,
             lambda = ratX * ratX + ratY * ratY,
-            cx = (x1 + x2) * 0.5,
-            cy = (y1 + y2) * 0.5,
+            cx = ( x1 + x2 ) * 0.5,
+            cy = ( y1 + y2 ) * 0.5,
             cpx = 0,
             cpy = 0,
             theta1,
             deltaTheta;
-        if (lambda >= 1) {
-            lambda = Math.sqrt(lambda);
+        if ( lambda >= 1 ) {
+            lambda = Math.sqrt( lambda );
             rx *= lambda;
             ry *= lambda;
-        } // me gives lambda == cpx == cpy == 0;
-        else {
-            lambda = Math.sqrt(1 / lambda - 1);
-            if (fA === fS) {
+        }
+        else // me gives lambda == cpx == cpy == 0;
+        {
+            lambda = Math.sqrt( 1 / lambda - 1 );
+            if ( fA === fS ) {
                 lambda = -lambda;
             }
             cpx = lambda * rx * ratY;
@@ -5391,51 +5760,53 @@ Ext.define("Ext.draw.Path", {
             cx += cosPhi * cpx - sinPhi * cpy;
             cy += sinPhi * cpx + cosPhi * cpy;
         }
-        theta1 = Math.atan2((yp - cpy) / ry, (xp - cpx) / rx);
-        deltaTheta = Math.atan2((-yp - cpy) / ry, (-xp - cpx) / rx) - theta1;
-        if (fS) {
-            if (deltaTheta <= 0) {
+        theta1 = Math.atan2( ( yp - cpy ) / ry, ( xp - cpx ) / rx );
+        deltaTheta = Math.atan2( ( -yp - cpy ) / ry, ( -xp - cpx ) / rx ) - theta1;
+        if ( fS ) {
+            if ( deltaTheta <= 0 ) {
                 deltaTheta += Math.PI * 2;
             }
-        } else {
-            if (deltaTheta >= 0) {
+        }
+        else {
+            if ( deltaTheta >= 0 ) {
                 deltaTheta -= Math.PI * 2;
             }
         }
-        me.ellipse(cx, cy, rx, ry, rotation, theta1, theta1 + deltaTheta, 1 - fS);
+        me.ellipse( cx, cy, rx, ry, rotation, theta1, theta1 + deltaTheta, 1 - fS );
     },
+
     /**
      * Feed the path from svg path string.
      * @param {String} pathString
      */
-    fromSvgString: function (pathString) {
-        if (!pathString) {
+    "fromSvgString": function ( pathString ) {
+        if ( !pathString ) {
             return;
         }
-        // eslint-disable-next-line vars-on-top
+
         var me = this,
             parts,
             paramCounts = {
-                a: 7,
-                c: 6,
-                h: 1,
-                l: 2,
-                m: 2,
-                q: 4,
-                s: 4,
-                t: 2,
-                v: 1,
-                z: 0,
-                A: 7,
-                C: 6,
-                H: 1,
-                L: 2,
-                M: 2,
-                Q: 4,
-                S: 4,
-                T: 2,
-                V: 1,
-                Z: 0,
+                "a": 7,
+                "c": 6,
+                "h": 1,
+                "l": 2,
+                "m": 2,
+                "q": 4,
+                "s": 4,
+                "t": 2,
+                "v": 1,
+                "z": 0,
+                "A": 7,
+                "C": 6,
+                "H": 1,
+                "L": 2,
+                "M": 2,
+                "Q": 4,
+                "S": 4,
+                "T": 2,
+                "V": 1,
+                "Z": 0,
             },
             lastCommand = "",
             lastControlX,
@@ -5445,190 +5816,197 @@ Ext.define("Ext.draw.Path", {
             part = false,
             i,
             partLength;
+
         // Split the string to items.
-        if (Ext.isString(pathString)) {
-            parts = pathString.replace(Ext.draw.Path.pathRe, " $1 ").replace(Ext.draw.Path.pathRe2, " -").split(Ext.draw.Path.pathSplitRe);
-        } else if (Ext.isArray(pathString)) {
-            parts = pathString.join(",").split(Ext.draw.Path.pathSplitRe);
+        if ( Ext.isString( pathString ) ) {
+            parts = pathString.replace( Ext.draw.Path.pathRe, " $1 " ).replace( Ext.draw.Path.pathRe2, " -" ).split( Ext.draw.Path.pathSplitRe );
         }
+        else if ( Ext.isArray( pathString ) ) {
+            parts = pathString.join( "," ).split( Ext.draw.Path.pathSplitRe );
+        }
+
         // Remove empty entries
-        for (i = 0, partLength = 0; i < parts.length; i++) {
-            if (parts[i] !== "") {
-                parts[partLength++] = parts[i];
+        for ( i = 0, partLength = 0; i < parts.length; i++ ) {
+            if ( parts[ i ] !== "" ) {
+                parts[ partLength++ ] = parts[ i ];
             }
         }
         parts.length = partLength;
         me.clear();
-        for (i = 0; i < parts.length; ) {
+        for ( i = 0; i < parts.length; ) {
             lastCommand = part;
-            part = parts[i];
+            part = parts[ i ];
             i++;
-            switch (part) {
-                case "M":
-                    me.moveTo((lastX = +parts[i]), (lastY = +parts[i + 1]));
+            switch ( part ) {
+            case "M":
+                me.moveTo( ( lastX = +parts[ i ] ), ( lastY = +parts[ i + 1 ] ) );
+                i += 2;
+                while ( i < partLength && !paramCounts.hasOwnProperty( parts[ i ] ) ) {
+                    me.lineTo( ( lastX = +parts[ i ] ), ( lastY = +parts[ i + 1 ] ) );
                     i += 2;
-                    while (i < partLength && !paramCounts.hasOwnProperty(parts[i])) {
-                        me.lineTo((lastX = +parts[i]), (lastY = +parts[i + 1]));
-                        i += 2;
-                    }
-                    break;
-                case "L":
-                    me.lineTo((lastX = +parts[i]), (lastY = +parts[i + 1]));
+                }
+                break;
+            case "L":
+                me.lineTo( ( lastX = +parts[ i ] ), ( lastY = +parts[ i + 1 ] ) );
+                i += 2;
+                while ( i < partLength && !paramCounts.hasOwnProperty( parts[ i ] ) ) {
+                    me.lineTo( ( lastX = +parts[ i ] ), ( lastY = +parts[ i + 1 ] ) );
                     i += 2;
-                    while (i < partLength && !paramCounts.hasOwnProperty(parts[i])) {
-                        me.lineTo((lastX = +parts[i]), (lastY = +parts[i + 1]));
-                        i += 2;
-                    }
-                    break;
-                case "A":
-                    while (i < partLength && !paramCounts.hasOwnProperty(parts[i])) {
-                        me.arcSvg(+parts[i], +parts[i + 1], (+parts[i + 2] * Math.PI) / 180, +parts[i + 3], +parts[i + 4], (lastX = +parts[i + 5]), (lastY = +parts[i + 6]));
-                        i += 7;
-                    }
-                    break;
-                case "C":
-                    while (i < partLength && !paramCounts.hasOwnProperty(parts[i])) {
-                        me.bezierCurveTo(+parts[i], +parts[i + 1], (lastControlX = +parts[i + 2]), (lastControlY = +parts[i + 3]), (lastX = +parts[i + 4]), (lastY = +parts[i + 5]));
-                        i += 6;
-                    }
-                    break;
-                case "Z":
-                    me.closePath();
-                    break;
-                case "m":
-                    me.moveTo((lastX += +parts[i]), (lastY += +parts[i + 1]));
+                }
+                break;
+            case "A":
+                while ( i < partLength && !paramCounts.hasOwnProperty( parts[ i ] ) ) {
+                    me.arcSvg( +parts[ i ], +parts[ i + 1 ], ( +parts[ i + 2 ] * Math.PI ) / 180, +parts[ i + 3 ], +parts[ i + 4 ], ( lastX = +parts[ i + 5 ] ), ( lastY = +parts[ i + 6 ] ) );
+                    i += 7;
+                }
+                break;
+            case "C":
+                while ( i < partLength && !paramCounts.hasOwnProperty( parts[ i ] ) ) {
+                    me.bezierCurveTo( +parts[ i ], +parts[ i + 1 ], ( lastControlX = +parts[ i + 2 ] ), ( lastControlY = +parts[ i + 3 ] ), ( lastX = +parts[ i + 4 ] ), ( lastY = +parts[ i + 5 ] ) );
+                    i += 6;
+                }
+                break;
+            case "Z":
+                me.closePath();
+                break;
+            case "m":
+                me.moveTo( ( lastX += +parts[ i ] ), ( lastY += +parts[ i + 1 ] ) );
+                i += 2;
+                while ( i < partLength && !paramCounts.hasOwnProperty( parts[ i ] ) ) {
+                    me.lineTo( ( lastX += +parts[ i ] ), ( lastY += +parts[ i + 1 ] ) );
                     i += 2;
-                    while (i < partLength && !paramCounts.hasOwnProperty(parts[i])) {
-                        me.lineTo((lastX += +parts[i]), (lastY += +parts[i + 1]));
-                        i += 2;
-                    }
-                    break;
-                case "l":
-                    me.lineTo((lastX += +parts[i]), (lastY += +parts[i + 1]));
+                }
+                break;
+            case "l":
+                me.lineTo( ( lastX += +parts[ i ] ), ( lastY += +parts[ i + 1 ] ) );
+                i += 2;
+                while ( i < partLength && !paramCounts.hasOwnProperty( parts[ i ] ) ) {
+                    me.lineTo( ( lastX += +parts[ i ] ), ( lastY += +parts[ i + 1 ] ) );
                     i += 2;
-                    while (i < partLength && !paramCounts.hasOwnProperty(parts[i])) {
-                        me.lineTo((lastX += +parts[i]), (lastY += +parts[i + 1]));
-                        i += 2;
-                    }
-                    break;
-                case "a":
-                    while (i < partLength && !paramCounts.hasOwnProperty(parts[i])) {
-                        me.arcSvg(+parts[i], +parts[i + 1], (+parts[i + 2] * Math.PI) / 180, +parts[i + 3], +parts[i + 4], (lastX += +parts[i + 5]), (lastY += +parts[i + 6]));
-                        i += 7;
-                    }
-                    break;
-                case "c":
-                    while (i < partLength && !paramCounts.hasOwnProperty(parts[i])) {
-                        me.bezierCurveTo(lastX + +parts[i], lastY + +parts[i + 1], (lastControlX = lastX + +parts[i + 2]), (lastControlY = lastY + +parts[i + 3]), (lastX += +parts[i + 4]), (lastY += +parts[i + 5]));
-                        i += 6;
-                    }
-                    break;
-                case "z":
-                    me.closePath();
-                    break;
-                case "s":
-                    if (!(lastCommand === "c" || lastCommand === "C" || lastCommand === "s" || lastCommand === "S")) {
-                        lastControlX = lastX;
-                        lastControlY = lastY;
-                    }
-                    while (i < partLength && !paramCounts.hasOwnProperty(parts[i])) {
-                        me.bezierCurveTo(lastX + lastX - lastControlX, lastY + lastY - lastControlY, (lastControlX = lastX + +parts[i]), (lastControlY = lastY + +parts[i + 1]), (lastX += +parts[i + 2]), (lastY += +parts[i + 3]));
-                        i += 4;
-                    }
-                    break;
-                case "S":
-                    if (!(lastCommand === "c" || lastCommand === "C" || lastCommand === "s" || lastCommand === "S")) {
-                        lastControlX = lastX;
-                        lastControlY = lastY;
-                    }
-                    while (i < partLength && !paramCounts.hasOwnProperty(parts[i])) {
-                        me.bezierCurveTo(lastX + lastX - lastControlX, lastY + lastY - lastControlY, (lastControlX = +parts[i]), (lastControlY = +parts[i + 1]), (lastX = +parts[i + 2]), (lastY = +parts[i + 3]));
-                        i += 4;
-                    }
-                    break;
-                case "q":
-                    while (i < partLength && !paramCounts.hasOwnProperty(parts[i])) {
-                        me.quadraticCurveTo((lastControlX = lastX + +parts[i]), (lastControlY = lastY + +parts[i + 1]), (lastX += +parts[i + 2]), (lastY += +parts[i + 3]));
-                        i += 4;
-                    }
-                    break;
-                case "Q":
-                    while (i < partLength && !paramCounts.hasOwnProperty(parts[i])) {
-                        me.quadraticCurveTo((lastControlX = +parts[i]), (lastControlY = +parts[i + 1]), (lastX = +parts[i + 2]), (lastY = +parts[i + 3]));
-                        i += 4;
-                    }
-                    break;
-                case "t":
-                    if (!(lastCommand === "q" || lastCommand === "Q" || lastCommand === "t" || lastCommand === "T")) {
-                        lastControlX = lastX;
-                        lastControlY = lastY;
-                    }
-                    while (i < partLength && !paramCounts.hasOwnProperty(parts[i])) {
-                        me.quadraticCurveTo((lastControlX = lastX + lastX - lastControlX), (lastControlY = lastY + lastY - lastControlY), (lastX += +parts[i + 1]), (lastY += +parts[i + 2]));
-                        i += 2;
-                    }
-                    break;
-                case "T":
-                    if (!(lastCommand === "q" || lastCommand === "Q" || lastCommand === "t" || lastCommand === "T")) {
-                        lastControlX = lastX;
-                        lastControlY = lastY;
-                    }
-                    while (i < partLength && !paramCounts.hasOwnProperty(parts[i])) {
-                        me.quadraticCurveTo((lastControlX = lastX + lastX - lastControlX), (lastControlY = lastY + lastY - lastControlY), (lastX = +parts[i + 1]), (lastY = +parts[i + 2]));
-                        i += 2;
-                    }
-                    break;
-                case "h":
-                    while (i < partLength && !paramCounts.hasOwnProperty(parts[i])) {
-                        me.lineTo((lastX += +parts[i]), lastY);
-                        i++;
-                    }
-                    break;
-                case "H":
-                    while (i < partLength && !paramCounts.hasOwnProperty(parts[i])) {
-                        me.lineTo((lastX = +parts[i]), lastY);
-                        i++;
-                    }
-                    break;
-                case "v":
-                    while (i < partLength && !paramCounts.hasOwnProperty(parts[i])) {
-                        me.lineTo(lastX, (lastY += +parts[i]));
-                        i++;
-                    }
-                    break;
-                case "V":
-                    while (i < partLength && !paramCounts.hasOwnProperty(parts[i])) {
-                        me.lineTo(lastX, (lastY = +parts[i]));
-                        i++;
-                    }
-                    break;
+                }
+                break;
+            case "a":
+                while ( i < partLength && !paramCounts.hasOwnProperty( parts[ i ] ) ) {
+                    me.arcSvg( +parts[ i ], +parts[ i + 1 ], ( +parts[ i + 2 ] * Math.PI ) / 180, +parts[ i + 3 ], +parts[ i + 4 ], ( lastX += +parts[ i + 5 ] ), ( lastY += +parts[ i + 6 ] ) );
+                    i += 7;
+                }
+                break;
+            case "c":
+                while ( i < partLength && !paramCounts.hasOwnProperty( parts[ i ] ) ) {
+                    me.bezierCurveTo( lastX + +parts[ i ], lastY + +parts[ i + 1 ], ( lastControlX = lastX + +parts[ i + 2 ] ), ( lastControlY = lastY + +parts[ i + 3 ] ), ( lastX += +parts[ i + 4 ] ), ( lastY += +parts[ i + 5 ] ) );
+                    i += 6;
+                }
+                break;
+            case "z":
+                me.closePath();
+                break;
+            case "s":
+                if ( !( lastCommand === "c" || lastCommand === "C" || lastCommand === "s" || lastCommand === "S" ) ) {
+                    lastControlX = lastX;
+                    lastControlY = lastY;
+                }
+                while ( i < partLength && !paramCounts.hasOwnProperty( parts[ i ] ) ) {
+                    me.bezierCurveTo( lastX + lastX - lastControlX, lastY + lastY - lastControlY, ( lastControlX = lastX + +parts[ i ] ), ( lastControlY = lastY + +parts[ i + 1 ] ), ( lastX += +parts[ i + 2 ] ), ( lastY += +parts[ i + 3 ] ) );
+                    i += 4;
+                }
+                break;
+            case "S":
+                if ( !( lastCommand === "c" || lastCommand === "C" || lastCommand === "s" || lastCommand === "S" ) ) {
+                    lastControlX = lastX;
+                    lastControlY = lastY;
+                }
+                while ( i < partLength && !paramCounts.hasOwnProperty( parts[ i ] ) ) {
+                    me.bezierCurveTo( lastX + lastX - lastControlX, lastY + lastY - lastControlY, ( lastControlX = +parts[ i ] ), ( lastControlY = +parts[ i + 1 ] ), ( lastX = +parts[ i + 2 ] ), ( lastY = +parts[ i + 3 ] ) );
+                    i += 4;
+                }
+                break;
+            case "q":
+                while ( i < partLength && !paramCounts.hasOwnProperty( parts[ i ] ) ) {
+                    me.quadraticCurveTo( ( lastControlX = lastX + +parts[ i ] ), ( lastControlY = lastY + +parts[ i + 1 ] ), ( lastX += +parts[ i + 2 ] ), ( lastY += +parts[ i + 3 ] ) );
+                    i += 4;
+                }
+                break;
+            case "Q":
+                while ( i < partLength && !paramCounts.hasOwnProperty( parts[ i ] ) ) {
+                    me.quadraticCurveTo( ( lastControlX = +parts[ i ] ), ( lastControlY = +parts[ i + 1 ] ), ( lastX = +parts[ i + 2 ] ), ( lastY = +parts[ i + 3 ] ) );
+                    i += 4;
+                }
+                break;
+            case "t":
+                if ( !( lastCommand === "q" || lastCommand === "Q" || lastCommand === "t" || lastCommand === "T" ) ) {
+                    lastControlX = lastX;
+                    lastControlY = lastY;
+                }
+                while ( i < partLength && !paramCounts.hasOwnProperty( parts[ i ] ) ) {
+                    me.quadraticCurveTo( ( lastControlX = lastX + lastX - lastControlX ), ( lastControlY = lastY + lastY - lastControlY ), ( lastX += +parts[ i + 1 ] ), ( lastY += +parts[ i + 2 ] ) );
+                    i += 2;
+                }
+                break;
+            case "T":
+                if ( !( lastCommand === "q" || lastCommand === "Q" || lastCommand === "t" || lastCommand === "T" ) ) {
+                    lastControlX = lastX;
+                    lastControlY = lastY;
+                }
+                while ( i < partLength && !paramCounts.hasOwnProperty( parts[ i ] ) ) {
+                    me.quadraticCurveTo( ( lastControlX = lastX + lastX - lastControlX ), ( lastControlY = lastY + lastY - lastControlY ), ( lastX = +parts[ i + 1 ] ), ( lastY = +parts[ i + 2 ] ) );
+                    i += 2;
+                }
+                break;
+            case "h":
+                while ( i < partLength && !paramCounts.hasOwnProperty( parts[ i ] ) ) {
+                    me.lineTo( ( lastX += +parts[ i ] ), lastY );
+                    i++;
+                }
+                break;
+            case "H":
+                while ( i < partLength && !paramCounts.hasOwnProperty( parts[ i ] ) ) {
+                    me.lineTo( ( lastX = +parts[ i ] ), lastY );
+                    i++;
+                }
+                break;
+            case "v":
+                while ( i < partLength && !paramCounts.hasOwnProperty( parts[ i ] ) ) {
+                    me.lineTo( lastX, ( lastY += +parts[ i ] ) );
+                    i++;
+                }
+                break;
+            case "V":
+                while ( i < partLength && !paramCounts.hasOwnProperty( parts[ i ] ) ) {
+                    me.lineTo( lastX, ( lastY = +parts[ i ] ) );
+                    i++;
+                }
+                break;
             }
         }
     },
+
     /**
      * Clone this path.
      * @return {Ext.draw.Path}
      */
-    clone: function () {
+    "clone": function () {
         var me = this,
             path = new Ext.draw.Path();
-        path.params = me.params.slice(0);
-        path.commands = me.commands.slice(0);
-        path.cursor = me.cursor ? me.cursor.slice(0) : null;
+        path.params = me.params.slice( 0 );
+        path.commands = me.commands.slice( 0 );
+        path.cursor = me.cursor
+            ? me.cursor.slice( 0 )
+            : null;
         path.startX = me.startX;
         path.startY = me.startY;
         path.svgString = me.svgString;
         return path;
     },
+
     /**
      * Transform the current path by a matrix.
      * @param {Ext.draw.Matrix} matrix
      */
-    transform: function (matrix) {
-        if (matrix.isIdentity()) {
+    "transform": function ( matrix ) {
+        if ( matrix.isIdentity() ) {
             return;
         }
-        // eslint-disable-next-line vars-on-top
+
         var xx = matrix.getXX(),
             yx = matrix.getYX(),
             dx = matrix.getDX(),
@@ -5640,25 +6018,26 @@ Ext.define("Ext.draw.Path", {
             ln = params.length,
             x,
             y;
-        for (; i < ln; i += 2) {
-            x = params[i];
-            y = params[i + 1];
-            params[i] = x * xx + y * yx + dx;
-            params[i + 1] = x * xy + y * yy + dy;
+        for ( ; i < ln; i += 2 ) {
+            x = params[ i ];
+            y = params[ i + 1 ];
+            params[ i ] = x * xx + y * yx + dx;
+            params[ i + 1 ] = x * xy + y * yy + dy;
         }
         this.dirt();
     },
+
     /**
      * Get the bounding box of this matrix.
      * @param {Object} [target] Optional object to receive the result.
      *
      * @return {Object} Object with x, y, width and height
      */
-    getDimension: function (target) {
-        if (!target) {
+    "getDimension": function ( target ) {
+        if ( !target ) {
             target = {};
         }
-        if (!this.commands || !this.commands.length) {
+        if ( !this.commands || !this.commands.length ) {
             target.x = 0;
             target.y = 0;
             target.width = 0;
@@ -5669,7 +6048,7 @@ Ext.define("Ext.draw.Path", {
         target.top = Infinity;
         target.right = -Infinity;
         target.bottom = -Infinity;
-        // eslint-disable-next-line vars-on-top
+
         var i = 0,
             j = 0,
             commands = this.commands,
@@ -5677,22 +6056,22 @@ Ext.define("Ext.draw.Path", {
             ln = commands.length,
             x,
             y;
-        for (; i < ln; i++) {
-            switch (commands[i]) {
-                case "M":
-                case "L":
-                    x = params[j];
-                    y = params[j + 1];
-                    target.left = Math.min(x, target.left);
-                    target.top = Math.min(y, target.top);
-                    target.right = Math.max(x, target.right);
-                    target.bottom = Math.max(y, target.bottom);
-                    j += 2;
-                    break;
-                case "C":
-                    this.expandDimension(target, x, y, params[j], params[j + 1], params[j + 2], params[j + 3], (x = params[j + 4]), (y = params[j + 5]));
-                    j += 6;
-                    break;
+        for ( ; i < ln; i++ ) {
+            switch ( commands[ i ] ) {
+            case "M":
+            case "L":
+                x = params[ j ];
+                y = params[ j + 1 ];
+                target.left = Math.min( x, target.left );
+                target.top = Math.min( y, target.top );
+                target.right = Math.max( x, target.right );
+                target.bottom = Math.max( y, target.bottom );
+                j += 2;
+                break;
+            case "C":
+                this.expandDimension( target, x, y, params[ j ], params[ j + 1 ], params[ j + 2 ], params[ j + 3 ], ( x = params[ j + 4 ] ), ( y = params[ j + 5 ] ) );
+                j += 6;
+                break;
             }
         }
         target.x = target.left;
@@ -5701,6 +6080,7 @@ Ext.define("Ext.draw.Path", {
         target.height = target.bottom - target.top;
         return target;
     },
+
     /**
      * Get the bounding box as if the path is transformed by a matrix.
      *
@@ -5709,9 +6089,9 @@ Ext.define("Ext.draw.Path", {
      *
      * @return {Object} An object with x, y, width and height.
      */
-    getDimensionWithTransform: function (matrix, target) {
-        if (!this.commands || !this.commands.length) {
-            if (!target) {
+    "getDimensionWithTransform": function ( matrix, target ) {
+        if ( !this.commands || !this.commands.length ) {
+            if ( !target ) {
                 target = {};
             }
             target.x = 0;
@@ -5724,7 +6104,7 @@ Ext.define("Ext.draw.Path", {
         target.top = Infinity;
         target.right = -Infinity;
         target.bottom = -Infinity;
-        // eslint-disable-next-line vars-on-top
+
         var xx = matrix.getXX(),
             yx = matrix.getYX(),
             dx = matrix.getDX(),
@@ -5738,25 +6118,25 @@ Ext.define("Ext.draw.Path", {
             ln = commands.length,
             x,
             y;
-        for (; i < ln; i++) {
-            switch (commands[i]) {
-                case "M":
-                case "L":
-                    x = params[j] * xx + params[j + 1] * yx + dx;
-                    y = params[j] * xy + params[j + 1] * yy + dy;
-                    target.left = Math.min(x, target.left);
-                    target.top = Math.min(y, target.top);
-                    target.right = Math.max(x, target.right);
-                    target.bottom = Math.max(y, target.bottom);
-                    j += 2;
-                    break;
-                case "C":
-                    this.expandDimension(target, x, y, params[j] * xx + params[j + 1] * yx + dx, params[j] * xy + params[j + 1] * yy + dy, params[j + 2] * xx + params[j + 3] * yx + dx, params[j + 2] * xy + params[j + 3] * yy + dy, (x = params[j + 4] * xx + params[j + 5] * yx + dx), (y = params[j + 4] * xy + params[j + 5] * yy + dy));
-                    j += 6;
-                    break;
+        for ( ; i < ln; i++ ) {
+            switch ( commands[ i ] ) {
+            case "M":
+            case "L":
+                x = params[ j ] * xx + params[ j + 1 ] * yx + dx;
+                y = params[ j ] * xy + params[ j + 1 ] * yy + dy;
+                target.left = Math.min( x, target.left );
+                target.top = Math.min( y, target.top );
+                target.right = Math.max( x, target.right );
+                target.bottom = Math.max( y, target.bottom );
+                j += 2;
+                break;
+            case "C":
+                this.expandDimension( target, x, y, params[ j ] * xx + params[ j + 1 ] * yx + dx, params[ j ] * xy + params[ j + 1 ] * yy + dy, params[ j + 2 ] * xx + params[ j + 3 ] * yx + dx, params[ j + 2 ] * xy + params[ j + 3 ] * yy + dy, ( x = params[ j + 4 ] * xx + params[ j + 5 ] * yx + dx ), ( y = params[ j + 4 ] * xy + params[ j + 5 ] * yy + dy ) );
+                j += 6;
+                break;
             }
         }
-        if (!target) {
+        if ( !target ) {
             target = {};
         }
         target.x = target.left;
@@ -5765,6 +6145,7 @@ Ext.define("Ext.draw.Path", {
         target.height = target.bottom - target.top;
         return target;
     },
+
     /**
      * @private
      * Expand the rect by the bbox of a bezier curve.
@@ -5779,24 +6160,25 @@ Ext.define("Ext.draw.Path", {
      * @param {Number} x2
      * @param {Number} y2
      */
-    expandDimension: function (target, x1, y1, cx1, cy1, cx2, cy2, x2, y2) {
+    "expandDimension": function ( target, x1, y1, cx1, cy1, cx2, cy2, x2, y2 ) {
         var me = this,
             l = target.left,
             r = target.right,
             t = target.top,
             b = target.bottom,
-            dim = me.dim || (me.dim = []);
-        me.curveDimension(x1, cx1, cx2, x2, dim);
-        l = Math.min(l, dim[0]);
-        r = Math.max(r, dim[1]);
-        me.curveDimension(y1, cy1, cy2, y2, dim);
-        t = Math.min(t, dim[0]);
-        b = Math.max(b, dim[1]);
+            dim = me.dim || ( me.dim = [] );
+        me.curveDimension( x1, cx1, cx2, x2, dim );
+        l = Math.min( l, dim[ 0 ] );
+        r = Math.max( r, dim[ 1 ] );
+        me.curveDimension( y1, cy1, cy2, y2, dim );
+        t = Math.min( t, dim[ 0 ] );
+        b = Math.max( b, dim[ 1 ] );
         target.left = l;
         target.right = r;
         target.top = t;
         target.bottom = b;
     },
+
     /**
      * @private
      * Determine the curve
@@ -5806,51 +6188,54 @@ Ext.define("Ext.draw.Path", {
      * @param {Number} d
      * @param {Number} dim
      */
-    curveDimension: function (a, b, c, d, dim) {
-        var qa = 3 * (-a + 3 * (b - c) + d),
-            qb = 6 * (a - 2 * b + c),
-            qc = -3 * (a - b),
+    "curveDimension": function ( a, b, c, d, dim ) {
+        var qa = 3 * ( -a + 3 * ( b - c ) + d ),
+            qb = 6 * ( a - 2 * b + c ),
+            qc = -3 * ( a - b ),
             x,
             y,
-            min = Math.min(a, d),
-            max = Math.max(a, d),
+            min = Math.min( a, d ),
+            max = Math.max( a, d ),
             delta;
-        if (qa === 0) {
-            if (qb === 0) {
-                dim[0] = min;
-                dim[1] = max;
+        if ( qa === 0 ) {
+            if ( qb === 0 ) {
+                dim[ 0 ] = min;
+                dim[ 1 ] = max;
                 return;
-            } else {
+            }
+            else {
                 x = -qc / qb;
-                if (0 < x && x < 1) {
-                    y = this.interpolate(a, b, c, d, x);
-                    min = Math.min(min, y);
-                    max = Math.max(max, y);
+                if ( 0 < x && x < 1 ) {
+                    y = this.interpolate( a, b, c, d, x );
+                    min = Math.min( min, y );
+                    max = Math.max( max, y );
                 }
             }
-        } else {
+        }
+        else {
             delta = qb * qb - 4 * qa * qc;
-            if (delta >= 0) {
-                delta = Math.sqrt(delta);
-                x = (delta - qb) / 2 / qa;
-                if (0 < x && x < 1) {
-                    y = this.interpolate(a, b, c, d, x);
-                    min = Math.min(min, y);
-                    max = Math.max(max, y);
+            if ( delta >= 0 ) {
+                delta = Math.sqrt( delta );
+                x = ( delta - qb ) / 2 / qa;
+                if ( 0 < x && x < 1 ) {
+                    y = this.interpolate( a, b, c, d, x );
+                    min = Math.min( min, y );
+                    max = Math.max( max, y );
                 }
-                if (delta > 0) {
+                if ( delta > 0 ) {
                     x -= delta / qa;
-                    if (0 < x && x < 1) {
-                        y = this.interpolate(a, b, c, d, x);
-                        min = Math.min(min, y);
-                        max = Math.max(max, y);
+                    if ( 0 < x && x < 1 ) {
+                        y = this.interpolate( a, b, c, d, x );
+                        min = Math.min( min, y );
+                        max = Math.max( max, y );
                     }
                 }
             }
         }
-        dim[0] = min;
-        dim[1] = max;
+        dim[ 0 ] = min;
+        dim[ 1 ] = max;
     },
+
     /**
      * @private
      *
@@ -5863,22 +6248,23 @@ Ext.define("Ext.draw.Path", {
      * @param {Number} t
      * @return {Number}
      */
-    interpolate: function (a, b, c, d, t) {
+    "interpolate": function ( a, b, c, d, t ) {
         var rate;
-        if (t === 0) {
+        if ( t === 0 ) {
             return a;
         }
-        if (t === 1) {
+        if ( t === 1 ) {
             return d;
         }
-        rate = (1 - t) / t;
-        return t * t * t * (d + rate * (3 * c + rate * (3 * b + rate * a)));
+        rate = ( 1 - t ) / t;
+        return t * t * t * ( d + rate * ( 3 * c + rate * ( 3 * b + rate * a ) ) );
     },
+
     /**
      * Reconstruct path from cubic bezier curve stripes.
      * @param {Array} stripes
      */
-    fromStripes: function (stripes) {
+    "fromStripes": function ( stripes ) {
         var me = this,
             i = 0,
             ln = stripes.length,
@@ -5886,27 +6272,28 @@ Ext.define("Ext.draw.Path", {
             ln2,
             stripe;
         me.clear();
-        for (; i < ln; i++) {
-            stripe = stripes[i];
-            me.params.push.apply(me.params, stripe);
-            me.commands.push("M");
-            for (j = 2, ln2 = stripe.length; j < ln2; j += 6) {
-                me.commands.push("C");
+        for ( ; i < ln; i++ ) {
+            stripe = stripes[ i ];
+            me.params.push.apply( me.params, stripe );
+            me.commands.push( "M" );
+            for ( j = 2, ln2 = stripe.length; j < ln2; j += 6 ) {
+                me.commands.push( "C" );
             }
         }
-        if (!me.cursor) {
+        if ( !me.cursor ) {
             me.cursor = [];
         }
-        me.cursor[0] = me.params[me.params.length - 2];
-        me.cursor[1] = me.params[me.params.length - 1];
+        me.cursor[ 0 ] = me.params.at( -2 );
+        me.cursor[ 1 ] = me.params.at( -1 );
         me.dirt();
     },
+
     /**
      * Convert path to bezier curve stripes.
      * @param {Array} [target] The optional array to receive the result.
      * @return {Array}
      */
-    toStripes: function (target) {
+    "toStripes": function ( target ) {
         var stripes = target || [],
             curr,
             x,
@@ -5920,85 +6307,89 @@ Ext.define("Ext.draw.Path", {
             commands = this.commands,
             params = this.params,
             ln = commands.length;
-        for (i = 0, j = 0; i < ln; i++) {
-            switch (commands[i]) {
-                case "M":
-                    curr = [(startX = lastX = params[j++]), (startY = lastY = params[j++])];
-                    stripes.push(curr);
-                    break;
-                case "L":
-                    x = params[j++];
-                    y = params[j++];
-                    curr.push((lastX + lastX + x) / 3, (lastY + lastY + y) / 3, (lastX + x + x) / 3, (lastY + y + y) / 3, (lastX = x), (lastY = y));
-                    break;
-                case "C":
-                    curr.push(params[j++], params[j++], params[j++], params[j++], (lastX = params[j++]), (lastY = params[j++]));
-                    break;
-                case "Z":
-                    x = startX;
-                    y = startY;
-                    curr.push((lastX + lastX + x) / 3, (lastY + lastY + y) / 3, (lastX + x + x) / 3, (lastY + y + y) / 3, (lastX = x), (lastY = y));
-                    break;
+        for ( i = 0, j = 0; i < ln; i++ ) {
+            switch ( commands[ i ] ) {
+            case "M":
+                curr = [ ( startX = lastX = params[ j++ ] ), ( startY = lastY = params[ j++ ] ) ];
+                stripes.push( curr );
+                break;
+            case "L":
+                x = params[ j++ ];
+                y = params[ j++ ];
+                curr.push( ( lastX + lastX + x ) / 3, ( lastY + lastY + y ) / 3, ( lastX + x + x ) / 3, ( lastY + y + y ) / 3, ( lastX = x ), ( lastY = y ) );
+                break;
+            case "C":
+                curr.push( params[ j++ ], params[ j++ ], params[ j++ ], params[ j++ ], ( lastX = params[ j++ ] ), ( lastY = params[ j++ ] ) );
+                break;
+            case "Z":
+                x = startX;
+                y = startY;
+                curr.push( ( lastX + lastX + x ) / 3, ( lastY + lastY + y ) / 3, ( lastX + x + x ) / 3, ( lastY + y + y ) / 3, ( lastX = x ), ( lastY = y ) );
+                break;
             }
         }
         return stripes;
     },
+
     /**
      * @private
      * Update cache for svg string of this path.
      */
-    updateSvgString: function () {
+    "updateSvgString": function () {
         var result = [],
             commands = this.commands,
             params = this.params,
             ln = commands.length,
             i = 0,
             j = 0;
-        for (; i < ln; i++) {
-            switch (commands[i]) {
-                case "M":
-                    result.push("M" + params[j] + "," + params[j + 1]);
-                    j += 2;
-                    break;
-                case "L":
-                    result.push("L" + params[j] + "," + params[j + 1]);
-                    j += 2;
-                    break;
-                case "C":
-                    result.push("C" + params[j] + "," + params[j + 1] + " " + params[j + 2] + "," + params[j + 3] + " " + params[j + 4] + "," + params[j + 5]);
-                    j += 6;
-                    break;
-                case "Z":
-                    result.push("Z");
-                    break;
+        for ( ; i < ln; i++ ) {
+            switch ( commands[ i ] ) {
+            case "M":
+                result.push( "M" + params[ j ] + "," + params[ j + 1 ] );
+                j += 2;
+                break;
+            case "L":
+                result.push( "L" + params[ j ] + "," + params[ j + 1 ] );
+                j += 2;
+                break;
+            case "C":
+                result.push( "C" + params[ j ] + "," + params[ j + 1 ] + " " + params[ j + 2 ] + "," + params[ j + 3 ] + " " + params[ j + 4 ] + "," + params[ j + 5 ] );
+                j += 6;
+                break;
+            case "Z":
+                result.push( "Z" );
+                break;
             }
         }
-        this.svgString = result.join("");
+        this.svgString = result.join( "" );
     },
+
     /**
      * Return an svg path string for this path.
      * @return {String}
      */
-    toString: function () {
-        if (!this.svgString) {
+    "toString": function () {
+        if ( !this.svgString ) {
             this.updateSvgString();
         }
         return this.svgString;
     },
-});
+} );
 
 /**
  * @private
  * Adds hit testing and path intersection points methods to the Ext.draw.Path.
  * Included by the Ext.draw.PathUtil.
  */
-Ext.define("Ext.draw.overrides.hittest.Path", {
-    override: "Ext.draw.Path",
+Ext.define( "Ext.draw.overrides.hittest.Path", {
+    "override": "Ext.draw.Path",
+
     // An arbitrary point outside the path used for hit testing with ray casting method.
-    rayOrigin: {
-        x: -10000,
-        y: -10000,
+    "rayOrigin": {
+        "x": -10_000,
+        "y": -10_000,
     },
+
     /**
      * Tests whether the given point is inside the path.
      * @param {Number} x
@@ -6006,7 +6397,7 @@ Ext.define("Ext.draw.overrides.hittest.Path", {
      * @return {Boolean}
      * @member Ext.draw.Path
      */
-    isPointInPath: function (x, y) {
+    "isPointInPath": function ( x, y ) {
         var me = this,
             commands = me.commands,
             solver = Ext.draw.PathUtil,
@@ -6020,46 +6411,44 @@ Ext.define("Ext.draw.overrides.hittest.Path", {
             count = 0,
             i,
             j;
-        for (i = 0, j = 0; i < ln; i++) {
-            switch (commands[i]) {
-                case "M":
-                    if (firstX !== null) {
-                        // eslint-disable-next-line max-len
-                        if (solver.linesIntersection(firstX, firstY, lastX, lastY, origin.x, origin.y, x, y)) {
-                            count += 1;
-                        }
-                    }
-                    firstX = lastX = params[j];
-                    firstY = lastY = params[j + 1];
-                    j += 2;
-                    break;
-                case "L":
-                    // eslint-disable-next-line max-len
-                    if (solver.linesIntersection(lastX, lastY, params[j], params[j + 1], origin.x, origin.y, x, y)) {
+        for ( i = 0, j = 0; i < ln; i++ ) {
+            switch ( commands[ i ] ) {
+            case "M":
+                if ( firstX !== null ) {
+                    if ( solver.linesIntersection( firstX, firstY, lastX, lastY, origin.x, origin.y, x, y ) ) {
                         count += 1;
                     }
-                    lastX = params[j];
-                    lastY = params[j + 1];
-                    j += 2;
-                    break;
-                case "C":
-                    count += solver.cubicLineIntersections(lastX, params[j], params[j + 2], params[j + 4], lastY, params[j + 1], params[j + 3], params[j + 5], origin.x, origin.y, x, y).length;
-                    lastX = params[j + 4];
-                    lastY = params[j + 5];
-                    j += 6;
-                    break;
-                case "Z":
-                    if (firstX !== null) {
-                        // eslint-disable-next-line max-len
-                        if (solver.linesIntersection(firstX, firstY, lastX, lastY, origin.x, origin.y, x, y)) {
-                            count += 1;
-                        }
+                }
+                firstX = lastX = params[ j ];
+                firstY = lastY = params[ j + 1 ];
+                j += 2;
+                break;
+            case "L":
+                if ( solver.linesIntersection( lastX, lastY, params[ j ], params[ j + 1 ], origin.x, origin.y, x, y ) ) {
+                    count += 1;
+                }
+                lastX = params[ j ];
+                lastY = params[ j + 1 ];
+                j += 2;
+                break;
+            case "C":
+                count += solver.cubicLineIntersections( lastX, params[ j ], params[ j + 2 ], params[ j + 4 ], lastY, params[ j + 1 ], params[ j + 3 ], params[ j + 5 ], origin.x, origin.y, x, y ).length;
+                lastX = params[ j + 4 ];
+                lastY = params[ j + 5 ];
+                j += 6;
+                break;
+            case "Z":
+                if ( firstX !== null ) {
+                    if ( solver.linesIntersection( firstX, firstY, lastX, lastY, origin.x, origin.y, x, y ) ) {
+                        count += 1;
                     }
-                    break;
+                }
+                break;
             }
         }
         return count % 2 === 1;
     },
+
     /**
      * Tests whether the given point is on the path.
      * @param {Number} x
@@ -6067,7 +6456,7 @@ Ext.define("Ext.draw.overrides.hittest.Path", {
      * @return {Boolean}
      * @member Ext.draw.Path
      */
-    isPointOnPath: function (x, y) {
+    "isPointOnPath": function ( x, y ) {
         var me = this,
             commands = me.commands,
             solver = Ext.draw.PathUtil,
@@ -6079,45 +6468,46 @@ Ext.define("Ext.draw.overrides.hittest.Path", {
             lastY = 0,
             i,
             j;
-        for (i = 0, j = 0; i < ln; i++) {
-            switch (commands[i]) {
-                case "M":
-                    if (firstX !== null) {
-                        if (solver.pointOnLine(firstX, firstY, lastX, lastY, x, y)) {
-                            return true;
-                        }
-                    }
-                    firstX = lastX = params[j];
-                    firstY = lastY = params[j + 1];
-                    j += 2;
-                    break;
-                case "L":
-                    if (solver.pointOnLine(lastX, lastY, params[j], params[j + 1], x, y)) {
+        for ( i = 0, j = 0; i < ln; i++ ) {
+            switch ( commands[ i ] ) {
+            case "M":
+                if ( firstX !== null ) {
+                    if ( solver.pointOnLine( firstX, firstY, lastX, lastY, x, y ) ) {
                         return true;
                     }
-                    lastX = params[j];
-                    lastY = params[j + 1];
-                    j += 2;
-                    break;
-                case "C":
-                    if (solver.pointOnCubic(lastX, params[j], params[j + 2], params[j + 4], lastY, params[j + 1], params[j + 3], params[j + 5], x, y)) {
+                }
+                firstX = lastX = params[ j ];
+                firstY = lastY = params[ j + 1 ];
+                j += 2;
+                break;
+            case "L":
+                if ( solver.pointOnLine( lastX, lastY, params[ j ], params[ j + 1 ], x, y ) ) {
+                    return true;
+                }
+                lastX = params[ j ];
+                lastY = params[ j + 1 ];
+                j += 2;
+                break;
+            case "C":
+                if ( solver.pointOnCubic( lastX, params[ j ], params[ j + 2 ], params[ j + 4 ], lastY, params[ j + 1 ], params[ j + 3 ], params[ j + 5 ], x, y ) ) {
+                    return true;
+                }
+                lastX = params[ j + 4 ];
+                lastY = params[ j + 5 ];
+                j += 6;
+                break;
+            case "Z":
+                if ( firstX !== null ) {
+                    if ( solver.pointOnLine( firstX, firstY, lastX, lastY, x, y ) ) {
                         return true;
                     }
-                    lastX = params[j + 4];
-                    lastY = params[j + 5];
-                    j += 6;
-                    break;
-                case "Z":
-                    if (firstX !== null) {
-                        if (solver.pointOnLine(firstX, firstY, lastX, lastY, x, y)) {
-                            return true;
-                        }
-                    }
-                    break;
+                }
+                break;
             }
         }
         return false;
     },
+
     /**
      * Calculates the points where the given segment intersects the path.
      * If four parameters are given then the segment is considered to be a line segment,
@@ -6136,7 +6526,7 @@ Ext.define("Ext.draw.overrides.hittest.Path", {
      * @return {Array}
      * @member Ext.draw.Path
      */
-    getSegmentIntersections: function (x1, y1, x2, y2, x3, y3, x4, y4) {
+    "getSegmentIntersections": function ( x1, y1, x2, y2, x3, y3, x4, y4 ) {
         var me = this,
             count = arguments.length,
             solver = Ext.draw.PathUtil,
@@ -6151,80 +6541,80 @@ Ext.define("Ext.draw.overrides.hittest.Path", {
             i,
             j,
             points;
-        for (i = 0, j = 0; i < ln; i++) {
-            switch (commands[i]) {
-                case "M":
-                    if (firstX !== null) {
-                        switch (count) {
-                            case 4:
-                                points = solver.linesIntersection(firstX, firstY, lastX, lastY, x1, y1, x2, y2);
-                                if (points) {
-                                    intersections.push(points);
-                                }
-                                break;
-                            case 8:
-                                points = solver.cubicLineIntersections(x1, x2, x3, x4, y1, y2, y3, y4, firstX, firstY, lastX, lastY);
-                                intersections.push.apply(intersections, points);
-                                break;
+        for ( i = 0, j = 0; i < ln; i++ ) {
+            switch ( commands[ i ] ) {
+            case "M":
+                if ( firstX !== null ) {
+                    switch ( count ) {
+                    case 4:
+                        points = solver.linesIntersection( firstX, firstY, lastX, lastY, x1, y1, x2, y2 );
+                        if ( points ) {
+                            intersections.push( points );
                         }
+                        break;
+                    case 8:
+                        points = solver.cubicLineIntersections( x1, x2, x3, x4, y1, y2, y3, y4, firstX, firstY, lastX, lastY );
+                        intersections.push.apply( intersections, points );
+                        break;
                     }
-                    firstX = lastX = params[j];
-                    firstY = lastY = params[j + 1];
-                    j += 2;
-                    break;
-                case "L":
-                    switch (count) {
-                        case 4:
-                            points = solver.linesIntersection(lastX, lastY, params[j], params[j + 1], x1, y1, x2, y2);
-                            if (points) {
-                                intersections.push(points);
-                            }
-                            break;
-                        case 8:
-                            points = solver.cubicLineIntersections(x1, x2, x3, x4, y1, y2, y3, y4, lastX, lastY, params[j], params[j + 1]);
-                            intersections.push.apply(intersections, points);
-                            break;
+                }
+                firstX = lastX = params[ j ];
+                firstY = lastY = params[ j + 1 ];
+                j += 2;
+                break;
+            case "L":
+                switch ( count ) {
+                case 4:
+                    points = solver.linesIntersection( lastX, lastY, params[ j ], params[ j + 1 ], x1, y1, x2, y2 );
+                    if ( points ) {
+                        intersections.push( points );
                     }
-                    lastX = params[j];
-                    lastY = params[j + 1];
-                    j += 2;
                     break;
-                case "C":
-                    switch (count) {
-                        case 4:
-                            points = solver.cubicLineIntersections(lastX, params[j], params[j + 2], params[j + 4], lastY, params[j + 1], params[j + 3], params[j + 5], x1, y1, x2, y2);
-                            intersections.push.apply(intersections, points);
-                            break;
-                        case 8:
-                            points = solver.cubicsIntersections(lastX, params[j], params[j + 2], params[j + 4], lastY, params[j + 1], params[j + 3], params[j + 5], x1, x2, x3, x4, y1, y2, y3, y4);
-                            intersections.push.apply(intersections, points);
-                            break;
-                    }
-                    lastX = params[j + 4];
-                    lastY = params[j + 5];
-                    j += 6;
+                case 8:
+                    points = solver.cubicLineIntersections( x1, x2, x3, x4, y1, y2, y3, y4, lastX, lastY, params[ j ], params[ j + 1 ] );
+                    intersections.push.apply( intersections, points );
                     break;
-                case "Z":
-                    if (firstX !== null) {
-                        switch (count) {
-                            case 4:
-                                points = solver.linesIntersection(firstX, firstY, lastX, lastY, x1, y1, x2, y2);
-                                if (points) {
-                                    intersections.push(points);
-                                }
-                                break;
-                            case 8:
-                                points = solver.cubicLineIntersections(x1, x2, x3, x4, y1, y2, y3, y4, firstX, firstY, lastX, lastY);
-                                intersections.push.apply(intersections, points);
-                                break;
+                }
+                lastX = params[ j ];
+                lastY = params[ j + 1 ];
+                j += 2;
+                break;
+            case "C":
+                switch ( count ) {
+                case 4:
+                    points = solver.cubicLineIntersections( lastX, params[ j ], params[ j + 2 ], params[ j + 4 ], lastY, params[ j + 1 ], params[ j + 3 ], params[ j + 5 ], x1, y1, x2, y2 );
+                    intersections.push.apply( intersections, points );
+                    break;
+                case 8:
+                    points = solver.cubicsIntersections( lastX, params[ j ], params[ j + 2 ], params[ j + 4 ], lastY, params[ j + 1 ], params[ j + 3 ], params[ j + 5 ], x1, x2, x3, x4, y1, y2, y3, y4 );
+                    intersections.push.apply( intersections, points );
+                    break;
+                }
+                lastX = params[ j + 4 ];
+                lastY = params[ j + 5 ];
+                j += 6;
+                break;
+            case "Z":
+                if ( firstX !== null ) {
+                    switch ( count ) {
+                    case 4:
+                        points = solver.linesIntersection( firstX, firstY, lastX, lastY, x1, y1, x2, y2 );
+                        if ( points ) {
+                            intersections.push( points );
                         }
+                        break;
+                    case 8:
+                        points = solver.cubicLineIntersections( x1, x2, x3, x4, y1, y2, y3, y4, firstX, firstY, lastX, lastY );
+                        intersections.push.apply( intersections, points );
+                        break;
                     }
-                    break;
+                }
+                break;
             }
         }
         return intersections;
     },
-    getIntersections: function (path) {
+    "getIntersections": function ( path ) {
         var me = this,
             commands = me.commands,
             params = me.params,
@@ -6237,42 +6627,42 @@ Ext.define("Ext.draw.overrides.hittest.Path", {
             i,
             j,
             points;
-        for (i = 0, j = 0; i < ln; i++) {
-            switch (commands[i]) {
-                case "M":
-                    if (firstX !== null) {
-                        points = path.getSegmentIntersections.call(path, firstX, firstY, lastX, lastY);
-                        intersections.push.apply(intersections, points);
-                    }
-                    firstX = lastX = params[j];
-                    firstY = lastY = params[j + 1];
-                    j += 2;
-                    break;
-                case "L":
-                    points = path.getSegmentIntersections.call(path, lastX, lastY, params[j], params[j + 1]);
-                    intersections.push.apply(intersections, points);
-                    lastX = params[j];
-                    lastY = params[j + 1];
-                    j += 2;
-                    break;
-                case "C":
-                    points = path.getSegmentIntersections.call(path, lastX, lastY, params[j], params[j + 1], params[j + 2], params[j + 3], params[j + 4], params[j + 5]);
-                    intersections.push.apply(intersections, points);
-                    lastX = params[j + 4];
-                    lastY = params[j + 5];
-                    j += 6;
-                    break;
-                case "Z":
-                    if (firstX !== null) {
-                        points = path.getSegmentIntersections.call(path, firstX, firstY, lastX, lastY);
-                        intersections.push.apply(intersections, points);
-                    }
-                    break;
+        for ( i = 0, j = 0; i < ln; i++ ) {
+            switch ( commands[ i ] ) {
+            case "M":
+                if ( firstX !== null ) {
+                    points = path.getSegmentIntersections.call( path, firstX, firstY, lastX, lastY );
+                    intersections.push.apply( intersections, points );
+                }
+                firstX = lastX = params[ j ];
+                firstY = lastY = params[ j + 1 ];
+                j += 2;
+                break;
+            case "L":
+                points = path.getSegmentIntersections.call( path, lastX, lastY, params[ j ], params[ j + 1 ] );
+                intersections.push.apply( intersections, points );
+                lastX = params[ j ];
+                lastY = params[ j + 1 ];
+                j += 2;
+                break;
+            case "C":
+                points = path.getSegmentIntersections.call( path, lastX, lastY, params[ j ], params[ j + 1 ], params[ j + 2 ], params[ j + 3 ], params[ j + 4 ], params[ j + 5 ] );
+                intersections.push.apply( intersections, points );
+                lastX = params[ j + 4 ];
+                lastY = params[ j + 5 ];
+                j += 6;
+                break;
+            case "Z":
+                if ( firstX !== null ) {
+                    points = path.getSegmentIntersections.call( path, firstX, firstY, lastX, lastY );
+                    intersections.push.apply( intersections, points );
+                }
+                break;
             }
         }
         return intersections;
     },
-});
+} );
 
 /**
  * @class Ext.draw.sprite.Path
@@ -6311,76 +6701,77 @@ Ext.define("Ext.draw.overrides.hittest.Path", {
  * **Note:** Capital letters indicate that the item should be absolutely positioned.
  * Use lower case letters for relative positioning.
  */
-Ext.define("Ext.draw.sprite.Path", {
-    extend: Ext.draw.sprite.Sprite,
-    alias: ["sprite.path", "Ext.draw.Sprite"],
-    type: "path",
-    isPath: true,
-    inheritableStatics: {
-        def: {
-            processors: {
+Ext.define( "Ext.draw.sprite.Path", {
+    "extend": Ext.draw.sprite.Sprite,
+    "alias": [ "sprite.path", "Ext.draw.Sprite" ],
+    "type": "path",
+    "isPath": true,
+    "inheritableStatics": {
+        "def": {
+            "processors": {
+
                 /**
                  * @cfg {String} path The SVG based path string used by the sprite.
                  */
-                path: function (n, o) {
-                    if (!(n instanceof Ext.draw.Path)) {
-                        n = new Ext.draw.Path(n);
+                "path": function ( n, o ) {
+                    if ( !( n instanceof Ext.draw.Path ) ) {
+                        n = new Ext.draw.Path( n );
                     }
                     return n;
                 },
             },
-            aliases: {
-                d: "path",
+            "aliases": {
+                "d": "path",
             },
-            triggers: {
-                path: "bbox",
+            "triggers": {
+                "path": "bbox",
             },
-            updaters: {
-                path: function (attr) {
+            "updaters": {
+                "path": function ( attr ) {
                     var path = attr.path;
-                    if (!path || path.bindAttr !== attr) {
+                    if ( !path || path.bindAttr !== attr ) {
                         path = new Ext.draw.Path();
                         path.bindAttr = attr;
                         attr.path = path;
                     }
                     path.clear();
-                    this.updatePath(path, attr);
-                    this.scheduleUpdater(attr, "bbox", ["path"]);
+                    this.updatePath( path, attr );
+                    this.scheduleUpdater( attr, "bbox", [ "path" ] );
                 },
             },
         },
     },
-    updatePlainBBox: function (plain) {
-        if (this.attr.path) {
-            this.attr.path.getDimension(plain);
+    "updatePlainBBox": function ( plain ) {
+        if ( this.attr.path ) {
+            this.attr.path.getDimension( plain );
         }
     },
-    updateTransformedBBox: function (transform) {
-        if (this.attr.path) {
-            this.attr.path.getDimensionWithTransform(this.attr.matrix, transform);
+    "updateTransformedBBox": function ( transform ) {
+        if ( this.attr.path ) {
+            this.attr.path.getDimensionWithTransform( this.attr.matrix, transform );
         }
     },
-    render: function (surface, ctx) {
+    "render": function ( surface, ctx ) {
         var mat = this.attr.matrix,
             attr = this.attr;
-        if (!attr.path || attr.path.params.length === 0) {
+        if ( !attr.path || attr.path.params.length === 0 ) {
             return;
         }
-        mat.toContext(ctx);
-        ctx.appendPath(attr.path);
-        ctx.fillStroke(attr);
-        // eslint-disable-next-line vars-on-top
+        mat.toContext( ctx );
+        ctx.appendPath( attr.path );
+        ctx.fillStroke( attr );
+
         var debug = attr.debug || this.statics().debug || Ext.draw.sprite.Sprite.debug;
-        if (debug) {
-            if (debug.bbox) {
-                this.renderBBox(surface, ctx);
+        if ( debug ) {
+            if ( debug.bbox ) {
+                this.renderBBox( surface, ctx );
             }
-            if (debug.xray) {
-                this.renderXRay(surface, ctx);
+            if ( debug.xray ) {
+                this.renderXRay( surface, ctx );
             }
         }
     },
-    renderXRay: function (surface, ctx) {
+    "renderXRay": function ( surface, ctx ) {
         var attr = this.attr,
             mat = attr.matrix,
             imat = attr.inverseMatrix,
@@ -6392,82 +6783,84 @@ Ext.define("Ext.draw.sprite.Path", {
             size = 2,
             i,
             j;
-        mat.toContext(ctx);
+        mat.toContext( ctx );
         ctx.beginPath();
-        for (i = 0, j = 0; i < ln; i++) {
-            switch (commands[i]) {
-                case "M":
-                    ctx.moveTo(params[j] - size, params[j + 1] - size);
-                    ctx.rect(params[j] - size, params[j + 1] - size, size * 2, size * 2);
-                    j += 2;
-                    break;
-                case "L":
-                    ctx.moveTo(params[j] - size, params[j + 1] - size);
-                    ctx.rect(params[j] - size, params[j + 1] - size, size * 2, size * 2);
-                    j += 2;
-                    break;
-                case "C":
-                    ctx.moveTo(params[j] + size, params[j + 1]);
-                    ctx.arc(params[j], params[j + 1], size, 0, twoPi, true);
-                    j += 2;
-                    ctx.moveTo(params[j] + size, params[j + 1]);
-                    ctx.arc(params[j], params[j + 1], size, 0, twoPi, true);
-                    j += 2;
-                    ctx.moveTo(params[j] + size * 2, params[j + 1]);
-                    ctx.rect(params[j] - size, params[j + 1] - size, size * 2, size * 2);
-                    j += 2;
-                    break;
-                default:
+        for ( i = 0, j = 0; i < ln; i++ ) {
+            switch ( commands[ i ] ) {
+            case "M":
+                ctx.moveTo( params[ j ] - size, params[ j + 1 ] - size );
+                ctx.rect( params[ j ] - size, params[ j + 1 ] - size, size * 2, size * 2 );
+                j += 2;
+                break;
+            case "L":
+                ctx.moveTo( params[ j ] - size, params[ j + 1 ] - size );
+                ctx.rect( params[ j ] - size, params[ j + 1 ] - size, size * 2, size * 2 );
+                j += 2;
+                break;
+            case "C":
+                ctx.moveTo( params[ j ] + size, params[ j + 1 ] );
+                ctx.arc( params[ j ], params[ j + 1 ], size, 0, twoPi, true );
+                j += 2;
+                ctx.moveTo( params[ j ] + size, params[ j + 1 ] );
+                ctx.arc( params[ j ], params[ j + 1 ], size, 0, twoPi, true );
+                j += 2;
+                ctx.moveTo( params[ j ] + size * 2, params[ j + 1 ] );
+                ctx.rect( params[ j ] - size, params[ j + 1 ] - size, size * 2, size * 2 );
+                j += 2;
+                break;
+            default:
             }
         }
-        imat.toContext(ctx);
+        imat.toContext( ctx );
         ctx.strokeStyle = "black";
         ctx.strokeOpacity = 1;
         ctx.lineWidth = 1;
         ctx.stroke();
-        mat.toContext(ctx);
+        mat.toContext( ctx );
         ctx.beginPath();
-        for (i = 0, j = 0; i < ln; i++) {
-            switch (commands[i]) {
-                case "M":
-                    ctx.moveTo(params[j], params[j + 1]);
-                    j += 2;
-                    break;
-                case "L":
-                    ctx.moveTo(params[j], params[j + 1]);
-                    j += 2;
-                    break;
-                case "C":
-                    ctx.lineTo(params[j], params[j + 1]);
-                    j += 2;
-                    ctx.moveTo(params[j], params[j + 1]);
-                    j += 2;
-                    ctx.lineTo(params[j], params[j + 1]);
-                    j += 2;
-                    break;
-                default:
+        for ( i = 0, j = 0; i < ln; i++ ) {
+            switch ( commands[ i ] ) {
+            case "M":
+                ctx.moveTo( params[ j ], params[ j + 1 ] );
+                j += 2;
+                break;
+            case "L":
+                ctx.moveTo( params[ j ], params[ j + 1 ] );
+                j += 2;
+                break;
+            case "C":
+                ctx.lineTo( params[ j ], params[ j + 1 ] );
+                j += 2;
+                ctx.moveTo( params[ j ], params[ j + 1 ] );
+                j += 2;
+                ctx.lineTo( params[ j ], params[ j + 1 ] );
+                j += 2;
+                break;
+            default:
             }
         }
-        imat.toContext(ctx);
+        imat.toContext( ctx );
         ctx.lineWidth = 0.5;
         ctx.stroke();
     },
+
     /**
      * Update the path.
      * @param {Ext.draw.Path} path An empty path to draw on using path API.
      * @param {Object} attr The attribute object. Note: DO NOT use the `sprite.attr` instead of this
      * if you want to work with instancing.
      */
-    updatePath: function (path, attr) {},
-});
+    "updatePath": function ( path, attr ) {},
+} );
 
 /**
  * @private
  * Adds hit testing methods to the Ext.draw.sprite.Path sprite.
  * Included by the Ext.draw.PathUtil.
  */
-Ext.define("Ext.draw.overrides.hittest.sprite.Path", {
-    override: "Ext.draw.sprite.Path",
+Ext.define( "Ext.draw.overrides.hittest.sprite.Path", {
+    "override": "Ext.draw.sprite.Path",
+
     /**
      * Tests whether the given point is inside the path.
      * @param x
@@ -6475,27 +6868,28 @@ Ext.define("Ext.draw.overrides.hittest.sprite.Path", {
      * @return {Boolean}
      * @member Ext.draw.sprite.Path
      */
-    isPointInPath: function (x, y) {
+    "isPointInPath": function ( x, y ) {
         var attr = this.attr,
             path,
             matrix,
             params,
             result;
-        if (attr.fillStyle === Ext.util.Color.RGBA_NONE) {
-            return this.isPointOnPath(x, y);
+        if ( attr.fillStyle === Ext.util.Color.RGBA_NONE ) {
+            return this.isPointOnPath( x, y );
         }
         path = attr.path;
         matrix = attr.matrix;
-        if (!matrix.isIdentity()) {
-            params = path.params.slice(0);
-            path.transform(attr.matrix);
+        if ( !matrix.isIdentity() ) {
+            params = path.params.slice( 0 );
+            path.transform( attr.matrix );
         }
-        result = path.isPointInPath(x, y);
-        if (params) {
+        result = path.isPointInPath( x, y );
+        if ( params ) {
             path.params = params;
         }
         return result;
     },
+
     /**
      * Tests whether the given point is on the path.
      * @param x
@@ -6503,79 +6897,85 @@ Ext.define("Ext.draw.overrides.hittest.sprite.Path", {
      * @return {Boolean}
      * @member Ext.draw.sprite.Path
      */
-    isPointOnPath: function (x, y) {
+    "isPointOnPath": function ( x, y ) {
         var attr = this.attr,
             path = attr.path,
             matrix = attr.matrix,
             params,
             result;
-        if (!matrix.isIdentity()) {
-            params = path.params.slice(0);
-            path.transform(attr.matrix);
+        if ( !matrix.isIdentity() ) {
+            params = path.params.slice( 0 );
+            path.transform( attr.matrix );
         }
-        result = path.isPointOnPath(x, y);
-        if (params) {
+        result = path.isPointOnPath( x, y );
+        if ( params ) {
             path.params = params;
         }
         return result;
     },
+
     /**
      * @method hitTest
      * @inheritdoc Ext.draw.Surface#method-hitTest
      */
-    hitTest: function (point, options) {
+    "hitTest": function ( point, options ) {
         var me = this,
             attr = me.attr,
             path = attr.path,
             matrix = attr.matrix,
-            x = point[0],
-            y = point[1],
-            parentResult = me.callParent([point, options]),
+            x = point[ 0 ],
+            y = point[ 1 ],
+            parentResult = me.callParent( [ point, options ] ),
             result = null,
             params,
             isFilled;
-        if (!parentResult) {
+        if ( !parentResult ) {
+
             // The sprite is not visible or bounding box wasn't hit.
             return result;
         }
         options = options || Ext.draw.sprite.Sprite.defaultHitTestOptions;
-        if (!matrix.isIdentity()) {
-            params = path.params.slice(0);
-            path.transform(attr.matrix);
+        if ( !matrix.isIdentity() ) {
+            params = path.params.slice( 0 );
+            path.transform( attr.matrix );
         }
-        if (options.fill && options.stroke) {
+        if ( options.fill && options.stroke ) {
             isFilled = attr.fillStyle !== Ext.util.Color.NONE && attr.fillStyle !== Ext.util.Color.RGBA_NONE;
-            if (isFilled) {
-                if (path.isPointInPath(x, y)) {
+            if ( isFilled ) {
+                if ( path.isPointInPath( x, y ) ) {
                     result = {
-                        sprite: me,
-                    };
-                }
-            } else {
-                if (path.isPointInPath(x, y) || path.isPointOnPath(x, y)) {
-                    result = {
-                        sprite: me,
+                        "sprite": me,
                     };
                 }
             }
-        } else if (options.stroke && !options.fill) {
-            if (path.isPointOnPath(x, y)) {
-                result = {
-                    sprite: me,
-                };
+            else {
+                if ( path.isPointInPath( x, y ) || path.isPointOnPath( x, y ) ) {
+                    result = {
+                        "sprite": me,
+                    };
+                }
             }
-        } else if (options.fill && !options.stroke) {
-            if (path.isPointInPath(x, y)) {
+        }
+        else if ( options.stroke && !options.fill ) {
+            if ( path.isPointOnPath( x, y ) ) {
                 result = {
-                    sprite: me,
+                    "sprite": me,
                 };
             }
         }
-        if (params) {
+        else if ( options.fill && !options.stroke ) {
+            if ( path.isPointInPath( x, y ) ) {
+                result = {
+                    "sprite": me,
+                };
+            }
+        }
+        if ( params ) {
             path.params = params;
         }
         return result;
     },
+
     /**
      * Returns all points where this sprite intersects the given sprite.
      * The given sprite must be an instance of the {@link Ext.draw.sprite.Path} class
@@ -6584,11 +6984,11 @@ Ext.define("Ext.draw.overrides.hittest.sprite.Path", {
      * @return {Array}
      * @member Ext.draw.sprite.Path
      */
-    getIntersections: function (path) {
-        if (!(path.isSprite && path.isPath)) {
+    "getIntersections": function ( path ) {
+        if ( !( path.isSprite && path.isPath ) ) {
             return [];
         }
-        // eslint-disable-next-line vars-on-top
+
         var aAttr = this.attr,
             bAttr = path.attr,
             aPath = aAttr.path,
@@ -6598,24 +6998,24 @@ Ext.define("Ext.draw.overrides.hittest.sprite.Path", {
             aParams,
             bParams,
             intersections;
-        if (!aMatrix.isIdentity()) {
-            aParams = aPath.params.slice(0);
-            aPath.transform(aAttr.matrix);
+        if ( !aMatrix.isIdentity() ) {
+            aParams = aPath.params.slice( 0 );
+            aPath.transform( aAttr.matrix );
         }
-        if (!bMatrix.isIdentity()) {
-            bParams = bPath.params.slice(0);
-            bPath.transform(bAttr.matrix);
+        if ( !bMatrix.isIdentity() ) {
+            bParams = bPath.params.slice( 0 );
+            bPath.transform( bAttr.matrix );
         }
-        intersections = aPath.getIntersections(bPath);
-        if (aParams) {
+        intersections = aPath.getIntersections( bPath );
+        if ( aParams ) {
             aPath.params = aParams;
         }
-        if (bParams) {
+        if ( bParams ) {
             bPath.params = bParams;
         }
         return intersections;
     },
-});
+} );
 
 /**
  * @class Ext.draw.sprite.Circle
@@ -6638,46 +7038,49 @@ Ext.define("Ext.draw.overrides.hittest.sprite.Path", {
  *        }]
  *     });
  */
-Ext.define("Ext.draw.sprite.Circle", {
-    extend: Ext.draw.sprite.Path,
-    alias: "sprite.circle",
-    type: "circle",
-    inheritableStatics: {
-        def: {
-            processors: {
+Ext.define( "Ext.draw.sprite.Circle", {
+    "extend": Ext.draw.sprite.Path,
+    "alias": "sprite.circle",
+    "type": "circle",
+    "inheritableStatics": {
+        "def": {
+            "processors": {
+
                 /**
                  * @cfg {Number} [cx=0] The center coordinate of the sprite on the x-axis.
                  */
-                cx: "number",
+                "cx": "number",
+
                 /**
                  * @cfg {Number} [cy=0] The center coordinate of the sprite on the y-axis.
                  */
-                cy: "number",
+                "cy": "number",
+
                 /**
                  * @cfg {Number} [r=0] The radius of the sprite.
                  */
-                r: "number",
+                "r": "number",
             },
-            aliases: {
-                radius: "r",
-                x: "cx",
-                y: "cy",
-                centerX: "cx",
-                centerY: "cy",
+            "aliases": {
+                "radius": "r",
+                "x": "cx",
+                "y": "cy",
+                "centerX": "cx",
+                "centerY": "cy",
             },
-            defaults: {
-                cx: 0,
-                cy: 0,
-                r: 4,
+            "defaults": {
+                "cx": 0,
+                "cy": 0,
+                "r": 4,
             },
-            triggers: {
-                cx: "path",
-                cy: "path",
-                r: "path",
+            "triggers": {
+                "cx": "path",
+                "cy": "path",
+                "r": "path",
             },
         },
     },
-    updatePlainBBox: function (plain) {
+    "updatePlainBBox": function ( plain ) {
         var attr = this.attr,
             cx = attr.cx,
             cy = attr.cy,
@@ -6687,7 +7090,7 @@ Ext.define("Ext.draw.sprite.Circle", {
         plain.width = r + r;
         plain.height = r + r;
     },
-    updateTransformedBBox: function (transform) {
+    "updateTransformedBBox": function ( transform ) {
         var attr = this.attr,
             cx = attr.cx,
             cy = attr.cy,
@@ -6699,15 +7102,15 @@ Ext.define("Ext.draw.sprite.Circle", {
             ry;
         rx = scaleX * r;
         ry = scaleY * r;
-        transform.x = matrix.x(cx, cy) - rx;
-        transform.y = matrix.y(cx, cy) - ry;
+        transform.x = matrix.x( cx, cy ) - rx;
+        transform.y = matrix.y( cx, cy ) - ry;
         transform.width = rx + rx;
         transform.height = ry + ry;
     },
-    updatePath: function (path, attr) {
-        path.arc(attr.cx, attr.cy, attr.r, 0, Math.PI * 2, false);
+    "updatePath": function ( path, attr ) {
+        path.arc( attr.cx, attr.cy, attr.r, 0, Math.PI * 2, false );
     },
-});
+} );
 
 /**
  * @class Ext.draw.sprite.Arc
@@ -6733,49 +7136,52 @@ Ext.define("Ext.draw.sprite.Circle", {
  *        }]
  *     });
  */
-Ext.define("Ext.draw.sprite.Arc", {
-    extend: Ext.draw.sprite.Circle,
-    alias: "sprite.arc",
-    type: "arc",
-    inheritableStatics: {
-        def: {
-            processors: {
+Ext.define( "Ext.draw.sprite.Arc", {
+    "extend": Ext.draw.sprite.Circle,
+    "alias": "sprite.arc",
+    "type": "arc",
+    "inheritableStatics": {
+        "def": {
+            "processors": {
+
                 /**
                  * @cfg {Number} [startAngle=0] The beginning angle of the arc.
                  */
-                startAngle: "number",
+                "startAngle": "number",
+
                 /**
                  * @cfg {Number} [endAngle=Math.PI*2] The ending angle of the arc.
                  */
-                endAngle: "number",
+                "endAngle": "number",
+
                 /**
                  * @cfg {Boolean} [anticlockwise=false] Determines whether or not the arc is drawn
                  * clockwise.
                  */
-                anticlockwise: "bool",
+                "anticlockwise": "bool",
             },
-            aliases: {
-                from: "startAngle",
-                to: "endAngle",
-                start: "startAngle",
-                end: "endAngle",
+            "aliases": {
+                "from": "startAngle",
+                "to": "endAngle",
+                "start": "startAngle",
+                "end": "endAngle",
             },
-            defaults: {
-                startAngle: 0,
-                endAngle: Math.PI * 2,
-                anticlockwise: false,
+            "defaults": {
+                "startAngle": 0,
+                "endAngle": Math.PI * 2,
+                "anticlockwise": false,
             },
-            triggers: {
-                startAngle: "path",
-                endAngle: "path",
-                anticlockwise: "path",
+            "triggers": {
+                "startAngle": "path",
+                "endAngle": "path",
+                "anticlockwise": "path",
             },
         },
     },
-    updatePath: function (path, attr) {
-        path.arc(attr.cx, attr.cy, attr.r, attr.startAngle, attr.endAngle, attr.anticlockwise);
+    "updatePath": function ( path, attr ) {
+        path.arc( attr.cx, attr.cy, attr.r, attr.startAngle, attr.endAngle, attr.anticlockwise );
     },
-});
+} );
 
 /**
  * A sprite that represents an arrow.
@@ -6795,39 +7201,40 @@ Ext.define("Ext.draw.sprite.Arc", {
  *        }]
  *     });
  */
-Ext.define("Ext.draw.sprite.Arrow", {
-    extend: Ext.draw.sprite.Path,
-    alias: "sprite.arrow",
-    inheritableStatics: {
-        def: {
-            processors: {
-                x: "number",
-                y: "number",
+Ext.define( "Ext.draw.sprite.Arrow", {
+    "extend": Ext.draw.sprite.Path,
+    "alias": "sprite.arrow",
+    "inheritableStatics": {
+        "def": {
+            "processors": {
+                "x": "number",
+                "y": "number",
+
                 /**
                  * @cfg {Number} [size=4] The size of the sprite.
                  * Meant to be comparable to the size of a circle sprite with the same radius.
                  */
-                size: "number",
+                "size": "number",
             },
-            defaults: {
-                x: 0,
-                y: 0,
-                size: 4,
+            "defaults": {
+                "x": 0,
+                "y": 0,
+                "size": 4,
             },
-            triggers: {
-                x: "path",
-                y: "path",
-                size: "path",
+            "triggers": {
+                "x": "path",
+                "y": "path",
+                "size": "path",
             },
         },
     },
-    updatePath: function (path, attr) {
+    "updatePath": function ( path, attr ) {
         var s = attr.size * 1.5,
             x = attr.x - attr.lineWidth / 2,
             y = attr.y;
-        path.fromSvgString("M".concat(x - s * 0.7, ",", y - s * 0.4, "l", [s * 0.6, 0, 0, -s * 0.4, s, s * 0.8, -s, s * 0.8, 0, -s * 0.4, -s * 0.6, 0], "z"));
+        path.fromSvgString( "M".concat( x - s * 0.7, ",", y - s * 0.4, "l", [ s * 0.6, 0, 0, -s * 0.4, s, s * 0.8, -s, s * 0.8, 0, -s * 0.4, -s * 0.6, 0 ], "z" ) );
     },
-});
+} );
 
 /**
  * @class Ext.draw.sprite.Composite
@@ -6839,118 +7246,125 @@ Ext.define("Ext.draw.sprite.Arrow", {
  * Every sprite that is added to the Composite is removed from whatever Surface/Composite
  * it belongs to.
  */
-Ext.define("Ext.draw.sprite.Composite", {
-    extend: Ext.draw.sprite.Sprite,
-    alias: "sprite.composite",
-    type: "composite",
-    isComposite: true,
-    config: {
-        sprites: [],
+Ext.define( "Ext.draw.sprite.Composite", {
+    "extend": Ext.draw.sprite.Sprite,
+    "alias": "sprite.composite",
+    "type": "composite",
+    "isComposite": true,
+    "config": {
+        "sprites": [],
     },
-    constructor: function (config) {
+    "constructor": function ( config ) {
         this.sprites = [];
         this.map = {};
-        this.callParent([config]);
+        this.callParent( [ config ] );
     },
+
     /**
      * Adds sprite(s) to the composite.
      * @param {Ext.draw.sprite.Sprite/Ext.draw.sprite.Sprite[]/Object/Object[]} sprite
      * @return {Ext.draw.sprite.Sprite/Ext.draw.sprite.Sprite[]}
      */
-    addSprite: function (sprite) {
+    "addSprite": function ( sprite ) {
         var i = 0,
             attr,
             results,
             oldTransformations;
-        if (Ext.isArray(sprite)) {
+        if ( Ext.isArray( sprite ) ) {
             results = [];
-            while (i < sprite.length) {
-                results.push(this.addSprite(sprite[i++]));
+            while ( i < sprite.length ) {
+                results.push( this.addSprite( sprite[ i++ ] ) );
             }
             return results;
         }
-        if (sprite && sprite.type && !sprite.isSprite) {
-            sprite = Ext.create("sprite." + sprite.type, sprite);
+        if ( sprite && sprite.type && !sprite.isSprite ) {
+            sprite = Ext.create( "sprite." + sprite.type, sprite );
         }
-        if (!sprite || !sprite.isSprite || sprite.isComposite) {
+        if ( !sprite || !sprite.isSprite || sprite.isComposite ) {
             return null;
         }
-        sprite.setSurface(null);
-        sprite.setParent(this);
+        sprite.setSurface( null );
+        sprite.setParent( this );
         attr = this.attr;
         oldTransformations = sprite.applyTransformations;
-        sprite.applyTransformations = function (force) {
-            if (sprite.attr.dirtyTransform) {
+        sprite.applyTransformations = function ( force ) {
+            if ( sprite.attr.dirtyTransform ) {
                 attr.dirtyTransform = true;
                 attr.bbox.plain.dirty = true;
                 attr.bbox.transform.dirty = true;
             }
-            oldTransformations.call(sprite, force);
+            oldTransformations.call( sprite, force );
         };
-        this.sprites.push(sprite);
-        this.map[sprite.id] = sprite.getId();
+        this.sprites.push( sprite );
+        this.map[ sprite.id ] = sprite.getId();
         attr.bbox.plain.dirty = true;
         attr.bbox.transform.dirty = true;
         return sprite;
     },
+
     /**
      * @deprecated 6.2.1 Use {@link #addSprite} instead.
      */
-    add: function (sprite) {
-        return this.addSprite(sprite);
+    "add": function ( sprite ) {
+        return this.addSprite( sprite );
     },
-    removeSprite: function (sprite, isDestroy) {
+    "removeSprite": function ( sprite, isDestroy ) {
         var me = this,
             id,
             isOwnSprite;
-        if (sprite) {
-            if (sprite.charAt) {
+        if ( sprite ) {
+            if ( sprite.charAt ) {
+
                 // is String
-                sprite = me.map[sprite];
+                sprite = me.map[ sprite ];
             }
-            if (!sprite || !sprite.isSprite) {
+            if ( !sprite || !sprite.isSprite ) {
                 return null;
             }
-            if (sprite.destroyed || sprite.destroying) {
+            if ( sprite.destroyed || sprite.destroying ) {
                 return sprite;
             }
             id = sprite.getId();
-            isOwnSprite = me.map[id];
-            delete me.map[id];
-            if (isDestroy) {
+            isOwnSprite = me.map[ id ];
+            delete me.map[ id ];
+            if ( isDestroy ) {
                 sprite.destroy();
             }
-            if (!isOwnSprite) {
+            if ( !isOwnSprite ) {
                 return sprite;
             }
-            sprite.setParent(null);
+            sprite.setParent( null );
+
             // sprite.setSurface(null);
-            Ext.Array.remove(me.sprites, sprite);
+            Ext.Array.remove( me.sprites, sprite );
             me.dirtyZIndex = true;
-            me.setDirty(true);
+            me.setDirty( true );
         }
         return sprite || null;
     },
+
     /**
      * @deprecated 6.2.1 Use {@link #addSprite} instead.
      * Adds a list of sprites to the composite.
      * @param {Ext.draw.sprite.Sprite[]|Object[]|Ext.draw.sprite.Sprite|Object} sprites
      */
-    addAll: function (sprites) {
+    "addAll": function ( sprites ) {
         var i = 0;
-        if (sprites.isSprite || sprites.type) {
-            this.add(sprites);
-        } else if (Ext.isArray(sprites)) {
-            while (i < sprites.length) {
-                this.add(sprites[i++]);
+        if ( sprites.isSprite || sprites.type ) {
+            this.add( sprites );
+        }
+        else if ( Ext.isArray( sprites ) ) {
+            while ( i < sprites.length ) {
+                this.add( sprites[ i++ ] );
             }
         }
     },
+
     /**
      * Updates the bounding box of the composite, which contains the bounding box of all sprites
      * in the composite.
      */
-    updatePlainBBox: function (plain) {
+    "updatePlainBBox": function ( plain ) {
         var me = this,
             left = Infinity,
             right = -Infinity,
@@ -6960,20 +7374,20 @@ Ext.define("Ext.draw.sprite.Composite", {
             bbox,
             i,
             ln;
-        for (i = 0, ln = me.sprites.length; i < ln; i++) {
-            sprite = me.sprites[i];
+        for ( i = 0, ln = me.sprites.length; i < ln; i++ ) {
+            sprite = me.sprites[ i ];
             sprite.applyTransformations();
             bbox = sprite.getBBox();
-            if (left > bbox.x) {
+            if ( left > bbox.x ) {
                 left = bbox.x;
             }
-            if (right < bbox.x + bbox.width) {
+            if ( right < bbox.x + bbox.width ) {
                 right = bbox.x + bbox.width;
             }
-            if (top > bbox.y) {
+            if ( top > bbox.y ) {
                 top = bbox.y;
             }
-            if (bottom < bbox.y + bbox.height) {
+            if ( bottom < bbox.y + bbox.height ) {
                 bottom = bbox.y + bbox.height;
             }
         }
@@ -6982,51 +7396,53 @@ Ext.define("Ext.draw.sprite.Composite", {
         plain.width = right - left;
         plain.height = bottom - top;
     },
-    isVisible: function () {
+    "isVisible": function () {
+
         // Override the abstract Sprite's method.
         // Composite uses a simpler check, because it has no fill or stroke
         // style of its own, it just houses other sprites.
         var attr = this.attr,
             parent = this.getParent(),
-            hasParent = parent && (parent.isSurface || parent.isVisible()),
+            hasParent = parent && ( parent.isSurface || parent.isVisible() ),
             isSeen = hasParent && !attr.hidden && attr.globalAlpha;
         return !!isSeen;
     },
+
     /**
      * Renders all sprites contained in the composite to the surface.
      */
-    render: function (surface, ctx, rect) {
+    "render": function ( surface, ctx, rect ) {
         var me = this,
             attr = me.attr,
             mat = me.attr.matrix,
             sprites = me.sprites,
             ln = sprites.length,
             i = 0;
-        mat.toContext(ctx);
-        for (; i < ln; i++) {
-            surface.renderSprite(sprites[i], rect);
+        mat.toContext( ctx );
+        for ( ; i < ln; i++ ) {
+            surface.renderSprite( sprites[ i ], rect );
         }
-        // eslint-disable-next-line vars-on-top
+
         var debug = attr.debug || me.statics().debug || Ext.draw.sprite.Sprite.debug;
-        if (debug) {
-            attr.inverseMatrix.toContext(ctx);
-            if (debug.bbox) {
-                me.renderBBox(surface, ctx);
+        if ( debug ) {
+            attr.inverseMatrix.toContext( ctx );
+            if ( debug.bbox ) {
+                me.renderBBox( surface, ctx );
             }
         }
     },
-    destroy: function () {
+    "destroy": function () {
         var me = this,
             sprites = me.sprites,
             ln = sprites.length,
             i;
-        for (i = 0; i < ln; i++) {
-            sprites[i].destroy();
+        for ( i = 0; i < ln; i++ ) {
+            sprites[ i ].destroy();
         }
         sprites.length = 0;
         me.callParent();
     },
-});
+} );
 
 /**
  * A sprite that represents a cross.
@@ -7046,39 +7462,40 @@ Ext.define("Ext.draw.sprite.Composite", {
  *        }]
  *     });
  */
-Ext.define("Ext.draw.sprite.Cross", {
-    extend: Ext.draw.sprite.Path,
-    alias: "sprite.cross",
-    inheritableStatics: {
-        def: {
-            processors: {
-                x: "number",
-                y: "number",
+Ext.define( "Ext.draw.sprite.Cross", {
+    "extend": Ext.draw.sprite.Path,
+    "alias": "sprite.cross",
+    "inheritableStatics": {
+        "def": {
+            "processors": {
+                "x": "number",
+                "y": "number",
+
                 /**
                  * @cfg {Number} [size=4] The size of the sprite.
                  * Meant to be comparable to the size of a circle sprite with the same radius.
                  */
-                size: "number",
+                "size": "number",
             },
-            defaults: {
-                x: 0,
-                y: 0,
-                size: 4,
+            "defaults": {
+                "x": 0,
+                "y": 0,
+                "size": 4,
             },
-            triggers: {
-                x: "path",
-                y: "path",
-                size: "path",
+            "triggers": {
+                "x": "path",
+                "y": "path",
+                "size": "path",
             },
         },
     },
-    updatePath: function (path, attr) {
+    "updatePath": function ( path, attr ) {
         var s = attr.size / 1.7,
             x = attr.x - attr.lineWidth / 2,
             y = attr.y;
-        path.fromSvgString("M".concat(x - s, ",", y, "l", [-s, -s, s, -s, s, s, s, -s, s, s, -s, s, s, s, -s, s, -s, -s, -s, s, -s, -s, "z"]));
+        path.fromSvgString( "M".concat( x - s, ",", y, "l", [ -s, -s, s, -s, s, s, s, -s, s, s, -s, s, s, s, -s, s, -s, -s, -s, s, -s, -s, "z" ] ) );
     },
-});
+} );
 
 /**
  * A sprite that represents a diamond.
@@ -7098,39 +7515,40 @@ Ext.define("Ext.draw.sprite.Cross", {
  *        }]
  *     });
  */
-Ext.define("Ext.draw.sprite.Diamond", {
-    extend: Ext.draw.sprite.Path,
-    alias: "sprite.diamond",
-    inheritableStatics: {
-        def: {
-            processors: {
-                x: "number",
-                y: "number",
+Ext.define( "Ext.draw.sprite.Diamond", {
+    "extend": Ext.draw.sprite.Path,
+    "alias": "sprite.diamond",
+    "inheritableStatics": {
+        "def": {
+            "processors": {
+                "x": "number",
+                "y": "number",
+
                 /**
                  * @cfg {Number} [size=4] The size of the sprite.
                  * Meant to be comparable to the size of a circle sprite with the same radius.
                  */
-                size: "number",
+                "size": "number",
             },
-            defaults: {
-                x: 0,
-                y: 0,
-                size: 4,
+            "defaults": {
+                "x": 0,
+                "y": 0,
+                "size": 4,
             },
-            triggers: {
-                x: "path",
-                y: "path",
-                size: "path",
+            "triggers": {
+                "x": "path",
+                "y": "path",
+                "size": "path",
             },
         },
     },
-    updatePath: function (path, attr) {
+    "updatePath": function ( path, attr ) {
         var s = attr.size * 1.25,
             x = attr.x - attr.lineWidth / 2,
             y = attr.y;
-        path.fromSvgString(["M", x, y - s, "l", s, s, -s, s, -s, -s, s, -s, "z"]);
+        path.fromSvgString( [ "M", x, y - s, "l", s, s, -s, s, -s, -s, s, -s, "z" ] );
     },
-});
+} );
 
 /**
  * @class Ext.draw.sprite.Ellipse
@@ -7154,60 +7572,65 @@ Ext.define("Ext.draw.sprite.Diamond", {
  *        }]
  *     });
  */
-Ext.define("Ext.draw.sprite.Ellipse", {
-    extend: Ext.draw.sprite.Path,
-    alias: "sprite.ellipse",
-    type: "ellipse",
-    inheritableStatics: {
-        def: {
-            processors: {
+Ext.define( "Ext.draw.sprite.Ellipse", {
+    "extend": Ext.draw.sprite.Path,
+    "alias": "sprite.ellipse",
+    "type": "ellipse",
+    "inheritableStatics": {
+        "def": {
+            "processors": {
+
                 /**
                  * @cfg {Number} [cx=0] The center coordinate of the sprite on the x-axis.
                  */
-                cx: "number",
+                "cx": "number",
+
                 /**
                  * @cfg {Number} [cy=0] The center coordinate of the sprite on the y-axis.
                  */
-                cy: "number",
+                "cy": "number",
+
                 /**
                  * @cfg {Number} [rx=1] The radius of the sprite on the x-axis.
                  */
-                rx: "number",
+                "rx": "number",
+
                 /**
                  * @cfg {Number} [ry=1] The radius of the sprite on the y-axis.
                  */
-                ry: "number",
+                "ry": "number",
+
                 /**
                  * @cfg {Number} [axisRotation=0] The rotation of the sprite about its axis.
                  */
-                axisRotation: "number",
+                "axisRotation": "number",
             },
-            aliases: {
-                radius: "r",
-                x: "cx",
-                y: "cy",
-                centerX: "cx",
-                centerY: "cy",
-                radiusX: "rx",
-                radiusY: "ry",
+            "aliases": {
+                "radius": "r",
+                "x": "cx",
+                "y": "cy",
+                "centerX": "cx",
+                "centerY": "cy",
+                "radiusX": "rx",
+                "radiusY": "ry",
             },
-            defaults: {
-                cx: 0,
-                cy: 0,
-                rx: 1,
-                ry: 1,
-                axisRotation: 0,
+            "defaults": {
+                "cx": 0,
+                "cy": 0,
+                "rx": 1,
+                "ry": 1,
+                "axisRotation": 0,
             },
-            triggers: {
-                cx: "path",
-                cy: "path",
-                rx: "path",
-                ry: "path",
-                axisRotation: "path",
+            "triggers": {
+                "cx": "path",
+                "cy": "path",
+                "rx": "path",
+                "ry": "path",
+                "axisRotation": "path",
             },
         },
     },
-    updatePlainBBox: function (plain) {
+    "updatePlainBBox": function ( plain ) {
         var attr = this.attr,
             cx = attr.cx,
             cy = attr.cy,
@@ -7218,7 +7641,7 @@ Ext.define("Ext.draw.sprite.Ellipse", {
         plain.width = rx + rx;
         plain.height = ry + ry;
     },
-    updateTransformedBBox: function (transform) {
+    "updateTransformedBBox": function ( transform ) {
         var attr = this.attr,
             cx = attr.cx,
             cy = attr.cy,
@@ -7234,24 +7657,24 @@ Ext.define("Ext.draw.sprite.Ellipse", {
             dy,
             w,
             h;
-        matrix.append(1, 0, 0, rxy, 0, cy * (1 - rxy));
+        matrix.append( 1, 0, 0, rxy, 0, cy * ( 1 - rxy ) );
         xx = matrix.getXX();
         yx = matrix.getYX();
         dx = matrix.getDX();
         xy = matrix.getXY();
         yy = matrix.getYY();
         dy = matrix.getDY();
-        w = Math.sqrt(xx * xx + yx * yx) * rx;
-        h = Math.sqrt(xy * xy + yy * yy) * rx;
+        w = Math.hypot( xx, yx ) * rx;
+        h = Math.hypot( xy, yy ) * rx;
         transform.x = cx * xx + cy * yx + dx - w;
         transform.y = cx * xy + cy * yy + dy - h;
         transform.width = w + w;
         transform.height = h + h;
     },
-    updatePath: function (path, attr) {
-        path.ellipse(attr.cx, attr.cy, attr.rx, attr.ry, attr.axisRotation, 0, Math.PI * 2, false);
+    "updatePath": function ( path, attr ) {
+        path.ellipse( attr.cx, attr.cy, attr.rx, attr.ry, attr.axisRotation, 0, Math.PI * 2, false );
     },
-});
+} );
 
 /**
  * @class Ext.draw.sprite.EllipticalArc
@@ -7278,49 +7701,52 @@ Ext.define("Ext.draw.sprite.Ellipse", {
  *        }]
  *     });
  */
-Ext.define("Ext.draw.sprite.EllipticalArc", {
-    extend: Ext.draw.sprite.Ellipse,
-    alias: "sprite.ellipticalArc",
-    type: "ellipticalArc",
-    inheritableStatics: {
-        def: {
-            processors: {
+Ext.define( "Ext.draw.sprite.EllipticalArc", {
+    "extend": Ext.draw.sprite.Ellipse,
+    "alias": "sprite.ellipticalArc",
+    "type": "ellipticalArc",
+    "inheritableStatics": {
+        "def": {
+            "processors": {
+
                 /**
                  * @cfg {Number} [startAngle=0] The beginning angle of the arc.
                  */
-                startAngle: "number",
+                "startAngle": "number",
+
                 /**
                  * @cfg {Number} [endAngle=Math.PI*2] The ending angle of the arc.
                  */
-                endAngle: "number",
+                "endAngle": "number",
+
                 /**
                  * @cfg {Boolean} [anticlockwise=false] Determines whether or not the arc
                  * is drawn clockwise.
                  */
-                anticlockwise: "bool",
+                "anticlockwise": "bool",
             },
-            aliases: {
-                from: "startAngle",
-                to: "endAngle",
-                start: "startAngle",
-                end: "endAngle",
+            "aliases": {
+                "from": "startAngle",
+                "to": "endAngle",
+                "start": "startAngle",
+                "end": "endAngle",
             },
-            defaults: {
-                startAngle: 0,
-                endAngle: Math.PI * 2,
-                anticlockwise: false,
+            "defaults": {
+                "startAngle": 0,
+                "endAngle": Math.PI * 2,
+                "anticlockwise": false,
             },
-            triggers: {
-                startAngle: "path",
-                endAngle: "path",
-                anticlockwise: "path",
+            "triggers": {
+                "startAngle": "path",
+                "endAngle": "path",
+                "anticlockwise": "path",
             },
         },
     },
-    updatePath: function (path, attr) {
-        path.ellipse(attr.cx, attr.cy, attr.rx, attr.ry, attr.axisRotation, attr.startAngle, attr.endAngle, attr.anticlockwise);
+    "updatePath": function ( path, attr ) {
+        path.ellipse( attr.cx, attr.cy, attr.rx, attr.ry, attr.axisRotation, attr.startAngle, attr.endAngle, attr.anticlockwise );
     },
-});
+} );
 
 /**
  * @class Ext.draw.sprite.Rect
@@ -7344,79 +7770,85 @@ Ext.define("Ext.draw.sprite.EllipticalArc", {
  *        }]
  *     });
  */
-Ext.define("Ext.draw.sprite.Rect", {
-    extend: Ext.draw.sprite.Path,
-    alias: "sprite.rect",
-    type: "rect",
-    inheritableStatics: {
-        def: {
-            processors: {
+Ext.define( "Ext.draw.sprite.Rect", {
+    "extend": Ext.draw.sprite.Path,
+    "alias": "sprite.rect",
+    "type": "rect",
+    "inheritableStatics": {
+        "def": {
+            "processors": {
+
                 /**
                  * @cfg {Number} [x=0] The position of the sprite on the x-axis.
                  */
-                x: "number",
+                "x": "number",
+
                 /**
                  * @cfg {Number} [y=0] The position of the sprite on the y-axis.
                  */
-                y: "number",
+                "y": "number",
+
                 /**
                  * @cfg {Number} [width=8] The width of the sprite.
                  */
-                width: "number",
+                "width": "number",
+
                 /**
                  * @cfg {Number} [height=8] The height of the sprite.
                  */
-                height: "number",
+                "height": "number",
+
                 /**
                  * @cfg {Number} [radius=0] The radius of the rounded corners.
                  */
-                radius: "number",
+                "radius": "number",
             },
-            aliases: {},
-            triggers: {
-                x: "path",
-                y: "path",
-                width: "path",
-                height: "path",
-                radius: "path",
+            "aliases": {},
+            "triggers": {
+                "x": "path",
+                "y": "path",
+                "width": "path",
+                "height": "path",
+                "radius": "path",
             },
-            defaults: {
-                x: 0,
-                y: 0,
-                width: 8,
-                height: 8,
-                radius: 0,
+            "defaults": {
+                "x": 0,
+                "y": 0,
+                "width": 8,
+                "height": 8,
+                "radius": 0,
             },
         },
     },
-    updatePlainBBox: function (plain) {
+    "updatePlainBBox": function ( plain ) {
         var attr = this.attr;
         plain.x = attr.x;
         plain.y = attr.y;
         plain.width = attr.width;
         plain.height = attr.height;
     },
-    updateTransformedBBox: function (transform, plain) {
-        this.attr.matrix.transformBBox(plain, this.attr.radius, transform);
+    "updateTransformedBBox": function ( transform, plain ) {
+        this.attr.matrix.transformBBox( plain, this.attr.radius, transform );
     },
-    updatePath: function (path, attr) {
+    "updatePath": function ( path, attr ) {
         var x = attr.x,
             y = attr.y,
             width = attr.width,
             height = attr.height,
-            radius = Math.min(attr.radius, Math.abs(height) * 0.5, Math.abs(width) * 0.5);
-        if (radius === 0) {
-            path.rect(x, y, width, height);
-        } else {
-            path.moveTo(x + radius, y);
-            path.arcTo(x + width, y, x + width, y + height, radius);
-            path.arcTo(x + width, y + height, x, y + height, radius);
-            path.arcTo(x, y + height, x, y, radius);
-            path.arcTo(x, y, x + radius, y, radius);
+            radius = Math.min( attr.radius, Math.abs( height ) * 0.5, Math.abs( width ) * 0.5 );
+        if ( radius === 0 ) {
+            path.rect( x, y, width, height );
+        }
+        else {
+            path.moveTo( x + radius, y );
+            path.arcTo( x + width, y, x + width, y + height, radius );
+            path.arcTo( x + width, y + height, x, y + height, radius );
+            path.arcTo( x, y + height, x, y, radius );
+            path.arcTo( x, y, x + radius, y, radius );
             path.closePath();
         }
     },
-});
+} );
 
 /**
  * @class Ext.draw.sprite.Image
@@ -7424,103 +7856,109 @@ Ext.define("Ext.draw.sprite.Rect", {
  *
  * A sprite that represents an image.
  */
-Ext.define("Ext.draw.sprite.Image", {
-    extend: Ext.draw.sprite.Rect,
-    alias: "sprite.image",
-    type: "image",
-    statics: {
-        imageLoaders: {},
+Ext.define( "Ext.draw.sprite.Image", {
+    "extend": Ext.draw.sprite.Rect,
+    "alias": "sprite.image",
+    "type": "image",
+    "statics": {
+        "imageLoaders": {},
     },
-    inheritableStatics: {
-        def: {
-            processors: {
+    "inheritableStatics": {
+        "def": {
+            "processors": {
+
                 /**
                  * @cfg {String} [src=''] The image source of the sprite.
                  */
-                src: "string",
+                "src": "string",
             },
+
             /**
              * @private
              * @cfg {Number} radius
              */
-            triggers: {
-                src: "src",
+            "triggers": {
+                "src": "src",
             },
-            updaters: {
-                src: "updateSource",
+            "updaters": {
+                "src": "updateSource",
             },
-            defaults: {
-                src: "",
+            "defaults": {
+                "src": "",
+
                 /**
                  * @cfg {Number} [width=null] The width of the image.
                  * For consistent image size on all devices the width must be explicitly set.
                  * Otherwise the natural image width devided by the device pixel ratio
                  * (for a crisp looking image) will be used as the width of the sprite.
                  */
-                width: null,
+                "width": null,
+
                 /**
                  * @cfg {Number} [height=null] The height of the image.
                  * For consistent image size on all devices the height must be explicitly set.
                  * Otherwise the natural image height devided by the device pixel ratio
                  * (for a crisp looking image) will be used as the height of the sprite.
                  */
-                height: null,
+                "height": null,
             },
         },
     },
-    updateSurface: function (surface) {
-        if (surface) {
-            this.updateSource(this.attr);
+    "updateSurface": function ( surface ) {
+        if ( surface ) {
+            this.updateSource( this.attr );
         }
     },
-    updateSource: function (attr) {
+    "updateSource": function ( attr ) {
         var me = this,
             src = attr.src,
             surface = me.getSurface(),
-            loadingStub = Ext.draw.sprite.Image.imageLoaders[src],
+            loadingStub = Ext.draw.sprite.Image.imageLoaders[ src ],
             width = attr.width,
             height = attr.height,
             imageLoader,
             i;
-        if (!surface) {
+        if ( !surface ) {
+
             // First time this is called the sprite won't have a surface yet.
             return;
         }
-        if (!loadingStub) {
+        if ( !loadingStub ) {
             imageLoader = new Image();
-            loadingStub = Ext.draw.sprite.Image.imageLoaders[src] = {
-                image: imageLoader,
-                done: false,
-                pendingSprites: [me],
-                pendingSurfaces: [surface],
+            loadingStub = Ext.draw.sprite.Image.imageLoaders[ src ] = {
+                "image": imageLoader,
+                "done": false,
+                "pendingSprites": [ me ],
+                "pendingSurfaces": [ surface ],
             };
             imageLoader.width = width;
             imageLoader.height = height;
             imageLoader.onload = function () {
                 var item;
-                if (!loadingStub.done) {
+                if ( !loadingStub.done ) {
                     loadingStub.done = true;
-                    for (i = 0; i < loadingStub.pendingSprites.length; i++) {
-                        item = loadingStub.pendingSprites[i];
-                        if (!item.destroyed) {
-                            item.setDirty(true);
+                    for ( i = 0; i < loadingStub.pendingSprites.length; i++ ) {
+                        item = loadingStub.pendingSprites[ i ];
+                        if ( !item.destroyed ) {
+                            item.setDirty( true );
                         }
                     }
-                    for (i = 0; i < loadingStub.pendingSurfaces.length; i++) {
-                        item = loadingStub.pendingSurfaces[i];
-                        if (!item.destroyed) {
+                    for ( i = 0; i < loadingStub.pendingSurfaces.length; i++ ) {
+                        item = loadingStub.pendingSurfaces[ i ];
+                        if ( !item.destroyed ) {
                             item.renderFrame();
                         }
                     }
                 }
             };
             imageLoader.src = src;
-        } else {
-            Ext.Array.include(loadingStub.pendingSprites, me);
-            Ext.Array.include(loadingStub.pendingSurfaces, surface);
+        }
+        else {
+            Ext.Array.include( loadingStub.pendingSprites, me );
+            Ext.Array.include( loadingStub.pendingSurfaces, surface );
         }
     },
-    render: function (surface, ctx) {
+    "render": function ( surface, ctx ) {
         var me = this,
             attr = me.attr,
             mat = attr.matrix,
@@ -7529,30 +7967,31 @@ Ext.define("Ext.draw.sprite.Image", {
             y = attr.y,
             width = attr.width,
             height = attr.height,
-            loadingStub = Ext.draw.sprite.Image.imageLoaders[src],
+            loadingStub = Ext.draw.sprite.Image.imageLoaders[ src ],
             image;
-        if (loadingStub && loadingStub.done) {
-            mat.toContext(ctx);
+        if ( loadingStub && loadingStub.done ) {
+            mat.toContext( ctx );
             image = loadingStub.image;
-            ctx.drawImage(image, x, y, width || (image.naturalWidth || image.width) / surface.devicePixelRatio, height || (image.naturalHeight || image.height) / surface.devicePixelRatio);
+            ctx.drawImage( image, x, y, width || ( image.naturalWidth || image.width ) / surface.devicePixelRatio, height || ( image.naturalHeight || image.height ) / surface.devicePixelRatio );
         }
-        // eslint-disable-next-line vars-on-top
+
         var debug = attr.debug || this.statics().debug || Ext.draw.sprite.Sprite.debug;
-        if (debug && debug.bbox) {
-            this.renderBBox(surface, ctx);
+        if ( debug && debug.bbox ) {
+            this.renderBBox( surface, ctx );
         }
     },
+
     /**
      * @private
      */
-    isVisible: function () {
+    "isVisible": function () {
         var attr = this.attr,
             parent = this.getParent(),
-            hasParent = parent && (parent.isSurface || parent.isVisible()),
+            hasParent = parent && ( parent.isSurface || parent.isVisible() ),
             isSeen = hasParent && !attr.hidden && attr.globalAlpha;
         return !!isSeen;
     },
-});
+} );
 
 /**
  * @class Ext.draw.sprite.Instancing
@@ -7560,89 +7999,96 @@ Ext.define("Ext.draw.sprite.Image", {
  *
  * Sprite that represents multiple instances based on the given template.
  */
-Ext.define("Ext.draw.sprite.Instancing", {
-    extend: Ext.draw.sprite.Sprite,
-    alias: "sprite.instancing",
-    type: "instancing",
-    isInstancing: true,
-    config: {
+Ext.define( "Ext.draw.sprite.Instancing", {
+    "extend": Ext.draw.sprite.Sprite,
+    "alias": "sprite.instancing",
+    "type": "instancing",
+    "isInstancing": true,
+    "config": {
+
         /**
          * @cfg {Object} [template] The sprite template used by all instances.
          */
-        template: null,
+        "template": null,
+
         /**
          * @cfg {Array} [instances]
          * The instances of the {@link #template} sprite as configs of attributes.
          */
-        instances: null,
+        "instances": null,
     },
-    instances: null,
-    applyTemplate: function (template) {
+    "instances": null,
+    "applyTemplate": function ( template ) {
         var surface;
-        if (!Ext.isObject(template)) {
-            Ext.raise("A template of an instancing sprite must either be " + "a sprite instance or a valid config object from which a template " + "sprite will be created.");
-        } else if (template.isInstancing || template.isComposite) {
-            Ext.raise("Can't use an instancing or composite sprite " + "as a template for an instancing sprite.");
+        if ( !Ext.isObject( template ) ) {
+            Ext.raise( "A template of an instancing sprite must either be " + "a sprite instance or a valid config object from which a template " + "sprite will be created." );
         }
-        if (!template.isSprite) {
-            if (!template.xclass && !template.type) {
+        else if ( template.isInstancing || template.isComposite ) {
+            Ext.raise( "Can't use an instancing or composite sprite " + "as a template for an instancing sprite." );
+        }
+        if ( !template.isSprite ) {
+            if ( !template.xclass && !template.type ) {
+
                 // For compatibility with legacy charts.
                 template.type = "circle";
             }
-            template = Ext.create(template.xclass || "sprite." + template.type, template);
+            template = Ext.create( template.xclass || "sprite." + template.type, template );
         }
         surface = template.getSurface();
-        if (surface) {
-            surface.remove(template);
+        if ( surface ) {
+            surface.remove( template );
         }
-        template.setParent(this);
+        template.setParent( this );
         return template;
     },
-    updateTemplate: function (template, oldTemplate) {
-        if (oldTemplate) {
+    "updateTemplate": function ( template, oldTemplate ) {
+        if ( oldTemplate ) {
             delete oldTemplate.ownAttr;
         }
-        template.setSurface(this.getSurface());
+        template.setSurface( this.getSurface() );
+
         // ownAttr is used to get a reference to the template's attributes
         // when one of the instances is rendering, as at that moment the template's
         // attributes (template.attr) are the instance's attributes.
         template.ownAttr = template.attr;
         this.clearAll();
-        this.setDirty(true);
+        this.setDirty( true );
     },
-    updateInstances: function (instances) {
+    "updateInstances": function ( instances ) {
         var i, ln;
         this.clearAll();
-        if (Ext.isArray(instances)) {
-            for (i = 0, ln = instances.length; i < ln; i++) {
-                this.add(instances[i]);
+        if ( Ext.isArray( instances ) ) {
+            for ( i = 0, ln = instances.length; i < ln; i++ ) {
+                this.add( instances[ i ] );
             }
         }
     },
-    updateSurface: function (surface) {
+    "updateSurface": function ( surface ) {
         var template = this.getTemplate();
-        if (template && !template.destroyed) {
-            template.setSurface(surface);
+        if ( template && !template.destroyed ) {
+            template.setSurface( surface );
         }
     },
-    get: function (index) {
-        return this.instances[index];
+    "get": function ( index ) {
+        return this.instances[ index ];
     },
-    getCount: function () {
+    "getCount": function () {
         return this.instances.length;
     },
-    clearAll: function () {
+    "clearAll": function () {
         var template = this.getTemplate();
         template.attr.children = this.instances = [];
         this.position = 0;
     },
+
     /**
      * @deprecated 6.2.0
      * Deprecated, use the {@link #add} method instead.
      */
-    createInstance: function (config, bypassNormalization, avoidCopy) {
-        return this.add(config, bypassNormalization, avoidCopy);
+    "createInstance": function ( config, bypassNormalization, avoidCopy ) {
+        return this.add( config, bypassNormalization, avoidCopy );
     },
+
     /**
      * Creates a new sprite instance.
      *
@@ -7651,28 +8097,30 @@ Ext.define("Ext.draw.sprite.Instancing", {
      * @param {Boolean} [avoidCopy] 'true' to avoid copying the `config` object.
      * @return {Object} The attributes of the instance.
      */
-    add: function (config, bypassNormalization, avoidCopy) {
+    "add": function ( config, bypassNormalization, avoidCopy ) {
         var me = this,
             template = me.getTemplate(),
             originalAttr = template.attr,
-            attr = Ext.Object.chain(originalAttr);
-        template.modifiers.target.prepareAttributes(attr);
+            attr = Ext.Object.chain( originalAttr );
+        template.modifiers.target.prepareAttributes( attr );
         template.attr = attr;
-        template.setAttributes(config, bypassNormalization, avoidCopy);
+        template.setAttributes( config, bypassNormalization, avoidCopy );
         attr.template = template;
-        me.instances.push(attr);
+        me.instances.push( attr );
         template.attr = originalAttr;
         me.position++;
         return attr;
     },
+
     /**
      * Not supported.
      *
      * @return {null}
      */
-    getBBox: function () {
+    "getBBox": function () {
         return null;
     },
+
     /**
      * Returns the bounding box for the instance at the given index.
      *
@@ -7681,53 +8129,56 @@ Ext.define("Ext.draw.sprite.Instancing", {
      * to the bounding box.
      * @return {Object} The bounding box for the instance.
      */
-    getBBoxFor: function (index, isWithoutTransform) {
+    "getBBoxFor": function ( index, isWithoutTransform ) {
         var template = this.getTemplate(),
             originalAttr = template.attr,
             bbox;
-        template.attr = this.instances[index];
-        bbox = template.getBBox(isWithoutTransform);
+        template.attr = this.instances[ index ];
+        bbox = template.getBBox( isWithoutTransform );
         template.attr = originalAttr;
         return bbox;
     },
+
     /**
      * @private
      * Checks if the instancing sprite can be seen.
      * @return {Boolean}
      */
-    isVisible: function () {
+    "isVisible": function () {
         var attr = this.attr,
             parent = this.getParent(),
             result;
         result = parent && parent.isSurface && !attr.hidden && attr.globalAlpha;
         return !!result;
     },
+
     /**
      * @private
      * Checks if the instance of an instancing sprite can be seen.
      * @param {Number} index The index of the instance.
      */
-    isInstanceVisible: function (index) {
+    "isInstanceVisible": function ( index ) {
         var me = this,
             template = me.getTemplate(),
             originalAttr = template.attr,
             instances = me.instances,
             result = false;
-        if (!Ext.isNumber(index) || index < 0 || index >= instances.length || !me.isVisible()) {
+        if ( !Ext.isNumber( index ) || index < 0 || index >= instances.length || !me.isVisible() ) {
             return result;
         }
-        template.attr = instances[index];
+        template.attr = instances[ index ];
+
         // TODO This is clearly a bug, fix it
         // eslint-disable-next-line no-undef
-        result = template.isVisible(point, options);
+        result = template.isVisible( point, options );
         template.attr = originalAttr;
         return result;
     },
-    render: function (surface, ctx, rect) {
-        if (!this.getTemplate()) {
-            Ext.raise("An instancing sprite must have a template.");
+    "render": function ( surface, ctx, rect ) {
+        if ( !this.getTemplate() ) {
+            Ext.raise( "An instancing sprite must have a template." );
         }
-        // eslint-disable-next-line vars-on-top
+
         var me = this,
             template = me.getTemplate(),
             surfaceRect = surface.getRect(),
@@ -7736,23 +8187,24 @@ Ext.define("Ext.draw.sprite.Instancing", {
             instances = me.instances,
             ln = me.position,
             i;
-        mat.toContext(ctx);
-        template.preRender(surface, ctx, rect);
-        template.useAttributes(ctx, surfaceRect);
+        mat.toContext( ctx );
+        template.preRender( surface, ctx, rect );
+        template.useAttributes( ctx, surfaceRect );
         template.isSpriteInstance = true;
-        for (i = 0; i < ln; i++) {
-            if (instances[i].hidden) {
+        for ( i = 0; i < ln; i++ ) {
+            if ( instances[ i ].hidden ) {
                 continue;
             }
             ctx.save();
-            template.attr = instances[i];
-            template.useAttributes(ctx, surfaceRect);
-            template.render(surface, ctx, rect);
+            template.attr = instances[ i ];
+            template.useAttributes( ctx, surfaceRect );
+            template.render( surface, ctx, rect );
             ctx.restore();
         }
         template.isSpriteInstance = false;
         template.attr = originalAttr;
     },
+
     /**
      * Sets the attributes for the instance at the given index.
      *
@@ -7760,40 +8212,42 @@ Ext.define("Ext.draw.sprite.Instancing", {
      * @param {Object} changes the attributes to change
      * @param {Boolean} [bypassNormalization] 'true' to avoid attribute normalization
      */
-    setAttributesFor: function (index, changes, bypassNormalization) {
+    "setAttributesFor": function ( index, changes, bypassNormalization ) {
         var template = this.getTemplate(),
             originalAttr = template.attr,
-            attr = this.instances[index];
-        if (!attr) {
+            attr = this.instances[ index ];
+        if ( !attr ) {
             return;
         }
         template.attr = attr;
-        if (bypassNormalization) {
-            changes = Ext.apply({}, changes);
-        } else {
-            changes = template.self.def.normalize(changes);
+        if ( bypassNormalization ) {
+            changes = Ext.apply( {}, changes );
         }
-        template.modifiers.target.pushDown(attr, changes);
+        else {
+            changes = template.self.def.normalize( changes );
+        }
+        template.modifiers.target.pushDown( attr, changes );
         template.attr = originalAttr;
     },
-    destroy: function () {
+    "destroy": function () {
         var me = this,
             template = me.getTemplate();
         me.instances = null;
-        if (template) {
+        if ( template ) {
             template.destroy();
         }
         me.callParent();
     },
-});
+} );
 
 /**
  * @private
  * Adds hit testing methods to the Ext.draw.sprite.Instancing.
  * Included by the Ext.draw.plugin.SpriteEvents.
  */
-Ext.define("Ext.draw.overrides.hittest.sprite.Instancing", {
-    override: "Ext.draw.sprite.Instancing",
+Ext.define( "Ext.draw.overrides.hittest.sprite.Instancing", {
+    "override": "Ext.draw.sprite.Instancing",
+
     /**
      * Performs a hit test on the instances of an instancing sprite.
      * @param point A two-item array containing x and y coordinates of the point.
@@ -7806,7 +8260,7 @@ Ext.define("Ext.draw.overrides.hittest.sprite.Instancing", {
      * @return {Object} return.instance The attributes of the instance.
      * @return {Number} return.index The index of the instance.
      */
-    hitTest: function (point, options) {
+    "hitTest": function ( point, options ) {
         var me = this,
             template = me.getTemplate(),
             originalAttr = template.attr,
@@ -7814,17 +8268,17 @@ Ext.define("Ext.draw.overrides.hittest.sprite.Instancing", {
             ln = instances.length,
             i = 0,
             result = null;
-        if (!me.isVisible()) {
+        if ( !me.isVisible() ) {
             return result;
         }
-        for (; i < ln; i++) {
-            template.attr = instances[i];
-            result = template.hitTest(point, options);
-            if (result) {
+        for ( ; i < ln; i++ ) {
+            template.attr = instances[ i ];
+            result = template.hitTest( point, options );
+            if ( result ) {
                 result.isInstance = true;
                 result.template = result.sprite;
                 result.sprite = this;
-                result.instance = instances[i];
+                result.instance = instances[ i ];
                 result.index = i;
                 return result;
             }
@@ -7832,7 +8286,7 @@ Ext.define("Ext.draw.overrides.hittest.sprite.Instancing", {
         template.attr = originalAttr;
         return result;
     },
-});
+} );
 
 /**
  * A sprite that represents a line.
@@ -7854,39 +8308,39 @@ Ext.define("Ext.draw.overrides.hittest.sprite.Instancing", {
  *        }]
  *     });
  */
-Ext.define("Ext.draw.sprite.Line", {
-    extend: Ext.draw.sprite.Sprite,
-    alias: "sprite.line",
-    type: "line",
-    inheritableStatics: {
-        def: {
-            processors: {
-                fromX: "number",
-                fromY: "number",
-                toX: "number",
-                toY: "number",
-                crisp: "bool",
+Ext.define( "Ext.draw.sprite.Line", {
+    "extend": Ext.draw.sprite.Sprite,
+    "alias": "sprite.line",
+    "type": "line",
+    "inheritableStatics": {
+        "def": {
+            "processors": {
+                "fromX": "number",
+                "fromY": "number",
+                "toX": "number",
+                "toY": "number",
+                "crisp": "bool",
             },
-            defaults: {
-                fromX: 0,
-                fromY: 0,
-                toX: 1,
-                toY: 1,
-                crisp: false,
-                strokeStyle: "black",
+            "defaults": {
+                "fromX": 0,
+                "fromY": 0,
+                "toX": 1,
+                "toY": 1,
+                "crisp": false,
+                "strokeStyle": "black",
             },
-            aliases: {
-                x1: "fromX",
-                y1: "fromY",
-                x2: "toX",
-                y2: "toY",
+            "aliases": {
+                "x1": "fromX",
+                "y1": "fromY",
+                "x2": "toX",
+                "y2": "toY",
             },
-            triggers: {
-                crisp: "bbox",
+            "triggers": {
+                "crisp": "bbox",
             },
         },
     },
-    updateLineBBox: function (bbox, isTransform, x1, y1, x2, y2) {
+    "updateLineBBox": function ( bbox, isTransform, x1, y1, x2, y2 ) {
         var attr = this.attr,
             matrix = attr.matrix,
             halfLineWidth = attr.lineWidth / 2,
@@ -7900,29 +8354,30 @@ Ext.define("Ext.draw.sprite.Line", {
             cos,
             dx,
             dy;
-        if (attr.crisp) {
-            x1 = this.align(x1);
-            x2 = this.align(x2);
-            y1 = this.align(y1);
-            y2 = this.align(y2);
+        if ( attr.crisp ) {
+            x1 = this.align( x1 );
+            x2 = this.align( x2 );
+            y1 = this.align( y1 );
+            y2 = this.align( y2 );
         }
-        if (isTransform) {
-            p = matrix.transformPoint([x1, y1]);
-            x1 = p[0];
-            y1 = p[1];
-            p = matrix.transformPoint([x2, y2]);
-            x2 = p[0];
-            y2 = p[1];
+        if ( isTransform ) {
+            p = matrix.transformPoint( [ x1, y1 ] );
+            x1 = p[ 0 ];
+            y1 = p[ 1 ];
+            p = matrix.transformPoint( [ x2, y2 ] );
+            x2 = p[ 0 ];
+            y2 = p[ 1 ];
         }
-        fromX = Math.min(x1, x2);
-        toX = Math.max(x1, x2);
-        fromY = Math.min(y1, y2);
-        toY = Math.max(y1, y2);
-        angle = Math.atan2(toX - fromX, toY - fromY);
-        sin = Math.sin(angle);
-        cos = Math.cos(angle);
+        fromX = Math.min( x1, x2 );
+        toX = Math.max( x1, x2 );
+        fromY = Math.min( y1, y2 );
+        toY = Math.max( y1, y2 );
+        angle = Math.atan2( toX - fromX, toY - fromY );
+        sin = Math.sin( angle );
+        cos = Math.cos( angle );
         dx = halfLineWidth * cos;
         dy = halfLineWidth * sin;
+
         // Offset start and end points of the line by half its thickness,
         // while accounting for line's angle.
         fromX -= dx;
@@ -7934,44 +8389,46 @@ Ext.define("Ext.draw.sprite.Line", {
         bbox.width = toX - fromX;
         bbox.height = toY - fromY;
     },
-    updatePlainBBox: function (plain) {
+    "updatePlainBBox": function ( plain ) {
         var attr = this.attr;
-        this.updateLineBBox(plain, false, attr.fromX, attr.fromY, attr.toX, attr.toY);
+        this.updateLineBBox( plain, false, attr.fromX, attr.fromY, attr.toX, attr.toY );
     },
-    updateTransformedBBox: function (transform, plain) {
+    "updateTransformedBBox": function ( transform, plain ) {
         var attr = this.attr;
-        this.updateLineBBox(transform, true, attr.fromX, attr.fromY, attr.toX, attr.toY);
+        this.updateLineBBox( transform, true, attr.fromX, attr.fromY, attr.toX, attr.toY );
     },
-    align: function (x) {
-        return Math.round(x) - 0.5;
+    "align": function ( x ) {
+        return Math.round( x ) - 0.5;
     },
-    render: function (surface, ctx) {
+    "render": function ( surface, ctx ) {
         var me = this,
             attr = me.attr,
             matrix = attr.matrix;
-        matrix.toContext(ctx);
+        matrix.toContext( ctx );
         ctx.beginPath();
-        if (attr.crisp) {
-            ctx.moveTo(me.align(attr.fromX), me.align(attr.fromY));
-            ctx.lineTo(me.align(attr.toX), me.align(attr.toY));
-        } else {
-            ctx.moveTo(attr.fromX, attr.fromY);
-            ctx.lineTo(attr.toX, attr.toY);
+        if ( attr.crisp ) {
+            ctx.moveTo( me.align( attr.fromX ), me.align( attr.fromY ) );
+            ctx.lineTo( me.align( attr.toX ), me.align( attr.toY ) );
+        }
+        else {
+            ctx.moveTo( attr.fromX, attr.fromY );
+            ctx.lineTo( attr.toX, attr.toY );
         }
         ctx.stroke();
-        // eslint-disable-next-line vars-on-top
+
         var debug = attr.debug || this.statics().debug || Ext.draw.sprite.Sprite.debug;
-        if (debug) {
+        if ( debug ) {
+
             // This assumes no part of the sprite is rendered after this call.
             // If it is, we need to re-apply transformations.
             // But the bounding box should always be rendered as is, untransformed.
-            this.attr.inverseMatrix.toContext(ctx);
-            if (debug.bbox) {
-                this.renderBBox(surface, ctx);
+            this.attr.inverseMatrix.toContext( ctx );
+            if ( debug.bbox ) {
+                this.renderBBox( surface, ctx );
             }
         }
     },
-});
+} );
 
 /**
  * A sprite that represents a plus.
@@ -7991,39 +8448,40 @@ Ext.define("Ext.draw.sprite.Line", {
  *        }]
  *     });
  */
-Ext.define("Ext.draw.sprite.Plus", {
-    extend: Ext.draw.sprite.Path,
-    alias: "sprite.plus",
-    inheritableStatics: {
-        def: {
-            processors: {
-                x: "number",
-                y: "number",
+Ext.define( "Ext.draw.sprite.Plus", {
+    "extend": Ext.draw.sprite.Path,
+    "alias": "sprite.plus",
+    "inheritableStatics": {
+        "def": {
+            "processors": {
+                "x": "number",
+                "y": "number",
+
                 /**
                  * @cfg {Number} [size=4] The size of the sprite.
                  * Meant to be comparable to the size of a circle sprite with the same radius.
                  */
-                size: "number",
+                "size": "number",
             },
-            defaults: {
-                x: 0,
-                y: 0,
-                size: 4,
+            "defaults": {
+                "x": 0,
+                "y": 0,
+                "size": 4,
             },
-            triggers: {
-                x: "path",
-                y: "path",
-                size: "path",
+            "triggers": {
+                "x": "path",
+                "y": "path",
+                "size": "path",
             },
         },
     },
-    updatePath: function (path, attr) {
+    "updatePath": function ( path, attr ) {
         var s = attr.size / 1.3,
             x = attr.x - attr.lineWidth / 2,
             y = attr.y;
-        path.fromSvgString("M".concat(x - s / 2, ",", y - s / 2, "l", [0, -s, s, 0, 0, s, s, 0, 0, s, -s, 0, 0, s, -s, 0, 0, -s, -s, 0, 0, -s, "z"]));
+        path.fromSvgString( "M".concat( x - s / 2, ",", y - s / 2, "l", [ 0, -s, s, 0, 0, s, s, 0, 0, s, -s, 0, 0, s, -s, 0, 0, -s, -s, 0, 0, -s, "z" ] ) );
     },
-});
+} );
 
 /**
  * @class Ext.draw.sprite.Sector
@@ -8048,92 +8506,101 @@ Ext.define("Ext.draw.sprite.Plus", {
  *        }]
  *     });
  */
-Ext.define("Ext.draw.sprite.Sector", {
-    extend: Ext.draw.sprite.Path,
-    alias: "sprite.sector",
-    type: "sector",
-    inheritableStatics: {
-        def: {
-            processors: {
+Ext.define( "Ext.draw.sprite.Sector", {
+    "extend": Ext.draw.sprite.Path,
+    "alias": "sprite.sector",
+    "type": "sector",
+    "inheritableStatics": {
+        "def": {
+            "processors": {
+
                 /**
                  * @cfg {Number} [centerX=0] The center coordinate of the sprite on the x-axis.
                  */
-                centerX: "number",
+                "centerX": "number",
+
                 /**
                  * @cfg {Number} [centerY=0] The center coordinate of the sprite on the y-axis.
                  */
-                centerY: "number",
+                "centerY": "number",
+
                 /**
                  * @cfg {Number} [startAngle=0] The starting angle of the sprite.
                  */
-                startAngle: "number",
+                "startAngle": "number",
+
                 /**
                  * @cfg {Number} [endAngle=0] The ending angle of the sprite.
                  */
-                endAngle: "number",
+                "endAngle": "number",
+
                 /**
                  * @cfg {Number} [startRho=0] The starting point of the radius of the sprite.
                  */
-                startRho: "number",
+                "startRho": "number",
+
                 /**
                  * @cfg {Number} [endRho=150] The ending point of the radius of the sprite.
                  */
-                endRho: "number",
+                "endRho": "number",
+
                 /**
                  * @cfg {Number} [margin=0] The margin of the sprite from the center of pie.
                  */
-                margin: "number",
+                "margin": "number",
             },
-            aliases: {
-                rho: "endRho",
+            "aliases": {
+                "rho": "endRho",
             },
-            triggers: {
-                centerX: "path,bbox",
-                centerY: "path,bbox",
-                startAngle: "path,bbox",
-                endAngle: "path,bbox",
-                startRho: "path,bbox",
-                endRho: "path,bbox",
-                margin: "path,bbox",
+            "triggers": {
+                "centerX": "path,bbox",
+                "centerY": "path,bbox",
+                "startAngle": "path,bbox",
+                "endAngle": "path,bbox",
+                "startRho": "path,bbox",
+                "endRho": "path,bbox",
+                "margin": "path,bbox",
             },
-            defaults: {
-                centerX: 0,
-                centerY: 0,
-                startAngle: 0,
-                endAngle: 0,
-                startRho: 0,
-                endRho: 150,
-                margin: 0,
-                path: "M 0,0",
+            "defaults": {
+                "centerX": 0,
+                "centerY": 0,
+                "startAngle": 0,
+                "endAngle": 0,
+                "startRho": 0,
+                "endRho": 150,
+                "margin": 0,
+                "path": "M 0,0",
             },
         },
     },
-    getMidAngle: function () {
+    "getMidAngle": function () {
         return this.midAngle || 0;
     },
-    updatePath: function (path, attr) {
-        var startAngle = Math.min(attr.startAngle, attr.endAngle),
-            endAngle = Math.max(attr.startAngle, attr.endAngle),
-            midAngle = (this.midAngle = (startAngle + endAngle) * 0.5),
-            fullPie = Ext.Number.isEqual(Math.abs(endAngle - startAngle), Ext.draw.Draw.pi2, 1.0e-10),
+    "updatePath": function ( path, attr ) {
+        var startAngle = Math.min( attr.startAngle, attr.endAngle ),
+            endAngle = Math.max( attr.startAngle, attr.endAngle ),
+            midAngle = ( this.midAngle = ( startAngle + endAngle ) * 0.5 ),
+            fullPie = Ext.Number.isEqual( Math.abs( endAngle - startAngle ), Ext.draw.Draw.pi2, 1e-10 ),
             margin = attr.margin,
             centerX = attr.centerX,
             centerY = attr.centerY,
-            startRho = Math.min(attr.startRho, attr.endRho),
-            endRho = Math.max(attr.startRho, attr.endRho);
-        if (margin) {
-            centerX += margin * Math.cos(midAngle);
-            centerY += margin * Math.sin(midAngle);
+            startRho = Math.min( attr.startRho, attr.endRho ),
+            endRho = Math.max( attr.startRho, attr.endRho );
+        if ( margin ) {
+            centerX += margin * Math.cos( midAngle );
+            centerY += margin * Math.sin( midAngle );
         }
-        if (!fullPie) {
-            path.moveTo(centerX + startRho * Math.cos(startAngle), centerY + startRho * Math.sin(startAngle));
-            path.lineTo(centerX + endRho * Math.cos(startAngle), centerY + endRho * Math.sin(startAngle));
+        if ( !fullPie ) {
+            path.moveTo( centerX + startRho * Math.cos( startAngle ), centerY + startRho * Math.sin( startAngle ) );
+            path.lineTo( centerX + endRho * Math.cos( startAngle ), centerY + endRho * Math.sin( startAngle ) );
         }
-        path.arc(centerX, centerY, endRho, startAngle, endAngle, false);
-        path[fullPie ? "moveTo" : "lineTo"](centerX + startRho * Math.cos(endAngle), centerY + startRho * Math.sin(endAngle));
-        path.arc(centerX, centerY, startRho, endAngle, startAngle, true);
+        path.arc( centerX, centerY, endRho, startAngle, endAngle, false );
+        path[ fullPie
+            ? "moveTo"
+            : "lineTo" ]( centerX + startRho * Math.cos( endAngle ), centerY + startRho * Math.sin( endAngle ) );
+        path.arc( centerX, centerY, startRho, endAngle, startAngle, true );
     },
-});
+} );
 
 /**
  * A sprite that represents a square.
@@ -8153,49 +8620,51 @@ Ext.define("Ext.draw.sprite.Sector", {
  *        }]
  *     });
  */
-Ext.define("Ext.draw.sprite.Square", {
-    extend: Ext.draw.sprite.Path,
-    alias: "sprite.square",
-    inheritableStatics: {
-        def: {
-            processors: {
-                x: "number",
-                y: "number",
+Ext.define( "Ext.draw.sprite.Square", {
+    "extend": Ext.draw.sprite.Path,
+    "alias": "sprite.square",
+    "inheritableStatics": {
+        "def": {
+            "processors": {
+                "x": "number",
+                "y": "number",
+
                 /**
                  * @cfg {Number} [size=4] The size of the sprite.
                  * Meant to be comparable to the size of a circle sprite with the same radius.
                  */
-                size: "number",
+                "size": "number",
             },
-            defaults: {
-                x: 0,
-                y: 0,
-                size: 4,
+            "defaults": {
+                "x": 0,
+                "y": 0,
+                "size": 4,
             },
-            triggers: {
-                x: "path",
-                y: "path",
-                size: "size",
+            "triggers": {
+                "x": "path",
+                "y": "path",
+                "size": "size",
             },
         },
     },
-    updatePath: function (path, attr) {
+    "updatePath": function ( path, attr ) {
         var size = attr.size * 1.2,
             s = size * 2,
             x = attr.x - attr.lineWidth / 2,
             y = attr.y;
-        path.fromSvgString("M".concat(x - size, ",", y - size, "l", [s, 0, 0, s, -s, 0, 0, -s, "z"]));
+        path.fromSvgString( "M".concat( x - size, ",", y - size, "l", [ s, 0, 0, s, -s, 0, 0, -s, "z" ] ) );
     },
-});
+} );
 
 /**
  * Utility class to provide a way to *approximately* measure the dimension of text
  * without a drawing context.
  */
-Ext.define("Ext.draw.TextMeasurer", {
-    singleton: true,
-    measureDiv: null,
-    measureCache: {},
+Ext.define( "Ext.draw.TextMeasurer", {
+    "singleton": true,
+    "measureDiv": null,
+    "measureCache": {},
+
     /**
      * @cfg {Boolean} [precise=false]
      * This singleton tries not to make use of the Ext.util.TextMetrics because it is
@@ -8204,34 +8673,37 @@ Ext.define("Ext.draw.TextMeasurer", {
      * this config to `true` to get perfect results at the expense of performance.
      * Note: defaults to `true` in IE8.
      */
-    precise: Ext.isIE8,
-    measureDivTpl: {
-        id: "ext-draw-text-measurer",
-        tag: "div",
-        style: {
-            overflow: "hidden",
-            position: "relative",
+    "precise": Ext.isIE8,
+    "measureDivTpl": {
+        "id": "ext-draw-text-measurer",
+        "tag": "div",
+        "style": {
+            "overflow": "hidden",
+            "position": "relative",
+
             // 'float' is a reserved word. Don't unquote, or it will break the CMD build.
-            float: "left",
-            width: 0,
-            height: 0,
+            "float": "left",
+            "width": 0,
+            "height": 0,
         },
+
         // Tell the spec runner to ignore this element when checking if the dom is clean.
         "data-sticky": true,
-        children: {
-            tag: "div",
-            style: {
-                display: "block",
-                position: "absolute",
-                x: -100000,
-                y: -100000,
-                padding: 0,
-                margin: 0,
-                "z-index": -100000,
+        "children": {
+            "tag": "div",
+            "style": {
+                "display": "block",
+                "position": "absolute",
+                "x": -100_000,
+                "y": -100_000,
+                "padding": 0,
+                "margin": 0,
+                "z-index": -100_000,
                 "white-space": "nowrap",
             },
         },
     },
+
     /**
      * @private
      * Measure the size of a text with specific font by using DOM to measure it.
@@ -8242,52 +8714,55 @@ Ext.define("Ext.draw.TextMeasurer", {
      * @return {Number} return.width
      * @return {Number} return.height
      */
-    actualMeasureText: function (text, font) {
+    "actualMeasureText": function ( text, font ) {
         var me = Ext.draw.TextMeasurer,
             measureDiv = me.measureDiv,
-            FARAWAY = 100000,
+            FARAWAY = 100_000,
             size,
             parent;
-        if (!measureDiv) {
-            parent = Ext.Element.create({
+        if ( !measureDiv ) {
+            parent = Ext.Element.create( {
+
                 // Tell the spec runner to ignore this element when checking if the dom is clean.
                 "data-sticky": true,
-                style: {
-                    overflow: "hidden",
-                    position: "relative",
-                    float: "left",
+                "style": {
+                    "overflow": "hidden",
+                    "position": "relative",
+                    "float": "left",
+
                     // DO NOT REMOVE THE QUOTE OR IT WILL BREAK COMPRESSOR
-                    width: 0,
-                    height: 0,
+                    "width": 0,
+                    "height": 0,
                 },
-            });
-            me.measureDiv = measureDiv = Ext.Element.create({
-                style: {
-                    position: "absolute",
-                    x: FARAWAY,
-                    y: FARAWAY,
+            } );
+            me.measureDiv = measureDiv = Ext.Element.create( {
+                "style": {
+                    "position": "absolute",
+                    "x": FARAWAY,
+                    "y": FARAWAY,
                     "z-index": -FARAWAY,
                     "white-space": "nowrap",
-                    display: "block",
-                    padding: 0,
-                    margin: 0,
+                    "display": "block",
+                    "padding": 0,
+                    "margin": 0,
                 },
-            });
-            Ext.getBody().appendChild(parent);
-            parent.appendChild(measureDiv);
+            } );
+            Ext.getBody().append( parent );
+            parent.append( measureDiv );
         }
-        if (font) {
-            measureDiv.setStyle({
-                font: font,
-                lineHeight: "normal",
-            });
+        if ( font ) {
+            measureDiv.setStyle( {
+                "font": font,
+                "lineHeight": "normal",
+            } );
         }
-        measureDiv.setText("(" + text + ")");
+        measureDiv.setText( "(" + text + ")" );
         size = measureDiv.getSize();
-        measureDiv.setText("()");
+        measureDiv.setText( "()" );
         size.width -= measureDiv.getSize().width;
         return size;
     },
+
     /**
      * Measure a single-line text with specific font.
      * This will split the text into characters and add up their size.
@@ -8298,7 +8773,7 @@ Ext.define("Ext.draw.TextMeasurer", {
      * @return {Number} return.width
      * @return {Number} return.height
      */
-    measureTextSingleLine: function (text, font) {
+    "measureTextSingleLine": function ( text, font ) {
         var width = 0,
             height = 0,
             cache,
@@ -8308,43 +8783,45 @@ Ext.define("Ext.draw.TextMeasurer", {
             i,
             ln,
             size;
-        if (this.precise) {
-            return this.preciseMeasureTextSingleLine(text, font);
+        if ( this.precise ) {
+            return this.preciseMeasureTextSingleLine( text, font );
         }
         text = text.toString();
         cache = this.measureCache;
-        chars = text.split("");
-        if (!cache[font]) {
-            cache[font] = {};
+        chars = text.split( "" );
+        if ( !cache[ font ] ) {
+            cache[ font ] = {};
         }
-        cache = cache[font];
-        if (cache[text]) {
-            return cache[text];
+        cache = cache[ font ];
+        if ( cache[ text ] ) {
+            return cache[ text ];
         }
-        for (i = 0, ln = chars.length; i < ln; i++) {
-            charactor = chars[i];
-            if (!(cachedItem = cache[charactor])) {
-                size = this.actualMeasureText(charactor, font);
-                cachedItem = cache[charactor] = size;
+        for ( i = 0, ln = chars.length; i < ln; i++ ) {
+            charactor = chars[ i ];
+            if ( !( cachedItem = cache[ charactor ] ) ) {
+                size = this.actualMeasureText( charactor, font );
+                cachedItem = cache[ charactor ] = size;
             }
             width += cachedItem.width;
-            height = Math.max(height, cachedItem.height);
+            height = Math.max( height, cachedItem.height );
         }
-        return (cache[text] = {
-            width: width,
-            height: height,
-        });
+        return ( cache[ text ] = {
+            "width": width,
+            "height": height,
+        } );
     },
+
     // A more precise but slower version of the measureTextSingleLine method.
-    preciseMeasureTextSingleLine: function (text, font) {
+    "preciseMeasureTextSingleLine": function ( text, font ) {
         var measureDiv;
         text = text.toString();
-        measureDiv = this.measureDiv || (this.measureDiv = Ext.getBody().createChild(this.measureDivTpl).down("div"));
-        measureDiv.setStyle({
-            font: font || "",
-        });
-        return Ext.util.TextMetrics.measure(measureDiv, text);
+        measureDiv = this.measureDiv || ( this.measureDiv = Ext.getBody().createChild( this.measureDivTpl ).down( "div" ) );
+        measureDiv.setStyle( {
+            "font": font || "",
+        } );
+        return Ext.util.TextMetrics.measure( measureDiv, text );
     },
+
     /**
      * Measure a text with specific font.
      * This will split the text to lines and add up their size.
@@ -8357,31 +8834,31 @@ Ext.define("Ext.draw.TextMeasurer", {
      * @return {Object} return.sizes Results of individual line measurements, in case of multiline
      * text.
      */
-    measureText: function (text, font) {
-        var lines = text.split("\n"),
+    "measureText": function ( text, font ) {
+        var lines = text.split( "\n" ),
             ln = lines.length,
             height = 0,
             width = 0,
             line,
             i,
             sizes;
-        if (ln === 1) {
-            return this.measureTextSingleLine(text, font);
+        if ( ln === 1 ) {
+            return this.measureTextSingleLine( text, font );
         }
         sizes = [];
-        for (i = 0; i < ln; i++) {
-            line = this.measureTextSingleLine(lines[i], font);
-            sizes.push(line);
+        for ( i = 0; i < ln; i++ ) {
+            line = this.measureTextSingleLine( lines[ i ], font );
+            sizes.push( line );
             height += line.height;
-            width = Math.max(width, line.width);
+            width = Math.max( width, line.width );
         }
         return {
-            width: width,
-            height: height,
-            sizes: sizes,
+            "width": width,
+            "height": height,
+            "sizes": sizes,
         };
     },
-});
+} );
 
 /**
  * @class Ext.draw.sprite.Text
@@ -8405,56 +8882,58 @@ Ext.define("Ext.draw.TextMeasurer", {
  *        }]
  *     });
  */
-/* eslint-disable indent */
-Ext.define("Ext.draw.sprite.Text", function () {
+
+Ext.define( "Ext.draw.sprite.Text", function () {
+
     // Absolute font sizes.
     var fontSizes = {
             "xx-small": true,
             "x-small": true,
-            small: true,
-            medium: true,
-            large: true,
+            "small": true,
+            "medium": true,
+            "large": true,
             "x-large": true,
             "xx-large": true,
         },
         fontWeights = {
-            normal: true,
-            bold: true,
-            bolder: true,
-            lighter: true,
-            100: true,
-            200: true,
-            300: true,
-            400: true,
-            500: true,
-            600: true,
-            700: true,
-            800: true,
-            900: true,
+            "normal": true,
+            "bold": true,
+            "bolder": true,
+            "lighter": true,
+            "100": true,
+            "200": true,
+            "300": true,
+            "400": true,
+            "500": true,
+            "600": true,
+            "700": true,
+            "800": true,
+            "900": true,
         },
         textAlignments = {
-            start: "start",
-            left: "start",
-            center: "center",
-            middle: "center",
-            end: "end",
-            right: "end",
+            "start": "start",
+            "left": "start",
+            "center": "center",
+            "middle": "center",
+            "end": "end",
+            "right": "end",
         },
         textBaselines = {
-            top: "top",
-            hanging: "hanging",
-            middle: "middle",
-            center: "middle",
-            alphabetic: "alphabetic",
-            ideographic: "ideographic",
-            bottom: "bottom",
+            "top": "top",
+            "hanging": "hanging",
+            "middle": "middle",
+            "center": "middle",
+            "alphabetic": "alphabetic",
+            "ideographic": "ideographic",
+            "bottom": "bottom",
         };
     return {
-        extend: Ext.draw.sprite.Sprite,
-        alias: "sprite.text",
-        type: "text",
-        lineBreakRe: /\r?\n/g,
-        statics: {
+        "extend": Ext.draw.sprite.Sprite,
+        "alias": "sprite.text",
+        "type": "text",
+        "lineBreakRe": /\r?\n/g,
+        "statics": {
+
             /**
              * Debug rendering options:
              *
@@ -8463,97 +8942,112 @@ Ext.define("Ext.draw.sprite.Text", function () {
              * }
              *
              */
-            debug: false,
-            fontSizes: fontSizes,
-            fontWeights: fontWeights,
-            textAlignments: textAlignments,
-            textBaselines: textBaselines,
+            "debug": false,
+            "fontSizes": fontSizes,
+            "fontWeights": fontWeights,
+            "textAlignments": textAlignments,
+            "textBaselines": textBaselines,
         },
-        inheritableStatics: {
-            def: {
-                animationProcessors: {
-                    text: "text",
+        "inheritableStatics": {
+            "def": {
+                "animationProcessors": {
+                    "text": "text",
                 },
-                processors: {
+                "processors": {
+
                     /**
                      * @cfg {Number} [x=0]
                      * The position of the sprite on the x-axis.
                      */
-                    x: "number",
+                    "x": "number",
+
                     /**
                      * @cfg {Number} [y=0]
                      * The position of the sprite on the y-axis.
                      */
-                    y: "number",
+                    "y": "number",
+
                     /**
                      * @cfg {String} [text='']
                      * The text represented in the sprite.
                      */
-                    text: "string",
+                    "text": "string",
+
                     /**
                      * @cfg {String/Number} [fontSize='10px']
                      * The size of the font displayed.
                      */
-                    fontSize: function (n) {
+                    "fontSize": function ( n ) {
+
                         // Numbers as strings will be converted to numbers,
                         // null will be converted to 0.
-                        if (Ext.isNumber(+n)) {
+                        if ( Ext.isNumber( +n ) ) {
                             return n + "px";
-                        } else if (n.match(Ext.dom.Element.unitRe)) {
+                        }
+                        else if ( n.match( Ext.dom.Element.unitRe ) ) {
                             return n;
-                        } else if (n in fontSizes) {
+                        }
+                        else if ( n in fontSizes ) {
                             return n;
                         }
                     },
+
                     /**
                      * @cfg {String} [fontStyle='']
                      * The style of the font displayed. {normal, italic, oblique}
                      */
-                    fontStyle: "enums(,italic,oblique)",
+                    "fontStyle": "enums(,italic,oblique)",
+
                     /**
                      * @cfg {String} [fontVariant='']
                      * The variant of the font displayed. {normal, small-caps}
                      */
-                    fontVariant: "enums(,small-caps)",
+                    "fontVariant": "enums(,small-caps)",
+
                     /**
                      * @cfg {String} [fontWeight='']
                      * The weight of the font displayed. {normal, bold, bolder, lighter}
                      */
-                    fontWeight: function (n) {
-                        if (n in fontWeights) {
-                            return String(n);
-                        } else {
+                    "fontWeight": function ( n ) {
+                        if ( n in fontWeights ) {
+                            return String( n );
+                        }
+                        else {
                             return "";
                         }
                     },
+
                     /**
                      * @cfg {String} [fontFamily='sans-serif']
                      * The family of the font displayed.
                      */
-                    fontFamily: "string",
+                    "fontFamily": "string",
+
                     /**
                      * @cfg {"left"/"right"/"center"/"start"/"end"} [textAlign='start']
                      * The alignment of the text displayed.
                      */
-                    textAlign: function (n) {
-                        return textAlignments[n] || "center";
+                    "textAlign": function ( n ) {
+                        return textAlignments[ n ] || "center";
                     },
+
                     /**
                      * @cfg {String} [textBaseline="alphabetic"]
                      * The baseline of the text displayed.
                      * {top, hanging, middle, alphabetic, ideographic, bottom}
                      */
-                    textBaseline: function (n) {
-                        return textBaselines[n] || "alphabetic";
+                    "textBaseline": function ( n ) {
+                        return textBaselines[ n ] || "alphabetic";
                     },
-                    debug: "default",
+                    "debug": "default",
+
                     /**
                      * @cfg {String} [font='10px sans-serif']
                      * The font displayed.
                      */
-                    font: "string",
+                    "font": "string",
                 },
-                aliases: {
+                "aliases": {
                     "font-size": "fontSize",
                     "font-family": "fontFamily",
                     "font-weight": "fontWeight",
@@ -8561,117 +9055,123 @@ Ext.define("Ext.draw.sprite.Text", function () {
                     "text-anchor": "textAlign",
                     "dominant-baseline": "textBaseline",
                 },
-                defaults: {
-                    fontStyle: "",
-                    fontVariant: "",
-                    fontWeight: "",
-                    fontSize: "10px",
-                    fontFamily: "sans-serif",
-                    font: "10px sans-serif",
-                    textBaseline: "alphabetic",
-                    textAlign: "start",
-                    strokeStyle: "rgba(0, 0, 0, 0)",
-                    fillStyle: "#000",
-                    x: 0,
-                    y: 0,
-                    text: "",
+                "defaults": {
+                    "fontStyle": "",
+                    "fontVariant": "",
+                    "fontWeight": "",
+                    "fontSize": "10px",
+                    "fontFamily": "sans-serif",
+                    "font": "10px sans-serif",
+                    "textBaseline": "alphabetic",
+                    "textAlign": "start",
+                    "strokeStyle": "rgba(0, 0, 0, 0)",
+                    "fillStyle": "#000",
+                    "x": 0,
+                    "y": 0,
+                    "text": "",
                 },
-                triggers: {
-                    fontStyle: "fontX,bbox",
-                    fontVariant: "fontX,bbox",
-                    fontWeight: "fontX,bbox",
-                    fontSize: "fontX,bbox",
-                    fontFamily: "fontX,bbox",
-                    font: "font,bbox,canvas",
-                    textBaseline: "bbox",
-                    textAlign: "bbox",
-                    x: "bbox",
-                    y: "bbox",
-                    text: "bbox",
+                "triggers": {
+                    "fontStyle": "fontX,bbox",
+                    "fontVariant": "fontX,bbox",
+                    "fontWeight": "fontX,bbox",
+                    "fontSize": "fontX,bbox",
+                    "fontFamily": "fontX,bbox",
+                    "font": "font,bbox,canvas",
+                    "textBaseline": "bbox",
+                    "textAlign": "bbox",
+                    "x": "bbox",
+                    "y": "bbox",
+                    "text": "bbox",
                 },
-                updaters: {
-                    fontX: "makeFontShorthand",
-                    font: "parseFontShorthand",
+                "updaters": {
+                    "fontX": "makeFontShorthand",
+                    "font": "parseFontShorthand",
                 },
             },
         },
-        config: {
+        "config": {
+
             /**
              * @private
              * If the value is boolean, it overrides the TextMeasurer's 'precise' config
              * (for the given sprite only).
              */
-            preciseMeasurement: undefined,
+            "preciseMeasurement": undefined,
         },
-        constructor: function (config) {
+        "constructor": function ( config ) {
             var key;
-            if (config && config.font) {
-                config = Ext.clone(config);
-                for (key in config) {
-                    if (key !== "font" && key.indexOf("font") === 0) {
-                        delete config[key];
+            if ( config && config.font ) {
+                config = Ext.clone( config );
+                for ( key in config ) {
+                    if ( key !== "font" && key.indexOf( "font" ) === 0 ) {
+                        delete config[ key ];
                     }
                 }
             }
-            Ext.draw.sprite.Sprite.prototype.constructor.call(this, config);
+            Ext.draw.sprite.Sprite.prototype.constructor.call( this, config );
         },
+
         // Maps values to font properties they belong to.
-        fontValuesMap: {
+        "fontValuesMap": {
+
             // Skip 'normal' and 'inherit' values, as the first one
             // is the default and the second one has no meaning in Canvas.
-            italic: "fontStyle",
-            oblique: "fontStyle",
+            "italic": "fontStyle",
+            "oblique": "fontStyle",
             "small-caps": "fontVariant",
-            bold: "fontWeight",
-            bolder: "fontWeight",
-            lighter: "fontWeight",
-            100: "fontWeight",
-            200: "fontWeight",
-            300: "fontWeight",
-            400: "fontWeight",
-            500: "fontWeight",
-            600: "fontWeight",
-            700: "fontWeight",
-            800: "fontWeight",
-            900: "fontWeight",
+            "bold": "fontWeight",
+            "bolder": "fontWeight",
+            "lighter": "fontWeight",
+            "100": "fontWeight",
+            "200": "fontWeight",
+            "300": "fontWeight",
+            "400": "fontWeight",
+            "500": "fontWeight",
+            "600": "fontWeight",
+            "700": "fontWeight",
+            "800": "fontWeight",
+            "900": "fontWeight",
+
             // Absolute font sizes.
             "xx-small": "fontSize",
             "x-small": "fontSize",
-            small: "fontSize",
-            medium: "fontSize",
-            large: "fontSize",
+            "small": "fontSize",
+            "medium": "fontSize",
+            "large": "fontSize",
             "x-large": "fontSize",
             "xx-large": "fontSize",
         },
+
         // Relative font sizes like 'smaller' and 'larger'
         // have no meaning, and are not included.
-        makeFontShorthand: function (attr) {
+        "makeFontShorthand": function ( attr ) {
             var parts = [];
-            if (attr.fontStyle) {
-                parts.push(attr.fontStyle);
+            if ( attr.fontStyle ) {
+                parts.push( attr.fontStyle );
             }
-            if (attr.fontVariant) {
-                parts.push(attr.fontVariant);
+            if ( attr.fontVariant ) {
+                parts.push( attr.fontVariant );
             }
-            if (attr.fontWeight) {
-                parts.push(attr.fontWeight);
+            if ( attr.fontWeight ) {
+                parts.push( attr.fontWeight );
             }
-            if (attr.fontSize) {
-                parts.push(attr.fontSize);
+            if ( attr.fontSize ) {
+                parts.push( attr.fontSize );
             }
-            if (attr.fontFamily) {
-                parts.push(attr.fontFamily);
+            if ( attr.fontFamily ) {
+                parts.push( attr.fontFamily );
             }
             this.setAttributes(
                 {
-                    font: parts.join(" "),
+                    "font": parts.join( " " ),
                 },
                 true
             );
         },
+
         // For more info see:
         // http://www.w3.org/TR/CSS21/fonts.html#font-shorthand
-        parseFontShorthand: function (attr) {
+        "parseFontShorthand": function ( attr ) {
             var value = attr.font,
                 ln = value.length,
                 changes = {},
@@ -8681,68 +9181,80 @@ Ext.define("Ext.draw.sprite.Text", function () {
                 slashIndex,
                 part,
                 fontProperty;
-            while (start < ln && end !== -1) {
-                end = value.indexOf(" ", start);
-                if (end < 0) {
-                    part = value.substr(start);
-                } else if (end > start) {
-                    part = value.substr(start, end - start);
-                } else {
+            while ( start < ln && end !== -1 ) {
+                end = value.indexOf( " ", start );
+                if ( end < 0 ) {
+                    part = value.slice( start );
+                }
+                else if ( end > start ) {
+                    part = value.substr( start, end - start );
+                }
+                else {
                     continue;
                 }
+
                 // Since Canvas fillText doesn't support multi-line text,
                 // it is assumed that line height is never specified, i.e.
                 // in entries like these the part after slash is omitted:
                 // 12px/14px sans-serif
                 // x-large/110% "New Century Schoolbook", serif
-                slashIndex = part.indexOf("/");
-                if (slashIndex > 0) {
-                    part = part.substr(0, slashIndex);
-                } else if (slashIndex === 0) {
+                slashIndex = part.indexOf( "/" );
+                if ( slashIndex > 0 ) {
+                    part = part.slice( 0, Math.max( 0, slashIndex ) );
+                }
+                else if ( slashIndex === 0 ) {
                     continue;
                 }
+
                 // All optional font properties (fontStyle, fontVariant or fontWeight) can be 'normal'.
                 // They can go in any order. Which ones are 'normal' is determined by elimination.
                 // E.g. if only fontVariant is specified, then 'normal' applies to fontStyle
                 // and fontWeight.
                 // If none are explicitly mentioned, then all are 'normal'.
-                if (part !== "normal" && part !== "inherit") {
-                    fontProperty = dispatcher[part];
-                    if (fontProperty) {
-                        changes[fontProperty] = part;
-                    } else if (part.match(Ext.dom.Element.unitRe)) {
+                if ( part !== "normal" && part !== "inherit" ) {
+                    fontProperty = dispatcher[ part ];
+                    if ( fontProperty ) {
+                        changes[ fontProperty ] = part;
+                    }
+                    else if ( part.match( Ext.dom.Element.unitRe ) ) {
                         changes.fontSize = part;
-                    } else {
+                    }
+                    else {
+
                         // Assuming that font family always goes last in the font shorthand.
-                        changes.fontFamily = value.substr(start);
+                        changes.fontFamily = value.slice( start );
                         break;
                     }
                 }
                 start = end + 1;
             }
-            if (!changes.fontStyle) {
+            if ( !changes.fontStyle ) {
                 changes.fontStyle = "";
             }
+
             // same as 'normal'
-            if (!changes.fontVariant) {
+            if ( !changes.fontVariant ) {
                 changes.fontVariant = "";
             }
+
             // same as 'normal'
-            if (!changes.fontWeight) {
+            if ( !changes.fontWeight ) {
                 changes.fontWeight = "";
             }
+
             // same as 'normal'
-            this.setAttributes(changes, true);
+            this.setAttributes( changes, true );
         },
-        fontProperties: {
-            fontStyle: true,
-            fontVariant: true,
-            fontWeight: true,
-            fontSize: true,
-            fontFamily: true,
+        "fontProperties": {
+            "fontStyle": true,
+            "fontVariant": true,
+            "fontWeight": true,
+            "fontSize": true,
+            "fontFamily": true,
         },
-        setAttributes: function (changes, bypassNormalization, avoidCopy) {
+        "setAttributes": function ( changes, bypassNormalization, avoidCopy ) {
             var key, obj;
+
             // Discard individual font properties if 'font' shorthand was also provided.
             // Example: a user provides a config for chart series labels, using the font
             // shorthand, which is parsed into individual font properties and corresponding
@@ -8758,51 +9270,54 @@ Ext.define("Ext.draw.sprite.Text", function () {
             // If the user wants their font config to merged with the the theme's font config,
             // instead of taking over it, individual font properties should be used
             // by the user as well.
-            if (changes && changes.font) {
+            if ( changes && changes.font ) {
                 obj = {};
-                for (key in changes) {
-                    if (!(key in this.fontProperties)) {
-                        obj[key] = changes[key];
+                for ( key in changes ) {
+                    if ( !( key in this.fontProperties ) ) {
+                        obj[ key ] = changes[ key ];
                     }
                 }
                 changes = obj;
             }
-            this.callParent([changes, bypassNormalization, avoidCopy]);
+            this.callParent( [ changes, bypassNormalization, avoidCopy ] );
         },
+
         // Overriding the getBBox method of the abstract sprite here to always
         // recalculate the bounding box of the text in flipped RTL mode
         // because in that case the position of the sprite depends not just on
         // the value of its 'x' attribute, but also on the width of the surface
         // the sprite belongs to.
-        getBBox: function (isWithoutTransform) {
+        "getBBox": function ( isWithoutTransform ) {
             var me = this,
                 plain = me.attr.bbox.plain,
                 surface = me.getSurface();
+
             // The sprite's bounding box won't account for RTL if it doesn't
             // belong to a surface.
             // if (!surface) {
             //    Ext.raise("The sprite does not belong to a surface.");
             // }
-            if (plain.dirty) {
-                me.updatePlainBBox(plain);
+            if ( plain.dirty ) {
+                me.updatePlainBBox( plain );
                 plain.dirty = false;
             }
-            if (surface && surface.getInherited().rtl && surface.getFlipRtlText()) {
+            if ( surface && surface.getInherited().rtl && surface.getFlipRtlText() ) {
+
                 // Since sprite's attributes haven't actually changed at this point,
                 // and we just want to update the position of its bbox
                 // based on surface's width, there's no reason to perform
                 // expensive text measurement operation here,
                 // so we can use the result of the last measurement instead.
-                me.updatePlainBBox(plain, true);
+                me.updatePlainBBox( plain, true );
             }
-            return me.callParent([isWithoutTransform]);
+            return me.callParent( [ isWithoutTransform ] );
         },
-        rtlAlignments: {
-            start: "end",
-            center: "center",
-            end: "start",
+        "rtlAlignments": {
+            "start": "end",
+            "center": "center",
+            "end": "start",
         },
-        updatePlainBBox: function (plain, useOldSize) {
+        "updatePlainBBox": function ( plain, useOldSize ) {
             var me = this,
                 attr = me.attr,
                 x = attr.x,
@@ -8815,27 +9330,31 @@ Ext.define("Ext.draw.sprite.Text", function () {
                 precise = me.getPreciseMeasurement(),
                 size,
                 textMeasurerPrecision;
-            if (useOldSize && me.oldSize) {
+            if ( useOldSize && me.oldSize ) {
                 size = me.oldSize;
-            } else {
+            }
+            else {
                 textMeasurerPrecision = Ext.draw.TextMeasurer.precise;
-                if (Ext.isBoolean(precise)) {
+                if ( Ext.isBoolean( precise ) ) {
                     Ext.draw.TextMeasurer.precise = precise;
                 }
-                size = me.oldSize = Ext.draw.TextMeasurer.measureText(text, font);
+                size = me.oldSize = Ext.draw.TextMeasurer.measureText( text, font );
                 Ext.draw.TextMeasurer.precise = textMeasurerPrecision;
             }
-            // eslint-disable-next-line vars-on-top
+
             var surface = me.getSurface(),
-                isRtl = (surface && surface.getInherited().rtl) || false,
+                isRtl = ( surface && surface.getInherited().rtl ) || false,
                 flipRtlText = isRtl && surface.getFlipRtlText(),
                 sizes = size.sizes,
                 blockHeight = size.height,
                 blockWidth = size.width,
-                ln = sizes ? sizes.length : 0,
+                ln = sizes
+                    ? sizes.length
+                    : 0,
                 lineWidth,
                 rect,
                 i = 0;
+
             // To get consistent results in all browsers we don't apply textAlign
             // and textBaseline attributes of the sprite to context, so text is always
             // left aligned and has an alphabetic baseline.
@@ -8846,52 +9365,54 @@ Ext.define("Ext.draw.sprite.Text", function () {
             //
             // These offsets are then used by the sprite's 'render' method
             // to position text properly.
-            switch (baseline) {
-                case "hanging":
-                case "top":
-                    break;
-                case "ideographic":
-                case "bottom":
-                    y -= blockHeight;
-                    break;
-                case "alphabetic":
-                    y -= blockHeight * 0.8;
-                    break;
-                case "middle":
-                    y -= blockHeight * 0.5;
-                    break;
+            switch ( baseline ) {
+            case "hanging":
+            case "top":
+                break;
+            case "ideographic":
+            case "bottom":
+                y -= blockHeight;
+                break;
+            case "alphabetic":
+                y -= blockHeight * 0.8;
+                break;
+            case "middle":
+                y -= blockHeight * 0.5;
+                break;
             }
-            if (flipRtlText) {
+            if ( flipRtlText ) {
                 rect = surface.getRect();
-                x = rect[2] - rect[0] - x;
-                alignment = me.rtlAlignments[alignment];
+                x = rect[ 2 ] - rect[ 0 ] - x;
+                alignment = me.rtlAlignments[ alignment ];
             }
-            switch (alignment) {
-                case "start":
-                    if (isRtl) {
-                        for (; i < ln; i++) {
-                            lineWidth = sizes[i].width;
-                            dx.push(-(blockWidth - lineWidth));
-                        }
+            switch ( alignment ) {
+            case "start":
+                if ( isRtl ) {
+                    for ( ; i < ln; i++ ) {
+                        lineWidth = sizes[ i ].width;
+                        dx.push( -( blockWidth - lineWidth ) );
                     }
+                }
+                break;
+            case "end":
+                x -= blockWidth;
+                if ( isRtl ) {
                     break;
-                case "end":
-                    x -= blockWidth;
-                    if (isRtl) {
-                        break;
-                    }
-                    for (; i < ln; i++) {
-                        lineWidth = sizes[i].width;
-                        dx.push(blockWidth - lineWidth);
-                    }
-                    break;
-                case "center":
-                    x -= blockWidth * 0.5;
-                    for (; i < ln; i++) {
-                        lineWidth = sizes[i].width;
-                        dx.push((isRtl ? -1 : 1) * (blockWidth - lineWidth) * 0.5);
-                    }
-                    break;
+                }
+                for ( ; i < ln; i++ ) {
+                    lineWidth = sizes[ i ].width;
+                    dx.push( blockWidth - lineWidth );
+                }
+                break;
+            case "center":
+                x -= blockWidth * 0.5;
+                for ( ; i < ln; i++ ) {
+                    lineWidth = sizes[ i ].width;
+                    dx.push( ( isRtl
+                        ? -1
+                        : 1 ) * ( blockWidth - lineWidth ) * 0.5 );
+                }
+                break;
             }
             attr.textAlignOffsets = dx;
             plain.x = x;
@@ -8899,19 +9420,19 @@ Ext.define("Ext.draw.sprite.Text", function () {
             plain.width = blockWidth;
             plain.height = blockHeight;
         },
-        setText: function (text) {
+        "setText": function ( text ) {
             this.setAttributes(
                 {
-                    text: text,
+                    "text": text,
                 },
                 true
             );
         },
-        render: function (surface, ctx, rect) {
+        "render": function ( surface, ctx, rect ) {
             var me = this,
                 attr = me.attr,
-                mat = Ext.draw.Matrix.fly(attr.matrix.elements.slice(0)),
-                bbox = me.getBBox(true),
+                mat = Ext.draw.Matrix.fly( attr.matrix.elements.slice( 0 ) ),
+                bbox = me.getBBox( true ),
                 dx = attr.textAlignOffsets,
                 none = Ext.util.Color.RGBA_NONE,
                 x,
@@ -8919,46 +9440,50 @@ Ext.define("Ext.draw.sprite.Text", function () {
                 i,
                 lines,
                 lineHeight;
-            if (attr.text.length === 0) {
+            if ( attr.text.length === 0 ) {
                 return;
             }
-            lines = attr.text.split(me.lineBreakRe);
+            lines = attr.text.split( me.lineBreakRe );
             lineHeight = bbox.height / lines.length;
+
             // Simulate textBaseline and textAlign.
             x = attr.bbox.plain.x;
+
             // lineHeight * 0.78 is the approximate distance between the top
             // and the alphabetic baselines
             y = attr.bbox.plain.y + lineHeight * 0.78;
-            mat.toContext(ctx);
-            if (surface.getInherited().rtl) {
+            mat.toContext( ctx );
+            if ( surface.getInherited().rtl ) {
+
                 // Canvas element in RTL mode automatically flips text alignment.
                 // Here we compensate for that change.
                 // So text is still positioned and aligned as in the LTR mode,
                 // but the direction of the text is RTL.
                 x += attr.bbox.plain.width;
             }
-            for (i = 0; i < lines.length; i++) {
-                if (ctx.fillStyle !== none) {
-                    ctx.fillText(lines[i], x + (dx[i] || 0), y + lineHeight * i);
+            for ( i = 0; i < lines.length; i++ ) {
+                if ( ctx.fillStyle !== none ) {
+                    ctx.fillText( lines[ i ], x + ( dx[ i ] || 0 ), y + lineHeight * i );
                 }
-                if (ctx.strokeStyle !== none) {
-                    ctx.strokeText(lines[i], x + (dx[i] || 0), y + lineHeight * i);
+                if ( ctx.strokeStyle !== none ) {
+                    ctx.strokeText( lines[ i ], x + ( dx[ i ] || 0 ), y + lineHeight * i );
                 }
             }
-            // eslint-disable-next-line vars-on-top
+
             var debug = attr.debug || this.statics().debug || Ext.draw.sprite.Sprite.debug;
-            if (debug) {
+            if ( debug ) {
+
                 // This assumes no part of the sprite is rendered after this call.
                 // If it is, we need to re-apply transformations.
                 // But the bounding box is already transformed, so we remove the transformation.
-                this.attr.inverseMatrix.toContext(ctx);
-                if (debug.bbox) {
-                    me.renderBBox(surface, ctx);
+                this.attr.inverseMatrix.toContext( ctx );
+                if ( debug.bbox ) {
+                    me.renderBBox( surface, ctx );
                 }
             }
         },
     };
-});
+} );
 
 /**
  * A veritical line sprite. The x and y configs set the center of the line with the size
@@ -8981,53 +9506,56 @@ Ext.define("Ext.draw.sprite.Text", function () {
  *        }]
  *     });
  */
-Ext.define("Ext.draw.sprite.Tick", {
-    extend: Ext.draw.sprite.Line,
-    alias: "sprite.tick",
-    inheritableStatics: {
-        def: {
-            processors: {
+Ext.define( "Ext.draw.sprite.Tick", {
+    "extend": Ext.draw.sprite.Line,
+    "alias": "sprite.tick",
+    "inheritableStatics": {
+        "def": {
+            "processors": {
+
                 /**
                  * @cfg {Object} x The position of the center of the sprite on the x-axis.
                  */
-                x: "number",
+                "x": "number",
+
                 /**
                  * @cfg {Object} y The position of the center of the sprite on the y-axis.
                  */
-                y: "number",
+                "y": "number",
+
                 /**
                  * @cfg {Number} [size=4] The size of the sprite.
                  * Meant to be comparable to the size of a circle sprite with the same radius.
                  */
-                size: "number",
+                "size": "number",
             },
-            defaults: {
-                x: 0,
-                y: 0,
-                size: 4,
+            "defaults": {
+                "x": 0,
+                "y": 0,
+                "size": 4,
             },
-            triggers: {
-                x: "tick",
-                y: "tick",
-                size: "tick",
+            "triggers": {
+                "x": "tick",
+                "y": "tick",
+                "size": "tick",
             },
-            updaters: {
-                tick: function (attr) {
+            "updaters": {
+                "tick": function ( attr ) {
                     var size = attr.size * 1.5,
                         halfLineWidth = attr.lineWidth / 2,
                         x = attr.x,
                         y = attr.y;
-                    this.setAttributes({
-                        fromX: x - halfLineWidth,
-                        fromY: y - size,
-                        toX: x - halfLineWidth,
-                        toY: y + size,
-                    });
+                    this.setAttributes( {
+                        "fromX": x - halfLineWidth,
+                        "fromY": y - size,
+                        "toX": x - halfLineWidth,
+                        "toY": y + size,
+                    } );
                 },
             },
         },
     },
-});
+} );
 
 /**
  * A sprite that represents a triangle.
@@ -9048,39 +9576,40 @@ Ext.define("Ext.draw.sprite.Tick", {
  *     });
  *
  */
-Ext.define("Ext.draw.sprite.Triangle", {
-    extend: Ext.draw.sprite.Path,
-    alias: "sprite.triangle",
-    inheritableStatics: {
-        def: {
-            processors: {
-                x: "number",
-                y: "number",
+Ext.define( "Ext.draw.sprite.Triangle", {
+    "extend": Ext.draw.sprite.Path,
+    "alias": "sprite.triangle",
+    "inheritableStatics": {
+        "def": {
+            "processors": {
+                "x": "number",
+                "y": "number",
+
                 /**
                  * @cfg {Number} [size=4] The size of the sprite.
                  * Meant to be comparable to the size of a circle sprite with the same radius.
                  */
-                size: "number",
+                "size": "number",
             },
-            defaults: {
-                x: 0,
-                y: 0,
-                size: 4,
+            "defaults": {
+                "x": 0,
+                "y": 0,
+                "size": 4,
             },
-            triggers: {
-                x: "path",
-                y: "path",
-                size: "path",
+            "triggers": {
+                "x": "path",
+                "y": "path",
+                "size": "path",
             },
         },
     },
-    updatePath: function (path, attr) {
+    "updatePath": function ( path, attr ) {
         var s = attr.size * 2.2,
             x = attr.x,
             y = attr.y;
-        path.fromSvgString("M".concat(x, ",", y, "m0-", s * 0.48, "l", s * 0.5, ",", s * 0.87, "-", s, ",0z"));
+        path.fromSvgString( "M".concat( x, ",", y, "m0-", s * 0.48, "l", s * 0.5, ",", s * 0.87, "-", s, ",0z" ) );
     },
-});
+} );
 
 /**
  * Linear gradient.
@@ -9110,47 +9639,50 @@ Ext.define("Ext.draw.sprite.Triangle", {
  *        }]
  *     });
  */
-Ext.define("Ext.draw.gradient.Linear", {
-    extend: Ext.draw.gradient.Gradient,
-    type: "linear",
-    config: {
+Ext.define( "Ext.draw.gradient.Linear", {
+    "extend": Ext.draw.gradient.Gradient,
+    "type": "linear",
+    "config": {
+
         /**
          * @cfg {Number} degrees
          * The angle of rotation of the gradient in degrees.
          */
-        degrees: 0,
+        "degrees": 0,
+
         /**
          * @cfg {Number} radians
          * The angle of rotation of the gradient in radians.
          */
-        radians: 0,
+        "radians": 0,
     },
-    applyRadians: function (radians, oldRadians) {
-        if (Ext.isNumber(radians)) {
+    "applyRadians": function ( radians, oldRadians ) {
+        if ( Ext.isNumber( radians ) ) {
             return radians;
         }
         return oldRadians;
     },
-    applyDegrees: function (degrees, oldDegrees) {
-        if (Ext.isNumber(degrees)) {
+    "applyDegrees": function ( degrees, oldDegrees ) {
+        if ( Ext.isNumber( degrees ) ) {
             return degrees;
         }
         return oldDegrees;
     },
-    updateRadians: function (radians) {
-        this.setDegrees(Ext.draw.Draw.degrees(radians));
+    "updateRadians": function ( radians ) {
+        this.setDegrees( Ext.draw.Draw.degrees( radians ) );
     },
-    updateDegrees: function (degrees) {
-        this.setRadians(Ext.draw.Draw.rad(degrees));
+    "updateDegrees": function ( degrees ) {
+        this.setRadians( Ext.draw.Draw.rad( degrees ) );
     },
+
     /**
      * @method generateGradient
      * @inheritdoc
      */
-    generateGradient: function (ctx, bbox) {
+    "generateGradient": function ( ctx, bbox ) {
         var angle = this.getRadians(),
-            cos = Math.cos(angle),
-            sin = Math.sin(angle),
+            cos = Math.cos( angle ),
+            sin = Math.sin( angle ),
             w = bbox.width,
             h = bbox.height,
             cx = bbox.x + w * 0.5,
@@ -9160,17 +9692,17 @@ Ext.define("Ext.draw.gradient.Linear", {
             gradient,
             l,
             i;
-        if (Ext.isNumber(cx) && Ext.isNumber(cy) && h > 0 && w > 0) {
-            l = (Math.sqrt(h * h + w * w) * Math.abs(Math.cos(angle - Math.atan(h / w)))) / 2;
-            gradient = ctx.createLinearGradient(cx + cos * l, cy + sin * l, cx - cos * l, cy - sin * l);
-            for (i = 0; i < ln; i++) {
-                gradient.addColorStop(stops[i].offset, stops[i].color);
+        if ( Ext.isNumber( cx ) && Ext.isNumber( cy ) && h > 0 && w > 0 ) {
+            l = ( Math.hypot( h, w ) * Math.abs( Math.cos( angle - Math.atan( h / w ) ) ) ) / 2;
+            gradient = ctx.createLinearGradient( cx + cos * l, cy + sin * l, cx - cos * l, cy - sin * l );
+            for ( i = 0; i < ln; i++ ) {
+                gradient.addColorStop( stops[ i ].offset, stops[ i ].color );
             }
             return gradient;
         }
         return Ext.util.Color.NONE;
     },
-});
+} );
 
 /**
  * Radial gradient.
@@ -9209,104 +9741,113 @@ Ext.define("Ext.draw.gradient.Linear", {
  *        }]
  *     });
  */
-Ext.define("Ext.draw.gradient.Radial", {
-    extend: Ext.draw.gradient.Gradient,
-    type: "radial",
-    config: {
+Ext.define( "Ext.draw.gradient.Radial", {
+    "extend": Ext.draw.gradient.Gradient,
+    "type": "radial",
+    "config": {
+
         /**
          * @cfg {Object} start
          * The starting circle of the gradient.
          */
-        start: {
-            x: 0,
-            y: 0,
-            r: 0,
+        "start": {
+            "x": 0,
+            "y": 0,
+            "r": 0,
         },
+
         /**
          * @cfg {Object} end
          * The ending circle of the gradient.
          */
-        end: {
-            x: 0,
-            y: 0,
-            r: 1,
+        "end": {
+            "x": 0,
+            "y": 0,
+            "r": 1,
         },
     },
-    applyStart: function (newStart, oldStart) {
+    "applyStart": function ( newStart, oldStart ) {
         var circle;
-        if (!oldStart) {
+        if ( !oldStart ) {
             return newStart;
         }
         circle = {
-            x: oldStart.x,
-            y: oldStart.y,
-            r: oldStart.r,
+            "x": oldStart.x,
+            "y": oldStart.y,
+            "r": oldStart.r,
         };
-        if ("x" in newStart) {
+        if ( "x" in newStart ) {
             circle.x = newStart.x;
-        } else if ("centerX" in newStart) {
+        }
+        else if ( "centerX" in newStart ) {
             circle.x = newStart.centerX;
         }
-        if ("y" in newStart) {
+        if ( "y" in newStart ) {
             circle.y = newStart.y;
-        } else if ("centerY" in newStart) {
+        }
+        else if ( "centerY" in newStart ) {
             circle.y = newStart.centerY;
         }
-        if ("r" in newStart) {
+        if ( "r" in newStart ) {
             circle.r = newStart.r;
-        } else if ("radius" in newStart) {
+        }
+        else if ( "radius" in newStart ) {
             circle.r = newStart.radius;
         }
         return circle;
     },
-    applyEnd: function (newEnd, oldEnd) {
+    "applyEnd": function ( newEnd, oldEnd ) {
         var circle;
-        if (!oldEnd) {
+        if ( !oldEnd ) {
             return newEnd;
         }
         circle = {
-            x: oldEnd.x,
-            y: oldEnd.y,
-            r: oldEnd.r,
+            "x": oldEnd.x,
+            "y": oldEnd.y,
+            "r": oldEnd.r,
         };
-        if ("x" in newEnd) {
+        if ( "x" in newEnd ) {
             circle.x = newEnd.x;
-        } else if ("centerX" in newEnd) {
+        }
+        else if ( "centerX" in newEnd ) {
             circle.x = newEnd.centerX;
         }
-        if ("y" in newEnd) {
+        if ( "y" in newEnd ) {
             circle.y = newEnd.y;
-        } else if ("centerY" in newEnd) {
+        }
+        else if ( "centerY" in newEnd ) {
             circle.y = newEnd.centerY;
         }
-        if ("r" in newEnd) {
+        if ( "r" in newEnd ) {
             circle.r = newEnd.r;
-        } else if ("radius" in newEnd) {
+        }
+        else if ( "radius" in newEnd ) {
             circle.r = newEnd.radius;
         }
         return circle;
     },
+
     /**
      * @method generateGradient
      * @inheritdoc
      */
-    generateGradient: function (ctx, bbox) {
+    "generateGradient": function ( ctx, bbox ) {
         var start = this.getStart(),
             end = this.getEnd(),
             w = bbox.width * 0.5,
             h = bbox.height * 0.5,
             x = bbox.x + w,
             y = bbox.y + h,
-            gradient = ctx.createRadialGradient(x + start.x * w, y + start.y * h, start.r * Math.max(w, h), x + end.x * w, y + end.y * h, end.r * Math.max(w, h)),
+            gradient = ctx.createRadialGradient( x + start.x * w, y + start.y * h, start.r * Math.max( w, h ), x + end.x * w, y + end.y * h, end.r * Math.max( w, h ) ),
             stops = this.getStops(),
             ln = stops.length,
             i;
-        for (i = 0; i < ln; i++) {
-            gradient.addColorStop(stops[i].offset, stops[i].color);
+        for ( i = 0; i < ln; i++ ) {
+            gradient.addColorStop( stops[ i ].offset, stops[ i ].color );
         }
         return gradient;
     },
-});
+} );
 
 /**
  * A surface is an interface to render {@link Ext.draw.sprite.Sprite sprites} inside a
@@ -9370,19 +9911,21 @@ Ext.define("Ext.draw.gradient.Radial", {
  * method.  This must be done after adding, removing, or modifying sprites in order to
  * see the changes on-screen.
  */
-Ext.define("Ext.draw.Surface", {
-    extend: Ext.draw.SurfaceBase,
-    xtype: "surface",
+Ext.define( "Ext.draw.Surface", {
+    "extend": Ext.draw.SurfaceBase,
+    "xtype": "surface",
+
     /**
      * The reported device pixel density.
      * devicePixelRatio is only supported from IE11,
      * so we use deviceXDPI and logicalXDPI that are supported from IE6.
      */
-    devicePixelRatio: window.devicePixelRatio || window.screen.deviceXDPI / window.screen.logicalXDPI,
-    deprecated: {
+    "devicePixelRatio": window.devicePixelRatio || window.screen.deviceXDPI / window.screen.logicalXDPI,
+    "deprecated": {
         "5.1.0": {
-            statics: {
-                methods: {
+            "statics": {
+                "methods": {
+
                     /**
                      * @deprecated 5.1.0
                      * Stably sort the list of sprites by their zIndex.
@@ -9390,37 +9933,42 @@ Ext.define("Ext.draw.Surface", {
                      * @param {Array} list
                      * @return {Array} Sorted array.
                      */
-                    stableSort: function (list) {
-                        return Ext.Array.sort(list, function (a, b) {
+                    "stableSort": function ( list ) {
+                        return Ext.Array.sort( list, function ( a, b ) {
                             return a.attr.zIndex - b.attr.zIndex;
-                        });
+                        } );
                     },
                 },
             },
         },
     },
-    cls: Ext.baseCSSPrefix + "surface",
-    config: {
+    "cls": Ext.baseCSSPrefix + "surface",
+    "config": {
+
         /**
          * @cfg {Array}
          * The [x, y, width, height] rect of the surface related to its container.
          */
-        rect: null,
+        "rect": null,
+
         /**
          * @cfg {Object}
          * Background sprite config of the surface.
          */
-        background: null,
+        "background": null,
+
         /**
          * @cfg {Array}
          * Array of sprite instances.
          */
-        items: [],
+        "items": [],
+
         /**
          * @cfg {Boolean}
          * Indicates whether the surface needs to redraw.
          */
-        dirty: false,
+        "dirty": false,
+
         /**
          * @cfg {Boolean} flipRtlText
          * If the surface is in the RTL mode, text will render with the RTL direction,
@@ -9428,9 +9976,10 @@ Ext.define("Ext.draw.Surface", {
          * Setting this config to 'true' will get text alignment and its position
          * within a surface mirrored.
          */
-        flipRtlText: false,
+        "flipRtlText": false,
     },
-    isSurface: true,
+    "isSurface": true,
+
     /**
      * @private
      * This flag is used to indicate that `predecessors` surfaces that should render
@@ -9440,108 +9989,115 @@ Ext.define("Ext.draw.Surface", {
      * before current surface can render. When all the `predecessors` surfaces
      * have rendered, i.e. when `dirtyPredecessorCount` reaches zero,
      */
-    isPendingRenderFrame: false,
-    dirtyPredecessorCount: 0,
-    emptyRect: [0, 0, 0, 0],
-    constructor: function (config) {
+    "isPendingRenderFrame": false,
+    "dirtyPredecessorCount": 0,
+    "emptyRect": [ 0, 0, 0, 0 ],
+    "constructor": function ( config ) {
         var me = this;
         me.predecessors = [];
         me.successors = [];
         me.map = {};
-        me.callParent([config]);
+        me.callParent( [ config ] );
         me.matrix = new Ext.draw.Matrix();
         me.inverseMatrix = me.matrix.inverse();
     },
+
     /**
      * Round the number to align to the pixels on device.
      * @param {Number} num The number to align.
      * @return {Number} The resultant alignment.
      */
-    roundPixel: function (num) {
-        return Math.round(this.devicePixelRatio * num) / this.devicePixelRatio;
+    "roundPixel": function ( num ) {
+        return Math.round( this.devicePixelRatio * num ) / this.devicePixelRatio;
     },
+
     /**
      * Mark the surface to render after another surface is updated.
      * @param {Ext.draw.Surface} surface The surface to wait for.
      */
-    waitFor: function (surface) {
+    "waitFor": function ( surface ) {
         var me = this,
             predecessors = me.predecessors;
-        if (!Ext.Array.contains(predecessors, surface)) {
-            predecessors.push(surface);
-            surface.successors.push(me);
-            if (surface.getDirty()) {
+        if ( !Ext.Array.contains( predecessors, surface ) ) {
+            predecessors.push( surface );
+            surface.successors.push( me );
+            if ( surface.getDirty() ) {
                 me.dirtyPredecessorCount++;
             }
         }
     },
-    updateDirty: function (dirty) {
+    "updateDirty": function ( dirty ) {
         var successors = this.successors,
             ln = successors.length,
             i = 0,
             successor;
-        for (; i < ln; i++) {
-            successor = successors[i];
-            if (dirty) {
+        for ( ; i < ln; i++ ) {
+            successor = successors[ i ];
+            if ( dirty ) {
                 successor.dirtyPredecessorCount++;
-                successor.setDirty(true);
-            } else {
+                successor.setDirty( true );
+            }
+            else {
                 successor.dirtyPredecessorCount--;
+
                 // Don't need to call `setDirty(false)` on a successor here,
                 // as this will be done by `renderFrame`.
-                if (successor.dirtyPredecessorCount === 0 && successor.isPendingRenderFrame) {
+                if ( successor.dirtyPredecessorCount === 0 && successor.isPendingRenderFrame ) {
                     successor.renderFrame();
                 }
             }
         }
     },
-    applyBackground: function (background, oldBackground) {
-        this.setDirty(true);
-        if (Ext.isString(background)) {
+    "applyBackground": function ( background, oldBackground ) {
+        this.setDirty( true );
+        if ( Ext.isString( background ) ) {
             background = {
-                fillStyle: background,
+                "fillStyle": background,
             };
         }
-        return Ext.factory(background, Ext.draw.sprite.Rect, oldBackground);
+        return Ext.factory( background, Ext.draw.sprite.Rect, oldBackground );
     },
-    applyRect: function (rect, oldRect) {
-        if (oldRect && rect[0] === oldRect[0] && rect[1] === oldRect[1] && rect[2] === oldRect[2] && rect[3] === oldRect[3]) {
+    "applyRect": function ( rect, oldRect ) {
+        if ( oldRect && rect[ 0 ] === oldRect[ 0 ] && rect[ 1 ] === oldRect[ 1 ] && rect[ 2 ] === oldRect[ 2 ] && rect[ 3 ] === oldRect[ 3 ] ) {
             return oldRect;
         }
-        if (Ext.isArray(rect)) {
-            return [rect[0], rect[1], rect[2], rect[3]];
-        } else if (Ext.isObject(rect)) {
-            return [rect.x || rect.left, rect.y || rect.top, rect.width || rect.right - rect.left, rect.height || rect.bottom - rect.top];
+        if ( Ext.isArray( rect ) ) {
+            return [ rect[ 0 ], rect[ 1 ], rect[ 2 ], rect[ 3 ] ];
+        }
+        else if ( Ext.isObject( rect ) ) {
+            return [ rect.x || rect.left, rect.y || rect.top, rect.width || rect.right - rect.left, rect.height || rect.bottom - rect.top ];
         }
     },
-    updateRect: function (rect) {
+    "updateRect": function ( rect ) {
         var me = this,
-            l = rect[0],
-            t = rect[1],
-            r = l + rect[2],
-            b = t + rect[3],
+            l = rect[ 0 ],
+            t = rect[ 1 ],
+            r = l + rect[ 2 ],
+            b = t + rect[ 3 ],
             background = me.getBackground(),
             element = me.element;
-        element.setLocalXY(Math.floor(l), Math.floor(t));
-        element.setSize(Math.ceil(r - Math.floor(l)), Math.ceil(b - Math.floor(t)));
-        if (background) {
-            background.setAttributes({
-                x: 0,
-                y: 0,
-                width: Math.ceil(r - Math.floor(l)),
-                height: Math.ceil(b - Math.floor(t)),
-            });
+        element.setLocalXY( Math.floor( l ), Math.floor( t ) );
+        element.setSize( Math.ceil( r - Math.floor( l ) ), Math.ceil( b - Math.floor( t ) ) );
+        if ( background ) {
+            background.setAttributes( {
+                "x": 0,
+                "y": 0,
+                "width": Math.ceil( r - Math.floor( l ) ),
+                "height": Math.ceil( b - Math.floor( t ) ),
+            } );
         }
-        me.setDirty(true);
+        me.setDirty( true );
     },
+
     /**
      * Reset the matrix of the surface.
      */
-    resetTransform: function () {
-        this.matrix.set(1, 0, 0, 1, 0, 0);
-        this.inverseMatrix.set(1, 0, 0, 1, 0, 0);
-        this.setDirty(true);
+    "resetTransform": function () {
+        this.matrix.set( 1, 0, 0, 1, 0, 0 );
+        this.inverseMatrix.set( 1, 0, 0, 1, 0, 0 );
+        this.setDirty( true );
     },
+
     /**
      * Get the sprite by id or index.
      * It will first try to find a sprite with the given id, otherwise will try to use the id
@@ -9549,9 +10105,10 @@ Ext.define("Ext.draw.Surface", {
      * @param {String|Number} id
      * @return {Ext.draw.sprite.Sprite}
      */
-    get: function (id) {
-        return this.map[id] || this.getItems()[id];
+    "get": function ( id ) {
+        return this.map[ id ] || this.getItems()[ id ];
     },
+
     /**
      * @method
      * Add a Sprite to the surface.
@@ -9574,10 +10131,10 @@ Ext.define("Ext.draw.Surface", {
      * @return {Ext.draw.sprite.Sprite/Ext.draw.sprite.Sprite[]}
      *
      */
-    add: function () {
+    "add": function () {
         var me = this,
-            args = Array.prototype.slice.call(arguments),
-            argIsArray = Ext.isArray(args[0]),
+            args = Array.prototype.slice.call( arguments ),
+            argIsArray = Ext.isArray( args[ 0 ] ),
             map = me.map,
             results = [],
             items,
@@ -9586,52 +10143,58 @@ Ext.define("Ext.draw.Surface", {
             oldSurface,
             i,
             ln;
-        items = Ext.Array.clean(argIsArray ? args[0] : args);
-        if (!items.length) {
+        items = Ext.Array.clean( argIsArray
+            ? args[ 0 ]
+            : args );
+        if ( !items.length ) {
             return results;
         }
-        for (i = 0, ln = items.length; i < ln; i++) {
-            item = items[i];
-            if (!item || item.destroyed) {
+        for ( i = 0, ln = items.length; i < ln; i++ ) {
+            item = items[ i ];
+            if ( !item || item.destroyed ) {
                 continue;
             }
             sprite = null;
-            if (item.isSprite && !map[item.getId()]) {
+            if ( item.isSprite && !map[ item.getId() ] ) {
                 sprite = item;
-            } else if (!map[item.id]) {
-                sprite = this.createItem(item);
             }
-            if (sprite) {
-                map[sprite.getId()] = sprite;
-                results.push(sprite);
+            else if ( !map[ item.id ] ) {
+                sprite = this.createItem( item );
+            }
+            if ( sprite ) {
+                map[ sprite.getId() ] = sprite;
+                results.push( sprite );
                 oldSurface = sprite.getSurface();
-                if (oldSurface && oldSurface.isSurface) {
-                    oldSurface.remove(sprite);
+                if ( oldSurface && oldSurface.isSurface ) {
+                    oldSurface.remove( sprite );
                 }
-                sprite.setParent(me);
-                sprite.setSurface(me);
-                me.onAdd(sprite);
+                sprite.setParent( me );
+                sprite.setSurface( me );
+                me.onAdd( sprite );
             }
         }
         items = me.getItems();
-        if (items) {
-            items.push.apply(items, results);
+        if ( items ) {
+            items.push.apply( items, results );
         }
         me.dirtyZIndex = true;
-        me.setDirty(true);
-        if (!argIsArray && results.length === 1) {
-            return results[0];
-        } else {
+        me.setDirty( true );
+        if ( !argIsArray && results.length === 1 ) {
+            return results[ 0 ];
+        }
+        else {
             return results;
         }
     },
+
     /**
      * @method
      * @protected
      * Invoked when a sprite is added to the surface.
      * @param {Ext.draw.sprite.Sprite} sprite The sprite to be added.
      */
-    onAdd: Ext.emptyFn,
+    "onAdd": Ext.emptyFn,
+
     /**
      * Remove a given sprite from the surface,
      * optionally destroying the sprite in the process.
@@ -9647,49 +10210,52 @@ Ext.define("Ext.draw.Surface", {
      * @param {Boolean} [isDestroy=false] If `true`, the sprite will be destroyed.
      * @return {Ext.draw.sprite.Sprite} Returns the removed/destroyed sprite or `null` otherwise.
      */
-    remove: function (sprite, isDestroy) {
+    "remove": function ( sprite, isDestroy ) {
         var me = this,
             destroying = me.clearing,
             id,
             isOwnSprite;
-        if (sprite) {
-            if (sprite.charAt) {
+        if ( sprite ) {
+            if ( sprite.charAt ) {
+
                 // is String
-                sprite = me.map[sprite];
+                sprite = me.map[ sprite ];
             }
-            if (!sprite || !sprite.isSprite) {
+            if ( !sprite || !sprite.isSprite ) {
                 return null;
             }
             id = sprite.id;
-            isOwnSprite = me.map[id];
-            delete me.map[id];
-            if (sprite.destroyed || sprite.destroying) {
-                if (isOwnSprite && !destroying) {
+            isOwnSprite = me.map[ id ];
+            delete me.map[ id ];
+            if ( sprite.destroyed || sprite.destroying ) {
+                if ( isOwnSprite && !destroying ) {
+
                     // Somehow this sprite was destroyed,
                     // but still belongs to the surface.
-                    Ext.Array.remove(me.getItems(), sprite);
+                    Ext.Array.remove( me.getItems(), sprite );
                 }
                 return sprite;
             }
-            if (!isOwnSprite) {
-                if (isDestroy) {
+            if ( !isOwnSprite ) {
+                if ( isDestroy ) {
                     sprite.destroy();
                 }
                 return sprite;
             }
-            sprite.setParent(null);
-            sprite.setSurface(null);
-            if (isDestroy) {
+            sprite.setParent( null );
+            sprite.setSurface( null );
+            if ( isDestroy ) {
                 sprite.destroy();
             }
-            if (!destroying) {
-                Ext.Array.remove(me.getItems(), sprite);
+            if ( !destroying ) {
+                Ext.Array.remove( me.getItems(), sprite );
                 me.dirtyZIndex = true;
-                me.setDirty(true);
+                me.setDirty( true );
             }
         }
         return sprite || null;
     },
+
     /**
      * Remove all sprites from the surface, optionally destroying the sprites in the process.
      *
@@ -9699,49 +10265,54 @@ Ext.define("Ext.draw.Surface", {
      *
      * @param {Boolean} [isDestroy=false]
      */
-    removeAll: function (isDestroy) {
+    "removeAll": function ( isDestroy ) {
         var me = this,
             items = me.getItems(),
             item,
             i;
         me.clearing = !!isDestroy;
-        for (i = items.length - 1; i >= 0; i--) {
-            item = items[i];
-            if (isDestroy) {
+        for ( i = items.length - 1; i >= 0; i-- ) {
+            item = items[ i ];
+            if ( isDestroy ) {
+
                 // Some sprites may destroy other sprites, however if we're destroying then
                 // we don't remove anything from the items array since we'll just clear it later.
                 // If a sprite is destroyed, the remove method will just drop out with no harm done.
                 item.destroy();
-            } else {
-                item.setParent(null);
-                item.setSurface(null);
+            }
+            else {
+                item.setParent( null );
+                item.setSurface( null );
             }
         }
         me.clearing = false;
         items.length = 0;
         me.map = {};
         me.dirtyZIndex = true;
-        if (!me.destroying) {
-            me.setDirty(true);
+        if ( !me.destroying ) {
+            me.setDirty( true );
         }
     },
+
     /**
      * @private
      */
-    applyItems: function (items) {
-        if (this.getItems()) {
-            this.removeAll(true);
+    "applyItems": function ( items ) {
+        if ( this.getItems() ) {
+            this.removeAll( true );
         }
-        return Ext.Array.from(this.add(items));
+        return Ext.Array.from( this.add( items ) );
     },
+
     /**
      * @private
      * Creates an item and appends it to the surface. Called
      * as an internal method when calling `add`.
      */
-    createItem: function (config) {
-        return Ext.create(config.xclass || "sprite." + config.type, config);
+    "createItem": function ( config ) {
+        return Ext.create( config.xclass || "sprite." + config.type, config );
     },
+
     /**
      * Return the minimal bounding box that contains all the sprites bounding boxes
      * in the given list of sprites.
@@ -9749,7 +10320,7 @@ Ext.define("Ext.draw.Surface", {
      * @param {Boolean} [isWithoutTransform=false]
      * @return {{x: Number, y: Number, width: number, height: number}}
      */
-    getBBox: function (sprites, isWithoutTransform) {
+    "getBBox": function ( sprites, isWithoutTransform ) {
         var left = Infinity,
             right = -Infinity,
             top = Infinity,
@@ -9758,30 +10329,31 @@ Ext.define("Ext.draw.Surface", {
             bbox,
             i,
             ln;
-        sprites = Ext.Array.from(sprites);
-        for (i = 0, ln = sprites.length; i < ln; i++) {
-            sprite = sprites[i];
-            bbox = sprite.getBBox(isWithoutTransform);
-            if (left > bbox.x) {
+        sprites = Ext.Array.from( sprites );
+        for ( i = 0, ln = sprites.length; i < ln; i++ ) {
+            sprite = sprites[ i ];
+            bbox = sprite.getBBox( isWithoutTransform );
+            if ( left > bbox.x ) {
                 left = bbox.x;
             }
-            if (right < bbox.x + bbox.width) {
+            if ( right < bbox.x + bbox.width ) {
                 right = bbox.x + bbox.width;
             }
-            if (top > bbox.y) {
+            if ( top > bbox.y ) {
                 top = bbox.y;
             }
-            if (bottom < bbox.y + bbox.height) {
+            if ( bottom < bbox.y + bbox.height ) {
                 bottom = bbox.y + bbox.height;
             }
         }
         return {
-            x: left,
-            y: top,
-            width: right - left,
-            height: bottom - top,
+            "x": left,
+            "y": top,
+            "width": right - left,
+            "height": bottom - top,
         };
     },
+
     /**
      * @private
      * @method getOwnerBody
@@ -9796,112 +10368,123 @@ Ext.define("Ext.draw.Surface", {
      * Converts event's page coordinates into surface coordinates.
      * Note: surface's x-coordinates always go LTR, regardless of RTL mode.
      */
-    getEventXY: function (e) {
+    "getEventXY": function ( e ) {
         var me = this,
             isRtl = me.getInherited().rtl,
             pageXY = e.getXY(),
+
             // Event position in page coordinates.
             // The body of the chart (doesn't include docked items like legend).
             container = me.getOwnerBody(),
             xy = container.getXY(),
+
             // Surface container position in page coordinates.
             // Surface position in surface container coordinates (LTR).
             rect = me.getRect() || me.emptyRect,
             result = [],
             width;
-        if (isRtl) {
+        if ( isRtl ) {
             width = container.getWidth();
+
             // The line below is actually a simplified form of
             // rect[2] - (pageXY[0] - xy[0] - (width - (rect[0] + rect[2]))).
-            result[0] = xy[0] - pageXY[0] - rect[0] + width;
-        } else {
-            result[0] = pageXY[0] - xy[0] - rect[0];
+            result[ 0 ] = xy[ 0 ] - pageXY[ 0 ] - rect[ 0 ] + width;
         }
-        result[1] = pageXY[1] - xy[1] - rect[1];
+        else {
+            result[ 0 ] = pageXY[ 0 ] - xy[ 0 ] - rect[ 0 ];
+        }
+        result[ 1 ] = pageXY[ 1 ] - xy[ 1 ] - rect[ 1 ];
         return result;
     },
+
     /**
      * @method
      * Empty the surface content (without touching the sprites.)
      */
-    clear: Ext.emptyFn,
+    "clear": Ext.emptyFn,
+
     /**
      * @private
      * Order the items by their z-index if any of that has been changed since last sort.
      */
-    orderByZIndex: function () {
+    "orderByZIndex": function () {
         var me = this,
             items = me.getItems(),
             dirtyZIndex = false,
             i,
             ln;
-        if (me.getDirty()) {
-            for (i = 0, ln = items.length; i < ln; i++) {
-                if (items[i].attr.dirtyZIndex) {
+        if ( me.getDirty() ) {
+            for ( i = 0, ln = items.length; i < ln; i++ ) {
+                if ( items[ i ].attr.dirtyZIndex ) {
                     dirtyZIndex = true;
                     break;
                 }
             }
-            if (dirtyZIndex) {
+            if ( dirtyZIndex ) {
+
                 // sort by zIndex
-                Ext.Array.sort(items, function (a, b) {
+                Ext.Array.sort( items, function ( a, b ) {
                     return a.attr.zIndex - b.attr.zIndex;
-                });
-                this.setDirty(true);
+                } );
+                this.setDirty( true );
             }
-            for (i = 0, ln = items.length; i < ln; i++) {
-                items[i].attr.dirtyZIndex = false;
+            for ( i = 0, ln = items.length; i < ln; i++ ) {
+                items[ i ].attr.dirtyZIndex = false;
             }
         }
     },
+
     /**
      * Force the element to redraw.
      */
-    repaint: function () {
+    "repaint": function () {
         var me = this;
         me.repaint = Ext.emptyFn;
-        Ext.defer(function () {
+        Ext.defer( function () {
             delete me.repaint;
             me.element.repaint();
-        }, 1);
+        }, 1 );
     },
+
     /**
      * Triggers the re-rendering of the canvas.
      */
-    renderFrame: function () {
+    "renderFrame": function () {
         var me = this,
             background,
             items,
             item,
             i,
             ln;
-        if (!(me.element && me.getDirty() && me.getRect())) {
+        if ( !( me.element && me.getDirty() && me.getRect() ) ) {
             return;
         }
-        if (me.dirtyPredecessorCount > 0) {
+        if ( me.dirtyPredecessorCount > 0 ) {
             me.isPendingRenderFrame = true;
             return;
         }
         background = me.getBackground();
         items = me.getItems();
+
         // This will also check the dirty flags of the sprites.
         me.orderByZIndex();
-        if (me.getDirty()) {
+        if ( me.getDirty() ) {
             me.clear();
             me.clearTransform();
-            if (background) {
-                me.renderSprite(background);
+            if ( background ) {
+                me.renderSprite( background );
             }
-            for (i = 0, ln = items.length; i < ln; i++) {
-                item = items[i];
-                if (me.renderSprite(item) === false) {
+            for ( i = 0, ln = items.length; i < ln; i++ ) {
+                item = items[ i ];
+                if ( me.renderSprite( item ) === false ) {
                     return;
                 }
                 item.attr.textPositionCount = me.textPosition;
             }
-            me.setDirty(false);
+            me.setDirty( false );
         }
     },
+
     /**
      * @method
      * @private
@@ -9911,7 +10494,8 @@ Ext.define("Ext.draw.Surface", {
      * @param {Ext.draw.sprite.Sprite} sprite The Sprite to be rendered.
      * @return {Boolean} returns `false` to stop the rendering to continue.
      */
-    renderSprite: Ext.emptyFn,
+    "renderSprite": Ext.emptyFn,
+
     /**
      * @method flatten
      * Flattens the given drawing surfaces into a single image
@@ -9931,7 +10515,8 @@ Ext.define("Ext.draw.Surface", {
      * @private
      * Clears the current transformation state on the surface.
      */
-    clearTransform: Ext.emptyFn,
+    "clearTransform": Ext.emptyFn,
+
     /**
      * Destroys the surface. This is done by removing all components from it and
      * also removing its reference to a DOM element.
@@ -9940,26 +10525,27 @@ Ext.define("Ext.draw.Surface", {
      *
      *      drawContainer.surface.destroy();
      */
-    destroy: function () {
+    "destroy": function () {
         var me = this;
         me.destroying = true;
-        me.removeAll(true);
+        me.removeAll( true );
         me.destroying = false;
         me.predecessors = me.successors = null;
-        if (me.hasListeners.destroy) {
-            me.fireEvent("destroy", me);
+        if ( me.hasListeners.destroy ) {
+            me.fireEvent( "destroy", me );
         }
         me.callParent();
     },
-});
+} );
 
 /**
  * @private
  * Adds hit testing methods to the Ext.draw.Surface.
  * Included by the Ext.draw.plugin.SpriteEvents.
  */
-Ext.define("Ext.draw.overrides.hittest.Surface", {
-    override: "Ext.draw.Surface",
+Ext.define( "Ext.draw.overrides.hittest.Surface", {
+    "override": "Ext.draw.Surface",
+
     /**
      * Performs a hit test on all sprites in the surface, returning the first matching one.
      * @param {Array} point A two-item array containing x and y coordinates of the point
@@ -9969,24 +10555,25 @@ Ext.define("Ext.draw.overrides.hittest.Surface", {
      * exactly was hit or null if nothing was hit.
      * @member Ext.draw.Surface
      */
-    hitTest: function (point, options) {
+    "hitTest": function ( point, options ) {
         var me = this,
             sprites = me.getItems(),
             i,
             sprite,
             result;
         options = options || Ext.draw.sprite.Sprite.defaultHitTestOptions;
-        for (i = sprites.length - 1; i >= 0; i--) {
-            sprite = sprites[i];
-            if (sprite.hitTest) {
-                result = sprite.hitTest(point, options);
-                if (result) {
+        for ( i = sprites.length - 1; i >= 0; i-- ) {
+            sprite = sprites[ i ];
+            if ( sprite.hitTest ) {
+                result = sprite.hitTest( point, options );
+                if ( result ) {
                     return result;
                 }
             }
         }
         return null;
     },
+
     /**
      * Performs a hit test on all sprites in the surface, returning the first matching one.
      * Since hit testing is typically performed on mouse events, this convenience method
@@ -9997,114 +10584,126 @@ Ext.define("Ext.draw.overrides.hittest.Surface", {
      * exactly was hit or null if nothing was hit.
      * @member Ext.draw.Surface
      */
-    hitTestEvent: function (event, options) {
-        var xy = this.getEventXY(event);
-        return this.hitTest(xy, options);
+    "hitTestEvent": function ( event, options ) {
+        var xy = this.getEventXY( event );
+        return this.hitTest( xy, options );
     },
-});
+} );
 
 /**
  * @class Ext.draw.engine.SvgContext
  *
  * A class that imitates a canvas context but generates svg elements instead.
  */
-Ext.define("Ext.draw.engine.SvgContext", {
+Ext.define( "Ext.draw.engine.SvgContext", {
+
     /**
      * @private
      * Properties to be saved/restored in the `save` and `restore` methods.
      */
-    toSave: ["strokeOpacity", "strokeStyle", "fillOpacity", "fillStyle", "globalAlpha", "lineWidth", "lineCap", "lineJoin", "lineDash", "lineDashOffset", "miterLimit", "shadowOffsetX", "shadowOffsetY", "shadowBlur", "shadowColor", "globalCompositeOperation", "position", "fillGradient", "strokeGradient"],
-    strokeOpacity: 1,
-    strokeStyle: "none",
-    fillOpacity: 1,
-    fillStyle: "none",
-    lineDas: [],
-    lineDashOffset: 0,
-    globalAlpha: 1,
-    lineWidth: 1,
-    lineCap: "butt",
-    lineJoin: "miter",
-    miterLimit: 10,
-    shadowOffsetX: 0,
-    shadowOffsetY: 0,
-    shadowBlur: 0,
-    shadowColor: "none",
-    globalCompositeOperation: "src",
-    urlStringRe: /^url\(#([\w-]+)\)$/,
-    constructor: function (SvgSurface) {
+    "toSave": [ "strokeOpacity", "strokeStyle", "fillOpacity", "fillStyle", "globalAlpha", "lineWidth", "lineCap", "lineJoin", "lineDash", "lineDashOffset", "miterLimit", "shadowOffsetX", "shadowOffsetY", "shadowBlur", "shadowColor", "globalCompositeOperation", "position", "fillGradient", "strokeGradient" ],
+    "strokeOpacity": 1,
+    "strokeStyle": "none",
+    "fillOpacity": 1,
+    "fillStyle": "none",
+    "lineDas": [],
+    "lineDashOffset": 0,
+    "globalAlpha": 1,
+    "lineWidth": 1,
+    "lineCap": "butt",
+    "lineJoin": "miter",
+    "miterLimit": 10,
+    "shadowOffsetX": 0,
+    "shadowOffsetY": 0,
+    "shadowBlur": 0,
+    "shadowColor": "none",
+    "globalCompositeOperation": "src",
+    "urlStringRe": /^url\(#([\w-]+)\)$/,
+    "constructor": function ( SvgSurface ) {
         var me = this;
         me.surface = SvgSurface;
+
         // Stack of contexts.
         me.state = [];
         me.matrix = new Ext.draw.Matrix();
+
         // Currently manipulated path.
         me.path = null;
         me.clear();
     },
+
     /**
      * Clears the context.
      */
-    clear: function () {
+    "clear": function () {
+
         // Current group to put paths into.
         this.group = this.surface.mainGroup;
+
         // Position within the current group.
         this.position = 0;
         this.path = null;
     },
+
     /**
      * @private
      * @param {String} tag
      * @return {*}
      */
-    getElement: function (tag) {
-        return this.surface.getSvgElement(this.group, tag, this.position++);
+    "getElement": function ( tag ) {
+        return this.surface.getSvgElement( this.group, tag, this.position++ );
     },
+
     /**
      * Pushes the context state to the state stack.
      */
-    save: function () {
+    "save": function () {
         var toSave = this.toSave,
             obj = {},
-            group = this.getElement("g"),
+            group = this.getElement( "g" ),
             key,
             i;
-        for (i = 0; i < toSave.length; i++) {
-            key = toSave[i];
-            if (key in this) {
-                obj[key] = this[key];
+        for ( i = 0; i < toSave.length; i++ ) {
+            key = toSave[ i ];
+            if ( key in this ) {
+                obj[ key ] = this[ key ];
             }
         }
         this.position = 0;
         obj.matrix = this.matrix.clone();
-        this.state.push(obj);
+        this.state.push( obj );
         this.group = group;
         return group;
     },
+
     /**
      * Pops the state stack and restores the state.
      */
-    restore: function () {
+    "restore": function () {
         var toSave = this.toSave,
             obj = this.state.pop(),
             group = this.group,
             children = group.dom.childNodes,
             key,
             i;
+
         // Removing extra DOM elements that were not reused.
-        while (children.length > this.position) {
+        while ( children.length > this.position ) {
             group.last().destroy();
         }
-        for (i = 0; i < toSave.length; i++) {
-            key = toSave[i];
-            if (key in obj) {
-                this[key] = obj[key];
-            } else {
-                delete this[key];
+        for ( i = 0; i < toSave.length; i++ ) {
+            key = toSave[ i ];
+            if ( key in obj ) {
+                this[ key ] = obj[ key ];
+            }
+            else {
+                delete this[ key ];
             }
         }
-        this.setTransform.apply(this, obj.matrix.elements);
+        this.setTransform.apply( this, obj.matrix.elements );
         this.group = group.getParent();
     },
+
     /**
      * Changes the transformation matrix to apply the matrix given by the arguments
      * as described below.
@@ -10115,14 +10714,15 @@ Ext.define("Ext.draw.engine.SvgContext", {
      * @param {Number} dx
      * @param {Number} dy
      */
-    transform: function (xx, yx, xy, yy, dx, dy) {
+    "transform": function ( xx, yx, xy, yy, dx, dy ) {
         var inv;
-        if (this.path) {
-            inv = Ext.draw.Matrix.fly([xx, yx, xy, yy, dx, dy]).inverse();
-            this.path.transform(inv);
+        if ( this.path ) {
+            inv = Ext.draw.Matrix.fly( [ xx, yx, xy, yy, dx, dy ] ).inverse();
+            this.path.transform( inv );
         }
-        this.matrix.append(xx, yx, xy, yy, dx, dy);
+        this.matrix.append( xx, yx, xy, yy, dx, dy );
     },
+
     /**
      * Changes the transformation matrix to the matrix given by the arguments as described below.
      * @param {Number} xx
@@ -10132,74 +10732,81 @@ Ext.define("Ext.draw.engine.SvgContext", {
      * @param {Number} dx
      * @param {Number} dy
      */
-    setTransform: function (xx, yx, xy, yy, dx, dy) {
-        if (this.path) {
-            this.path.transform(this.matrix);
+    "setTransform": function ( xx, yx, xy, yy, dx, dy ) {
+        if ( this.path ) {
+            this.path.transform( this.matrix );
         }
         this.matrix.reset();
-        this.transform(xx, yx, xy, yy, dx, dy);
+        this.transform( xx, yx, xy, yy, dx, dy );
     },
+
     /**
      * Scales the current context by the specified horizontal (x) and vertical (y) factors.
      * @param {Number} x The horizontal scaling factor, where 1 equals unity or 100% scale.
      * @param {Number} y The vertical scaling factor.
      */
-    scale: function (x, y) {
-        this.transform(x, 0, 0, y, 0, 0);
+    "scale": function ( x, y ) {
+        this.transform( x, 0, 0, y, 0, 0 );
     },
+
     /**
      * Rotates the current context coordinates (that is, a transformation matrix).
      * @param {Number} angle The rotation angle, in radians.
      */
-    rotate: function (angle) {
-        var xx = Math.cos(angle),
-            yx = Math.sin(angle),
-            xy = -Math.sin(angle),
-            yy = Math.cos(angle);
-        this.transform(xx, yx, xy, yy, 0, 0);
+    "rotate": function ( angle ) {
+        var xx = Math.cos( angle ),
+            yx = Math.sin( angle ),
+            xy = -Math.sin( angle ),
+            yy = Math.cos( angle );
+        this.transform( xx, yx, xy, yy, 0, 0 );
     },
+
     /**
      * Specifies values to move the origin point in a canvas.
      * @param {Number} x The value to add to horizontal (or x) coordinates.
      * @param {Number} y The value to add to vertical (or y) coordinates.
      */
-    translate: function (x, y) {
-        this.transform(1, 0, 0, 1, x, y);
+    "translate": function ( x, y ) {
+        this.transform( 1, 0, 0, 1, x, y );
     },
-    setGradientBBox: function (bbox) {
+    "setGradientBBox": function ( bbox ) {
         this.bbox = bbox;
     },
+
     /**
      * Resets the current default path.
      */
-    beginPath: function () {
+    "beginPath": function () {
         this.path = new Ext.draw.Path();
     },
+
     /**
      * Creates a new subpath with the given point.
      * @param {Number} x
      * @param {Number} y
      */
-    moveTo: function (x, y) {
-        if (!this.path) {
+    "moveTo": function ( x, y ) {
+        if ( !this.path ) {
             this.beginPath();
         }
-        this.path.moveTo(x, y);
+        this.path.moveTo( x, y );
         this.path.element = null;
     },
+
     /**
      * Adds the given point to the current subpath, connected to the previous one by a straight
      * line.
      * @param {Number} x
      * @param {Number} y
      */
-    lineTo: function (x, y) {
-        if (!this.path) {
+    "lineTo": function ( x, y ) {
+        if ( !this.path ) {
             this.beginPath();
         }
-        this.path.lineTo(x, y);
+        this.path.lineTo( x, y );
         this.path.element = null;
     },
+
     /**
      * Adds a new closed subpath to the path, representing the given rectangle.
      * @param {Number} x
@@ -10207,13 +10814,14 @@ Ext.define("Ext.draw.engine.SvgContext", {
      * @param {Number} width
      * @param {Number} height
      */
-    rect: function (x, y, width, height) {
-        this.moveTo(x, y);
-        this.lineTo(x + width, y);
-        this.lineTo(x + width, y + height);
-        this.lineTo(x, y + height);
+    "rect": function ( x, y, width, height ) {
+        this.moveTo( x, y );
+        this.lineTo( x + width, y );
+        this.lineTo( x + width, y + height );
+        this.lineTo( x, y + height );
         this.closePath();
     },
+
     /**
      * Paints the box that outlines the given rectangle onto the canvas, using the current
      * stroke style.
@@ -10222,11 +10830,12 @@ Ext.define("Ext.draw.engine.SvgContext", {
      * @param {Number} width
      * @param {Number} height
      */
-    strokeRect: function (x, y, width, height) {
+    "strokeRect": function ( x, y, width, height ) {
         this.beginPath();
-        this.rect(x, y, width, height);
+        this.rect( x, y, width, height );
         this.stroke();
     },
+
     /**
      * Paints the given rectangle onto the canvas, using the current fill style.
      * @param {Number} x
@@ -10234,22 +10843,24 @@ Ext.define("Ext.draw.engine.SvgContext", {
      * @param {Number} width
      * @param {Number} height
      */
-    fillRect: function (x, y, width, height) {
+    "fillRect": function ( x, y, width, height ) {
         this.beginPath();
-        this.rect(x, y, width, height);
+        this.rect( x, y, width, height );
         this.fill();
     },
+
     /**
      * Marks the current subpath as closed, and starts a new subpath with a point the same
      * as the start and end of the newly closed subpath.
      */
-    closePath: function () {
-        if (!this.path) {
+    "closePath": function () {
+        if ( !this.path ) {
             this.beginPath();
         }
         this.path.closePath();
         this.path.element = null;
     },
+
     /**
      * Arc command using svg parameters.
      * @param {Number} r1
@@ -10260,13 +10871,14 @@ Ext.define("Ext.draw.engine.SvgContext", {
      * @param {Number} x2
      * @param {Number} y2
      */
-    arcSvg: function (r1, r2, rotation, large, swipe, x2, y2) {
-        if (!this.path) {
+    "arcSvg": function ( r1, r2, rotation, large, swipe, x2, y2 ) {
+        if ( !this.path ) {
             this.beginPath();
         }
-        this.path.arcSvg(r1, r2, rotation, large, swipe, x2, y2);
+        this.path.arcSvg( r1, r2, rotation, large, swipe, x2, y2 );
         this.path.element = null;
     },
+
     /**
      * Adds points to the subpath such that the arc described by the circumference of the circle
      * described by the arguments, starting at the given start angle and ending at the given
@@ -10279,13 +10891,14 @@ Ext.define("Ext.draw.engine.SvgContext", {
      * @param {Number} endAngle
      * @param {Number} anticlockwise
      */
-    arc: function (x, y, radius, startAngle, endAngle, anticlockwise) {
-        if (!this.path) {
+    "arc": function ( x, y, radius, startAngle, endAngle, anticlockwise ) {
+        if ( !this.path ) {
             this.beginPath();
         }
-        this.path.arc(x, y, radius, startAngle, endAngle, anticlockwise);
+        this.path.arc( x, y, radius, startAngle, endAngle, anticlockwise );
         this.path.element = null;
     },
+
     /**
      * Adds points to the subpath such that the arc described by the circumference of the ellipse
      * described by the arguments, starting at the given start angle and ending at the given
@@ -10300,13 +10913,14 @@ Ext.define("Ext.draw.engine.SvgContext", {
      * @param {Number} endAngle
      * @param {Number} anticlockwise
      */
-    ellipse: function (x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise) {
-        if (!this.path) {
+    "ellipse": function ( x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise ) {
+        if ( !this.path ) {
             this.beginPath();
         }
-        this.path.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise);
+        this.path.ellipse( x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise );
         this.path.element = null;
     },
+
     /**
      * Adds an arc with the given control points and radius to the current subpath, connected
      * to the previous point by a straight line. If two radii are provided, the first controls
@@ -10321,13 +10935,14 @@ Ext.define("Ext.draw.engine.SvgContext", {
      * @param {Number} radiusY
      * @param {Number} rotation
      */
-    arcTo: function (x1, y1, x2, y2, radiusX, radiusY, rotation) {
-        if (!this.path) {
+    "arcTo": function ( x1, y1, x2, y2, radiusX, radiusY, rotation ) {
+        if ( !this.path ) {
             this.beginPath();
         }
-        this.path.arcTo(x1, y1, x2, y2, radiusX, radiusY, rotation);
+        this.path.arcTo( x1, y1, x2, y2, radiusX, radiusY, rotation );
         this.path.element = null;
     },
+
     /**
      * Adds the given point to the current subpath, connected to the previous one by a cubic Bézier
      * curve with the given control points.
@@ -10338,13 +10953,14 @@ Ext.define("Ext.draw.engine.SvgContext", {
      * @param {Number} x3
      * @param {Number} y3
      */
-    bezierCurveTo: function (x1, y1, x2, y2, x3, y3) {
-        if (!this.path) {
+    "bezierCurveTo": function ( x1, y1, x2, y2, x3, y3 ) {
+        if ( !this.path ) {
             this.beginPath();
         }
-        this.path.bezierCurveTo(x1, y1, x2, y2, x3, y3);
+        this.path.bezierCurveTo( x1, y1, x2, y2, x3, y3 );
         this.path.element = null;
     },
+
     /**
      * Strokes the given text at the given position. If a maximum width is provided, the text
      * will be scaled to fit that width if necessary.
@@ -10352,39 +10968,40 @@ Ext.define("Ext.draw.engine.SvgContext", {
      * @param {Number} x
      * @param {Number} y
      */
-    strokeText: function (text, x, y) {
+    "strokeText": function ( text, x, y ) {
         var element, tspan;
-        text = String(text);
-        if (this.strokeStyle) {
-            element = this.getElement("text");
-            tspan = this.surface.getSvgElement(element, "tspan", 0);
-            this.surface.setElementAttributes(element, {
-                x: x,
-                y: y,
-                transform: this.matrix.toSvg(),
-                stroke: this.strokeStyle,
-                fill: "none",
-                opacity: this.globalAlpha,
+        text = String( text );
+        if ( this.strokeStyle ) {
+            element = this.getElement( "text" );
+            tspan = this.surface.getSvgElement( element, "tspan", 0 );
+            this.surface.setElementAttributes( element, {
+                "x": x,
+                "y": y,
+                "transform": this.matrix.toSvg(),
+                "stroke": this.strokeStyle,
+                "fill": "none",
+                "opacity": this.globalAlpha,
                 "stroke-opacity": this.strokeOpacity,
-                style: "font: " + this.font,
-                "stroke-dasharray": this.lineDash.join(","),
+                "style": "font: " + this.font,
+                "stroke-dasharray": this.lineDash.join( "," ),
                 "stroke-dashoffset": this.lineDashOffset,
-            });
-            if (this.lineDash.length) {
-                this.surface.setElementAttributes(element, {
-                    "stroke-dasharray": this.lineDash.join(","),
+            } );
+            if ( this.lineDash.length ) {
+                this.surface.setElementAttributes( element, {
+                    "stroke-dasharray": this.lineDash.join( "," ),
                     "stroke-dashoffset": this.lineDashOffset,
-                });
+                } );
             }
-            if (tspan.dom.firstChild) {
-                tspan.dom.removeChild(tspan.dom.firstChild);
+            if ( tspan.dom.firstChild ) {
+                tspan.dom.firstChild.remove();
             }
-            this.surface.setElementAttributes(tspan, {
+            this.surface.setElementAttributes( tspan, {
                 "alignment-baseline": "alphabetic",
-            });
-            tspan.dom.appendChild(document.createTextNode(Ext.String.htmlDecode(text)));
+            } );
+            tspan.dom.append( document.createTextNode( Ext.String.htmlDecode( text ) ) );
         }
     },
+
     /**
      * Fills the given text at the given position. If a maximum width is provided, the text
      * will be scaled to fit that width if necessary.
@@ -10392,30 +11009,31 @@ Ext.define("Ext.draw.engine.SvgContext", {
      * @param {Number} x
      * @param {Number} y
      */
-    fillText: function (text, x, y) {
+    "fillText": function ( text, x, y ) {
         var element, tspan;
-        text = String(text);
-        if (this.fillStyle) {
-            element = this.getElement("text");
-            tspan = this.surface.getSvgElement(element, "tspan", 0);
-            this.surface.setElementAttributes(element, {
-                x: x,
-                y: y,
-                transform: this.matrix.toSvg(),
-                fill: this.fillStyle,
-                opacity: this.globalAlpha,
+        text = String( text );
+        if ( this.fillStyle ) {
+            element = this.getElement( "text" );
+            tspan = this.surface.getSvgElement( element, "tspan", 0 );
+            this.surface.setElementAttributes( element, {
+                "x": x,
+                "y": y,
+                "transform": this.matrix.toSvg(),
+                "fill": this.fillStyle,
+                "opacity": this.globalAlpha,
                 "fill-opacity": this.fillOpacity,
-                style: "font: " + this.font,
-            });
-            if (tspan.dom.firstChild) {
-                tspan.dom.removeChild(tspan.dom.firstChild);
+                "style": "font: " + this.font,
+            } );
+            if ( tspan.dom.firstChild ) {
+                tspan.dom.firstChild.remove();
             }
-            this.surface.setElementAttributes(tspan, {
+            this.surface.setElementAttributes( tspan, {
                 "alignment-baseline": "alphabetic",
-            });
-            tspan.dom.appendChild(document.createTextNode(Ext.String.htmlDecode(text)));
+            } );
+            tspan.dom.append( document.createTextNode( Ext.String.htmlDecode( text ) ) );
         }
     },
+
     /**
      * Draws the given image onto the canvas.
      * If the first argument isn't an img, canvas, or video element, throws a TypeMismatchError
@@ -10432,126 +11050,137 @@ Ext.define("Ext.draw.engine.SvgContext", {
      * @param {Number} dw
      * @param {Number} dh
      */
-    drawImage: function (image, sx, sy, sw, sh, dx, dy, dw, dh) {
+    "drawImage": function ( image, sx, sy, sw, sh, dx, dy, dw, dh ) {
         var me = this,
-            element = me.getElement("image"),
+            element = me.getElement( "image" ),
             x = sx,
             y = sy,
-            width = typeof sw === "undefined" ? image.width : sw,
-            height = typeof sh === "undefined" ? image.height : sh,
+            width = typeof sw === "undefined"
+                ? image.width
+                : sw,
+            height = typeof sh === "undefined"
+                ? image.height
+                : sh,
             viewBox = null;
-        if (typeof dh !== "undefined") {
+        if ( typeof dh !== "undefined" ) {
             viewBox = sx + " " + sy + " " + sw + " " + sh;
             x = dx;
             y = dy;
             width = dw;
             height = dh;
         }
-        element.dom.setAttributeNS("http:/" + "/www.w3.org/1999/xlink", "href", image.src);
-        me.surface.setElementAttributes(element, {
-            viewBox: viewBox,
-            x: x,
-            y: y,
-            width: width,
-            height: height,
-            opacity: me.globalAlpha,
-            transform: me.matrix.toSvg(),
-        });
+        element.dom.setAttributeNS( "http:/" + "/www.w3.org/1999/xlink", "href", image.src );
+        me.surface.setElementAttributes( element, {
+            "viewBox": viewBox,
+            "x": x,
+            "y": y,
+            "width": width,
+            "height": height,
+            "opacity": me.globalAlpha,
+            "transform": me.matrix.toSvg(),
+        } );
     },
+
     /**
      * Fills the subpaths of the current default path or the given path with the current fill style.
      */
-    fill: function () {
+    "fill": function () {
         var me = this,
             path,
             fillGradient,
             element,
             bbox,
             fill;
-        if (!me.path) {
+        if ( !me.path ) {
             return;
         }
-        if (me.fillStyle) {
+        if ( me.fillStyle ) {
             fillGradient = me.fillGradient;
             element = me.path.element;
             bbox = me.bbox;
-            if (!element) {
+            if ( !element ) {
                 path = me.path.toString();
-                element = me.path.element = me.getElement("path");
-                me.surface.setElementAttributes(element, {
-                    d: path,
-                    transform: me.matrix.toSvg(),
-                });
+                element = me.path.element = me.getElement( "path" );
+                me.surface.setElementAttributes( element, {
+                    "d": path,
+                    "transform": me.matrix.toSvg(),
+                } );
             }
-            if (fillGradient && bbox) {
+            if ( fillGradient && bbox ) {
+
                 // This indirectly calls ctx.createLinearGradient or ctx.createRadialGradient,
                 // depending on the type of gradient, and returns an instance of
                 // Ext.draw.engine.SvgContext.Gradient.
-                fill = fillGradient.generateGradient(me, bbox);
-            } else {
+                fill = fillGradient.generateGradient( me, bbox );
+            }
+            else {
                 fill = me.fillStyle;
             }
-            me.surface.setElementAttributes(element, {
-                fill: fill,
+            me.surface.setElementAttributes( element, {
+                "fill": fill,
                 "fill-opacity": me.fillOpacity * me.globalAlpha,
-            });
+            } );
         }
     },
+
     /**
      * Strokes the subpaths of the current default path or the given path with the current
      * stroke style.
      */
-    stroke: function () {
+    "stroke": function () {
         var me = this,
             path,
             strokeGradient,
             element,
             bbox,
             stroke;
-        if (!me.path) {
+        if ( !me.path ) {
             return;
         }
-        if (me.strokeStyle) {
+        if ( me.strokeStyle ) {
             strokeGradient = me.strokeGradient;
             element = me.path.element;
             bbox = me.bbox;
-            if (!element || !me.path.svgString) {
+            if ( !element || !me.path.svgString ) {
                 path = me.path.toString();
-                if (!path) {
+                if ( !path ) {
                     return;
                 }
-                element = me.path.element = me.getElement("path");
-                me.surface.setElementAttributes(element, {
-                    fill: "none",
-                    d: path,
-                    transform: me.matrix.toSvg(),
-                });
+                element = me.path.element = me.getElement( "path" );
+                me.surface.setElementAttributes( element, {
+                    "fill": "none",
+                    "d": path,
+                    "transform": me.matrix.toSvg(),
+                } );
             }
-            if (strokeGradient && bbox) {
+            if ( strokeGradient && bbox ) {
+
                 // This indirectly calls ctx.createLinearGradient or ctx.createRadialGradient,
                 // depending on the type of gradient, and returns an instance of
                 // Ext.draw.engine.SvgContext.Gradient.
-                stroke = strokeGradient.generateGradient(me, bbox);
-            } else {
+                stroke = strokeGradient.generateGradient( me, bbox );
+            }
+            else {
                 stroke = me.strokeStyle;
             }
-            me.surface.setElementAttributes(element, {
-                stroke: stroke,
+            me.surface.setElementAttributes( element, {
+                "stroke": stroke,
                 "stroke-linecap": me.lineCap,
                 "stroke-linejoin": me.lineJoin,
                 "stroke-width": me.lineWidth,
                 "stroke-opacity": me.strokeOpacity * me.globalAlpha,
-                "stroke-dasharray": me.lineDash.join(","),
+                "stroke-dasharray": me.lineDash.join( "," ),
                 "stroke-dashoffset": me.lineDashOffset,
-            });
-            if (me.lineDash.length) {
-                me.surface.setElementAttributes(element, {
-                    "stroke-dasharray": me.lineDash.join(","),
+            } );
+            if ( me.lineDash.length ) {
+                me.surface.setElementAttributes( element, {
+                    "stroke-dasharray": me.lineDash.join( "," ),
                     "stroke-dashoffset": me.lineDashOffset,
-                });
+                } );
             }
         }
     },
+
     /**
      * @protected
      *
@@ -10560,34 +11189,35 @@ Ext.define("Ext.draw.engine.SvgContext", {
      * @param {Boolean} [transformFillStroke] Indicate whether to transform fill and stroke.
      * If this is not given, then uses `attr.transformFillStroke` instead.
      */
-    fillStroke: function (attr, transformFillStroke) {
+    "fillStroke": function ( attr, transformFillStroke ) {
         var ctx = this,
             fillStyle = ctx.fillStyle,
             strokeStyle = ctx.strokeStyle,
             fillOpacity = ctx.fillOpacity,
             strokeOpacity = ctx.strokeOpacity;
-        if (transformFillStroke === undefined) {
+        if ( transformFillStroke === undefined ) {
             transformFillStroke = attr.transformFillStroke;
         }
-        if (!transformFillStroke) {
-            attr.inverseMatrix.toContext(ctx);
+        if ( !transformFillStroke ) {
+            attr.inverseMatrix.toContext( ctx );
         }
-        if (fillStyle && fillOpacity !== 0) {
+        if ( fillStyle && fillOpacity !== 0 ) {
             ctx.fill();
         }
-        if (strokeStyle && strokeOpacity !== 0) {
+        if ( strokeStyle && strokeOpacity !== 0 ) {
             ctx.stroke();
         }
     },
-    appendPath: function (path) {
+    "appendPath": function ( path ) {
         this.path = path.clone();
     },
-    setLineDash: function (lineDash) {
+    "setLineDash": function ( lineDash ) {
         this.lineDash = lineDash;
     },
-    getLineDash: function () {
+    "getLineDash": function () {
         return this.lineDash;
     },
+
     /**
      * Returns an object that represents a linear gradient that paints along the line
      * given by the coordinates represented by the arguments.
@@ -10597,20 +11227,21 @@ Ext.define("Ext.draw.engine.SvgContext", {
      * @param {Number} y1
      * @return {Ext.draw.engine.SvgContext.Gradient}
      */
-    createLinearGradient: function (x0, y0, x1, y1) {
+    "createLinearGradient": function ( x0, y0, x1, y1 ) {
         var me = this,
-            element = me.surface.getNextDef("linearGradient"),
+            element = me.surface.getNextDef( "linearGradient" ),
             gradient;
-        me.surface.setElementAttributes(element, {
-            x1: x0,
-            y1: y0,
-            x2: x1,
-            y2: y1,
-            gradientUnits: "userSpaceOnUse",
-        });
-        gradient = new Ext.draw.engine.SvgContext.Gradient(me, me.surface, element);
+        me.surface.setElementAttributes( element, {
+            "x1": x0,
+            "y1": y0,
+            "x2": x1,
+            "y2": y1,
+            "gradientUnits": "userSpaceOnUse",
+        } );
+        gradient = new Ext.draw.engine.SvgContext.Gradient( me, me.surface, element );
         return gradient;
     },
+
     /**
      * Returns a CanvasGradient object that represents a radial gradient that paints
      * along the cone given by the circles represented by the arguments.
@@ -10623,22 +11254,23 @@ Ext.define("Ext.draw.engine.SvgContext", {
      * @param {Number} r1
      * @return {Ext.draw.engine.SvgContext.Gradient}
      */
-    createRadialGradient: function (x0, y0, r0, x1, y1, r1) {
+    "createRadialGradient": function ( x0, y0, r0, x1, y1, r1 ) {
         var me = this,
-            element = me.surface.getNextDef("radialGradient"),
+            element = me.surface.getNextDef( "radialGradient" ),
             gradient;
-        me.surface.setElementAttributes(element, {
-            fx: x0,
-            fy: y0,
-            cx: x1,
-            cy: y1,
-            r: r1,
-            gradientUnits: "userSpaceOnUse",
-        });
-        gradient = new Ext.draw.engine.SvgContext.Gradient(me, me.surface, element, r0 / r1);
+        me.surface.setElementAttributes( element, {
+            "fx": x0,
+            "fy": y0,
+            "cx": x1,
+            "cy": y1,
+            "r": r1,
+            "gradientUnits": "userSpaceOnUse",
+        } );
+        gradient = new Ext.draw.engine.SvgContext.Gradient( me, me.surface, element, r0 / r1 );
         return gradient;
     },
-});
+} );
+
 /**
  * @class Ext.draw.engine.SvgContext.Gradient
  *
@@ -10646,7 +11278,8 @@ Ext.define("Ext.draw.engine.SvgContext", {
  * (https://developer.mozilla.org/en/docs/Web/API/CanvasGradient)
  * and a `toString` method that returns the ID of the gradient.
  */
-Ext.define("Ext.draw.engine.SvgContext.Gradient", {
+Ext.define( "Ext.draw.engine.SvgContext.Gradient", {
+
     // Gradients workflow in SVG engine:
     //
     // Inside the 'fill' & 'stroke' methods of the SVG Context
@@ -10672,8 +11305,8 @@ Ext.define("Ext.draw.engine.SvgContext.Gradient", {
     // 'stroke' attribute of a 'path' node is set to the Ext.draw.engine.SvgContext.Gradient
     // instance, which is implicitly converted to a string - a 'url(#id)' reference
     // to the gradient element wrapped by the instance.
-    isGradient: true,
-    constructor: function (ctx, surface, element, compression) {
+    "isGradient": true,
+    "constructor": function ( ctx, surface, element, compression ) {
         var me = this;
         me.ctx = ctx;
         me.surface = surface;
@@ -10681,31 +11314,33 @@ Ext.define("Ext.draw.engine.SvgContext.Gradient", {
         me.position = 0;
         me.compression = compression || 0;
     },
+
     /**
      * Adds a color stop with the given color to the gradient at the given offset. 0.0 is the offset
      * at one end of the gradient, 1.0 is the offset at the other end.
      * @param {Number} offset
      * @param {String} color
      */
-    addColorStop: function (offset, color) {
+    "addColorStop": function ( offset, color ) {
         var me = this,
-            stop = me.surface.getSvgElement(me.element, "stop", me.position++),
+            stop = me.surface.getSvgElement( me.element, "stop", me.position++ ),
             compression = me.compression;
-        me.surface.setElementAttributes(stop, {
-            offset: (((1 - compression) * offset + compression) * 100).toFixed(2) + "%",
+        me.surface.setElementAttributes( stop, {
+            "offset": ( ( ( 1 - compression ) * offset + compression ) * 100 ).toFixed( 2 ) + "%",
             "stop-color": color,
-            "stop-opacity": Ext.util.Color.fly(color).a.toFixed(15),
-        });
+            "stop-opacity": Ext.util.Color.fly( color ).a.toFixed( 15 ),
+        } );
     },
-    toString: function () {
+    "toString": function () {
         var children = this.element.dom.childNodes;
+
         // Removing surplus stops in case existing gradient element with more stops was reused.
-        while (children.length > this.position) {
-            Ext.fly(children[children.length - 1]).destroy();
+        while ( children.length > this.position ) {
+            Ext.fly( children.at( -1 ) ).destroy();
         }
         return "url(#" + this.element.getId() + ")";
     },
-});
+} );
 
 /**
  * @class Ext.draw.engine.Svg
@@ -10713,63 +11348,67 @@ Ext.define("Ext.draw.engine.SvgContext.Gradient", {
  *
  * SVG engine.
  */
-Ext.define("Ext.draw.engine.Svg", {
-    extend: Ext.draw.Surface,
-    isSVG: true,
-    config: {
+Ext.define( "Ext.draw.engine.Svg", {
+    "extend": Ext.draw.Surface,
+    "isSVG": true,
+    "config": {
+
         /**
          * @cfg {Boolean} highPrecision
          * Nothing needs to be done in high precision mode.
          */
-        highPrecision: false,
+        "highPrecision": false,
     },
-    getElementConfig: function () {
+    "getElementConfig": function () {
         return {
-            reference: "element",
-            style: {
-                position: "absolute",
+            "reference": "element",
+            "style": {
+                "position": "absolute",
             },
-            children: [
+            "children": [
                 {
-                    reference: "bodyElement",
-                    style: {
-                        width: "100%",
-                        height: "100%",
-                        position: "relative",
+                    "reference": "bodyElement",
+                    "style": {
+                        "width": "100%",
+                        "height": "100%",
+                        "position": "relative",
                     },
-                    children: [
+                    "children": [
                         {
-                            tag: "svg",
-                            reference: "svgElement",
-                            namespace: "http://www.w3.org/2000/svg",
-                            width: "100%",
-                            height: "100%",
-                            version: 1.1,
+                            "tag": "svg",
+                            "reference": "svgElement",
+                            "namespace": "http://www.w3.org/2000/svg",
+                            "width": "100%",
+                            "height": "100%",
+                            "version": 1.1,
                         },
                     ],
                 },
             ],
         };
     },
-    constructor: function (config) {
+    "constructor": function ( config ) {
         var me = this;
-        me.callParent([config]);
-        me.mainGroup = me.createSvgNode("g");
-        me.defsElement = me.createSvgNode("defs");
+        me.callParent( [ config ] );
+        me.mainGroup = me.createSvgNode( "g" );
+        me.defsElement = me.createSvgNode( "defs" );
+
         // me.svgElement is assigned in element creation of Ext.Component.
-        me.svgElement.appendChild(me.mainGroup);
-        me.svgElement.appendChild(me.defsElement);
-        me.ctx = new Ext.draw.engine.SvgContext(me);
+        me.svgElement.append( me.mainGroup );
+        me.svgElement.append( me.defsElement );
+        me.ctx = new Ext.draw.engine.SvgContext( me );
     },
+
     /**
      * Creates a DOM element under the SVG namespace of the given type.
      * @param {String} type The type of the SVG DOM element.
      * @return {*} The created element.
      */
-    createSvgNode: function (type) {
-        var node = document.createElementNS("http://www.w3.org/2000/svg", type);
-        return Ext.get(node);
+    "createSvgNode": function ( type ) {
+        var node = document.createElementNS( "http://www.w3.org/2000/svg", type );
+        return Ext.get( node );
     },
+
     /**
      * @private
      * Returns the SVG DOM element at the given position.
@@ -10780,96 +11419,106 @@ Ext.define("Ext.draw.engine.Svg", {
      * @param {Number} position The position of the element in the DOM.
      * @return {Ext.dom.Element} The SVG element.
      */
-    getSvgElement: function (group, tag, position) {
+    "getSvgElement": function ( group, tag, position ) {
         var childNodes = group.dom.childNodes,
             length = childNodes.length,
             element;
-        if (position < length) {
-            element = childNodes[position];
-            if (element.tagName === tag) {
-                return Ext.get(element);
-            } else {
-                Ext.destroy(element);
+        if ( position < length ) {
+            element = childNodes[ position ];
+            if ( element.tagName === tag ) {
+                return Ext.get( element );
             }
-        } else if (position > length) {
-            Ext.raise("Invalid position.");
+            else {
+                Ext.destroy( element );
+            }
         }
-        element = Ext.get(this.createSvgNode(tag));
-        if (position === 0) {
-            group.insertFirst(element);
-        } else {
-            element.insertAfter(Ext.fly(childNodes[position - 1]));
+        else if ( position > length ) {
+            Ext.raise( "Invalid position." );
+        }
+        element = Ext.get( this.createSvgNode( tag ) );
+        if ( position === 0 ) {
+            group.insertFirst( element );
+        }
+        else {
+            element.insertAfter( Ext.fly( childNodes[ position - 1 ] ) );
         }
         element.cache = {};
         return element;
     },
+
     /**
      * @private
      * Applies attributes to the given element.
      * @param {Ext.dom.Element} element The DOM element to be applied.
      * @param {Object} attributes The attributes to apply to the element.
      */
-    setElementAttributes: function (element, attributes) {
+    "setElementAttributes": function ( element, attributes ) {
         var dom = element.dom,
             cache = element.cache,
             name,
             value;
-        for (name in attributes) {
-            value = attributes[name];
-            if (cache[name] !== value) {
-                cache[name] = value;
-                dom.setAttribute(name, value);
+        for ( name in attributes ) {
+            value = attributes[ name ];
+            if ( cache[ name ] !== value ) {
+                cache[ name ] = value;
+                dom.setAttribute( name, value );
             }
         }
     },
+
     /**
      * @private
      * Gets the next reference element under the SVG 'defs' tag.
      * @param {String} tagName The type of reference element.
      * @return {Ext.dom.Element} The reference element.
      */
-    getNextDef: function (tagName) {
-        return this.getSvgElement(this.defsElement, tagName, this.defsPosition++);
+    "getNextDef": function ( tagName ) {
+        return this.getSvgElement( this.defsElement, tagName, this.defsPosition++ );
     },
+
     /**
      * @method clearTransform
      * @inheritdoc
      */
-    clearTransform: function () {
+    "clearTransform": function () {
         var me = this;
-        me.mainGroup.set({
-            transform: me.matrix.toSvg(),
-        });
+        me.mainGroup.set( {
+            "transform": me.matrix.toSvg(),
+        } );
     },
+
     /**
      * @method clear
      * @inheritdoc
      */
-    clear: function () {
+    "clear": function () {
         this.ctx.clear();
         this.removeSurplusDefs();
         this.defsPosition = 0;
     },
-    removeSurplusDefs: function () {
+    "removeSurplusDefs": function () {
         var defsElement = this.defsElement,
             defs = defsElement.dom.childNodes,
             ln = defs.length,
             i;
-        for (i = ln - 1; i > this.defsPosition; i--) {
-            defsElement.removeChild(defs[i]);
+        for ( i = ln - 1; i > this.defsPosition; i-- ) {
+            defs[ i ].remove();
         }
     },
+
     /**
      * @method renderSprite
      * @inheritdoc
      */
-    renderSprite: function (sprite) {
+    "renderSprite": function ( sprite ) {
         var me = this,
             rect = me.getRect(),
             ctx = me.ctx;
+
         // This check is simplistic, but should result in a better performance
         // compared to !sprite.isVisible() when most surface sprites are visible.
-        if (sprite.attr.hidden || sprite.attr.globalAlpha === 0) {
+        if ( sprite.attr.hidden || sprite.attr.globalAlpha === 0 ) {
+
             // Create an empty group for each hidden sprite,
             // so that when these sprites do become visible,
             // they don't need groups to be created and don't
@@ -10881,96 +11530,99 @@ Ext.define("Ext.draw.engine.Svg", {
             ctx.restore();
             return;
         }
+
         // Each sprite is rendered in its own group ('g' element),
         // returned by the `ctx.save` method.
         // Essentially, the group _is_ the sprite.
         sprite.element = ctx.save();
-        sprite.preRender(this);
-        sprite.useAttributes(ctx, rect);
-        if (false === sprite.render(this, ctx, [0, 0, rect[2], rect[3]])) {
+        sprite.preRender( this );
+        sprite.useAttributes( ctx, rect );
+        if ( sprite.render( this, ctx, [ 0, 0, rect[ 2 ], rect[ 3 ] ] ) === false ) {
             return false;
         }
-        sprite.setDirty(false);
+        sprite.setDirty( false );
         ctx.restore();
     },
+
     /**
      * @private
      */
-    toSVG: function (size, surfaces) {
-        var className = Ext.getClassName(this),
+    "toSVG": function ( size, surfaces ) {
+        var className = Ext.getClassName( this ),
             svg,
             surface,
             rect,
             i;
         svg = '<svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg"' + ' width="' + size.width + '"' + ' height="' + size.height + '">';
-        for (i = 0; i < surfaces.length; i++) {
-            surface = surfaces[i];
-            if (Ext.getClassName(surface) !== className) {
+        for ( i = 0; i < surfaces.length; i++ ) {
+            surface = surfaces[ i ];
+            if ( Ext.getClassName( surface ) !== className ) {
                 continue;
             }
             rect = surface.getRect();
-            svg += '<g transform="translate(' + rect[0] + "," + rect[1] + ')">';
-            svg += this.serializeNode(surface.svgElement.dom);
+            svg += '<g transform="translate(' + rect[ 0 ] + "," + rect[ 1 ] + ')">';
+            svg += this.serializeNode( surface.svgElement.dom );
             svg += "</g>";
         }
         svg += "</svg>";
         return svg;
     },
-    b64EncodeUnicode: function (str) {
+    "b64EncodeUnicode": function ( str ) {
+
         // Since DOMStrings are 16-bit-encoded strings, in most browsers calling window.btoa
         // on a Unicode string will cause a Character Out Of Range exception if a character
         // exceeds the range of a 8-bit ASCII-encoded character. More information:
         // https://developer.mozilla.org/en/docs/Web/API/WindowBase64/Base64_encoding_and_decoding
-        return btoa(
-            encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (match, p1) {
-                return String.fromCharCode("0x" + p1);
-            })
-        );
+        return btoa( encodeURIComponent( str ).replaceAll( /%([\dA-F]{2})/g, function ( match, p1 ) {
+            return String.fromCharCode( "0x" + p1 );
+        } ) );
     },
-    flatten: function (size, surfaces) {
+    "flatten": function ( size, surfaces ) {
         var svg = '<?xml version="1.0" standalone="yes"?>';
-        svg += this.toSVG(size, surfaces);
+        svg += this.toSVG( size, surfaces );
         return {
-            data: "data:image/svg+xml;base64," + this.b64EncodeUnicode(svg),
-            type: "svg",
+            "data": "data:image/svg+xml;base64," + this.b64EncodeUnicode( svg ),
+            "type": "svg",
         };
     },
+
     /**
      * @private
      * Serializes an SVG DOM element and its children recursively into a string.
      * @param {Object} node DOM element to serialize.
      * @return {String}
      */
-    serializeNode: function (node) {
+    "serializeNode": function ( node ) {
         var result = "",
             i,
             n,
             attr,
             child;
-        if (node.nodeType === document.TEXT_NODE) {
+        if ( node.nodeType === document.TEXT_NODE ) {
             return node.nodeValue;
         }
         result += "<" + node.nodeName;
-        if (node.attributes.length) {
-            for (i = 0, n = node.attributes.length; i < n; i++) {
-                attr = node.attributes[i];
-                result += " " + attr.name + '="' + Ext.String.htmlEncode(attr.value) + '"';
+        if ( node.attributes.length ) {
+            for ( i = 0, n = node.attributes.length; i < n; i++ ) {
+                attr = node.attributes[ i ];
+                result += " " + attr.name + '="' + Ext.String.htmlEncode( attr.value ) + '"';
             }
         }
         result += ">";
-        if (node.childNodes && node.childNodes.length) {
-            for (i = 0, n = node.childNodes.length; i < n; i++) {
-                child = node.childNodes[i];
-                result += this.serializeNode(child);
+        if ( node.childNodes && node.childNodes.length ) {
+            for ( i = 0, n = node.childNodes.length; i < n; i++ ) {
+                child = node.childNodes[ i ];
+                result += this.serializeNode( child );
             }
         }
         result += "</" + node.nodeName + ">";
         return result;
     },
+
     /**
      * Destroys the Canvas element and prepares it for Garbage Collection.
      */
-    destroy: function () {
+    "destroy": function () {
         var me = this;
         me.ctx.destroy();
         me.mainGroup.destroy();
@@ -10980,27 +11632,29 @@ Ext.define("Ext.draw.engine.Svg", {
         delete me.ctx;
         me.callParent();
     },
-    remove: function (sprite, destroySprite) {
-        if (sprite && sprite.element) {
+    "remove": function ( sprite, destroySprite ) {
+        if ( sprite && sprite.element ) {
+
             // If sprite has an associated SVG element, remove it from the surface.
             sprite.element.destroy();
             sprite.element = null;
         }
-        this.callParent(arguments);
+        this.callParent( arguments );
     },
-});
+} );
 
 // @define Ext.draw.engine.excanvas
 /**
  * @private
  */
-if (!Ext.draw) {
+if ( !Ext.draw ) {
     Ext.draw = {};
 }
-if (!Ext.draw.engine) {
+if ( !Ext.draw.engine ) {
     Ext.draw.engine = {};
 }
 Ext.draw.engine.excanvas = true;
+
 // Copyright 2006 Google Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -11388,8 +12042,8 @@ if (!document.createElement("canvas").getContext) {
             l = clamp(percent(parts[2]), 0, 1);
             if (s == 0) {
                 r = g = b = l;
-            } // achromatic
-            else {
+            } else // achromatic
+            {
                 var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
                 var p = 2 * l - q;
                 r = hueToRgb(p, q, h + 1 / 3);
@@ -12827,7 +13481,7 @@ Ext.define(
          */
         updateRect: function (rect) {
             this.callParent([rect]);
-            // eslint-disable-next-line vars-on-top
+
             var me = this,
                 l = Math.floor(rect[0]),
                 t = Math.floor(rect[1]),
@@ -15790,7 +16444,7 @@ Ext.define("Ext.chart.series.Series", {
         if (!label) {
             return;
         }
-        // eslint-disable-next-line vars-on-top
+
         var store = this.getStore(),
             items = store.getData().items,
             sprites = this.getSprites(),
@@ -15930,7 +16584,7 @@ Ext.define("Ext.chart.series.Series", {
         if (chart.destroying || chart.destroyed) {
             return;
         }
-        // eslint-disable-next-line vars-on-top
+
         var me = this,
             axes = chart.getAxes(),
             axis,
@@ -16454,7 +17108,6 @@ Ext.define("Ext.chart.series.Series", {
             // 'showMarkers' updater calls 'series.getSprites()',
             // which we don't want to call here.
             showMarkers = me.getConfig("showMarkers", true),
-            // eslint-disable-line no-unused-vars
             style,
             sprite,
             marker,
@@ -17351,7 +18004,7 @@ Ext.define("Ext.chart.axis.sprite.Axis", {
         if (chart.isInitializing) {
             return;
         }
-        // eslint-disable-next-line vars-on-top
+
         var attr = me.attr,
             layout = me.getLayout(),
             isRtl = chart.getInherited().rtl,
@@ -18035,7 +18688,7 @@ Ext.define("Ext.chart.axis.sprite.Axis", {
             }
             return;
         }
-        // eslint-disable-next-line vars-on-top
+
         var chart = axis.getChart(),
             innerPadding = chart.getInnerPadding(),
             limitsRect = axis.limits.surface.getRect(),
@@ -20139,7 +20792,7 @@ Ext.define("Ext.chart.axis.Axis", {
         if (!this.getChart()) {
             return;
         }
-        // eslint-disable-next-line vars-on-top
+
         var me = this,
             range = me.getRange(),
             position = me.getPosition(),
@@ -20209,7 +20862,7 @@ Ext.define("Ext.chart.axis.Axis", {
         if (this.isConfiguring) {
             return;
         }
-        // eslint-disable-next-line vars-on-top
+
         var me = this,
             sprites = me.getSprites(),
             surface = me.getSurface(),
@@ -20372,7 +21025,6 @@ Ext.define("Ext.chart.axis.Axis", {
 Ext.define("Ext.chart.legend.LegendBase", {
     extend: Ext.dataview.DataView,
     config: {
-        /* eslint-disable max-len, no-useless-escape */
         itemTpl: ['<span class="', Ext.baseCSSPrefix, "legend-item-marker {[ values.disabled ? Ext.baseCSSPrefix + 'legend-item-inactive' : '' ]}\" style=\"background:{mark};\"></span>{name}"],
         /* eslint-enable max-len, no-useless-escape */
         inline: true,
@@ -20395,13 +21047,13 @@ Ext.define("Ext.chart.legend.LegendBase", {
         me.callParent([docked, oldDocked]);
         switch (docked) {
             case "top":
-            // eslint-disable-next-line no-fallthrough
+
             case "bottom":
                 el.addCls(me.horizontalCls);
                 el.removeCls(me.verticalCls);
                 break;
             case "left":
-            // eslint-disable-next-line no-fallthrough
+
             case "right":
                 el.addCls(me.verticalCls);
                 el.removeCls(me.horizontalCls);
@@ -20710,7 +21362,7 @@ Ext.define("Ext.draw.PathUtil", function () {
             if (a === 0) {
                 return this.quadraticRoots(b, c, d);
             }
-            // eslint-disable-next-line vars-on-top
+
             var A = b / a,
                 B = c / a,
                 C = d / a,
@@ -21018,7 +21670,6 @@ Ext.define("Ext.draw.PathUtil", function () {
          *                  is itself a two-item array [x,y].
          */
         cubicsIntersections: function (ax1, ax2, ax3, ax4, ay1, ay2, ay3, ay4, bx1, bx2, bx3, bx4, by1, by2, by3, by4) {
-            /* eslint-disable max-len */
             var me = this,
                 axDim = me.cubicDimension(ax1, ax2, ax3, ax4),
                 ayDim = me.cubicDimension(ay1, ay2, ay3, ay4),
@@ -21047,7 +21698,7 @@ Ext.define("Ext.draw.PathUtil", function () {
             points.push.apply(points, me.cubicsIntersections.apply(me, splitAx[1].concat(splitAy[1], splitBx[1], splitBy[1])));
             return points;
         },
-        /* eslint-enable max-len */
+
         /**
          * @private
          * Returns the point [x,y] where two line segments intersect or null.
@@ -21465,7 +22116,7 @@ Ext.define("Ext.chart.legend.SpriteLegend", {
             return false;
         }
         me.cancelLayout();
-        // eslint-disable-next-line vars-on-top
+
         var docked = me.getDocked(),
             surfaceWidth = surfaceRect[2],
             surfaceHeight = surfaceRect[3],
@@ -21625,7 +22276,7 @@ Ext.define("Ext.chart.legend.SpriteLegend", {
                     paddedBorderHeight = paddedItemsHeight + gap * 4;
                 } while ( // Integer division by 2, plus remainder.
                     // itemsHeight is determined by the height of the first column.
-                    // eslint-disable-next-line no-unused-vars
+
                     paddedItemsHeight > surfaceHeight
                 );
                 break;
@@ -22227,7 +22878,7 @@ Ext.define("Ext.chart.Caption", {
         if (this.getHidden()) {
             return null;
         }
-        // eslint-disable-next-line vars-on-top
+
         var rect = [0, 0, chartRect[2], 0],
             docked = this.getDocked(),
             padding = this.getPadding(),
@@ -22880,7 +23531,7 @@ Ext.define("Ext.chart.AbstractChart", {
          * This notion is separate from this one and should not be used at the same time.
          */
         highlightItem: null,
-        /* eslint-disable indent */
+
         surfaceZIndexes: {
             background: 0,
             // Contains the backround 'rect' sprite.
@@ -22965,7 +23616,7 @@ Ext.define("Ext.chart.AbstractChart", {
         if (this.isConfiguring) {
             return;
         }
-        // eslint-disable-next-line vars-on-top
+
         var seriesList = this.getSeries(),
             ln = seriesList.length,
             i,
@@ -23654,8 +24305,8 @@ Ext.define("Ext.chart.AbstractChart", {
                 if (oldSeriesItem) {
                     oldSeriesItem.setConfig(series);
                     series = oldSeriesItem;
-                } // Create a new Series
-                else {
+                } else // Create a new Series
+                {
                     if (Ext.isString(series)) {
                         series = {
                             type: series,
@@ -23858,7 +24509,7 @@ Ext.define("Ext.chart.AbstractChart", {
             if (!interaction) {
                 continue;
             }
-            // eslint-disable-next-line max-len
+
             interaction = Ext.factory(interaction, null, oldMap[(interaction.getId && interaction.getId()) || interaction.id], "interaction");
             if (interaction) {
                 interaction.setChart(me);
@@ -23944,7 +24595,7 @@ Ext.define("Ext.chart.AbstractChart", {
             return false;
         }
         // Cancel subclass layout.
-        // eslint-disable-next-line vars-on-top
+
         var me = this,
             legend = me.getLegend(),
             chartRect = me.getChartRect(true),
@@ -24507,7 +25158,7 @@ Ext.define("Ext.chart.CartesianChart", {
         // 'chart' surface rect is the size of the chart's inner element
         // (see chart.getChartBox), i.e. the portion of the chart minus
         // the legend area (whether DOM or sprite based).
-        // eslint-disable-next-line vars-on-top
+
         var chartRect = me.getSurface("chart").getRect(),
             left = chartRect[0],
             top = chartRect[1],
@@ -25030,7 +25681,7 @@ Ext.define("Ext.chart.PolarChart", {
                 return;
             }
             me.suspendThicknessChanged();
-            // eslint-disable-next-line vars-on-top
+
             var chartRect = me.getSurface("chart").getRect(),
                 inset = me.getInsetPadding(),
                 inner = me.getInnerPadding(),
@@ -25083,7 +25734,7 @@ Ext.define("Ext.chart.PolarChart", {
             for (i = 0, ln = angularAxes.length; i < ln; i++) {
                 axis = angularAxes[i];
                 floating = axis.getFloating();
-                // eslint-disable-next-line no-unused-vars
+
                 floatingValue = floating ? floating.value : null;
                 me.doSetSurfaceRect(axis.getSurface(), chartRect);
                 thickness = axis.getThickness();
@@ -25253,7 +25904,7 @@ Ext.define("Ext.chart.SpaceFillingChart", {
                 // animationSuspendCount will still be decremented
                 return;
             }
-            // eslint-disable-next-line vars-on-top
+
             var chartRect = me.getSurface("chart").getRect(),
                 padding = me.getInsetPadding(),
                 width = chartRect[2] - padding.left - padding.right,
@@ -25333,7 +25984,7 @@ Ext.define("Ext.chart.axis.sprite.Axis3D", {
         if (chart.isInitializing) {
             return;
         }
-        // eslint-disable-next-line vars-on-top
+
         var attr = me.attr,
             layout = me.getLayout(),
             depth = layout.isDiscrete ? 0 : attr.depth,
@@ -25376,7 +26027,6 @@ Ext.define("Ext.chart.axis.sprite.Axis3D", {
             attr = me.attr,
             halfLineWidth = attr.lineWidth * 0.5,
             layout = me.getLayout(),
-            // eslint-disable-line no-redeclare
             depth = layout.isDiscrete ? 0 : attr.depth,
             docked = attr.position,
             position,
@@ -26303,7 +26953,6 @@ Ext.define("Ext.chart.interactions.CrossZoom", {
             return;
         }
         if (me.getLocks()[me.gestureEvent] === me) {
-            // eslint-disable-next-line vars-on-top
             var chart = me.getChart(),
                 surface = me.getSurface(),
                 rect = chart.getInnerRect(),
@@ -26348,7 +26997,6 @@ Ext.define("Ext.chart.interactions.CrossZoom", {
             return;
         }
         if (me.getLocks()[me.gestureEvent] === me) {
-            // eslint-disable-next-line vars-on-top
             var chart = me.getChart(),
                 surface = me.getSurface(),
                 rect = chart.getInnerRect(),
@@ -26796,7 +27444,7 @@ Ext.define("Ext.chart.interactions.Crosshair", {
         if (me.getLocks()[me.getGesture()] !== me) {
             return;
         }
-        // eslint-disable-next-line vars-on-top
+
         var chart = me.getChart(),
             surface = chart.getSurface("overlay"),
             rect = Ext.Array.slice(chart.getInnerRect()),
@@ -27101,10 +27749,10 @@ Ext.define("Ext.chart.interactions.ItemHighlight", {
                         }
                     }
                     me.tooltipItems = items;
-                } // No mouse hit - schedule a hide for hideDelay ms.
+                } else // No mouse hit - schedule a hide for hideDelay ms.
                 // If pointer enters another item within that time,
                 // there will be no flickery reshow.
-                else {
+                {
                     me.hideTooltips(tooltipItems);
                     tooltipItems.length = 0;
                 }
@@ -27461,8 +28109,8 @@ Ext.define("Ext.chart.interactions.ItemEdit", {
             if (flipXY) {
                 hintX = xy[0];
                 hintY = instance.translationY;
-            } // no change
-            else {
+            } else // no change
+            {
                 hintX = instance.translationX;
                 hintY = xy[1];
             }
@@ -27925,7 +28573,6 @@ Ext.define("Ext.chart.interactions.PanZoom", {
     },
     onZoomGestureStart: function (e) {
         if (e.touches && e.touches.length === 2) {
-            // eslint-disable-next-line vars-on-top
             var me = this,
                 chart = me.getChart(),
                 xy = chart.element.getXY(),
@@ -27949,7 +28596,6 @@ Ext.define("Ext.chart.interactions.PanZoom", {
     onZoomGestureMove: function (e) {
         var me = this;
         if (me.getLocks()[me.getZoomGesture()] === me) {
-            // eslint-disable-next-line vars-on-top
             var chart = me.getChart(),
                 rect = chart.getInnerRect(),
                 xy = chart.element.getXY(),
@@ -28132,7 +28778,6 @@ Ext.define("Ext.chart.interactions.PanZoom", {
     },
 });
 
-/* eslint-disable max-len */
 /**
  * @class Ext.chart.interactions.Rotate
  * @extends Ext.chart.interactions.Abstract
@@ -28171,7 +28816,7 @@ Ext.define("Ext.chart.interactions.PanZoom", {
  *         }
  *     });
  */
-/* eslint-enable max-len */
+
 Ext.define("Ext.chart.interactions.Rotate", {
     extend: Ext.chart.interactions.Abstract,
     type: "rotate",
@@ -28853,7 +29498,7 @@ Ext.define("Ext.chart.navigator.Navigator", {
         if (e.touch.identifier !== this.touchId) {
             return;
         }
-        // eslint-disable-next-line vars-on-top
+
         var me = this,
             overlayEl = me.overlaySurface.element,
             width = overlayEl.getSize().width,
@@ -30761,7 +31406,7 @@ Ext.define("Ext.chart.series.sprite.Bar", {
         if (this.cleanRedraw) {
             return;
         }
-        // eslint-disable-next-line vars-on-top
+
         var me = this,
             attr = me.attr,
             dataX = attr.dataX,
@@ -31259,7 +31904,7 @@ Ext.define("Ext.chart.sprite.Bar3D", {
             bbox.y = top;
             bbox.width = halfWidth + depth;
             bbox.height = depth;
-            // eslint-disable-next-line max-len
+
             ctx.fillStyle = (isHorizontal ? me.rightGradient : me.topGradient).generateGradient(ctx, bbox);
             ctx.fillStroke(attr);
         }
@@ -31275,7 +31920,7 @@ Ext.define("Ext.chart.sprite.Bar3D", {
             bbox.y = bottom;
             bbox.width = depth;
             bbox.height = top + depth - bottom;
-            // eslint-disable-next-line max-len
+
             ctx.fillStyle = (isHorizontal ? me.topGradient : me.rightGradient).generateGradient(ctx, bbox);
             ctx.fillStroke(attr);
         }
@@ -31291,7 +31936,7 @@ Ext.define("Ext.chart.sprite.Bar3D", {
         bbox.y = top;
         bbox.width = halfWidth + depth;
         bbox.height = depth;
-        // eslint-disable-next-line max-len
+
         ctx.fillStyle = (isHorizontal ? me.rightGradient : me.topGradient).generateGradient(ctx, bbox);
         ctx.fillStroke(attr);
         // Right side.
@@ -31306,7 +31951,7 @@ Ext.define("Ext.chart.sprite.Bar3D", {
         bbox.y = bottom;
         bbox.width = depth;
         bbox.height = top + depth - bottom;
-        // eslint-disable-next-line max-len
+
         ctx.fillStyle = (isHorizontal ? me.topGradient : me.rightGradient).generateGradient(ctx, bbox);
         ctx.fillStroke(attr);
         // Front side.
@@ -31521,7 +32166,7 @@ Ext.define("Ext.chart.series.sprite.BoxPlot", {
         if (this.cleanRedraw) {
             return;
         }
-        // eslint-disable-next-line vars-on-top
+
         var me = this,
             attr = me.attr,
             series = me.getSeries(),
@@ -31714,7 +32359,7 @@ Ext.define("Ext.chart.sprite.BoxPlot", {
         } else {
             me.softRender(surface, ctx);
         }
-        // eslint-disable-next-line vars-on-top
+
         var debug = attr.debug || this.statics().debug || Ext.draw.sprite.Sprite.debug;
         if (debug) {
             // This assumes no part of the sprite is rendered after this call.
@@ -32104,7 +32749,7 @@ Ext.define("Ext.draw.SegmentTree", {
             minimum = new Date(dataX[startIdxs[0]]);
             currentUnit = units[unitIdx];
             minimum = extDate.align(minimum, currentUnit[0], currentUnit[1]);
-            // eslint-disable-next-line max-len
+
             if (extDate.diff(minimum, maximum, currentUnit[0]) > dataX.length * 2 * currentUnit[1]) {
                 continue;
             }
@@ -32375,7 +33020,7 @@ Ext.define("Ext.draw.SegmentTree", {
         if (!this.cache) {
             return null;
         }
-        // eslint-disable-next-line vars-on-top
+
         var minStep = Infinity,
             cache = this.cache,
             range = cache.range,
@@ -33411,7 +34056,7 @@ Ext.define("Ext.chart.series.Gauge", {
             return Ext.emptyArray;
         }
         // Return cached sprites
-        // eslint-disable-next-line vars-on-top
+
         var chart = me.getChart(),
             animation = me.getAnimation() || (chart && chart.getAnimation()),
             sprites = me.sprites,
@@ -34511,7 +35156,6 @@ Ext.define("Ext.chart.series.sprite.PieSlice", {
             attr = me.attr,
             hasGradients = (attr.fillStyle && attr.fillStyle.isGradient) || (attr.strokeStyle && attr.strokeStyle.isGradient);
         if (hasGradients && !attr.constrainGradients) {
-            // eslint-disable-next-line vars-on-top
             var midAngle = me.getMidAngle(),
                 margin = attr.margin,
                 cx = attr.centerX,
@@ -34635,7 +35279,6 @@ Ext.define("Ext.chart.series.sprite.PieSlice", {
         // If a slice is empty, don't display the label.
         // This behavior can be overridden by a renderer.
         if (labelTpl.display !== "none") {
-            // eslint-disable-next-line eqeqeq
             labelCfg.hidden = attr.startAngle == attr.endAngle;
         }
         if (labelTpl.attr.renderer) {
@@ -35055,7 +35698,7 @@ Ext.define("Ext.chart.series.Pie", {
         }
         me.getColors();
         me.getSubStyle();
-        // eslint-disable-next-line vars-on-top
+
         var items = store.getData().items,
             length = items.length,
             animation = me.getAnimation() || (chart && chart.getAnimation()),
@@ -35832,7 +36475,6 @@ Ext.define("Ext.chart.series.sprite.Pie3DPart", {
             baseRotation = attr.baseRotation,
             startAngle = attr.startAngle + baseRotation,
             endAngle = attr.endAngle + baseRotation,
-            // eslint-disable-next-line max-len
             isFullPie = !attr.startAngle && Ext.Number.isEqual(Math.PI * 2, attr.endAngle, 1.0e-7),
             thickness = attr.thickness,
             startRho = attr.startRho,
@@ -36223,7 +36865,6 @@ Ext.define(
                 renderer = me.getRenderer(),
                 rendererData = me.getRendererData(),
                 highlight = me.getHighlight(),
-                // eslint-disable-line no-unused-vars
                 lastAngle = 0,
                 twoPi = Math.PI * 2,
                 // To avoid adjacent start/end part blinking (z-index jitter)
@@ -36521,7 +37162,7 @@ Ext.define(
             if (sprites && !createMissing) {
                 return sprites;
             }
-            // eslint-disable-next-line vars-on-top
+
             var surface = me.getSurface(),
                 records = store.getData().items,
                 spritesPerSlice = me.spritesPerSlice,
@@ -37006,7 +37647,7 @@ Ext.define("Ext.chart.series.sprite.Scatter", {
         if (this.cleanRedraw) {
             return;
         }
-        // eslint-disable-next-line vars-on-top
+
         var me = this,
             attr = me.attr,
             dataX = attr.dataX,
