@@ -130,4 +130,10 @@ fs.rmSync( dataDir + "/resources/images/pictos", { "recursive": true, "force": t
         "shell": true,
         "stdio": "inherit",
     } );
+
+    childProcess.spawnSync( "softvisio-cli lint --no-lintignore --no-log **", {
+        "cwd": dataDir,
+        "shell": true,
+        "stdio": "inherit",
+    } );
 }
