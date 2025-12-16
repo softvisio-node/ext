@@ -116,7 +116,7 @@ fs.rmSync( dataDir + "/resources/images/pictos", { "recursive": true, "force": t
 {
     console.log( "Compress css files" );
 
-    const res = childProcess.spawnSync( "softvisio-cli", [ "lint", "--action=compress", "--no-lintignore", "**/*.css" ], {
+    const res = childProcess.spawnSync( "softvisio-cli lint --action=compress --no-lintignore **/*.css", {
         "cwd": dataDir,
         "shell": true,
         "stdio": "inherit",
@@ -125,7 +125,7 @@ fs.rmSync( dataDir + "/resources/images/pictos", { "recursive": true, "force": t
 
     console.log( "\nLint files" );
 
-    childProcess.spawnSync( "softvisio-cli", [ "lint", "--no-lintignore", "--no-log", "--no-fix", "**" ], {
+    childProcess.spawnSync( "softvisio-cli lint --no-lintignore --no-log **", {
         "cwd": dataDir,
         "shell": true,
         "stdio": "inherit",
