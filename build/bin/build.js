@@ -39,7 +39,7 @@ if ( !res.ok ) {
     process.exit( 1 );
 }
 
-const { "defaut": extVersion } = await readConfig( `${ tmpDir.path }/node_modules/@sencha/ext/package.json` ),
+const { "version": extVersion } = await readConfig( `${ tmpDir.path }/node_modules/@sencha/ext/package.json` ),
     extDir = path.join( dataDir, `ext-${ extVersion }` );
 
 // apply patch
@@ -146,7 +146,7 @@ fs.rmSync( extDir + "/resources/images/pictos", { "recursive": true, "force": tr
 
 // ewc
 {
-    const { "defaut": ewcVersion } = await readConfig( `${ tmpDir.path }/node_modules/@sencha/ext-web-components-modern/package.json` ),
+    const { "version": ewcVersion } = await readConfig( `${ tmpDir.path }/node_modules/@sencha/ext-web-components-modern/package.json` ),
         ewcDir = path.join( dataDir, `ewc-${ ewcVersion }` );
 
     fs.rmSync( ewcDir, { "recursive": true, "force": true } );
@@ -161,24 +161,19 @@ fs.rmSync( extDir + "/resources/images/pictos", { "recursive": true, "force": tr
 {
     console.log( "Compress css files" );
 
-    const res = childProcess.spawnSync( "npx softvisio-cli lint --action=compress --no-lintignore **/*.css", {
+    childProcess.spawnSync( "npx softvisio-cli lint --action=compress --no-lintignore **/*.css", {
         "cwd": dataDir,
         "shell": true,
         "stdio": "inherit",
     } );
-    if ( res.status ) process.exit( 1 );
 
     console.log( "\nLint files" );
 
-    childProcess.spawnSync( "npx softvisio-cli lint --no-lintignore --no-log **", {
-        "cwd": dataDir,
-        "shell": true,
-        "stdio": "inherit",
-    } );
-
-    childProcess.spawnSync( "npx softvisio-cli lint --no-lintignore --no-log **", {
-        "cwd": dataDir,
-        "shell": true,
-        "stdio": "inherit",
-    } );
+    for ( let n = 0; n <= 1; n++ ) {
+        childProcess.spawnSync( "npx softvisio-cli lint --no-lintignore --no-log **", {
+            "cwd": dataDir,
+            "shell": true,
+            "stdio": "inherit",
+        } );
+    }
 }
