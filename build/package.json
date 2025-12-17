@@ -16,7 +16,8 @@
     "author": "root <root@softvisio.net>",
     "type": "module",
     "imports": {
-        "#root/*": "./*"
+        "#root/*": "./*",
+        "#core/*": "@c0rejs/core/*"
     },
     "scripts": {
         "build": "node bin/build.js"
