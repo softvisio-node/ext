@@ -5,6 +5,7 @@ import fs from "node:fs";
 import module from "node:module";
 import path from "node:path";
 import Npm from "#core/api/npm";
+import { readConfig } from "#core/config";
 import { glob } from "#core/glob";
 import { TmpDir } from "#core/tmp";
 
@@ -12,7 +13,6 @@ var res;
 
 const tmpDir = new TmpDir(),
     rootDir = path.dirname( module.createRequire( import.meta.url ).resolve( "#root/package.json" ) ),
-    dataDir = path.join( rootDir, "data", "ext" ),
     srcDir = path.join( tmpDir.path, "src/app" );
 
 const files = await glob( "*", {
@@ -37,6 +37,9 @@ if ( !res.ok ) {
 
     process.exit( 1 );
 }
+
+const { "defaut": version } = await readConfig( `${ tmpDir.path }/node_modules/@sencha/ext/package.json` ),
+    dataDir = path.join( rootDir, "data", `ext-${ version }` );
 
 // apply patch
 {
