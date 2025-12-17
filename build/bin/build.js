@@ -13,7 +13,8 @@ var res;
 
 const tmpDir = new TmpDir(),
     rootDir = path.dirname( module.createRequire( import.meta.url ).resolve( "#root/package.json" ) ),
-    srcDir = path.join( tmpDir.path, "src/app" );
+    srcDir = path.join( tmpDir.path, "src/app" ),
+    dataDir = path.join( rootDir, "data" );
 
 const files = await glob( "*", {
     "cwd": rootDir,
@@ -39,7 +40,7 @@ if ( !res.ok ) {
 }
 
 const { "defaut": extVersion } = await readConfig( `${ tmpDir.path }/node_modules/@sencha/ext/package.json` ),
-    dataDir = path.join( rootDir, "data", `ext-${ extVersion }` );
+    extDir = path.join( dataDir, `ext-${ extVersion }` );
 
 // apply patch
 {
@@ -83,64 +84,77 @@ const { "defaut": extVersion } = await readConfig( `${ tmpDir.path }/node_module
 // }
 
 // build
-fs.rmSync( dataDir, { "recursive": true, "force": true } );
-fs.mkdirSync( dataDir, { "recursive": true } );
+fs.rmSync( extDir, { "recursive": true, "force": true } );
+fs.mkdirSync( extDir, { "recursive": true } );
 
 res = childProcess.spawnSync( `${ tmpDir.path }/node_modules/.bin/sencha --cwd "${ srcDir }" app build development`, {
-    "cwd": dataDir,
+    "cwd": extDir,
     "shell": true,
     "stdio": "inherit",
 } );
 if ( res.status ) process.exit( 1 );
 
 // cleanup
-fs.rmSync( dataDir + "/ext.scss", { "recursive": true, "force": true } );
-fs.rmSync( dataDir + "/resources/Readme.md", { "recursive": true, "force": true } );
-fs.rmSync( dataDir + "/resources/ext", { "recursive": true, "force": true } );
-fs.rmSync( dataDir + "/resources/font-awesome", { "recursive": true, "force": true } );
-fs.rmSync( dataDir + "/resources/images/pictos", { "recursive": true, "force": true } );
+fs.rmSync( extDir + "/ext.scss", { "recursive": true, "force": true } );
+fs.rmSync( extDir + "/resources/Readme.md", { "recursive": true, "force": true } );
+fs.rmSync( extDir + "/resources/ext", { "recursive": true, "force": true } );
+fs.rmSync( extDir + "/resources/font-awesome", { "recursive": true, "force": true } );
+fs.rmSync( extDir + "/resources/images/pictos", { "recursive": true, "force": true } );
 
 // fix: url(images/tree/loading.gif) -> url(resources/images/tree/loading.gif)
 {
-    let content = fs.readFileSync( dataDir + "/ext_1.css", "utf8" );
+    let content = fs.readFileSync( extDir + "/ext_1.css", "utf8" );
     content = content.replaceAll( "url(images/tree/loading.gif)", "url(resources/images/tree/loading.gif)" );
-    fs.writeFileSync( dataDir + "/ext_1.css", content );
+    fs.writeFileSync( extDir + "/ext_1.css", content );
 }
 
 // fix: align-items: start; -> align-items: flex-start;
 {
-    let content = fs.readFileSync( dataDir + "/ext_1.css", "utf8" );
+    let content = fs.readFileSync( extDir + "/ext_1.css", "utf8" );
     content = content.replaceAll( "align-items: start;", "align-items: flex-start;" );
-    fs.writeFileSync( dataDir + "/ext_1.css", content );
+    fs.writeFileSync( extDir + "/ext_1.css", content );
 }
 
 // fix: display: box; -> display: flex;
 {
-    let content = fs.readFileSync( dataDir + "/ext_2.css", "utf8" );
+    let content = fs.readFileSync( extDir + "/ext_2.css", "utf8" );
     content = content.replaceAll( "display: box;", "display: flex;" );
-    fs.writeFileSync( dataDir + "/ext_2.css", content );
+    fs.writeFileSync( extDir + "/ext_2.css", content );
 }
 
 // fix: .x-froala .second-toolbar -> .x-froala .fr-second-toolbar
 {
-    let content = fs.readFileSync( dataDir + "/ext_2.css", "utf8" );
+    let content = fs.readFileSync( extDir + "/ext_2.css", "utf8" );
     content = content.replaceAll( ".x-froala .second-toolbar {", ".x-froala .fr-second-toolbar {" );
-    fs.writeFileSync( dataDir + "/ext_2.css", content );
+    fs.writeFileSync( extDir + "/ext_2.css", content );
 }
 
 // patch: css-vars.js
 {
-    let content = fs.readFileSync( dataDir + "/css-vars.js", "utf8" );
+    let content = fs.readFileSync( extDir + "/css-vars.js", "utf8" );
     content = content.replace( "(function (f) {", "(function (f) { window.Fashion = f(); return;" );
-    fs.writeFileSync( dataDir + "/css-vars.js", content );
+    fs.writeFileSync( extDir + "/css-vars.js", content );
 }
 
 // extract charts code
 {
-    const ext = fs.readFileSync( dataDir + "/ext.js", "utf8" );
+    const ext = fs.readFileSync( extDir + "/ext.js", "utf8" );
     const idx = ext.indexOf( "Ext.define('Ext.draw.ContainerBase'" );
-    fs.writeFileSync( dataDir + "/ext.js", ext.slice( 0, idx ) + "window.Ext = Ext;\n" );
-    fs.writeFileSync( dataDir + "/charts.js", ext.slice( idx ) );
+    fs.writeFileSync( extDir + "/ext.js", ext.slice( 0, idx ) + "window.Ext = Ext;\n" );
+    fs.writeFileSync( extDir + "/charts.js", ext.slice( idx ) );
+}
+
+// ewc
+{
+    const { "defaut": ewcVersion } = await readConfig( `${ tmpDir.path }/node_modules/@sencha/ext-web-components-modern/package.json` ),
+        ewcDir = path.join( dataDir, `ewc-${ ewcVersion }` );
+
+    fs.rmSync( ewcDir, { "recursive": true, "force": true } );
+    fs.mkdirSync( ewcDir, { "recursive": true } );
+
+    await fs.promises.cp( `${ tmpDir.path }/node_modules/@sencha/ext-web-components-modern/src`, ewcDir, {
+        "recursive": true,
+    } );
 }
 
 // lint
@@ -148,7 +162,7 @@ fs.rmSync( dataDir + "/resources/images/pictos", { "recursive": true, "force": t
     console.log( "Compress css files" );
 
     const res = childProcess.spawnSync( "softvisio-cli lint --action=compress --no-lintignore **/*.css", {
-        "cwd": dataDir,
+        "cwd": extDir,
         "shell": true,
         "stdio": "inherit",
     } );
@@ -157,13 +171,13 @@ fs.rmSync( dataDir + "/resources/images/pictos", { "recursive": true, "force": t
     console.log( "\nLint files" );
 
     childProcess.spawnSync( "softvisio-cli lint --no-lintignore --no-log **", {
-        "cwd": dataDir,
+        "cwd": extDir,
         "shell": true,
         "stdio": "inherit",
     } );
 
     childProcess.spawnSync( "softvisio-cli lint --no-lintignore --no-log **", {
-        "cwd": dataDir,
+        "cwd": extDir,
         "shell": true,
         "stdio": "inherit",
     } );
