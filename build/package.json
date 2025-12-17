@@ -22,6 +22,7 @@
         "build": "node bin/build.js"
     },
     "dependencies": {
+        "@c0rejs/core": "^7.192.0",
         "@sencha/cmd": "^7.9.0",
         "@sencha/ext": "^7.9.0",
         "@sencha/ext-charts": "^7.9.0",

@@ -4,14 +4,41 @@ import childProcess from "node:child_process";
 import fs from "node:fs";
 import module from "node:module";
 import path from "node:path";
+import Npm from "#core/api/npm";
+import { glob } from "#core/glob";
+import { TmpDir } from "#core/tmp";
 
-const rootDir = path.dirname( module.createRequire( import.meta.url ).resolve( "#root/package.json" ) ),
+var res;
+
+const tmpDir = new TmpDir(),
+    rootDir = path.dirname( module.createRequire( import.meta.url ).resolve( "#root/package.json" ) ),
     dataDir = path.join( rootDir, "data" ),
     srcDir = path.join( rootDir, "src/app" );
 
+const files = await glob( "*", {
+    "cwd": rootDir,
+} );
+
+for ( const file of files ) {
+    if ( file === "data" || file === "node_modules" ) continue;
+
+    await fs.promises.cp( rootDir + "/" + file, tmpDir + "/" + file );
+}
+
+const npm = new Npm( {
+    "cwd": tmpDir,
+} );
+
+res = await npm.exec( [ "install" ] );
+if ( !res.ok ) {
+    console.log( res );
+
+    process.exit( 1 );
+}
+
 // apply patch
 {
-    let res = childProcess.spawnSync( "patch --dry-run --forward -p1 -i patch/patch", {
+    res = childProcess.spawnSync( "patch --dry-run --forward -p1 -i patch/patch", {
         "cwd": rootDir,
         "shell": true,
         "stdio": "inherit",
@@ -55,7 +82,7 @@ if ( fs.existsSync( dataDir ) ) fs.rmSync( dataDir, { "recursive": true, "force"
 
 fs.mkdirSync( dataDir, { "recursive": true } );
 
-const res = childProcess.spawnSync( `npx sencha --cwd "${ srcDir }" app build development`, {
+res = childProcess.spawnSync( `npx sencha --cwd "${ srcDir }" app build development`, {
     "cwd": dataDir,
     "shell": true,
     "stdio": "inherit",
