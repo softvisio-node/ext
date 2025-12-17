@@ -38,8 +38,8 @@ if ( !res.ok ) {
     process.exit( 1 );
 }
 
-const { "defaut": version } = await readConfig( `${ tmpDir.path }/node_modules/@sencha/ext/package.json` ),
-    dataDir = path.join( rootDir, "data", `ext-${ version }` );
+const { "defaut": extVersion } = await readConfig( `${ tmpDir.path }/node_modules/@sencha/ext/package.json` ),
+    dataDir = path.join( rootDir, "data", `ext-${ extVersion }` );
 
 // apply patch
 {
