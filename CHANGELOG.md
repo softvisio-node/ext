@@ -1,5 +1,17 @@
 # Changelog
 
+### v5.20.13 (2025-12-17)
+
+**Code refactoring:**
+
+- \[PATCH] refactor: update build script (● [312470c](https://github.com/c0rejs/ext/commit/312470c), [6164084](https://github.com/c0rejs/ext/commit/6164084), [97665f7](https://github.com/c0rejs/ext/commit/97665f7), [46b5f16](https://github.com/c0rejs/ext/commit/46b5f16), [2851787](https://github.com/c0rejs/ext/commit/2851787), [b39267b](https://github.com/c0rejs/ext/commit/b39267b), [12c73f8](https://github.com/c0rejs/ext/commit/12c73f8), [ea164a3](https://github.com/c0rejs/ext/commit/ea164a3), [452e8f5](https://github.com/c0rejs/ext/commit/452e8f5), [370231e](https://github.com/c0rejs/ext/commit/370231e), [f34ee87](https://github.com/c0rejs/ext/commit/f34ee87), [ddeb4af](https://github.com/c0rejs/ext/commit/ddeb4af), [36ad8eb](https://github.com/c0rejs/ext/commit/36ad8eb), [56a1ed3](https://github.com/c0rejs/ext/commit/56a1ed3); 👬 zdm)
+
+**Other changes:**
+
+- style: lint (● [c047d7f](https://github.com/c0rejs/ext/commit/c047d7f); 👬 zdm)
+
+Compare with the previous release: [v5.20.12](https://github.com/c0rejs/ext/compare/v5.20.12...v5.20.13)
+
 ### v5.20.12 (2025-12-16)
 
 **Bug fixes:**
