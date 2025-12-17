@@ -170,7 +170,7 @@ fs.rmSync( extDir + "/resources/images/pictos", { "recursive": true, "force": tr
     console.log( "\nLint files" );
 
     for ( let n = 0; n <= 1; n++ ) {
-        childProcess.spawnSync( "npx softvisio-cli lint --no-lintignore --no-log **", {
+        childProcess.spawnSync( "npx softvisio-cli lint --no-lintignore --no-log", {
             "cwd": dataDir,
             "shell": true,
             "stdio": "inherit",
