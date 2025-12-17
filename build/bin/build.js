@@ -80,8 +80,7 @@ if ( !res.ok ) {
 // }
 
 // build
-if ( fs.existsSync( dataDir ) ) fs.rmSync( dataDir, { "recursive": true, "force": true } );
-
+fs.rmSync( dataDir, { "recursive": true, "force": true } );
 fs.mkdirSync( dataDir, { "recursive": true } );
 
 res = childProcess.spawnSync( `npx sencha --cwd "${ srcDir }" app build development`, {
