@@ -83,7 +83,7 @@ if ( !res.ok ) {
 fs.rmSync( dataDir, { "recursive": true, "force": true } );
 fs.mkdirSync( dataDir, { "recursive": true } );
 
-res = childProcess.spawnSync( `npx sencha --cwd "${ srcDir }" app build development`, {
+res = childProcess.spawnSync( `${ tmpDir.path }/node_modules/.bin/sencha --cwd "${ srcDir }" app build development`, {
     "cwd": dataDir,
     "shell": true,
     "stdio": "inherit",
