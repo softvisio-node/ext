@@ -22,7 +22,7 @@
     "scripts": {
         "build": "node bin/build.js"
     },
-    "dependencies": {
+    "devDependencies": {
         "@c0rejs/core": "^7.192.0",
         "@sencha/cmd": "^7.9.0",
         "@sencha/ext": "^7.9.0",
