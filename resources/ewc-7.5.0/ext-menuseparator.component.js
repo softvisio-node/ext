@@ -1,19 +1,19 @@
-import Ext_menu_Separator from './Ext/menu/Separator.js';
-import ElementParser from './common/ElementParser.js';
+import ElementParser from "./common/ElementParser.js";
+import Ext_menu_Separator from "./Ext/menu/Separator.js";
 
 export default class EWCMenuseparator extends Ext_menu_Separator {
-  constructor() {
-    super ([], []);
-    this.xtype = 'menuseparator';
-  }
+    constructor () {
+        super( [], [] );
+        this.xtype = "menuseparator";
+    }
 }
 try {
-  if (window.customElements.get('ext-menuseparator') == undefined) {
-    window.customElements.define('ext-menuseparator', ElementParser.withParsedCallback(EWCMenuseparator));
-  }
+    if ( globalThis.customElements.get( "ext-menuseparator" ) == undefined ) {
+        globalThis.customElements.define( "ext-menuseparator", ElementParser.withParsedCallback( EWCMenuseparator ) );
+    }
 }
-catch(e) {
-  if (window.customElements.get('ext-menuseparator') == undefined) {
-    window.customElements.define('ext-menuseparator', EWCMenuseparator);
-  }
+catch {
+    if ( globalThis.customElements.get( "ext-menuseparator" ) == undefined ) {
+        globalThis.customElements.define( "ext-menuseparator", EWCMenuseparator );
+    }
 }

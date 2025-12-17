@@ -1,19 +1,19 @@
-import Ext_dataview_pullrefresh_Spinner from './Ext/dataview/pullrefresh/Spinner.js';
-import ElementParser from './common/ElementParser.js';
+import ElementParser from "./common/ElementParser.js";
+import Ext_dataview_pullrefresh_Spinner from "./Ext/dataview/pullrefresh/Spinner.js";
 
 export default class EWCPullrefreshspinner extends Ext_dataview_pullrefresh_Spinner {
-  constructor() {
-    super ([], []);
-    this.xtype = 'pullrefreshspinner';
-  }
+    constructor () {
+        super( [], [] );
+        this.xtype = "pullrefreshspinner";
+    }
 }
 try {
-  if (window.customElements.get('ext-pullrefreshspinner') == undefined) {
-    window.customElements.define('ext-pullrefreshspinner', ElementParser.withParsedCallback(EWCPullrefreshspinner));
-  }
+    if ( globalThis.customElements.get( "ext-pullrefreshspinner" ) == undefined ) {
+        globalThis.customElements.define( "ext-pullrefreshspinner", ElementParser.withParsedCallback( EWCPullrefreshspinner ) );
+    }
 }
-catch(e) {
-  if (window.customElements.get('ext-pullrefreshspinner') == undefined) {
-    window.customElements.define('ext-pullrefreshspinner', EWCPullrefreshspinner);
-  }
+catch {
+    if ( globalThis.customElements.get( "ext-pullrefreshspinner" ) == undefined ) {
+        globalThis.customElements.define( "ext-pullrefreshspinner", EWCPullrefreshspinner );
+    }
 }

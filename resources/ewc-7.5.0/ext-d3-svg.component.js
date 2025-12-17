@@ -1,19 +1,19 @@
-import Ext_d3_svg_Svg from './Ext/d3/svg/Svg.js';
-import ElementParser from './common/ElementParser.js';
+import ElementParser from "./common/ElementParser.js";
+import Ext_d3_svg_Svg from "./Ext/d3/svg/Svg.js";
 
 export default class EWCD3_svg extends Ext_d3_svg_Svg {
-  constructor() {
-    super ([], []);
-    this.xtype = 'd3-svg';
-  }
+    constructor () {
+        super( [], [] );
+        this.xtype = "d3-svg";
+    }
 }
 try {
-  if (window.customElements.get('ext-d3-svg') == undefined) {
-    window.customElements.define('ext-d3-svg', ElementParser.withParsedCallback(EWCD3_svg));
-  }
+    if ( globalThis.customElements.get( "ext-d3-svg" ) == undefined ) {
+        globalThis.customElements.define( "ext-d3-svg", ElementParser.withParsedCallback( EWCD3_svg ) );
+    }
 }
-catch(e) {
-  if (window.customElements.get('ext-d3-svg') == undefined) {
-    window.customElements.define('ext-d3-svg', EWCD3_svg);
-  }
+catch {
+    if ( globalThis.customElements.get( "ext-d3-svg" ) == undefined ) {
+        globalThis.customElements.define( "ext-d3-svg", EWCD3_svg );
+    }
 }

@@ -1,19 +1,19 @@
-import Ext_Sheet from './Ext/Sheet.js';
-import ElementParser from './common/ElementParser.js';
+import ElementParser from "./common/ElementParser.js";
+import Ext_Sheet from "./Ext/Sheet.js";
 
 export default class EWCSheet extends Ext_Sheet {
-  constructor() {
-    super ([], []);
-    this.xtype = 'sheet';
-  }
+    constructor () {
+        super( [], [] );
+        this.xtype = "sheet";
+    }
 }
 try {
-  if (window.customElements.get('ext-sheet') == undefined) {
-    window.customElements.define('ext-sheet', ElementParser.withParsedCallback(EWCSheet));
-  }
+    if ( globalThis.customElements.get( "ext-sheet" ) == undefined ) {
+        globalThis.customElements.define( "ext-sheet", ElementParser.withParsedCallback( EWCSheet ) );
+    }
 }
-catch(e) {
-  if (window.customElements.get('ext-sheet') == undefined) {
-    window.customElements.define('ext-sheet', EWCSheet);
-  }
+catch {
+    if ( globalThis.customElements.get( "ext-sheet" ) == undefined ) {
+        globalThis.customElements.define( "ext-sheet", EWCSheet );
+    }
 }

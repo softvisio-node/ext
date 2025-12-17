@@ -1,19 +1,19 @@
-import Ext_ux_colorpick_ColorPreview from './Ext/ux/colorpick/ColorPreview.js';
-import ElementParser from './common/ElementParser.js';
+import ElementParser from "./common/ElementParser.js";
+import Ext_ux_colorpick_ColorPreview from "./Ext/ux/colorpick/ColorPreview.js";
 
 export default class EWCColorpickercolorpreview extends Ext_ux_colorpick_ColorPreview {
-  constructor() {
-    super ([], []);
-    this.xtype = 'colorpickercolorpreview';
-  }
+    constructor () {
+        super( [], [] );
+        this.xtype = "colorpickercolorpreview";
+    }
 }
 try {
-  if (window.customElements.get('ext-colorpickercolorpreview') == undefined) {
-    window.customElements.define('ext-colorpickercolorpreview', ElementParser.withParsedCallback(EWCColorpickercolorpreview));
-  }
+    if ( globalThis.customElements.get( "ext-colorpickercolorpreview" ) == undefined ) {
+        globalThis.customElements.define( "ext-colorpickercolorpreview", ElementParser.withParsedCallback( EWCColorpickercolorpreview ) );
+    }
 }
-catch(e) {
-  if (window.customElements.get('ext-colorpickercolorpreview') == undefined) {
-    window.customElements.define('ext-colorpickercolorpreview', EWCColorpickercolorpreview);
-  }
+catch {
+    if ( globalThis.customElements.get( "ext-colorpickercolorpreview" ) == undefined ) {
+        globalThis.customElements.define( "ext-colorpickercolorpreview", EWCColorpickercolorpreview );
+    }
 }

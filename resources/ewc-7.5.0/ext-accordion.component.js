@@ -1,19 +1,19 @@
-import Ext_panel_Accordion from './Ext/panel/Accordion.js';
-import ElementParser from './common/ElementParser.js';
+import ElementParser from "./common/ElementParser.js";
+import Ext_panel_Accordion from "./Ext/panel/Accordion.js";
 
 export default class EWCAccordion extends Ext_panel_Accordion {
-  constructor() {
-    super ([], []);
-    this.xtype = 'accordion';
-  }
+    constructor () {
+        super( [], [] );
+        this.xtype = "accordion";
+    }
 }
 try {
-  if (window.customElements.get('ext-accordion') == undefined) {
-    window.customElements.define('ext-accordion', ElementParser.withParsedCallback(EWCAccordion));
-  }
+    if ( globalThis.customElements.get( "ext-accordion" ) == undefined ) {
+        globalThis.customElements.define( "ext-accordion", ElementParser.withParsedCallback( EWCAccordion ) );
+    }
 }
-catch(e) {
-  if (window.customElements.get('ext-accordion') == undefined) {
-    window.customElements.define('ext-accordion', EWCAccordion);
-  }
+catch {
+    if ( globalThis.customElements.get( "ext-accordion" ) == undefined ) {
+        globalThis.customElements.define( "ext-accordion", EWCAccordion );
+    }
 }

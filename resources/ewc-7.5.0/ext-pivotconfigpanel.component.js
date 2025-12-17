@@ -1,19 +1,19 @@
-import Ext_pivot_plugin_configurator_Panel from './Ext/pivot/plugin/configurator/Panel.js';
-import ElementParser from './common/ElementParser.js';
+import ElementParser from "./common/ElementParser.js";
+import Ext_pivot_plugin_configurator_Panel from "./Ext/pivot/plugin/configurator/Panel.js";
 
 export default class EWCPivotconfigpanel extends Ext_pivot_plugin_configurator_Panel {
-  constructor() {
-    super ([], []);
-    this.xtype = 'pivotconfigpanel';
-  }
+    constructor () {
+        super( [], [] );
+        this.xtype = "pivotconfigpanel";
+    }
 }
 try {
-  if (window.customElements.get('ext-pivotconfigpanel') == undefined) {
-    window.customElements.define('ext-pivotconfigpanel', ElementParser.withParsedCallback(EWCPivotconfigpanel));
-  }
+    if ( globalThis.customElements.get( "ext-pivotconfigpanel" ) == undefined ) {
+        globalThis.customElements.define( "ext-pivotconfigpanel", ElementParser.withParsedCallback( EWCPivotconfigpanel ) );
+    }
 }
-catch(e) {
-  if (window.customElements.get('ext-pivotconfigpanel') == undefined) {
-    window.customElements.define('ext-pivotconfigpanel', EWCPivotconfigpanel);
-  }
+catch {
+    if ( globalThis.customElements.get( "ext-pivotconfigpanel" ) == undefined ) {
+        globalThis.customElements.define( "ext-pivotconfigpanel", EWCPivotconfigpanel );
+    }
 }

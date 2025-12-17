@@ -1,19 +1,19 @@
-import Ext_field_Container from './Ext/field/Container.js';
-import ElementParser from './common/ElementParser.js';
+import ElementParser from "./common/ElementParser.js";
+import Ext_field_Container from "./Ext/field/Container.js";
 
 export default class EWCFieldcontainer extends Ext_field_Container {
-  constructor() {
-    super ([], []);
-    this.xtype = 'fieldcontainer';
-  }
+    constructor () {
+        super( [], [] );
+        this.xtype = "fieldcontainer";
+    }
 }
 try {
-  if (window.customElements.get('ext-fieldcontainer') == undefined) {
-    window.customElements.define('ext-fieldcontainer', ElementParser.withParsedCallback(EWCFieldcontainer));
-  }
+    if ( globalThis.customElements.get( "ext-fieldcontainer" ) == undefined ) {
+        globalThis.customElements.define( "ext-fieldcontainer", ElementParser.withParsedCallback( EWCFieldcontainer ) );
+    }
 }
-catch(e) {
-  if (window.customElements.get('ext-fieldcontainer') == undefined) {
-    window.customElements.define('ext-fieldcontainer', EWCFieldcontainer);
-  }
+catch {
+    if ( globalThis.customElements.get( "ext-fieldcontainer" ) == undefined ) {
+        globalThis.customElements.define( "ext-fieldcontainer", EWCFieldcontainer );
+    }
 }

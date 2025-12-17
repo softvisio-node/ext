@@ -1,19 +1,19 @@
-import Ext_pivot_plugin_configurator_Settings from './Ext/pivot/plugin/configurator/Settings.js';
-import ElementParser from './common/ElementParser.js';
+import ElementParser from "./common/ElementParser.js";
+import Ext_pivot_plugin_configurator_Settings from "./Ext/pivot/plugin/configurator/Settings.js";
 
 export default class EWCPivotsettings extends Ext_pivot_plugin_configurator_Settings {
-  constructor() {
-    super ([], []);
-    this.xtype = 'pivotsettings';
-  }
+    constructor () {
+        super( [], [] );
+        this.xtype = "pivotsettings";
+    }
 }
 try {
-  if (window.customElements.get('ext-pivotsettings') == undefined) {
-    window.customElements.define('ext-pivotsettings', ElementParser.withParsedCallback(EWCPivotsettings));
-  }
+    if ( globalThis.customElements.get( "ext-pivotsettings" ) == undefined ) {
+        globalThis.customElements.define( "ext-pivotsettings", ElementParser.withParsedCallback( EWCPivotsettings ) );
+    }
 }
-catch(e) {
-  if (window.customElements.get('ext-pivotsettings') == undefined) {
-    window.customElements.define('ext-pivotsettings', EWCPivotsettings);
-  }
+catch {
+    if ( globalThis.customElements.get( "ext-pivotsettings" ) == undefined ) {
+        globalThis.customElements.define( "ext-pivotsettings", EWCPivotsettings );
+    }
 }

@@ -1,19 +1,19 @@
-import Ext_calendar_view_Multi from './Ext/calendar/view/Multi.js';
-import ElementParser from './common/ElementParser.js';
+import ElementParser from "./common/ElementParser.js";
+import Ext_calendar_view_Multi from "./Ext/calendar/view/Multi.js";
 
 export default class EWCCalendar_multiview extends Ext_calendar_view_Multi {
-  constructor() {
-    super ([], []);
-    this.xtype = 'calendar-multiview';
-  }
+    constructor () {
+        super( [], [] );
+        this.xtype = "calendar-multiview";
+    }
 }
 try {
-  if (window.customElements.get('ext-calendar-multiview') == undefined) {
-    window.customElements.define('ext-calendar-multiview', ElementParser.withParsedCallback(EWCCalendar_multiview));
-  }
+    if ( globalThis.customElements.get( "ext-calendar-multiview" ) == undefined ) {
+        globalThis.customElements.define( "ext-calendar-multiview", ElementParser.withParsedCallback( EWCCalendar_multiview ) );
+    }
 }
-catch(e) {
-  if (window.customElements.get('ext-calendar-multiview') == undefined) {
-    window.customElements.define('ext-calendar-multiview', EWCCalendar_multiview);
-  }
+catch {
+    if ( globalThis.customElements.get( "ext-calendar-multiview" ) == undefined ) {
+        globalThis.customElements.define( "ext-calendar-multiview", EWCCalendar_multiview );
+    }
 }

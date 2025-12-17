@@ -1,19 +1,19 @@
-import Ext_form_Email from './Ext/form/Email.js';
-import ElementParser from './common/ElementParser.js';
+import ElementParser from "./common/ElementParser.js";
+import Ext_form_Email from "./Ext/form/Email.js";
 
 export default class EWCEmailfield extends Ext_form_Email {
-  constructor() {
-    super ([], []);
-    this.xtype = 'emailfield';
-  }
+    constructor () {
+        super( [], [] );
+        this.xtype = "emailfield";
+    }
 }
 try {
-  if (window.customElements.get('ext-emailfield') == undefined) {
-    window.customElements.define('ext-emailfield', ElementParser.withParsedCallback(EWCEmailfield));
-  }
+    if ( globalThis.customElements.get( "ext-emailfield" ) == undefined ) {
+        globalThis.customElements.define( "ext-emailfield", ElementParser.withParsedCallback( EWCEmailfield ) );
+    }
 }
-catch(e) {
-  if (window.customElements.get('ext-emailfield') == undefined) {
-    window.customElements.define('ext-emailfield', EWCEmailfield);
-  }
+catch {
+    if ( globalThis.customElements.get( "ext-emailfield" ) == undefined ) {
+        globalThis.customElements.define( "ext-emailfield", EWCEmailfield );
+    }
 }

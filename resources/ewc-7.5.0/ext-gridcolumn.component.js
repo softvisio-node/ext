@@ -1,19 +1,19 @@
-import Ext_grid_column_Template from './Ext/grid/column/Template.js';
-import ElementParser from './common/ElementParser.js';
+import ElementParser from "./common/ElementParser.js";
+import Ext_grid_column_Template from "./Ext/grid/column/Template.js";
 
 export default class EWCGridcolumn extends Ext_grid_column_Template {
-  constructor() {
-    super ([], []);
-    this.xtype = 'gridcolumn';
-  }
+    constructor () {
+        super( [], [] );
+        this.xtype = "gridcolumn";
+    }
 }
 try {
-  if (window.customElements.get('ext-gridcolumn') == undefined) {
-    window.customElements.define('ext-gridcolumn', ElementParser.withParsedCallback(EWCGridcolumn));
-  }
+    if ( globalThis.customElements.get( "ext-gridcolumn" ) == undefined ) {
+        globalThis.customElements.define( "ext-gridcolumn", ElementParser.withParsedCallback( EWCGridcolumn ) );
+    }
 }
-catch(e) {
-  if (window.customElements.get('ext-gridcolumn') == undefined) {
-    window.customElements.define('ext-gridcolumn', EWCGridcolumn);
-  }
+catch {
+    if ( globalThis.customElements.get( "ext-gridcolumn" ) == undefined ) {
+        globalThis.customElements.define( "ext-gridcolumn", EWCGridcolumn );
+    }
 }

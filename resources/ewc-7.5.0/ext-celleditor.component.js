@@ -1,19 +1,19 @@
-import Ext_grid_CellEditor from './Ext/grid/CellEditor.js';
-import ElementParser from './common/ElementParser.js';
+import ElementParser from "./common/ElementParser.js";
+import Ext_grid_CellEditor from "./Ext/grid/CellEditor.js";
 
 export default class EWCCelleditor extends Ext_grid_CellEditor {
-  constructor() {
-    super ([], []);
-    this.xtype = 'celleditor';
-  }
+    constructor () {
+        super( [], [] );
+        this.xtype = "celleditor";
+    }
 }
 try {
-  if (window.customElements.get('ext-celleditor') == undefined) {
-    window.customElements.define('ext-celleditor', ElementParser.withParsedCallback(EWCCelleditor));
-  }
+    if ( globalThis.customElements.get( "ext-celleditor" ) == undefined ) {
+        globalThis.customElements.define( "ext-celleditor", ElementParser.withParsedCallback( EWCCelleditor ) );
+    }
 }
-catch(e) {
-  if (window.customElements.get('ext-celleditor') == undefined) {
-    window.customElements.define('ext-celleditor', EWCCelleditor);
-  }
+catch {
+    if ( globalThis.customElements.get( "ext-celleditor" ) == undefined ) {
+        globalThis.customElements.define( "ext-celleditor", EWCCelleditor );
+    }
 }

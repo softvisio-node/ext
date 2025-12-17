@@ -1,19 +1,19 @@
-import Ext_grid_cell_RowNumberer from './Ext/grid/cell/RowNumberer.js';
-import ElementParser from './common/ElementParser.js';
+import ElementParser from "./common/ElementParser.js";
+import Ext_grid_cell_RowNumberer from "./Ext/grid/cell/RowNumberer.js";
 
 export default class EWCRownumberercell extends Ext_grid_cell_RowNumberer {
-  constructor() {
-    super ([], []);
-    this.xtype = 'rownumberercell';
-  }
+    constructor () {
+        super( [], [] );
+        this.xtype = "rownumberercell";
+    }
 }
 try {
-  if (window.customElements.get('ext-rownumberercell') == undefined) {
-    window.customElements.define('ext-rownumberercell', ElementParser.withParsedCallback(EWCRownumberercell));
-  }
+    if ( globalThis.customElements.get( "ext-rownumberercell" ) == undefined ) {
+        globalThis.customElements.define( "ext-rownumberercell", ElementParser.withParsedCallback( EWCRownumberercell ) );
+    }
 }
-catch(e) {
-  if (window.customElements.get('ext-rownumberercell') == undefined) {
-    window.customElements.define('ext-rownumberercell', EWCRownumberercell);
-  }
+catch {
+    if ( globalThis.customElements.get( "ext-rownumberercell" ) == undefined ) {
+        globalThis.customElements.define( "ext-rownumberercell", EWCRownumberercell );
+    }
 }

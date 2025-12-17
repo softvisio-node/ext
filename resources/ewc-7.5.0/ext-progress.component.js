@@ -1,19 +1,19 @@
-import Ext_ProgressBarWidget from './Ext/ProgressBarWidget.js';
-import ElementParser from './common/ElementParser.js';
+import ElementParser from "./common/ElementParser.js";
+import Ext_ProgressBarWidget from "./Ext/ProgressBarWidget.js";
 
 export default class EWCProgress extends Ext_ProgressBarWidget {
-  constructor() {
-    super ([], []);
-    this.xtype = 'progress';
-  }
+    constructor () {
+        super( [], [] );
+        this.xtype = "progress";
+    }
 }
 try {
-  if (window.customElements.get('ext-progress') == undefined) {
-    window.customElements.define('ext-progress', ElementParser.withParsedCallback(EWCProgress));
-  }
+    if ( globalThis.customElements.get( "ext-progress" ) == undefined ) {
+        globalThis.customElements.define( "ext-progress", ElementParser.withParsedCallback( EWCProgress ) );
+    }
 }
-catch(e) {
-  if (window.customElements.get('ext-progress') == undefined) {
-    window.customElements.define('ext-progress', EWCProgress);
-  }
+catch {
+    if ( globalThis.customElements.get( "ext-progress" ) == undefined ) {
+        globalThis.customElements.define( "ext-progress", EWCProgress );
+    }
 }

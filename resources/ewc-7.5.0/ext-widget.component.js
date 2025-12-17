@@ -1,19 +1,19 @@
-import Ext_Gadget from './Ext/Gadget.js';
-import ElementParser from './common/ElementParser.js';
+import ElementParser from "./common/ElementParser.js";
+import Ext_Gadget from "./Ext/Gadget.js";
 
 export default class EWCWidget extends Ext_Gadget {
-  constructor() {
-    super ([], []);
-    this.xtype = 'widget';
-  }
+    constructor () {
+        super( [], [] );
+        this.xtype = "widget";
+    }
 }
 try {
-  if (window.customElements.get('ext-widget') == undefined) {
-    window.customElements.define('ext-widget', ElementParser.withParsedCallback(EWCWidget));
-  }
+    if ( globalThis.customElements.get( "ext-widget" ) == undefined ) {
+        globalThis.customElements.define( "ext-widget", ElementParser.withParsedCallback( EWCWidget ) );
+    }
 }
-catch(e) {
-  if (window.customElements.get('ext-widget') == undefined) {
-    window.customElements.define('ext-widget', EWCWidget);
-  }
+catch {
+    if ( globalThis.customElements.get( "ext-widget" ) == undefined ) {
+        globalThis.customElements.define( "ext-widget", EWCWidget );
+    }
 }

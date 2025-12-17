@@ -1,19 +1,19 @@
-import Ext_form_Display from './Ext/form/Display.js';
-import ElementParser from './common/ElementParser.js';
+import ElementParser from "./common/ElementParser.js";
+import Ext_form_Display from "./Ext/form/Display.js";
 
 export default class EWCDisplayfield extends Ext_form_Display {
-  constructor() {
-    super ([], []);
-    this.xtype = 'displayfield';
-  }
+    constructor () {
+        super( [], [] );
+        this.xtype = "displayfield";
+    }
 }
 try {
-  if (window.customElements.get('ext-displayfield') == undefined) {
-    window.customElements.define('ext-displayfield', ElementParser.withParsedCallback(EWCDisplayfield));
-  }
+    if ( globalThis.customElements.get( "ext-displayfield" ) == undefined ) {
+        globalThis.customElements.define( "ext-displayfield", ElementParser.withParsedCallback( EWCDisplayfield ) );
+    }
 }
-catch(e) {
-  if (window.customElements.get('ext-displayfield') == undefined) {
-    window.customElements.define('ext-displayfield', EWCDisplayfield);
-  }
+catch {
+    if ( globalThis.customElements.get( "ext-displayfield" ) == undefined ) {
+        globalThis.customElements.define( "ext-displayfield", EWCDisplayfield );
+    }
 }

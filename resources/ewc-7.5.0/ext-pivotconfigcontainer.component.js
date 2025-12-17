@@ -1,19 +1,19 @@
-import Ext_pivot_plugin_configurator_Container from './Ext/pivot/plugin/configurator/Container.js';
-import ElementParser from './common/ElementParser.js';
+import ElementParser from "./common/ElementParser.js";
+import Ext_pivot_plugin_configurator_Container from "./Ext/pivot/plugin/configurator/Container.js";
 
 export default class EWCPivotconfigcontainer extends Ext_pivot_plugin_configurator_Container {
-  constructor() {
-    super ([], []);
-    this.xtype = 'pivotconfigcontainer';
-  }
+    constructor () {
+        super( [], [] );
+        this.xtype = "pivotconfigcontainer";
+    }
 }
 try {
-  if (window.customElements.get('ext-pivotconfigcontainer') == undefined) {
-    window.customElements.define('ext-pivotconfigcontainer', ElementParser.withParsedCallback(EWCPivotconfigcontainer));
-  }
+    if ( globalThis.customElements.get( "ext-pivotconfigcontainer" ) == undefined ) {
+        globalThis.customElements.define( "ext-pivotconfigcontainer", ElementParser.withParsedCallback( EWCPivotconfigcontainer ) );
+    }
 }
-catch(e) {
-  if (window.customElements.get('ext-pivotconfigcontainer') == undefined) {
-    window.customElements.define('ext-pivotconfigcontainer', EWCPivotconfigcontainer);
-  }
+catch {
+    if ( globalThis.customElements.get( "ext-pivotconfigcontainer" ) == undefined ) {
+        globalThis.customElements.define( "ext-pivotconfigcontainer", EWCPivotconfigcontainer );
+    }
 }

@@ -1,19 +1,19 @@
-import Ext_form_Number from './Ext/form/Number.js';
-import ElementParser from './common/ElementParser.js';
+import ElementParser from "./common/ElementParser.js";
+import Ext_form_Number from "./Ext/form/Number.js";
 
 export default class EWCNumberfield extends Ext_form_Number {
-  constructor() {
-    super ([], []);
-    this.xtype = 'numberfield';
-  }
+    constructor () {
+        super( [], [] );
+        this.xtype = "numberfield";
+    }
 }
 try {
-  if (window.customElements.get('ext-numberfield') == undefined) {
-    window.customElements.define('ext-numberfield', ElementParser.withParsedCallback(EWCNumberfield));
-  }
+    if ( globalThis.customElements.get( "ext-numberfield" ) == undefined ) {
+        globalThis.customElements.define( "ext-numberfield", ElementParser.withParsedCallback( EWCNumberfield ) );
+    }
 }
-catch(e) {
-  if (window.customElements.get('ext-numberfield') == undefined) {
-    window.customElements.define('ext-numberfield', EWCNumberfield);
-  }
+catch {
+    if ( globalThis.customElements.get( "ext-numberfield" ) == undefined ) {
+        globalThis.customElements.define( "ext-numberfield", EWCNumberfield );
+    }
 }
