@@ -12,7 +12,7 @@ var res;
 
 const tmpDir = new TmpDir(),
     rootDir = path.dirname( module.createRequire( import.meta.url ).resolve( "#root/package.json" ) ),
-    dataDir = path.join( rootDir, "data" ),
+    dataDir = path.join( rootDir, "data", "ext" ),
     srcDir = path.join( tmpDir.path, "src/app" );
 
 const files = await glob( "*", {
