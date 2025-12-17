@@ -13,25 +13,27 @@ var res;
 const tmpDir = new TmpDir(),
     rootDir = path.dirname( module.createRequire( import.meta.url ).resolve( "#root/package.json" ) ),
     dataDir = path.join( rootDir, "data" ),
-    srcDir = path.join( rootDir, "src/app" );
+    srcDir = path.join( tmpDir.path, "src/app" );
 
 const files = await glob( "*", {
     "cwd": rootDir,
+    "directories": true,
+    "ignoreFile": ".gitignore",
 } );
 
 for ( const file of files ) {
-    if ( file === "data" || file === "node_modules" ) continue;
-
-    await fs.promises.cp( rootDir + "/" + file, tmpDir + "/" + file );
+    await fs.promises.cp( rootDir + "/" + file, tmpDir + "/" + file, {
+        "recursive": true,
+    } );
 }
 
 const npm = new Npm( {
-    "cwd": tmpDir,
+    "cwd": tmpDir.path,
 } );
 
 res = await npm.exec( [ "install" ] );
 if ( !res.ok ) {
-    console.log( res );
+    console.log( res.data.error.detail );
 
     process.exit( 1 );
 }
@@ -39,20 +41,20 @@ if ( !res.ok ) {
 // apply patch
 {
     res = childProcess.spawnSync( "patch --dry-run --forward -p1 -i patch/patch", {
-        "cwd": rootDir,
+        "cwd": tmpDir.path,
         "shell": true,
         "stdio": "inherit",
     } );
 
-    if ( res.status ) process.exit();
+    if ( res.status ) process.exit( 1 );
 
     res = childProcess.spawnSync( "patch --quiet --forward -p1 -i patch/patch", {
-        "cwd": rootDir,
+        "cwd": tmpDir.path,
         "shell": true,
         "stdio": "inherit",
     } );
 
-    if ( res.status ) process.exit();
+    if ( res.status ) process.exit( 1 );
 }
 
 // patch trial version
@@ -87,7 +89,7 @@ res = childProcess.spawnSync( `npx sencha --cwd "${ srcDir }" app build developm
     "shell": true,
     "stdio": "inherit",
 } );
-if ( res.status ) process.exit( res.status );
+if ( res.status ) process.exit( 1 );
 
 // cleanup
 fs.rmSync( dataDir + "/ext.scss", { "recursive": true, "force": true } );
@@ -148,7 +150,7 @@ fs.rmSync( dataDir + "/resources/images/pictos", { "recursive": true, "force": t
         "shell": true,
         "stdio": "inherit",
     } );
-    if ( res.status ) process.exit( res.status );
+    if ( res.status ) process.exit( 1 );
 
     console.log( "\nLint files" );
 
